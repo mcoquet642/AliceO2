@@ -1,0 +1,21 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/Common/src/EncodedBlocks.cxx" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/Common/src/EncodedBlocks.cxx">
+<area shape="rect" id="node2" href="$da/d91/EncodedBlocks_8h.html" title="DetectorsCommonDataFormats\l/EncodedBlocks.h" alt="" coords="2986,124,3214,165"/>
+<area shape="rect" id="node5" href="$d4/de7/rans_8h.html" title="header for public api " alt="" coords="2213,213,2312,240"/>
+<area shape="rect" id="node39" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="3296,213,3491,240"/>
+<area shape="rect" id="node41" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2747,601,2901,628"/>
+<area shape="rect" id="node6" href="$dd/d65/FrequencyTable_8h.html" title="Histogram to depict frequencies of source symbols for rANS compression. " alt="" coords="803,601,938,628"/>
+<area shape="rect" id="node15" href="$d4/da1/helper_8h.html" title="various helper functions " alt="" coords="2127,676,2255,703"/>
+<area shape="rect" id="node18" href="$dd/d74/Utilities_2rANS_2include_2rANS_2Encoder_8h.html" title="Encoder.h" alt="" coords="2432,363,2517,389"/>
+<area shape="rect" id="node29" href="$dc/d62/Utilities_2rANS_2include_2rANS_2Decoder_8h.html" title="Decoder.h" alt="" coords="1139,363,1226,389"/>
+<area shape="rect" id="node32" href="$d5/ddf/DedupEncoder_8h.html" title="DedupEncoder.h" alt="" coords="2199,288,2326,315"/>
+<area shape="rect" id="node35" href="$da/da6/DedupDecoder_8h.html" title="DedupDecoder.h" alt="" coords="1235,288,1365,315"/>
+<area shape="rect" id="node36" href="$d9/de1/LiteralEncoder_8h.html" title="LiteralEncoder.h" alt="" coords="2593,288,2719,315"/>
+<area shape="rect" id="node37" href="$df/dfe/LiteralDecoder_8h.html" title="LiteralDecoder.h" alt="" coords="1389,288,1517,315"/>
+<area shape="rect" id="node19" href="$de/d8e/Utilities_2rANS_2include_2rANS_2internal_2Encoder_8h.html" title="internal/Encoder.h" alt="" coords="1965,445,2104,471"/>
+<area shape="rect" id="node23" href="$d2/d53/EncoderSymbol_8h.html" title="Structure containing all relevant information to encode a symbol. " alt="" coords="2219,527,2354,553"/>
+<area shape="rect" id="node27" href="$d8/dd9/SymbolTable_8h.html" title="Container for information needed to encode/decode a symbol of the alphabet. " alt="" coords="1720,445,1891,471"/>
+<area shape="rect" id="node22" href="$d7/d99/DecoderSymbol_8h.html" title="Structure containing all relevant information for decoding a rANS encoded symbol. ..." alt="" coords="1571,527,1709,553"/>
+<area shape="rect" id="node28" href="$d0/d51/SymbolStatistics_8h.html" title="Structure to depict the distribution of symbols in the source message. " alt="" coords="897,527,1039,553"/>
+<area shape="rect" id="node30" href="$d6/dfb/Utilities_2rANS_2include_2rANS_2internal_2Decoder_8h.html" title="internal/Decoder.h" alt="" coords="1403,445,1544,471"/>
+<area shape="rect" id="node31" href="$dc/d3b/ReverseSymbolLookupTable_8h.html" title="Maps CDF back to source symbol &#45; needed for the decoder. " alt="" coords="952,437,1176,479"/>
+</map>

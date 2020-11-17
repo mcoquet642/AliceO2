@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/include/MIDRaw/DecodedDataAggregator.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/include/MIDRaw/DecodedDataAggregator.h">
+<area shape="rect" id="node5" href="$d3/d53/ColumnData_8h.html" title="Strip pattern (aka digits) " alt="" coords="877,206,1105,233"/>
+<area shape="rect" id="node9" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="256,124,473,151"/>
+<area shape="rect" id="node16" href="$db/d83/CrateMapper_8h.html" title="Mapper to convert the RO Ids to a format suitable for O2. " alt="" coords="498,124,671,151"/>
+<area shape="rect" id="node18" href="$d3/d4a/LocalBoardRO_8h.html" title="Structure to store the FEE local board information. " alt="" coords="671,206,853,233"/>
+<area shape="rect" id="node10" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="215,199,447,240"/>
+<area shape="rect" id="node11" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="83,288,249,315"/>
+<area shape="rect" id="node15" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="361,288,614,315"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/reconstruction/include/ITSMFTReconstruction/BuildTopologyDictionary.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/reconstruction/include/ITSMFTReconstruction/BuildTopologyDictionary.h">
+<area shape="rect" id="node4" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="1600,161,1848,187"/>
+<area shape="rect" id="node21" href="$d8/ddb/ClusterTopology_8h.html" title="Definition of the ClusterTopology class. " alt="" coords="2081,153,2284,195"/>
+<area shape="rect" id="node26" href="$d1/d08/TopologyDictionary_8h.html" title="Definition of the ClusterTopology class. " alt="" coords="2754,153,2969,195"/>
+<area shape="rect" id="node6" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1643,250,1805,277"/>
+<area shape="rect" id="node7" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1919,421,2062,448"/>
+<area shape="rect" id="node10" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="2065,339,2231,366"/>
+<area shape="rect" id="node20" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="1803,339,1989,366"/>
+<area shape="rect" id="node8" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1789,496,1987,523"/>
+<area shape="rect" id="node9" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="2011,496,2176,523"/>
+<area shape="rect" id="node22" href="$de/dc1/ClusterPattern_8h.html" title="DataFormatsITSMFT/Cluster\lPattern.h" alt="" coords="2431,243,2633,284"/>
+<area shape="rect" id="node25" href="$df/de4/CompCluster_8h.html" title="Definition of the ITSMFT compact cluster. " alt="" coords="2808,339,3059,366"/>
+<area shape="rect" id="node27" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="3117,250,3270,277"/>
+</map>

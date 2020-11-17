@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/tracking/hip/include/ITStrackingHIP/StreamHIP.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/tracking/hip/include/ITStrackingHIP/StreamHIP.h">
+<area shape="rect" id="node2" href="$d8/d28/UtilsHIP_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/include/ITStracking\lHIP/UtilsHIP.h" alt="" coords="419,139,649,224"/>
+<area shape="rect" id="node6" href="$d8/db1/VertexerTraitsHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/src/VertexerTraits\lHIP.hip.cxx" alt="" coords="5,672,225,757"/>
+<area shape="rect" id="node8" href="$dd/dda/VectorHIP_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/include/ITStracking\lHIP/VectorHIP.h" alt="" coords="939,272,1169,357"/>
+<area shape="rect" id="node11" href="$de/dda/StreamHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/src/StreamHIP.hip.cxx" alt="" coords="725,146,973,217"/>
+<area shape="rect" id="node3" href="$d1/d7c/UniquePointerHIP_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/include/ITStracking\lHIP/UniquePointerHIP.h" alt="" coords="153,272,384,357"/>
+<area shape="rect" id="node9" href="$d4/d57/ContextHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/src/ContextHIP.hip.cxx" alt="" coords="408,279,660,350"/>
+<area shape="rect" id="node10" href="$dc/dc1/UtilsHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/src/UtilsHIP.hip.cxx" alt="" coords="684,279,915,350"/>
+<area shape="rect" id="node4" href="$d4/d1e/DeviceStoreVertexerHIP_8h.html" title="This class serves as memory interface for GPU vertexer. It will access needed data structures from de..." alt="" coords="365,405,596,491"/>
+<area shape="rect" id="node5" href="$db/d14/VertexerTraitsHIP_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/include/ITStracking\lHIP/VertexerTraitsHIP.h" alt="" coords="153,539,384,624"/>
+<area shape="rect" id="node7" href="$d2/d56/DeviceStoreVertexerHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/ITS\l/tracking/hip/src/DeviceStoreVertexer\lHIP.hip.cxx" alt="" coords="409,539,673,624"/>
+</map>

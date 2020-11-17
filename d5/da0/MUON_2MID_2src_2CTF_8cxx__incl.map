@@ -1,0 +1,27 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/MUON/MID/src/CTF.cxx" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/MUON/MID/src/CTF.cxx">
+<area shape="rect" id="node4" href="$df/d9b/MUON_2MID_2include_2DataFormatsMID_2CTF_8h.html" title="DataFormatsMID/CTF.h" alt="" coords="3197,124,3366,151"/>
+<area shape="rect" id="node7" href="$da/d91/EncodedBlocks_8h.html" title="DetectorsCommonDataFormats\l/EncodedBlocks.h" alt="" coords="1575,199,1803,240"/>
+<area shape="rect" id="node44" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="3385,206,3602,233"/>
+<area shape="rect" id="node49" href="$d3/d53/ColumnData_8h.html" title="Strip pattern (aka digits) " alt="" coords="2741,616,2969,643"/>
+<area shape="rect" id="node9" href="$d4/de7/rans_8h.html" title="header for public api " alt="" coords="1572,295,1671,322"/>
+<area shape="rect" id="node41" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="2413,295,2608,322"/>
+<area shape="rect" id="node43" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="297,691,450,717"/>
+<area shape="rect" id="node10" href="$dd/d65/FrequencyTable_8h.html" title="Histogram to depict frequencies of source symbols for rANS compression. " alt="" coords="1438,691,1573,717"/>
+<area shape="rect" id="node18" href="$d4/da1/helper_8h.html" title="various helper functions " alt="" coords="2549,765,2677,792"/>
+<area shape="rect" id="node21" href="$dd/d74/Utilities_2rANS_2include_2rANS_2Encoder_8h.html" title="Encoder.h" alt="" coords="2396,452,2481,479"/>
+<area shape="rect" id="node31" href="$dc/d62/Utilities_2rANS_2include_2rANS_2Decoder_8h.html" title="Decoder.h" alt="" coords="1122,452,1209,479"/>
+<area shape="rect" id="node34" href="$d5/ddf/DedupEncoder_8h.html" title="DedupEncoder.h" alt="" coords="2375,377,2502,404"/>
+<area shape="rect" id="node37" href="$da/da6/DedupDecoder_8h.html" title="DedupDecoder.h" alt="" coords="1346,377,1475,404"/>
+<area shape="rect" id="node38" href="$d9/de1/LiteralEncoder_8h.html" title="LiteralEncoder.h" alt="" coords="2641,377,2767,404"/>
+<area shape="rect" id="node39" href="$df/dfe/LiteralDecoder_8h.html" title="LiteralDecoder.h" alt="" coords="1193,377,1321,404"/>
+<area shape="rect" id="node22" href="$de/d8e/Utilities_2rANS_2include_2rANS_2internal_2Encoder_8h.html" title="internal/Encoder.h" alt="" coords="2276,534,2415,561"/>
+<area shape="rect" id="node26" href="$d2/d53/EncoderSymbol_8h.html" title="Structure containing all relevant information to encode a symbol. " alt="" coords="2530,616,2665,643"/>
+<area shape="rect" id="node29" href="$d8/dd9/SymbolTable_8h.html" title="Container for information needed to encode/decode a symbol of the alphabet. " alt="" coords="1561,534,1732,561"/>
+<area shape="rect" id="node25" href="$d7/d99/DecoderSymbol_8h.html" title="Structure containing all relevant information for decoding a rANS encoded symbol. ..." alt="" coords="2086,616,2223,643"/>
+<area shape="rect" id="node30" href="$d0/d51/SymbolStatistics_8h.html" title="Structure to depict the distribution of symbols in the source message. " alt="" coords="1361,616,1503,643"/>
+<area shape="rect" id="node32" href="$d6/dfb/Utilities_2rANS_2include_2rANS_2internal_2Decoder_8h.html" title="internal/Decoder.h" alt="" coords="1908,534,2049,561"/>
+<area shape="rect" id="node33" href="$dc/d3b/ReverseSymbolLookupTable_8h.html" title="Maps CDF back to source symbol &#45; needed for the decoder. " alt="" coords="1161,527,1385,568"/>
+<area shape="rect" id="node45" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="3517,288,3749,329"/>
+<area shape="rect" id="node46" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="3766,377,3933,404"/>
+<area shape="rect" id="node48" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="3399,377,3652,404"/>
+</map>

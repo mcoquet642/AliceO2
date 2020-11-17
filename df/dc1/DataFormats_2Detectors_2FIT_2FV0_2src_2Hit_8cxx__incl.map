@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/FIT/FV0/src/Hit.cxx" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/FIT/FV0/src/Hit.cxx">
+<area shape="rect" id="node2" href="$d7/dd7/DataFormats_2Detectors_2FIT_2FV0_2include_2DataFormatsFV0_2Hit_8h.html" title="DataFormatsFV0/Hit.h" alt="" coords="2394,124,2559,151"/>
+<area shape="rect" id="node4" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1325,199,1495,240"/>
+<area shape="rect" id="node21" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="2670,206,2883,233"/>
+<area shape="rect" id="node5" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1013,288,1175,315"/>
+<area shape="rect" id="node6" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="865,452,1008,479"/>
+<area shape="rect" id="node9" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1011,370,1177,397"/>
+<area shape="rect" id="node19" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="749,370,935,397"/>
+<area shape="rect" id="node7" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="735,527,933,553"/>
+<area shape="rect" id="node8" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="957,527,1122,553"/>
+<area shape="rect" id="node22" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="2857,288,3067,315"/>
+</map>

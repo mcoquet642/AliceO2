@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/QC/include/MIDQC/RawDataChecker.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/QC/include/MIDQC/RawDataChecker.h">
+<area shape="rect" id="node5" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="1038,199,1255,225"/>
+<area shape="rect" id="node13" href="$d7/dd3/CrateMasks_8h.html" title="MID crate masks. " alt="" coords="73,124,239,151"/>
+<area shape="rect" id="node15" href="$d8/de7/ElectronicsDelay_8h.html" title="Delay parameters for MID electronics. " alt="" coords="454,199,653,225"/>
+<area shape="rect" id="node17" href="$d3/d4a/LocalBoardRO_8h.html" title="Structure to store the FEE local board information. " alt="" coords="248,199,429,225"/>
+<area shape="rect" id="node18" href="$d1/dd7/GBTRawDataChecker_8h.html" title="Class to check the raw data from a GBT link. " alt="" coords="709,124,929,151"/>
+<area shape="rect" id="node6" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1033,273,1265,315"/>
+<area shape="rect" id="node7" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="927,363,1094,389"/>
+<area shape="rect" id="node12" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1205,363,1459,389"/>
+<area shape="rect" id="node14" href="$d2/da5/CrateParameters_8h.html" title="MID RO crate parameters. " alt="" coords="30,199,173,225"/>
+</map>

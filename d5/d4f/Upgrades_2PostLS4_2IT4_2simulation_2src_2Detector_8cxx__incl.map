@@ -1,0 +1,35 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/Upgrades/PostLS4/IT4/simulation/src/Detector.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/Upgrades/PostLS4/IT4/simulation/src/Detector.cxx">
+<area shape="rect" id="node2" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="43,385,291,411"/>
+<area shape="rect" id="node19" href="$d9/d4e/Detectors_2ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="3465,295,3639,322"/>
+<area shape="rect" id="node30" href="$d5/d82/Upgrades_2PostLS4_2IT4_2base_2include_2ITS4Base_2GeometryTGeo_8h.html" title="ITS4Base/GeometryTGeo.h" alt="" coords="3329,124,3527,151"/>
+<area shape="rect" id="node60" href="$d5/dee/Upgrades_2PostLS4_2IT4_2simulation_2include_2ITS4Simulation_2Detector_8h.html" title="ITS4Simulation/Detector.h" alt="" coords="5313,206,5503,233"/>
+<area shape="rect" id="node74" href="$de/de3/Upgrades_2PostLS4_2IT4_2simulation_2include_2ITS4Simulation_2V3Layer_8h.html" title="ITS4Simulation/V3Layer.h" alt="" coords="5678,124,5866,151"/>
+<area shape="rect" id="node76" href="$d7/d69/Upgrades_2PostLS4_2IT4_2simulation_2include_2ITS4Simulation_2V3Services_8h.html" title="ITS4Simulation/V3Services.h" alt="" coords="5891,124,6099,151"/>
+<area shape="rect" id="node77" href="$d4/d03/simulation_2include_2SimulationDataFormat_2Stack_8h.html" title="SimulationDataFormat\l/Stack.h" alt="" coords="6306,199,6475,240"/>
+<area shape="rect" id="node86" href="$d5/dbe/TrackReference_8h.html" title="SimulationDataFormat\l/TrackReference.h" alt="" coords="7206,288,7375,329"/>
+<area shape="rect" id="node4" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1507,467,1669,493"/>
+<area shape="rect" id="node5" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1455,638,1598,665"/>
+<area shape="rect" id="node8" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="3299,549,3466,575"/>
+<area shape="rect" id="node18" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="383,549,569,575"/>
+<area shape="rect" id="node6" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1325,720,1523,747"/>
+<area shape="rect" id="node7" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1547,720,1712,747"/>
+<area shape="rect" id="node20" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="2501,377,2670,419"/>
+<area shape="rect" id="node22" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="3744,467,3957,493"/>
+<area shape="rect" id="node23" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="3776,549,3987,575"/>
+<area shape="rect" id="node35" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="3892,295,4145,322"/>
+<area shape="rect" id="node42" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="4419,377,4647,419"/>
+<area shape="rect" id="node46" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="2796,467,2927,493"/>
+<area shape="rect" id="node57" href="$d4/d5c/ITSMFT_2common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="3146,206,3361,233"/>
+<area shape="rect" id="node55" href="$db/dba/MatCell_8h.html" title="Declarations for material properties of the cell (voxel) " alt="" coords="2951,467,3134,493"/>
+<area shape="rect" id="node50" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="4083,467,4253,493"/>
+<area shape="rect" id="node47" href="$de/def/bitOps_8h.html" title="MathUtils/detail/bitOps.h" alt="" coords="3041,549,3223,575"/>
+<area shape="rect" id="node48" href="$d3/dfc/StatAccumulator_8h.html" title="MathUtils/detail/StatAccumulator.h" alt="" coords="2768,549,3016,575"/>
+<area shape="rect" id="node49" href="$dd/d7d/trigonometric_8h.html" title="MathUtils/detail/trigonometric.h" alt="" coords="2464,549,2693,575"/>
+<area shape="rect" id="node59" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsCommonDataFormats\l/DetMatrixCache.h" alt="" coords="3111,288,3339,329"/>
+<area shape="rect" id="node61" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="5294,385,5482,411"/>
+<area shape="rect" id="node66" href="$d0/d9a/MaterialManager_8h.html" title="DetectorsBase/MaterialManager.h" alt="" coords="5083,467,5325,493"/>
+<area shape="rect" id="node75" href="$dd/da5/Upgrades_2PostLS4_2IT4_2simulation_2include_2ITS4Simulation_2V11Geometry_8h.html" title="ITS4Simulation/V11Geometry.h" alt="" coords="5883,295,6107,322"/>
+<area shape="rect" id="node79" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="6635,288,6805,329"/>
+<area shape="rect" id="node84" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="5731,377,5901,419"/>
+<area shape="rect" id="node89" href="$d6/d9d/MCEventStats_8h.html" title="SimulationDataFormat\l/MCEventStats.h" alt="" coords="7013,288,7182,329"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/GlobalTrackingWorkflow/tofworkflow/include/TOFWorkflow/RecoWorkflowSpec.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/GlobalTrackingWorkflow/tofworkflow/include/TOFWorkflow/RecoWorkflowSpec.h">
+<area shape="rect" id="node2" href="$d8/d84/RecoWorkflowSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/src/RecoWorkflowSpec.cxx" alt="" coords="5,146,284,217"/>
+<area shape="rect" id="node3" href="$d6/d1f/tof-calibinfo-reader_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/src/tof&#45;calibinfo\l&#45;reader.cxx" alt="" coords="308,139,557,224"/>
+<area shape="rect" id="node4" href="$de/d48/tof-matcher-global_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/src/tof&#45;matcher\l&#45;global.cxx" alt="" coords="581,139,831,224"/>
+<area shape="rect" id="node5" href="$da/dfd/tof-reco-workflow_8cxx.html" title="Basic DPL workflow for TOF reconstruction starting from digits. " alt="" coords="855,146,1125,217"/>
+</map>

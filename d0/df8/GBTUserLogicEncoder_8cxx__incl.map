@@ -1,0 +1,10 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/src/GBTUserLogicEncoder.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/src/GBTUserLogicEncoder.cxx">
+<area shape="rect" id="node2" href="$d8/d2e/GBTUserLogicEncoder_8h.html" title="Raw data encoder for MID GBT user logic. " alt="" coords="418,124,651,151"/>
+<area shape="rect" id="node17" href="$d2/da5/CrateParameters_8h.html" title="MID RO crate parameters. " alt="" coords="964,281,1164,307"/>
+<area shape="rect" id="node6" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="251,273,483,315"/>
+<area shape="rect" id="node12" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="101,199,318,225"/>
+<area shape="rect" id="node13" href="$d8/de7/ElectronicsDelay_8h.html" title="Delay parameters for MID electronics. " alt="" coords="606,199,805,225"/>
+<area shape="rect" id="node15" href="$d3/d4a/LocalBoardRO_8h.html" title="Structure to store the FEE local board information. " alt="" coords="759,281,940,307"/>
+<area shape="rect" id="node7" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="283,363,450,389"/>
+<area shape="rect" id="node11" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="5,363,259,389"/>
+</map>

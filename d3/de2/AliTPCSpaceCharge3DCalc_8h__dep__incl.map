@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCSpaceCharge3DCalc.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCSpaceCharge3DCalc.h">
+<area shape="rect" id="node2" href="$d3/db6/SpaceCharge_8h.html" title="Definition of the handler for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="191,124,464,195"/>
+<area shape="rect" id="node7" href="$d2/daf/AliTPCSpaceCharge3DCalc_8cxx.html" title="This class provides distortion and correction map with integration following electron drift..." alt="" coords="489,124,715,195"/>
+<area shape="rect" id="node8" href="$dc/d31/testTPCSpaceChargeBase_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/ctest/testTPCSpaceChargeBase.cxx" alt="" coords="739,124,995,195"/>
+<area shape="rect" id="node3" href="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/include/TPCSimulation/Digitizer.h" alt="" coords="86,243,329,313"/>
+<area shape="rect" id="node6" href="$da/d8e/SpaceCharge_8cxx.html" title="Implementation of the interface for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="353,243,544,313"/>
+<area shape="rect" id="node4" href="$d7/d0a/TPC_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/src/Digitizer.cxx" alt="" coords="5,361,196,432"/>
+<area shape="rect" id="node5" href="$d2/d0b/TPCDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TPCDigitizerSpec.cxx" alt="" coords="221,361,407,432"/>
+</map>

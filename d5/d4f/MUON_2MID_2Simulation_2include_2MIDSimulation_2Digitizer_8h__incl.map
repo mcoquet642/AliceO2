@@ -1,0 +1,26 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/Digitizer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/Digitizer.h">
+<area shape="rect" id="node5" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1633,303,1796,329"/>
+<area shape="rect" id="node21" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="2048,213,2218,255"/>
+<area shape="rect" id="node29" href="$d2/d0e/Mapping_8h.html" title="Mapping for MID. " alt="" coords="34,221,184,247"/>
+<area shape="rect" id="node31" href="$de/d0c/GeometryTransformer_8h.html" title="Geometry transformer for MID. " alt="" coords="1298,221,1536,247"/>
+<area shape="rect" id="node34" href="$d5/d62/ChamberResponse_8h.html" title="MID RPC response. " alt="" coords="866,131,1120,158"/>
+<area shape="rect" id="node37" href="$de/d74/ChamberEfficiencyResponse_8h.html" title="MID RPC effciency response. " alt="" coords="292,124,534,165"/>
+<area shape="rect" id="node40" href="$d7/d8d/Detectors_2MUON_2MID_2Simulation_2include_2MIDSimulation_2Hit_8h.html" title="Hit for MID. " alt="" coords="2148,131,2300,158"/>
+<area shape="rect" id="node50" href="$d0/d00/ColumnDataMC_8h.html" title="Strip pattern (aka digits) for simulations. " alt="" coords="1145,131,1380,158"/>
+<area shape="rect" id="node53" href="$de/da1/Detectors_2MUON_2MID_2Simulation_2include_2MIDSimulation_2MCLabel_8h.html" title="Label for MID. " alt="" coords="1754,131,1942,158"/>
+<area shape="rect" id="node6" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1552,467,1695,493"/>
+<area shape="rect" id="node9" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="2810,385,2976,411"/>
+<area shape="rect" id="node20" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="2598,385,2785,411"/>
+<area shape="rect" id="node7" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1422,541,1620,568"/>
+<area shape="rect" id="node8" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1644,541,1809,568"/>
+<area shape="rect" id="node30" href="$d7/d0a/MpArea_8h.html" title="Mapping area for MID. " alt="" coords="54,303,198,329"/>
+<area shape="rect" id="node32" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="1071,303,1296,329"/>
+<area shape="rect" id="node35" href="$d8/d17/ChamberResponseParams_8h.html" title="Parameters for MID RPC response. " alt="" coords="545,213,788,255"/>
+<area shape="rect" id="node36" href="$d8/d82/ChamberHV_8h.html" title="HV values for MID RPCs. " alt="" coords="1064,221,1274,247"/>
+<area shape="rect" id="node38" href="$d3/dbe/ChamberEfficiency_8h.html" title="Measured values of the RPC efficiency. " alt="" coords="306,221,520,247"/>
+<area shape="rect" id="node42" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1662,213,1831,255"/>
+<area shape="rect" id="node43" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="2442,221,2656,247"/>
+<area shape="rect" id="node44" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="3209,303,3420,329"/>
+<area shape="rect" id="node51" href="$d3/d53/ColumnData_8h.html" title="Strip pattern (aka digits) " alt="" coords="812,221,1040,247"/>
+<area shape="rect" id="node54" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1855,213,2024,255"/>
+</map>

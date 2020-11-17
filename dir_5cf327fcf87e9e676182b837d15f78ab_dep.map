@@ -1,0 +1,36 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Decoder/src" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Decoder/src">
+<area shape="rect" id="node1" href="dir_5cf327fcf87e9e676182b837d15f78ab.html" title="src" alt="" coords="225,52,297,100"/>
+<area shape="rect" id="node2" href="dir_0cfbacb297625179725e3de4f30c0e94.html" title="ElecMap" alt="" coords="151,244,227,292"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000615_000457.html" title="3" alt="" coords="208,223,217,237"/>
+<area shape="rect" id="node3" href="dir_55964488a5749f1fcba45aaf4e122cee.html" title="Common" alt="" coords="150,436,231,484"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000615_000607.html" title="7" alt="" coords="147,410,156,425"/>
+<area shape="rect" id="node4" href="dir_cfadcf1c28477e06298c128044978e91.html" title="ImplHelpers" alt="" coords="228,340,329,388"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000615_000619.html" title="8" alt="" coords="209,331,218,346"/>
+<area shape="rect" id="node5" href="dir_4ab6b4cc6a7edbff49100e9123df213f.html" title="Common" alt="" coords="455,532,536,580"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000615_000036.html" title="1" alt="" coords="507,508,517,523"/>
+<area shape="rect" id="node6" href="dir_934398cf98861ce15dff28db7cb4f35f.html" title="Encoder" alt="" coords="270,148,345,196"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000615_000481.html" title="2" alt="" coords="291,120,300,135"/>
+<area shape="rect" id="node7" href="dir_10dbadd582c5f56f2a579debde05dc79.html" title="include" alt="" coords="38,148,110,196"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000615_000613.html" title="10" alt="" coords="122,145,139,160"/>
+<area shape="rect" id="node8" href="dir_26637d1bd82229bc9ed97f7e706be743.html" title="Raw" alt="" coords="404,436,476,484"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000615_000647.html" title="5" alt="" coords="447,411,456,425"/>
+<area shape="rect" id="node9" href="dir_2171f7ec022c5423887b07c69b2f5b48.html" title="DataFormats" alt="" coords="402,628,509,676"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000615_000090.html" title="6" alt="" coords="514,617,524,631"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000457_000619.html" title="2" alt="" coords="245,313,254,328"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000607_000619.html" title="2" alt="" coords="241,389,251,404"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000619_000607.html" title="2" alt="" coords="218,420,228,434"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000619_000647.html" title="1" alt="" coords="387,415,397,429"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000619_000090.html" title="1" alt="" coords="389,604,399,618"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000036_000090.html" title="2" alt="" coords="467,606,477,620"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000481_000457.html" title="11" alt="" coords="230,232,247,246"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000481_000607.html" title="24" alt="" coords="196,412,213,427"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000481_000619.html" title="14" alt="" coords="284,316,302,331"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000481_000647.html" title="3" alt="" coords="440,409,449,424"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000481_000090.html" title="5" alt="" coords="427,601,437,615"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000613_000457.html" title="2" alt="" coords="147,218,156,233"/>
+<area shape="rect" id="edge21-headlabel" href="dir_000613_000607.html" title="1" alt="" coords="177,408,186,423"/>
+<area shape="rect" id="edge22-headlabel" href="dir_000647_000036.html" title="10" alt="" coords="471,504,488,519"/>
+<area shape="rect" id="edge23-headlabel" href="dir_000647_000090.html" title="15" alt="" coords="447,601,465,615"/>
+<area shape="rect" id="edge24-headlabel" href="dir_000090_000036.html" title="38" alt="" coords="471,587,488,602"/>
+<area shape="rect" id="clust1" href="dir_060542ae88c3eb8c9b22a30de881a7e9.html" title="Decoder" alt="" coords="214,16,308,111"/>
+</map>

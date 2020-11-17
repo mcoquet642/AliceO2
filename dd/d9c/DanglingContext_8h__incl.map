@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/DanglingContext.h" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/DanglingContext.h">
+<area shape="rect" id="node2" href="$d8/d17/ServiceRegistry_8h.html" title="Framework/ServiceRegistry.h" alt="" coords="2218,124,2427,151"/>
+<area shape="rect" id="node3" href="$d3/d28/ServiceHandle_8h.html" title="Framework/ServiceHandle.h" alt="" coords="435,295,639,322"/>
+<area shape="rect" id="node5" href="$d4/d61/ServiceSpec_8h.html" title="Framework/ServiceSpec.h" alt="" coords="711,206,900,233"/>
+<area shape="rect" id="node7" href="$d1/d76/RuntimeError_8h.html" title="Framework/RuntimeError.h" alt="" coords="1824,385,2019,411"/>
+<area shape="rect" id="node24" href="$d0/d6d/ServiceRegistryHelpers_8h.html" title="Framework/ServiceRegistry\lHelpers.h" alt="" coords="2087,199,2286,240"/>
+<area shape="rect" id="node25" href="$d2/d9a/TypeIdHelpers_8h.html" title="Framework/TypeIdHelpers.h" alt="" coords="1896,295,2099,322"/>
+<area shape="rect" id="node32" href="$d9/de8/CompilerBuiltins_8h.html" title="Framework/CompilerBuiltins.h" alt="" coords="2661,206,2880,233"/>
+<area shape="rect" id="node6" href="$dc/df0/DeviceMetricsInfo_8h.html" title="Framework/DeviceMetricsInfo.h" alt="" coords="1441,295,1668,322"/>
+<area shape="rect" id="node14" href="$d7/d58/DeviceInfo_8h.html" title="Framework/DeviceInfo.h" alt="" coords="747,295,927,322"/>
+<area shape="rect" id="node15" href="$d8/d4a/LogParsingHelpers_8h.html" title="Framework/LogParsingHelpers.h" alt="" coords="1195,385,1426,411"/>
+<area shape="rect" id="node16" href="$d0/d2c/Metric2DViewIndex_8h.html" title="Framework/Metric2DViewIndex.h" alt="" coords="783,385,1019,411"/>
+<area shape="rect" id="node17" href="$d9/de0/DeviceState_8h.html" title="Framework/DeviceState.h" alt="" coords="419,385,608,411"/>
+<area shape="rect" id="node18" href="$dd/de5/ChannelInfo_8h.html" title="Framework/ChannelInfo.h" alt="" coords="551,467,739,493"/>
+<area shape="rect" id="node26" href="$db/dff/StringHelpers_8h.html" title="Framework/StringHelpers.h" alt="" coords="2143,385,2342,411"/>
+</map>

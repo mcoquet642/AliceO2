@@ -1,0 +1,35 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Simulation/src/GeometryTest.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Simulation/src/GeometryTest.cxx">
+<area shape="rect" id="node2" href="$de/d04/GeometryTest_8h.html" title="MCHSimulation/GeometryTest.h" alt="" coords="2502,124,2731,151"/>
+<area shape="rect" id="node4" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="3038,124,3291,151"/>
+<area shape="rect" id="node54" href="$d0/d9a/MaterialManager_8h.html" title="DetectorsBase/MaterialManager.h" alt="" coords="5218,295,5460,322"/>
+<area shape="rect" id="node58" href="$d5/dc1/MUON_2MCH_2Simulation_2include_2MCHSimulation_2Geometry_8h.html" title="MCHSimulation/Geometry.h" alt="" coords="2793,124,2994,151"/>
+<area shape="rect" id="node67" href="$d9/d6d/Cave_8h.html" title="DetectorsPassive/Cave.h" alt="" coords="5500,206,5682,233"/>
+<area shape="rect" id="node70" href="$d8/d70/Dipole_8h.html" title="DetectorsPassive/Dipole.h" alt="" coords="5338,124,5530,151"/>
+<area shape="rect" id="node73" href="$d9/da3/Absorber_8h.html" title="DetectorsPassive/Absorber.h" alt="" coords="6018,124,6225,151"/>
+<area shape="rect" id="node74" href="$dc/ded/Compensator_8h.html" title="DetectorsPassive/Compensator.h" alt="" coords="5554,124,5790,151"/>
+<area shape="rect" id="node75" href="$d3/d2f/Shil_8h.html" title="DetectorsPassive/Shil.h" alt="" coords="6249,124,6424,151"/>
+<area shape="rect" id="node76" href="$d4/d5f/Pipe_8h.html" title="DetectorsPassive/Pipe.h" alt="" coords="5815,124,5994,151"/>
+<area shape="rect" id="node77" href="$dc/dab/MUON_2MCH_2Simulation_2include_2MCHSimulation_2Detector_8h.html" title="MCHSimulation/Detector.h" alt="" coords="4114,124,4308,151"/>
+<area shape="rect" id="node12" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="3050,199,3278,240"/>
+<area shape="rect" id="node40" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1436,377,1599,404"/>
+<area shape="rect" id="node52" href="$db/dba/MatCell_8h.html" title="Declarations for material properties of the cell (voxel) " alt="" coords="2126,377,2309,404"/>
+<area shape="rect" id="node20" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="2912,295,3043,322"/>
+<area shape="rect" id="node32" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="3252,295,3421,322"/>
+<area shape="rect" id="node21" href="$de/def/bitOps_8h.html" title="MathUtils/detail/bitOps.h" alt="" coords="2860,377,3042,404"/>
+<area shape="rect" id="node22" href="$d3/dfc/StatAccumulator_8h.html" title="MathUtils/detail/StatAccumulator.h" alt="" coords="2587,377,2835,404"/>
+<area shape="rect" id="node24" href="$dd/d7d/trigonometric_8h.html" title="MathUtils/detail/trigonometric.h" alt="" coords="2334,377,2563,404"/>
+<area shape="rect" id="node26" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="2094,541,2237,568"/>
+<area shape="rect" id="node29" href="$d6/da2/GPUCommonMath_8h.html" title="GPUCommonMath.h" alt="" coords="2586,459,2740,486"/>
+<area shape="rect" id="node31" href="$d6/d84/MathConstants_8h.html" title="useful math constants " alt="" coords="2304,459,2563,486"/>
+<area shape="rect" id="node27" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1964,616,2162,643"/>
+<area shape="rect" id="node28" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="2186,616,2351,643"/>
+<area shape="rect" id="node37" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="3600,377,3795,404"/>
+<area shape="rect" id="node41" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="2764,459,2930,486"/>
+<area shape="rect" id="node51" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="27,459,214,486"/>
+<area shape="rect" id="node71" href="$d4/d6e/PassiveBase_8h.html" title="DetectorsPassive/Passive\lBase.h" alt="" coords="5986,199,6172,240"/>
+<area shape="rect" id="node78" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="4442,206,4630,233"/>
+<area shape="rect" id="node92" href="$d5/daf/Detectors_2MUON_2MCH_2Simulation_2include_2MCHSimulation_2Hit_8h.html" title="MCHSimulation/Hit.h" alt="" coords="3966,206,4123,233"/>
+<area shape="rect" id="node83" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="5202,377,5412,404"/>
+<area shape="rect" id="node89" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="4076,295,4290,322"/>
+<area shape="rect" id="node93" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="2618,288,2788,329"/>
+</map>

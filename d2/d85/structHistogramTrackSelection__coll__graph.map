@@ -1,0 +1,12 @@
+<map id="HistogramTrackSelection" name="HistogramTrackSelection">
+<area shape="rect" id="node2" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; int \&gt;\n||+ Configurable()\l}" alt="" coords="272,1005,479,1097"/>
+<area shape="rect" id="node3" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; int \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="272,777,479,869"/>
+<area shape="rect" id="node4" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; int \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="79,483,285,575"/>
+<area shape="rect" id="node6" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; T \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="303,233,509,325"/>
+<area shape="rect" id="node11" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\l\&lt; TH1F \&gt;\n||+ spec()\l+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="885,704,1076,943"/>
+<area shape="rect" id="node15" href="$da/d96/structo2_1_1framework_1_1InputSpec.html" title="{o2::framework::InputSpec\n||+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ operator==()\l}" alt="" coords="1305,204,1494,355"/>
+<area shape="rect" id="node20" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\&lt; T \&gt;\n||+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ spec()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="729,417,958,641"/>
+<area shape="rect" id="node8" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; T \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="309,483,516,575"/>
+<area shape="rect" id="node9" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; T, IP \&gt;\n||+ Configurable()\l}" alt="" coords="5,777,212,869"/>
+<area shape="rect" id="node13" href="$d3/d87/classuint32__t.html" title="{uint32_t\n||}" alt="" coords="995,241,1070,318"/>
+</map>

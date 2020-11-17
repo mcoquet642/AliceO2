@@ -1,0 +1,19 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/qc/src" {
+  bgcolor=transparent;
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_bfeba01dad5848f9ca8d5c9f8df7a236 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="qc" fontname="Helvetica", fontsize="10", URL="dir_bfeba01dad5848f9ca8d5c9f8df7a236.html"]
+  dir_14fa564b2c90c1a5eea334665265b380 [shape=box, label="src", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_14fa564b2c90c1a5eea334665265b380.html"];
+  }
+  dir_677b030cc750909e4cd27413873678d8 [shape=box label="base" color="red" URL="dir_677b030cc750909e4cd27413873678d8.html"];
+  dir_f7fa4a2371ee0ebf620e3ad8fc60120f [shape=box label="include" color="red" URL="dir_f7fa4a2371ee0ebf620e3ad8fc60120f.html"];
+  dir_2171f7ec022c5423887b07c69b2f5b48 [shape=box label="DataFormats" color="red" URL="dir_2171f7ec022c5423887b07c69b2f5b48.html"];
+  dir_677b030cc750909e4cd27413873678d8->dir_2171f7ec022c5423887b07c69b2f5b48 [headlabel="21", labeldistance=1.5 headhref="dir_000060_000090.html"];
+  dir_14fa564b2c90c1a5eea334665265b380->dir_677b030cc750909e4cd27413873678d8 [headlabel="3", labeldistance=1.5 headhref="dir_000261_000060.html"];
+  dir_14fa564b2c90c1a5eea334665265b380->dir_f7fa4a2371ee0ebf620e3ad8fc60120f [headlabel="6", labeldistance=1.5 headhref="dir_000261_000258.html"];
+  dir_14fa564b2c90c1a5eea334665265b380->dir_2171f7ec022c5423887b07c69b2f5b48 [headlabel="5", labeldistance=1.5 headhref="dir_000261_000090.html"];
+  dir_f7fa4a2371ee0ebf620e3ad8fc60120f->dir_677b030cc750909e4cd27413873678d8 [headlabel="3", labeldistance=1.5 headhref="dir_000258_000060.html"];
+  dir_f7fa4a2371ee0ebf620e3ad8fc60120f->dir_2171f7ec022c5423887b07c69b2f5b48 [headlabel="3", labeldistance=1.5 headhref="dir_000258_000090.html"];
+}

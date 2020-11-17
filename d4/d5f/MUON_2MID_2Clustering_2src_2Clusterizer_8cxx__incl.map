@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Clustering/src/Clusterizer.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Clustering/src/Clusterizer.cxx">
+<area shape="rect" id="node2" href="$d5/d51/MUON_2MID_2Clustering_2include_2MIDClustering_2Clusterizer_8h.html" title="Cluster reconstruction algorithm for MID. " alt="" coords="555,124,753,151"/>
+<area shape="rect" id="node23" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="1345,124,1571,151"/>
+<area shape="rect" id="node7" href="$d6/d31/Cluster2D_8h.html" title="Reconstructed cluster per RPC. " alt="" coords="766,295,977,322"/>
+<area shape="rect" id="node10" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="993,206,1211,233"/>
+<area shape="rect" id="node17" href="$d7/d0a/MpArea_8h.html" title="Mapping area for MID. " alt="" coords="262,377,406,404"/>
+<area shape="rect" id="node19" href="$d0/d8d/MID_2Clustering_2include_2MIDClustering_2PreCluster_8h.html" title="Pre&#45;cluster structure for MID. " alt="" coords="547,295,742,322"/>
+<area shape="rect" id="node20" href="$d8/dc8/PreClusterHelper_8h.html" title="Pre&#45;clusters helper for MID. " alt="" coords="433,199,617,240"/>
+<area shape="rect" id="node22" href="$d3/dde/PreClustersDE_8h.html" title="Structure with pre&#45;clusters in the MID detection element. " alt="" coords="25,295,246,322"/>
+<area shape="rect" id="node11" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1001,288,1233,329"/>
+<area shape="rect" id="node12" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1253,377,1420,404"/>
+<area shape="rect" id="node16" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="886,377,1139,404"/>
+<area shape="rect" id="node21" href="$d2/d0e/Mapping_8h.html" title="Mapping for MID. " alt="" coords="372,295,523,322"/>
+</map>

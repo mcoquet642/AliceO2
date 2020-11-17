@@ -1,0 +1,10 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Mapping/Impl4/src/CathodeSegmentationImpl4.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Mapping/Impl4/src/CathodeSegmentationImpl4.cxx">
+<area shape="rect" id="node2" href="$d3/dab/CathodeSegmentationImpl4_8h.html" title="CathodeSegmentationImpl4.h" alt="" coords="132,213,348,240"/>
+<area shape="rect" id="node3" href="$d7/d12/Impl4_2src_2PadGroup_8h.html" title="PadGroup.h" alt="" coords="5,295,101,322"/>
+<area shape="rect" id="node10" href="$d6/d1b/Impl4_2src_2GenDetElemId2SegType_8h.html" title="GenDetElemId2SegType.h" alt="" coords="1101,131,1291,158"/>
+<area shape="rect" id="node11" href="$d7/d4e/Impl4_2src_2PadSize_8h.html" title="PadSize.h" alt="" coords="1315,131,1399,158"/>
+<area shape="rect" id="node12" href="$df/db6/CathodeSegmentation_8h.html" title="MCHMappingInterface\l/CathodeSegmentation.h" alt="" coords="633,124,815,165"/>
+<area shape="rect" id="node20" href="$d5/d11/Impl4_2src_2CathodeSegmentationCreator_8h.html" title="CathodeSegmentationCreator.h" alt="" coords="141,131,368,158"/>
+<area shape="rect" id="node5" href="$d0/db4/Impl4_2src_2PadGroupType_8h.html" title="PadGroupType.h" alt="" coords="177,295,303,322"/>
+<area shape="rect" id="node13" href="$d0/dc7/CathodeSegmentationCInterface_8h.html" title="CathodeSegmentationCInterface.h" alt="" coords="997,213,1243,240"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Tracking/include/MIDTracking/Tracker.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Tracking/include/MIDTracking/Tracker.h">
+<area shape="rect" id="node4" href="$d6/d31/Cluster2D_8h.html" title="Reconstructed cluster per RPC. " alt="" coords="181,124,391,151"/>
+<area shape="rect" id="node7" href="$d0/daa/Cluster3D_8h.html" title="Reconstructed MID cluster (global coordinates) " alt="" coords="415,124,626,151"/>
+<area shape="rect" id="node8" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="856,124,1073,151"/>
+<area shape="rect" id="node15" href="$d4/d54/DataFormats_2Detectors_2MUON_2MID_2include_2DataFormatsMID_2Track_8h.html" title="Reconstructed MID track. " alt="" coords="650,124,831,151"/>
+<area shape="rect" id="node17" href="$de/d0c/GeometryTransformer_8h.html" title="Geometry transformer for MID. " alt="" coords="2365,124,2602,151"/>
+<area shape="rect" id="node9" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="605,199,837,240"/>
+<area shape="rect" id="node10" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="799,295,965,322"/>
+<area shape="rect" id="node14" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="431,295,685,322"/>
+<area shape="rect" id="node18" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="3081,206,3307,233"/>
+<area shape="rect" id="node20" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2030,206,2193,233"/>
+<area shape="rect" id="node21" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="2912,377,3055,404"/>
+<area shape="rect" id="node32" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="2955,295,3142,322"/>
+<area shape="rect" id="node22" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="2782,452,2979,479"/>
+<area shape="rect" id="node23" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="3003,452,3169,479"/>
+</map>

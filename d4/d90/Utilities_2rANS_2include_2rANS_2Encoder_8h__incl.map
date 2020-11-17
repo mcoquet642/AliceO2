@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Utilities/rANS/include/rANS/Encoder.h" name="/home/travis/build/AliceO2Group/AliceO2/Utilities/rANS/include/rANS/Encoder.h">
+<area shape="rect" id="node2" href="$de/d8e/Utilities_2rANS_2include_2rANS_2internal_2Encoder_8h.html" title="internal/Encoder.h" alt="" coords="367,199,506,225"/>
+<area shape="rect" id="node9" href="$d2/d53/EncoderSymbol_8h.html" title="Structure containing all relevant information to encode a symbol. " alt="" coords="370,273,505,300"/>
+<area shape="rect" id="node10" href="$d4/da1/helper_8h.html" title="various helper functions " alt="" coords="536,348,611,375"/>
+<area shape="rect" id="node19" href="$d8/dd9/SymbolTable_8h.html" title="Container for information needed to encode/decode a symbol of the alphabet. " alt="" coords="1106,124,1276,151"/>
+<area shape="rect" id="node24" href="$dd/d65/FrequencyTable_8h.html" title="Histogram to depict frequencies of source symbols for rANS compression. " alt="" coords="884,273,1055,300"/>
+<area shape="rect" id="node8" href="$d7/d99/DecoderSymbol_8h.html" title="Structure containing all relevant information for decoding a rANS encoded symbol. ..." alt="" coords="157,273,294,300"/>
+<area shape="rect" id="node20" href="$d0/d51/SymbolStatistics_8h.html" title="Structure to depict the distribution of symbols in the source message. " alt="" coords="1070,199,1213,225"/>
+</map>

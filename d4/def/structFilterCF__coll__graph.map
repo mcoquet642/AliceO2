@@ -1,0 +1,10 @@
+<map id="FilterCF" name="FilterCF">
+<area shape="rect" id="node2" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\l\&lt; aod::CFTracks \&gt;\n||}" alt="" coords="366,763,550,855"/>
+<area shape="rect" id="node3" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\&lt; T \&gt;\n||}" alt="" coords="5,476,228,553"/>
+<area shape="rect" id="node16" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\l\&lt; aod::CFCollisions \&gt;\n||}" alt="" coords="15,763,199,855"/>
+<area shape="rect" id="node4" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\l\&lt; TH3F \&gt;\n||+ spec()\l+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="645,689,836,928"/>
+<area shape="rect" id="node14" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\&lt; T \&gt;\n||+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ spec()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="734,403,963,627"/>
+<area shape="rect" id="node6" href="$d3/d87/classuint32__t.html" title="{uint32_t\n||}" alt="" coords="915,226,990,303"/>
+<area shape="rect" id="node9" href="$da/d96/structo2_1_1framework_1_1InputSpec.html" title="{o2::framework::InputSpec\n||+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ operator==()\l}" alt="" coords="409,189,598,340"/>
+<area shape="rect" id="node17" href="$d1/d9a/structo2_1_1framework_1_1expressions_1_1Filter.html" title="A struct, containing the root of the expression tree. " alt="" coords="1070,755,1273,862"/>
+</map>

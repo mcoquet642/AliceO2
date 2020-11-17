@@ -1,0 +1,8 @@
+digraph "o2::tpc::SpaceCharge"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{o2::tpc::SpaceCharge\n||+ SpaceCharge()\l+ SpaceCharge()\l+ SpaceCharge()\l+ ~SpaceCharge()\l+ init()\l+ calculateLookupTables()\l+ updateLookupTables()\l+ setOmegaTauT1T2()\l+ setInitialSpaceChargeDensity()\l+ fillPrimaryIons()\l+ fillPrimaryCharge()\l+ fillIBFIons()\l+ fillIBFCharge()\l+ getIonDrift()\l+ propagateSpaceCharge()\l+ propagateIons()\l+ correctElectron()\l+ distortElectron()\l+ getChargeDensity()\l+ getChargeDensity()\l+ setSCDistortionType()\l+ getSCDistortionType()\l+ getDriftTimeZSlice()\l+ getNPhi()\l+ getNR()\l+ getNZ()\l+ getVoxelSizePhi()\l+ getVoxelSizeR()\l+ getVoxelSizeZ()\l+ getCoordinatesPhi()\l+ getCoordinatesR()\l+ getCoordinatesZ()\l+ setUseIrregularLUTs()\l+ setUseFastDistIntegration()\l+ setDistortionLookupTables()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

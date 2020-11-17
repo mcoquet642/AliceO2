@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/EventVisualisation/Detectors/src/DataReaderITS.cxx" name="/home/travis/build/AliceO2Group/AliceO2/EventVisualisation/Detectors/src/DataReaderITS.cxx">
+<area shape="rect" id="node2" href="$d5/df4/DataReaderITS_8h.html" title="reading from file(s) " alt="" coords="78,124,285,165"/>
+<area shape="rect" id="node5" href="$d0/dc6/ITSMFT_2common_2include_2DataFormatsITSMFT_2ROFRecord_8h.html" title="DataFormatsITSMFT/ROFRecord.h" alt="" coords="454,131,693,158"/>
+<area shape="rect" id="node4" href="$d7/dec/EventVisualisation_2Base_2include_2EventVisualisationBase_2DataReader_8h.html" title="EventVisualisationBase\l/DataReader.h" alt="" coords="94,213,269,255"/>
+<area shape="rect" id="node6" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="293,221,573,247"/>
+<area shape="rect" id="node9" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="597,213,829,255"/>
+<area shape="rect" id="node7" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="374,303,541,329"/>
+<area shape="rect" id="node13" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="845,303,1099,329"/>
+</map>

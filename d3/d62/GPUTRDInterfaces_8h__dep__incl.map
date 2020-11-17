@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/TRDTracking/GPUTRDInterfaces.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/TRDTracking/GPUTRDInterfaces.h">
+<area shape="rect" id="node2" href="$d5/d34/TRDGlobalTrackingSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDGlobalTrackingSpec.cxx" alt="" coords="5,495,236,565"/>
+<area shape="rect" id="node3" href="$db/dca/GPUTRDTrack_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/TRDTracking\l/GPUTRDTrack.h" alt="" coords="355,124,580,195"/>
+<area shape="rect" id="node4" href="$d9/dbb/TRDTrackWriterSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrackWriterSpec.cxx" alt="" coords="172,243,379,313"/>
+<area shape="rect" id="node5" href="$da/df6/GPUReconstructionCPU_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/GPUReconstructionCPU.cxx" alt="" coords="159,369,363,439"/>
+<area shape="rect" id="node6" href="$d2/d58/GPUChainTracking_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTracking.cxx" alt="" coords="387,369,574,439"/>
+<area shape="rect" id="node7" href="$d3/d85/GPUChainTrackingIO_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTrackingIO.cxx" alt="" coords="1163,369,1350,439"/>
+<area shape="rect" id="node8" href="$d0/d7f/GPUTRDTrack_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/TRDTracking\l/GPUTRDTrack.cxx" alt="" coords="504,243,729,313"/>
+<area shape="rect" id="node9" href="$dd/d44/GPUTRDTracker_8h.html" title="Online TRD tracker based on extrapolated TPC tracks. " alt="" coords="753,243,979,313"/>
+<area shape="rect" id="node13" href="$db/dd1/GPUTRDTrackerComponent_8cxx.html" title="A TRD tracker processing component for the GPU. " alt="" coords="1375,369,1605,439"/>
+<area shape="rect" id="node10" href="$df/d24/TRDGlobalTrackingSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/include/TRDWorkflow/TRDGlobalTracking\lSpec.h" alt="" coords="849,361,1139,447"/>
+<area shape="rect" id="node12" href="$d9/d33/GPUTRDTracker_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/TRDTracking\l/GPUTRDTracker.cxx" alt="" coords="599,369,824,439"/>
+<area shape="rect" id="node11" href="$de/d40/TRDTrackingWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrackingWorkflow.cxx" alt="" coords="886,495,1102,565"/>
+</map>

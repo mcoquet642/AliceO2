@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/base/test/testTRDDiffusionCoefficient.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/base/test/testTRDDiffusionCoefficient.cxx">
+<area shape="rect" id="node3" href="$d5/d17/CommonParam_8h.html" title="TRDBase/CommonParam.h" alt="" coords="758,131,956,158"/>
+<area shape="rect" id="node6" href="$d5/db8/DiffAndTimeStructEstimator_8h.html" title="TRDBase/DiffAndTimeStruct\lEstimator.h" alt="" coords="980,124,1184,165"/>
+<area shape="rect" id="node8" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="434,131,592,158"/>
+<area shape="rect" id="node4" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="912,370,1079,397"/>
+<area shape="rect" id="node10" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="364,213,531,240"/>
+<area shape="rect" id="node13" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="555,213,807,240"/>
+<area shape="rect" id="node20" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="895,213,1046,240"/>
+<area shape="rect" id="node17" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="390,288,580,315"/>
+<area shape="rect" id="node19" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="389,370,608,397"/>
+<area shape="rect" id="node21" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1942,288,2105,315"/>
+<area shape="rect" id="node22" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="2114,452,2256,479"/>
+<area shape="rect" id="node34" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="3160,370,3346,397"/>
+<area shape="rect" id="node23" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1984,527,2181,553"/>
+<area shape="rect" id="node24" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="2205,527,2370,553"/>
+</map>

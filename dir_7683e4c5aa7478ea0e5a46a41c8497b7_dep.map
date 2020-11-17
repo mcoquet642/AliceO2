@@ -1,0 +1,36 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Analysis/DataModel/include" name="/home/travis/build/AliceO2Group/AliceO2/Analysis/DataModel/include">
+<area shape="rect" id="node2" href="dir_5288c54a69662669867ddb130abdbf12.html" title="Analysis" alt="" coords="39,63,116,111"/>
+<area shape="rect" id="node3" href="dir_fbd351ec6b98f95c9f7c5b7ed91033e7.html" title="PID" alt="" coords="42,159,114,207"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000011_000012.html" title="2" alt="" coords="81,133,91,147"/>
+<area shape="rect" id="node5" href="dir_4ab6b4cc6a7edbff49100e9123df213f.html" title="Common" alt="" coords="296,255,377,303"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000011_000036.html" title="1" alt="" coords="309,228,319,242"/>
+<area shape="rect" id="node7" href="dir_8d04f135a1eb0fdc4d561ef87bbea216.html" title="Core" alt="" coords="299,159,371,207"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000011_000005.html" title="3" alt="" coords="280,145,290,160"/>
+<area shape="rect" id="node8" href="dir_bcbb2cf9a3d3d83e5515c82071a07177.html" title="Framework" alt="" coords="157,351,252,399"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000011_000063.html" title="11" alt="" coords="194,323,211,338"/>
+<area shape="rect" id="node4" href="dir_7114413358de58e678b3fdba12d7093d.html" title="PIDBase" alt="" coords="42,255,118,303"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000012_000013.html" title="5" alt="" coords="83,228,92,243"/>
+<area shape="rect" id="node6" href="dir_051dca18e802f8e9474f2e30d29c04e0.html" title="Detectors" alt="" coords="179,543,264,591"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000012_000049.html" title="1" alt="" coords="171,518,181,532"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000012_000063.html" title="5" alt="" coords="183,323,192,338"/>
+<area shape="rect" id="node9" href="dir_2171f7ec022c5423887b07c69b2f5b48.html" title="DataFormats" alt="" coords="220,447,327,495"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000012_000090.html" title="4" alt="" coords="200,437,210,452"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000013_000063.html" title="1" alt="" coords="158,326,168,340"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000013_000090.html" title="1" alt="" coords="203,426,212,441"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000036_000063.html" title="2" alt="" coords="243,339,252,354"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000036_000090.html" title="2" alt="" coords="283,424,292,438"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000049_000036.html" title="324" alt="" coords="328,316,353,330"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000049_000063.html" title="1067" alt="" coords="190,411,223,425"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000049_000090.html" title="1353" alt="" coords="236,500,270,515"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000005_000036.html" title="1" alt="" coords="339,229,349,243"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000005_000063.html" title="12" alt="" coords="228,333,246,347"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000005_000090.html" title="2" alt="" coords="316,433,325,448"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000063_000036.html" title="8" alt="" coords="292,300,301,315"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000063_000049.html" title="4" alt="" coords="204,515,214,530"/>
+<area shape="rect" id="edge21-headlabel" href="dir_000063_000090.html" title="73" alt="" coords="235,419,252,434"/>
+<area shape="rect" id="edge22-headlabel" href="dir_000090_000036.html" title="38" alt="" coords="313,311,331,326"/>
+<area shape="rect" id="edge23-headlabel" href="dir_000090_000049.html" title="18" alt="" coords="234,522,251,537"/>
+<area shape="rect" id="edge24-headlabel" href="dir_000090_000063.html" title="22" alt="" coords="226,411,243,426"/>
+<area shape="rect" id="clust2" href="dir_7683e4c5aa7478ea0e5a46a41c8497b7.html" alt="" coords="28,52,223,313"/>
+<area shape="rect" id="clust1" href="dir_f41dd59f861c855ea21b0dc3111cb7b0.html" title="DataModel" alt="" coords="18,16,234,324"/>
+</map>

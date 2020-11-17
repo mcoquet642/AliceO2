@@ -1,0 +1,7 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/PreClustering/include/MCHPreClustering/PreClusterFinder.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/PreClustering/include/MCHPreClustering/PreClusterFinder.h">
+<area shape="rect" id="node2" href="$db/d3a/ClusterFinderOriginal_8h.html" title="Definition of a class to reconstruct clusters with the original MLEM algorithm. " alt="" coords="125,124,388,209"/>
+<area shape="rect" id="node5" href="$d8/dfc/PreClusterFinder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/PreClustering\l/src/PreClusterFinder.cxx" alt="" coords="413,131,671,202"/>
+<area shape="rect" id="node6" href="$df/d50/PreClusterFinderSpec_8cxx.html" title="Implementation of a data processor to run the preclusterizer. " alt="" coords="695,131,927,202"/>
+<area shape="rect" id="node3" href="$d0/dff/ClusterFinderOriginal_8cxx.html" title="Definition of a class to reconstruct clusters with the original MLEM algorithm. " alt="" coords="5,257,244,328"/>
+<area shape="rect" id="node4" href="$d1/d4a/ClusterFinderOriginalSpec_8cxx.html" title="Implementation of a data processor to run the original MLEM cluster finder. " alt="" coords="269,257,511,328"/>
+</map>

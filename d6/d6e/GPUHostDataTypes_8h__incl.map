@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUHostDataTypes.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUHostDataTypes.h">
+<area shape="rect" id="node2" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="238,131,381,158"/>
+<area shape="rect" id="node7" href="$d0/dda/DataFormats_2Detectors_2TPC_2include_2DataFormatsTPC_2Constants_8h.html" title="DataFormatsTPC/Constants.h" alt="" coords="882,131,1094,158"/>
+<area shape="rect" id="node8" href="$d1/da6/ConstMCTruthContainer_8h.html" title="A const (ready only) version of MCTruthContainer. " alt="" coords="589,124,779,165"/>
+<area shape="rect" id="node20" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="467,213,637,255"/>
+<area shape="rect" id="node3" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="5,221,203,247"/>
+<area shape="rect" id="node4" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="227,221,392,247"/>
+<area shape="rect" id="node9" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="726,213,895,255"/>
+<area shape="rect" id="node19" href="$db/d31/Traits_8h.html" title="Framework/Traits.h" alt="" coords="1030,221,1175,247"/>
+<area shape="rect" id="node10" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="435,303,602,329"/>
+</map>

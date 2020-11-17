@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/DCS/src/DCSProcessor.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/DCS/src/DCSProcessor.cxx">
+<area shape="rect" id="node2" href="$d7/da7/DCSProcessor_8h.html" title="DetectorsDCS/DCSProcessor.h" alt="" coords="1768,109,1986,136"/>
+<area shape="rect" id="node8" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2088,348,2242,375"/>
+<area shape="rect" id="node10" href="$d0/dee/DataPointCompositeObject_8h.html" title="DetectorsDCS/DataPointComposite\lObject.h" alt="" coords="612,184,862,225"/>
+<area shape="rect" id="node18" href="$d1/d2d/DataPointIdentifier_8h.html" title="DetectorsDCS/DataPointIdentifier.h" alt="" coords="774,273,1023,300"/>
+<area shape="rect" id="node24" href="$d5/d79/DeliveryType_8h.html" title="DetectorsDCS/DeliveryType.h" alt="" coords="68,348,281,375"/>
+<area shape="rect" id="node26" href="$d6/d8e/DataPointValue_8h.html" title="DetectorsDCS/DataPointValue.h" alt="" coords="1047,273,1275,300"/>
+<area shape="rect" id="node32" href="$d4/dab/CcdbObjectInfo_8h.html" title="CCDB/CcdbObjectInfo.h" alt="" coords="2078,273,2252,300"/>
+<area shape="rect" id="node33" href="$da/db7/MemFileHelper_8h.html" title="CommonUtils/MemFileHelper.h" alt="" coords="1652,191,1875,218"/>
+<area shape="rect" id="node38" href="$dd/d3e/CcdbApi_8h.html" title="CCDB/CcdbApi.h" alt="" coords="2289,191,2417,218"/>
+<area shape="rect" id="node15" href="$dd/de9/Detectors_2DCS_2include_2DetectorsDCS_2StringUtils_8h.html" title="DetectorsDCS/StringUtils.h" alt="" coords="508,348,704,375"/>
+<area shape="rect" id="node23" href="$d6/de3/GenericFunctions_8h.html" title="DetectorsDCS/GenericFunctions.h" alt="" coords="312,423,551,449"/>
+<area shape="rect" id="node30" href="$d2/d52/Clock_8h.html" title="DetectorsDCS/Clock.h" alt="" coords="1530,348,1694,375"/>
+<area shape="rect" id="node37" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="1757,273,1952,300"/>
+</map>

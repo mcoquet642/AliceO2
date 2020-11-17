@@ -1,0 +1,36 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/simulation/src/Detector.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/simulation/src/Detector.cxx">
+<area shape="rect" id="node2" href="$d9/d4e/Detectors_2ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="3440,221,3613,247"/>
+<area shape="rect" id="node29" href="$d6/d2e/ITSMFT_2MFT_2base_2include_2MFTBase_2Geometry_8h.html" title="MFTBase/Geometry.h" alt="" coords="5362,131,5521,158"/>
+<area shape="rect" id="node32" href="$d5/d9e/ITSMFT_2MFT_2simulation_2include_2MFTSimulation_2Detector_8h.html" title="MFTSimulation/Detector.h" alt="" coords="3337,131,3527,158"/>
+<area shape="rect" id="node70" href="$d4/d03/simulation_2include_2SimulationDataFormat_2Stack_8h.html" title="SimulationDataFormat\l/Stack.h" alt="" coords="4583,124,4753,165"/>
+<area shape="rect" id="node86" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="5585,221,5743,247"/>
+<area shape="rect" id="node3" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="2962,303,3131,344"/>
+<area shape="rect" id="node21" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="1409,399,1623,426"/>
+<area shape="rect" id="node4" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2636,399,2799,426"/>
+<area shape="rect" id="node5" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1038,660,1181,687"/>
+<area shape="rect" id="node8" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="4873,489,5039,515"/>
+<area shape="rect" id="node19" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="757,578,944,605"/>
+<area shape="rect" id="node6" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="908,735,1105,761"/>
+<area shape="rect" id="node7" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1129,735,1295,761"/>
+<area shape="rect" id="node22" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="376,489,587,515"/>
+<area shape="rect" id="node35" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="1098,310,1286,337"/>
+<area shape="rect" id="node50" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="3790,303,4018,344"/>
+<area shape="rect" id="node41" href="$d0/d9a/MaterialManager_8h.html" title="DetectorsBase/MaterialManager.h" alt="" coords="319,399,561,426"/>
+<area shape="rect" id="node55" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="1697,399,1828,426"/>
+<area shape="rect" id="node64" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="4018,399,4187,426"/>
+<area shape="rect" id="node56" href="$de/def/bitOps_8h.html" title="MathUtils/detail/bitOps.h" alt="" coords="1414,489,1597,515"/>
+<area shape="rect" id="node57" href="$d3/dfc/StatAccumulator_8h.html" title="MathUtils/detail/StatAccumulator.h" alt="" coords="1141,489,1389,515"/>
+<area shape="rect" id="node59" href="$dd/d7d/trigonometric_8h.html" title="MathUtils/detail/trigonometric.h" alt="" coords="888,489,1117,515"/>
+<area shape="rect" id="node61" href="$d6/da2/GPUCommonMath_8h.html" title="GPUCommonMath.h" alt="" coords="1302,578,1455,605"/>
+<area shape="rect" id="node63" href="$d6/d84/MathConstants_8h.html" title="useful math constants " alt="" coords="968,578,1227,605"/>
+<area shape="rect" id="node68" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="4312,489,4507,515"/>
+<area shape="rect" id="node72" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="4583,213,4753,255"/>
+<area shape="rect" id="node78" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="4538,392,4707,433"/>
+<area shape="rect" id="node80" href="$d5/dbe/TrackReference_8h.html" title="SimulationDataFormat\l/TrackReference.h" alt="" coords="5037,303,5206,344"/>
+<area shape="rect" id="node83" href="$d6/d9d/MCEventStats_8h.html" title="SimulationDataFormat\l/MCEventStats.h" alt="" coords="5239,213,5409,255"/>
+<area shape="rect" id="node88" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="6423,310,6590,337"/>
+<area shape="rect" id="node91" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="5702,310,5954,337"/>
+<area shape="rect" id="node96" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="4759,310,4910,337"/>
+<area shape="rect" id="node93" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="5879,399,6070,426"/>
+<area shape="rect" id="node95" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="5719,489,5937,515"/>
+</map>

@@ -1,0 +1,40 @@
+digraph "hmm_quaternion"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{hmm_quaternion\n||}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +XYZ" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{hmm_vec3\n|+ X\l+ Y\l+ Z\l+ G\l|}",height=0.2,width=0.4,color="black",URL="$d9/dfd/unionhmm__vec3.html"];
+  Node3 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@291" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node3 [label="{anonymous:+@291\n||}",height=0.2,width=0.4,color="grey75"];
+  Node4 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +VW\n+UV\n+YZ\n+XY" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node4 [label="{hmm_vec2\n||}",height=0.2,width=0.4,color="black",URL="$dc/db2/unionhmm__vec2.html"];
+  Node5 -> Node4 [color="grey25",fontsize="10",style="solid",label=" +@281" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node5 [label="{anonymous:+@281\n||}",height=0.2,width=0.4,color="grey75"];
+  Node6 -> Node4 [color="grey25",fontsize="10",style="solid",label=" +Height\n+Elements\n+U\n+V\n+Width\n+X\n+Y\n+Left\n+Right" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node6 [label="{float\n||}",height=0.2,width=0.4,color="black",URL="$d4/dc3/classfloat.html"];
+  Node7 -> Node4 [color="grey25",fontsize="10",style="solid",label=" +@275" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node7 [label="{anonymous:+@275\n||}",height=0.2,width=0.4,color="grey75"];
+  Node8 -> Node4 [color="grey25",fontsize="10",style="solid",label=" +@277" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node8 [label="{anonymous:+@277\n||}",height=0.2,width=0.4,color="grey75"];
+  Node9 -> Node4 [color="grey25",fontsize="10",style="solid",label=" +@279" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node9 [label="{anonymous:+@279\n||}",height=0.2,width=0.4,color="grey75"];
+  Node10 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@293" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node10 [label="{anonymous:+@293\n||}",height=0.2,width=0.4,color="grey75"];
+  Node11 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@283" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node11 [label="{anonymous:+@283\n||}",height=0.2,width=0.4,color="grey75"];
+  Node12 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@295" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node12 [label="{anonymous:+@295\n||}",height=0.2,width=0.4,color="grey75"];
+  Node6 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +Ignored0_\n+Ignored2_\n+Ignored1_\n+Ignored3_\n+R\n+Elements\n+B\n+U\n+V\n+W\n..." ,arrowhead="odiamond",fontname="Helvetica"];
+  Node13 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@285" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node13 [label="{anonymous:+@285\n||}",height=0.2,width=0.4,color="grey75"];
+  Node14 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@287" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node14 [label="{anonymous:+@287\n||}",height=0.2,width=0.4,color="grey75"];
+  Node15 -> Node2 [color="grey25",fontsize="10",style="solid",label=" +@289" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node15 [label="{anonymous:+@289\n||}",height=0.2,width=0.4,color="grey75"];
+  Node6 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +Elements\n+W\n+X\n+Y\n+Z" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node16 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +@315" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node16 [label="{anonymous:+@315\n||}",height=0.2,width=0.4,color="grey75"];
+}

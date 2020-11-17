@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/include/TRDSimulation/TrapSimulator.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/include/TRDSimulation/TrapSimulator.h">
+<area shape="rect" id="node2" href="$db/dc3/TrapConfigHandler_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapConfigHandler.cxx" alt="" coords="5,131,200,202"/>
+<area shape="rect" id="node3" href="$da/deb/TrapSimulator_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapSimulator.cxx" alt="" coords="225,131,418,202"/>
+<area shape="rect" id="node4" href="$dc/d96/TRDTrapSimulatorSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/include/TRDWorkflow/TRDTrapSimulator\lSpec.h" alt="" coords="493,124,779,209"/>
+<area shape="rect" id="node5" href="$dd/de7/TRDTrapSimulatorSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorSpec.cxx" alt="" coords="301,257,525,328"/>
+<area shape="rect" id="node8" href="$d7/da6/TRDDigitReaderSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDDigitReaderSpec.cxx" alt="" coords="803,131,1013,202"/>
+<area shape="rect" id="node6" href="$d2/dc0/TRDTrapSimulatorWorkFlow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorWorkFlow.cxx" alt="" coords="550,257,805,328"/>
+<area shape="rect" id="node7" href="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx" alt="" coords="829,257,1064,328"/>
+</map>

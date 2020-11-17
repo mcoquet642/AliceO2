@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/base/include/TPCBase/DigitPos.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/base/include/TPCBase/DigitPos.h">
+<area shape="rect" id="node2" href="$d1/d73/Defs_8h.html" title="DataFormatsTPC/Defs.h" alt="" coords="493,348,670,375"/>
+<area shape="rect" id="node20" href="$df/d26/CRU_8h.html" title="TPCBase/CRU.h" alt="" coords="619,124,741,151"/>
+<area shape="rect" id="node24" href="$de/d41/PadPos_8h.html" title="TPCBase/PadPos.h" alt="" coords="816,199,957,225"/>
+<area shape="rect" id="node25" href="$dd/d0b/PadSecPos_8h.html" title="TPCBase/PadSecPos.h" alt="" coords="817,124,981,151"/>
+<area shape="rect" id="node4" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="55,505,241,531"/>
+<area shape="rect" id="node8" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1053,423,1216,449"/>
+<area shape="rect" id="node5" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="135,587,278,613"/>
+<area shape="rect" id="node6" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="5,661,203,688"/>
+<area shape="rect" id="node7" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="227,661,392,688"/>
+<area shape="rect" id="node9" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="317,505,483,531"/>
+<area shape="rect" id="node21" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="711,273,846,300"/>
+<area shape="rect" id="node23" href="$dc/d14/ROC_8h.html" title="TPCBase/ROC.h" alt="" coords="619,199,741,225"/>
+<area shape="rect" id="node22" href="$d0/dda/DataFormats_2Detectors_2TPC_2include_2DataFormatsTPC_2Constants_8h.html" title="DataFormatsTPC/Constants.h" alt="" coords="694,348,906,375"/>
+</map>

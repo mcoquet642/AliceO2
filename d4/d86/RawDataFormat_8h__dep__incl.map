@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/TOF/include/DataFormatsTOF/RawDataFormat.h" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/TOF/include/DataFormatsTOF/RawDataFormat.h">
+<area shape="rect" id="node2" href="$d4/da7/Compressor_8h.html" title="TOF raw data compressor. " alt="" coords="252,146,532,217"/>
+<area shape="rect" id="node7" href="$d5/d90/Detectors_2TOF_2reconstruction_2include_2TOFReconstruction_2Encoder_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/reconstruction\l/include/TOFReconstruction\l/Encoder.h" alt="" coords="557,139,771,224"/>
+<area shape="rect" id="node3" href="$d2/dc6/CompressorTask_8h.html" title="TOF raw data compressor task. " alt="" coords="5,272,275,357"/>
+<area shape="rect" id="node6" href="$d8/d7f/Compressor_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/compression\l/src/Compressor.cxx" alt="" coords="299,279,504,350"/>
+<area shape="rect" id="node4" href="$d7/d8c/CompressorTask_8cxx.html" title="TOF raw data compressor task. " alt="" coords="24,405,229,476"/>
+<area shape="rect" id="node5" href="$d9/d2d/tof-compressor_8cxx.html" title="Basic DPL workflow for TOF raw data compression. " alt="" coords="253,405,459,476"/>
+<area shape="rect" id="node8" href="$de/d5e/TOF_2reconstruction_2src_2Encoder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/reconstruction\l/src/Encoder.cxx" alt="" coords="547,279,762,350"/>
+<area shape="rect" id="node9" href="$dc/df7/TOFRawWriterSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/workflow\l/include/TOFWorkflowUtils\l/TOFRawWriterSpec.h" alt="" coords="787,272,979,357"/>
+<area shape="rect" id="node10" href="$da/dfd/tof-reco-workflow_8cxx.html" title="Basic DPL workflow for TOF reconstruction starting from digits. " alt="" coords="606,405,877,476"/>
+<area shape="rect" id="node11" href="$db/dfb/TOFRawWriterSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/workflow\l/src/TOFRawWriterSpec.cxx" alt="" coords="901,405,1099,476"/>
+</map>

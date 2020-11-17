@@ -1,0 +1,33 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ZDC/simulation/src/Digitizer.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ZDC/simulation/src/Digitizer.cxx">
+<area shape="rect" id="node2" href="$d5/df3/BasicCCDBManager_8h.html" title="CCDB/BasicCCDBManager.h" alt="" coords="2737,206,2939,233"/>
+<area shape="rect" id="node14" href="$da/d86/CCDBTimeStampUtils_8h.html" title="CCDB/CCDBTimeStampUtils.h" alt="" coords="2977,295,3195,322"/>
+<area shape="rect" id="node16" href="$db/de7/ZDC_2simulation_2include_2ZDCSimulation_2Digitizer_8h.html" title="ZDCSimulation/Digitizer.h" alt="" coords="1188,124,1379,151"/>
+<area shape="rect" id="node17" href="$dd/de7/Detectors_2ZDC_2simulation_2include_2ZDCSimulation_2Hit_8h.html" title="ZDCSimulation/Hit.h" alt="" coords="2003,206,2158,233"/>
+<area shape="rect" id="node65" href="$d7/d5a/SimCondition_8h.html" title="ZDCSimulation/SimCondition.h" alt="" coords="5,206,228,233"/>
+<area shape="rect" id="node66" href="$d2/d82/ZDCSimParam_8h.html" title="ZDCSimulation/ZDCSimParam.h" alt="" coords="3015,124,3245,151"/>
+<area shape="rect" id="node3" href="$dd/d3e/CcdbApi_8h.html" title="CCDB/CcdbApi.h" alt="" coords="2723,295,2851,322"/>
+<area shape="rect" id="node10" href="$d4/dab/CcdbObjectInfo_8h.html" title="CCDB/CcdbObjectInfo.h" alt="" coords="2713,385,2888,411"/>
+<area shape="rect" id="node12" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="3716,474,3869,501"/>
+<area shape="rect" id="node42" href="$d7/d7a/Detectors_2ZDC_2simulation_2include_2ZDCSimulation_2MCLabel_8h.html" title="ZDCSimulation/MCLabel.h" alt="" coords="772,206,963,233"/>
+<area shape="rect" id="node44" href="$d4/d8c/ModuleConfig_8h.html" title="ZDCBase/ModuleConfig.h" alt="" coords="561,206,747,233"/>
+<area shape="rect" id="node51" href="$d5/df4/ZDC_2include_2DataFormatsZDC_2ChannelData_8h.html" title="DataFormatsZDC/ChannelData.h" alt="" coords="302,206,537,233"/>
+<area shape="rect" id="node52" href="$dd/d40/ZDC_2include_2DataFormatsZDC_2BCData_8h.html" title="DataFormatsZDC/BCData.h" alt="" coords="987,206,1185,233"/>
+<area shape="rect" id="node53" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1277,288,1509,329"/>
+<area shape="rect" id="node58" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="1608,288,1777,329"/>
+<area shape="rect" id="node18" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="2104,288,2273,329"/>
+<area shape="rect" id="node34" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="1866,295,2079,322"/>
+<area shape="rect" id="node19" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2107,385,2270,411"/>
+<area shape="rect" id="node20" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="2789,556,2932,583"/>
+<area shape="rect" id="node23" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="508,474,675,501"/>
+<area shape="rect" id="node33" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="2702,474,2889,501"/>
+<area shape="rect" id="node21" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="2659,631,2857,657"/>
+<area shape="rect" id="node22" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="2881,631,3046,657"/>
+<area shape="rect" id="node35" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="2294,385,2505,411"/>
+<area shape="rect" id="node43" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="677,288,847,329"/>
+<area shape="rect" id="node45" href="$d3/dd7/Detectors_2ZDC_2base_2include_2ZDCBase_2Constants_8h.html" title="ZDCBase/Constants.h" alt="" coords="490,295,653,322"/>
+<area shape="rect" id="node46" href="$d3/d9d/PhysicsConstants_8h.html" title="Header to collect physics constants. " alt="" coords="508,385,784,411"/>
+<area shape="rect" id="node56" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="871,295,1151,322"/>
+<area shape="rect" id="node55" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1139,385,1393,411"/>
+<area shape="rect" id="node67" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="3407,288,3605,329"/>
+<area shape="rect" id="node71" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="3186,199,3383,240"/>
+</map>

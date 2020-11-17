@@ -1,0 +1,7 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/test/testCrateMapper.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/test/testCrateMapper.cxx">
+<area shape="rect" id="node5" href="$d2/d0e/Mapping_8h.html" title="Mapping for MID. " alt="" coords="483,131,634,158"/>
+<area shape="rect" id="node9" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="658,131,883,158"/>
+<area shape="rect" id="node11" href="$db/d83/CrateMapper_8h.html" title="Mapper to convert the RO Ids to a format suitable for O2. " alt="" coords="908,131,1081,158"/>
+<area shape="rect" id="node14" href="$d2/da5/CrateParameters_8h.html" title="MID RO crate parameters. " alt="" coords="1105,131,1305,158"/>
+<area shape="rect" id="node8" href="$d7/d0a/MpArea_8h.html" title="Mapping area for MID. " alt="" coords="603,213,747,240"/>
+</map>

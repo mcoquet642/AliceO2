@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/MCClusterLabel.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/MCClusterLabel.h">
+<area shape="rect" id="node2" href="$d2/d6b/ClusterLabeler_8h.html" title="ClusterLabeler for MID. " alt="" coords="349,124,630,195"/>
+<area shape="rect" id="node6" href="$df/d00/TrackLabeler_8h.html" title="Tracks labeler for MID. " alt="" coords="763,124,1032,195"/>
+<area shape="rect" id="node8" href="$da/d28/TrackerMCSpec_8cxx.html" title="Data processor spec for MID MC tracker device. " alt="" coords="1040,243,1267,313"/>
+<area shape="rect" id="node9" href="$dd/d40/MCClusterLabel_8cxx.html" title="Implementation of MC label for MID clusters. " alt="" coords="1107,124,1344,195"/>
+<area shape="rect" id="node10" href="$d8/d69/reco-workflow_8cxx.html" title="MID reconstruction workflow from digits. " alt="" coords="1368,124,1595,195"/>
+<area shape="rect" id="node3" href="$dd/de0/ClusterLabeler_8cxx.html" title="Implementation of the ClusterLabeler for MID. " alt="" coords="5,243,243,313"/>
+<area shape="rect" id="node4" href="$d6/d45/testSimulation_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MID/Simulation\l/test/testSimulation.cxx" alt="" coords="517,243,755,313"/>
+<area shape="rect" id="node5" href="$d3/d1e/ClusterizerMCSpec_8cxx.html" title="Data processor spec for MID MC clustering device. " alt="" coords="267,243,493,313"/>
+<area shape="rect" id="node7" href="$de/d56/TrackLabeler_8cxx.html" title="Implementation of the TrackLabeler for MID. " alt="" coords="779,243,1016,313"/>
+</map>

@@ -1,0 +1,42 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/simulation/include/TOFSimulation/Digitizer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/simulation/include/TOFSimulation/Digitizer.h">
+<area shape="rect" id="node2" href="$d4/d54/Geo_8h.html" title="TOFBase/Geo.h" alt="" coords="778,370,900,397"/>
+<area shape="rect" id="node40" href="$d1/d90/Detectors_2TOF_2base_2include_2TOFBase_2Digit_8h.html" title="TOFBase/Digit.h" alt="" coords="1138,288,1265,315"/>
+<area shape="rect" id="node44" href="$dd/d77/Strip_8h.html" title="TOFBase/Strip.h" alt="" coords="3040,206,3166,233"/>
+<area shape="rect" id="node58" href="$d0/de5/WindowFiller_8h.html" title="TOFBase/WindowFiller.h" alt="" coords="1081,124,1258,151"/>
+<area shape="rect" id="node59" href="$d5/d3c/TOF_2simulation_2include_2TOFSimulation_2Detector_8h.html" title="TOFSimulation/Detector.h" alt="" coords="5854,288,6042,315"/>
+<area shape="rect" id="node77" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="1872,631,2041,672"/>
+<area shape="rect" id="node79" href="$df/d5b/Detectors_2TOF_2simulation_2include_2TOFSimulation_2MCLabel_8h.html" title="TOFSimulation/MCLabel.h" alt="" coords="1602,124,1790,151"/>
+<area shape="rect" id="node81" href="$d7/d65/CalibTOFapi_8h.html" title="Class to use TOF calibration (decalibration, calibration) " alt="" coords="4350,459,4560,486"/>
+<area shape="rect" id="node4" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="26,727,279,754"/>
+<area shape="rect" id="node5" href="$d1/dec/HBFUtils_8h.html" title="DetectorsRaw/HBFUtils.h" alt="" coords="749,459,934,486"/>
+<area shape="rect" id="node6" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="761,549,949,575"/>
+<area shape="rect" id="node16" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="279,631,511,672"/>
+<area shape="rect" id="node29" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="4492,631,4690,672"/>
+<area shape="rect" id="node36" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="1268,541,1466,583"/>
+<area shape="rect" id="node39" href="$de/da4/Triggers_8h.html" title="Definition of the 32 Central Trigger System (CTS) Trigger Types defined in https://twiki.cern.ch/twiki/pub/ALICE/NoteForFEDevelopers/CTS_CRU_FE_interface.pdf. " alt="" coords="331,549,544,575"/>
+<area shape="rect" id="node7" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="960,727,1102,754"/>
+<area shape="rect" id="node10" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1337,727,1504,754"/>
+<area shape="rect" id="node11" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="441,727,640,754"/>
+<area shape="rect" id="node13" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="746,638,890,665"/>
+<area shape="rect" id="node19" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="586,638,721,665"/>
+<area shape="rect" id="node8" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1354,817,1551,843"/>
+<area shape="rect" id="node9" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1164,817,1330,843"/>
+<area shape="rect" id="node20" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="714,727,884,754"/>
+<area shape="rect" id="node27" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="455,817,650,843"/>
+<area shape="rect" id="node41" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="1167,459,1447,486"/>
+<area shape="rect" id="node48" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="3022,549,3184,575"/>
+<area shape="rect" id="node57" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="1458,638,1644,665"/>
+<area shape="rect" id="node60" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="6218,549,6406,575"/>
+<area shape="rect" id="node73" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="6974,638,7187,665"/>
+<area shape="rect" id="node76" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="3649,452,3818,493"/>
+<area shape="rect" id="node64" href="$d0/d9a/MaterialManager_8h.html" title="DetectorsBase/MaterialManager.h" alt="" coords="5385,638,5626,665"/>
+<area shape="rect" id="node67" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="7095,727,7306,754"/>
+<area shape="rect" id="node80" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1609,199,1778,240"/>
+<area shape="rect" id="node82" href="$d5/df3/BasicCCDBManager_8h.html" title="CCDB/BasicCCDBManager.h" alt="" coords="5576,549,5779,575"/>
+<area shape="rect" id="node89" href="$d8/de0/CalibLHCphaseTOF_8h.html" title="Class to store the output of the matching to TOF for calibration. " alt="" coords="2218,631,2452,672"/>
+<area shape="rect" id="node90" href="$d3/d81/CalibTimeSlewingParamTOF_8h.html" title="Class to store the output of the matching to TOF for calibration. " alt="" coords="4765,631,4966,672"/>
+<area shape="rect" id="node83" href="$dd/d3e/CcdbApi_8h.html" title="CCDB/CcdbApi.h" alt="" coords="5955,638,6083,665"/>
+<area shape="rect" id="node88" href="$da/d86/CCDBTimeStampUtils_8h.html" title="CCDB/CCDBTimeStampUtils.h" alt="" coords="4990,638,5208,665"/>
+<area shape="rect" id="node85" href="$d4/dab/CcdbObjectInfo_8h.html" title="CCDB/CcdbObjectInfo.h" alt="" coords="5806,727,5981,754"/>
+<area shape="rect" id="node86" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="5817,817,5970,843"/>
+</map>

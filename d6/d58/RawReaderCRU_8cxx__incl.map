@@ -1,0 +1,31 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/reconstruction/src/RawReaderCRU.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/reconstruction/src/RawReaderCRU.cxx">
+<area shape="rect" id="node5" href="$df/d86/RawReaderCRU_8h.html" title="TPCReconstruction/RawReader\lCRU.h" alt="" coords="1373,199,1593,240"/>
+<area shape="rect" id="node19" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="542,288,730,315"/>
+<area shape="rect" id="node58" href="$d5/d1d/TPC_2base_2include_2TPCBase_2Mapper_8h.html" title="TPCBase/Mapper.h" alt="" coords="2390,124,2533,151"/>
+<area shape="rect" id="node64" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2862,124,3015,151"/>
+<area shape="rect" id="node25" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="807,445,1006,471"/>
+<area shape="rect" id="node39" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="728,527,923,553"/>
+<area shape="rect" id="node41" href="$df/d26/CRU_8h.html" title="TPCBase/CRU.h" alt="" coords="2215,288,2337,315"/>
+<area shape="rect" id="node56" href="$de/d41/PadPos_8h.html" title="TPCBase/PadPos.h" alt="" coords="2431,363,2572,389"/>
+<area shape="rect" id="node57" href="$da/d61/PadROCPos_8h.html" title="TPCBase/PadROCPos.h" alt="" coords="1778,288,1947,315"/>
+<area shape="rect" id="node20" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1551,765,1694,792"/>
+<area shape="rect" id="node23" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1018,683,1185,710"/>
+<area shape="rect" id="node26" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="539,363,683,389"/>
+<area shape="rect" id="node29" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1243,437,1475,479"/>
+<area shape="rect" id="node32" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="379,363,514,389"/>
+<area shape="rect" id="node21" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1421,840,1619,867"/>
+<area shape="rect" id="node22" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1643,840,1808,867"/>
+<area shape="rect" id="node31" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1221,527,1475,553"/>
+<area shape="rect" id="node33" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="374,445,543,471"/>
+<area shape="rect" id="node42" href="$d1/d73/Defs_8h.html" title="DataFormatsTPC/Defs.h" alt="" coords="2154,527,2331,553"/>
+<area shape="rect" id="node53" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="2666,445,2801,471"/>
+<area shape="rect" id="node55" href="$dc/d14/ROC_8h.html" title="TPCBase/ROC.h" alt="" coords="2113,363,2236,389"/>
+<area shape="rect" id="node43" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="1640,683,1827,710"/>
+<area shape="rect" id="node44" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2227,601,2389,628"/>
+<area shape="rect" id="node54" href="$d0/dda/DataFormats_2Detectors_2TPC_2include_2DataFormatsTPC_2Constants_8h.html" title="DataFormatsTPC/Constants.h" alt="" coords="2627,527,2839,553"/>
+<area shape="rect" id="node59" href="$dd/d0b/PadSecPos_8h.html" title="TPCBase/PadSecPos.h" alt="" coords="2666,288,2830,315"/>
+<area shape="rect" id="node60" href="$d3/d54/DigitPos_8h.html" title="TPCBase/DigitPos.h" alt="" coords="2564,206,2713,233"/>
+<area shape="rect" id="node61" href="$d1/d1f/FECInfo_8h.html" title="TPCBase/FECInfo.h" alt="" coords="2001,601,2145,628"/>
+<area shape="rect" id="node62" href="$da/d9d/PadRegionInfo_8h.html" title="TPCBase/PadRegionInfo.h" alt="" coords="2303,206,2489,233"/>
+<area shape="rect" id="node63" href="$d6/d42/PartitionInfo_8h.html" title="TPCBase/PartitionInfo.h" alt="" coords="2103,206,2278,233"/>
+</map>

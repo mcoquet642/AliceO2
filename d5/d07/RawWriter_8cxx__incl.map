@@ -1,0 +1,31 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/simulation/src/RawWriter.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/simulation/src/RawWriter.cxx">
+<area shape="rect" id="node6" href="$dd/dda/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Constants_8h.html" title="DataFormatsEMCAL/Constants.h" alt="" coords="4627,445,4858,471"/>
+<area shape="rect" id="node11" href="$dd/da8/EMCAL_2base_2include_2EMCALBase_2Geometry_8h.html" title="EMCALBase/Geometry.h" alt="" coords="1518,355,1695,382"/>
+<area shape="rect" id="node34" href="$df/ddd/RCUTrailer_8h.html" title="EMCALBase/RCUTrailer.h" alt="" coords="3378,445,3558,471"/>
+<area shape="rect" id="node35" href="$df/da7/RawWriter_8h.html" title="EMCALSimulation/RawWriter.h" alt="" coords="4147,124,4365,151"/>
+<area shape="rect" id="node20" href="$db/dcf/EMCAL_2base_2include_2EMCALBase_2GeometryBase_8h.html" title="EMCALBase/GeometryBase.h" alt="" coords="1676,445,1887,471"/>
+<area shape="rect" id="node21" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1067,445,1229,471"/>
+<area shape="rect" id="node22" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="3258,616,3401,643"/>
+<area shape="rect" id="node25" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="5067,534,5234,561"/>
+<area shape="rect" id="node33" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="2463,534,2649,561"/>
+<area shape="rect" id="node23" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="3128,691,3325,717"/>
+<area shape="rect" id="node24" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="3349,691,3515,717"/>
+<area shape="rect" id="node40" href="$da/d08/RawFileWriter_8h.html" title="Utility class to write detectors data to (multiple) raw data file(s) respecting CRU format..." alt="" coords="3339,199,3557,225"/>
+<area shape="rect" id="node72" href="$d1/d7a/EMCAL_2base_2include_2EMCALBase_2Mapper_8h.html" title="EMCALBase/Mapper.h" alt="" coords="4175,355,4337,382"/>
+<area shape="rect" id="node75" href="$d3/d6e/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Digit_8h.html" title="DataFormatsEMCAL/Digit.h" alt="" coords="5621,355,5819,382"/>
+<area shape="rect" id="node78" href="$d9/d38/EMCAL_2include_2DataFormatsEMCAL_2TriggerRecord_8h.html" title="DataFormatsEMCAL/Trigger\lRecord.h" alt="" coords="5331,348,5530,389"/>
+<area shape="rect" id="node47" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="3946,534,4145,561"/>
+<area shape="rect" id="node48" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="2218,534,2387,561"/>
+<area shape="rect" id="node56" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="2266,445,2401,471"/>
+<area shape="rect" id="node57" href="$d1/dec/HBFUtils_8h.html" title="DetectorsRaw/HBFUtils.h" alt="" coords="3785,273,3970,300"/>
+<area shape="rect" id="node58" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="3545,355,3733,382"/>
+<area shape="rect" id="node54" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="2463,616,2657,643"/>
+<area shape="rect" id="node61" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="5035,437,5267,479"/>
+<area shape="rect" id="node64" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="3004,437,3201,479"/>
+<area shape="rect" id="node68" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="2817,348,3015,389"/>
+<area shape="rect" id="node71" href="$de/da4/Triggers_8h.html" title="Definition of the 32 Central Trigger System (CTS) Trigger Types defined in https://twiki.cern.ch/twiki/pub/ALICE/NoteForFEDevelopers/CTS_CRU_FE_interface.pdf. " alt="" coords="3757,355,3971,382"/>
+<area shape="rect" id="node59" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="3684,445,3828,471"/>
+<area shape="rect" id="node63" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="5259,534,5512,561"/>
+<area shape="rect" id="node76" href="$df/d5d/common_2include_2CommonDataFormat_2TimeStamp_8h.html" title="CommonDataFormat/TimeStamp.h" alt="" coords="5595,445,5845,471"/>
+<area shape="rect" id="node79" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="5291,445,5571,471"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Global/GPUChainTracking.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Global/GPUChainTracking.h">
+<area shape="rect" id="node2" href="$d5/d34/TRDGlobalTrackingSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDGlobalTrackingSpec.cxx" alt="" coords="5,124,236,195"/>
+<area shape="rect" id="node3" href="$df/db2/GPUReconstructionTimeframe_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/GPUReconstructionTimeframe.h" alt="" coords="261,124,495,195"/>
+<area shape="rect" id="node5" href="$dc/df9/standalone_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Standalone\l/standalone.cxx" alt="" coords="424,243,641,313"/>
+<area shape="rect" id="node6" href="$df/d9c/AliHLTGPUDumpComponent_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/AliHLTGPUDumpComponent.cxx" alt="" coords="570,124,805,195"/>
+<area shape="rect" id="node7" href="$d2/d58/GPUChainTracking_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTracking.cxx" alt="" coords="829,124,1015,195"/>
+<area shape="rect" id="node8" href="$dd/dc6/GPUChainTrackingDebugAndProfiling_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTrackingDebugAndProfiling.cxx" alt="" coords="1040,124,1332,195"/>
+<area shape="rect" id="node9" href="$d3/d85/GPUChainTrackingIO_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTrackingIO.cxx" alt="" coords="1357,124,1543,195"/>
+<area shape="rect" id="node10" href="$d0/d48/GPUO2Interface_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Interface\l/GPUO2Interface.cxx" alt="" coords="1567,124,1770,195"/>
+<area shape="rect" id="node11" href="$df/d06/GPUTPCGlobalMergerComponent_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Merger\l/GPUTPCGlobalMergerComponent.cxx" alt="" coords="1795,124,2063,195"/>
+<area shape="rect" id="node12" href="$da/d1f/GPUTPCTrackerComponent_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/SliceTracker\l/GPUTPCTrackerComponent.cxx" alt="" coords="2087,124,2315,195"/>
+<area shape="rect" id="node13" href="$d7/d9f/genEvents_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Standalone\l/qa/genEvents.cxx" alt="" coords="2339,124,2556,195"/>
+<area shape="rect" id="node14" href="$de/ddc/GPUQA_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Standalone\l/qa/GPUQA.cxx" alt="" coords="2580,124,2797,195"/>
+<area shape="rect" id="node15" href="$d9/d33/GPUTRDTracker_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/TRDTracking\l/GPUTRDTracker.cxx" alt="" coords="2821,124,3047,195"/>
+<area shape="rect" id="node16" href="$db/dd1/GPUTRDTrackerComponent_8cxx.html" title="A TRD tracker processing component for the GPU. " alt="" coords="3071,124,3301,195"/>
+<area shape="rect" id="node4" href="$d7/d36/GPUReconstructionTimeframe_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/GPUReconstructionTimeframe.cxx" alt="" coords="151,243,400,313"/>
+</map>

@@ -1,0 +1,73 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/GlobalTrackingWorkflow/src/VertexTrackMatcherSpec.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/GlobalTrackingWorkflow/src/VertexTrackMatcherSpec.cxx">
+<area shape="rect" id="node2" href="$d9/d8e/VertexTrackMatcherSpec_8h.html" title="Specs for vertex track association device. " alt="" coords="3913,124,4111,165"/>
+<area shape="rect" id="node91" href="$de/d28/GRPObject_8h.html" title="Header of the General Run Parameters object. " alt="" coords="7770,467,7950,508"/>
+<area shape="rect" id="node97" href="$d4/d35/DPLAlpideParam_8h.html" title="ITSMFTBase/DPLAlpideParam.h" alt="" coords="7121,385,7343,411"/>
+<area shape="rect" id="node98" href="$d7/d61/NameConf_8h.html" title="Definition of the Names Generator class. " alt="" coords="7375,467,7603,508"/>
+<area shape="rect" id="node3" href="$d7/d99/VertexTrackMatcher_8h.html" title="Class for vertex track association. " alt="" coords="5181,288,5347,329"/>
+<area shape="rect" id="node49" href="$d0/df4/DataProcessorSpec_8h.html" title="Framework/DataProcessorSpec.h" alt="" coords="3499,295,3733,322"/>
+<area shape="rect" id="node87" href="$df/d4f/Task_8h.html" title="Framework/Task.h" alt="" coords="859,213,997,240"/>
+<area shape="rect" id="node5" href="$d7/d82/PrimaryVertex_8h.html" title="ReconstructionDataFormats\l/PrimaryVertex.h" alt="" coords="5591,377,5793,419"/>
+<area shape="rect" id="node6" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="5775,467,6007,508"/>
+<area shape="rect" id="node16" href="$d0/d00/VtxTrackIndex_8h.html" title="Index of track attached to vertx: index in its proper container, container source and flags..." alt="" coords="4871,556,5073,597"/>
+<area shape="rect" id="node20" href="$d7/dac/VtxTrackRef_8h.html" title="Referenc on track indices contributing to the vertex, with possibility chose tracks from specific sou..." alt="" coords="5049,467,5252,508"/>
+<area shape="rect" id="node23" href="$d5/d1e/TrackTPCITS_8h.html" title="Result of refitting TPC&#45;ITS matched track. " alt="" coords="4999,377,5201,419"/>
+<area shape="rect" id="node26" href="$d5/dc9/TrackTPC_8h.html" title="DataFormatsTPC/TrackTPC.h" alt="" coords="4767,385,4974,411"/>
+<area shape="rect" id="node31" href="$d1/d71/TrackITS_8h.html" title="Definition of the ITS track. " alt="" coords="4501,474,4697,501"/>
+<area shape="rect" id="node33" href="$d0/dc6/ITSMFT_2common_2include_2DataFormatsITSMFT_2ROFRecord_8h.html" title="DataFormatsITSMFT/ROFRecord.h" alt="" coords="5327,385,5566,411"/>
+<area shape="rect" id="node34" href="$d4/deb/PVertexerParams_8h.html" title="DetectorsVertexing\l/PVertexerParams.h" alt="" coords="6001,377,6151,419"/>
+<area shape="rect" id="node45" href="$d8/d77/Primitive2D_8h.html" title="Declarations of 2D primitives. " alt="" coords="6769,385,6946,411"/>
+<area shape="rect" id="node13" href="$d3/d6f/DataFormats_2Reconstruction_2include_2ReconstructionDataFormats_2Vertex_8h.html" title="ReconstructionDataFormats\l/Vertex.h" alt="" coords="5428,467,5631,508"/>
+<area shape="rect" id="node7" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="6533,653,6699,679"/>
+<area shape="rect" id="node12" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="6996,563,7249,590"/>
+<area shape="rect" id="node14" href="$df/d5d/common_2include_2CommonDataFormat_2TimeStamp_8h.html" title="CommonDataFormat/TimeStamp.h" alt="" coords="5451,563,5701,590"/>
+<area shape="rect" id="node17" href="$df/d9a/AbstractRef_8h.html" title="Class to refer to object indicating its Indec, Source and status flags. " alt="" coords="5636,645,5852,687"/>
+<area shape="rect" id="node21" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="5097,563,5377,590"/>
+<area shape="rect" id="node24" href="$d7/d8b/DataFormats_2Reconstruction_2include_2ReconstructionDataFormats_2Track_8h.html" title="ReconstructionDataFormats\l/Track.h" alt="" coords="4340,556,4543,597"/>
+<area shape="rect" id="node25" href="$d6/db1/TrackLTIntegral_8h.html" title="Track Length and TOF integral. " alt="" coords="4823,467,5025,508"/>
+<area shape="rect" id="node27" href="$de/dcd/ClusterNative_8h.html" title="Class of a TPC cluster in TPC&#45;native coordinates (row, time) " alt="" coords="3945,474,4181,501"/>
+<area shape="rect" id="node30" href="$d5/da8/dEdxInfo_8h.html" title="DataFormatsTPC/dEdxInfo.h" alt="" coords="6386,474,6590,501"/>
+<area shape="rect" id="node35" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="5977,556,6175,597"/>
+<area shape="rect" id="node41" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="6164,467,6361,508"/>
+<area shape="rect" id="node46" href="$d6/d9b/CircleXY_8h.html" title="MathUtils/detail/CircleXY.h" alt="" coords="6679,563,6871,590"/>
+<area shape="rect" id="node47" href="$da/d66/IntervalXY_8h.html" title="MathUtils/detail/IntervalXY.h" alt="" coords="6615,474,6820,501"/>
+<area shape="rect" id="node48" href="$d4/d5d/Bracket_8h.html" title="Class to represent an interval and some operations over it. " alt="" coords="6946,474,7137,501"/>
+<area shape="rect" id="node50" href="$d0/d14/AlgorithmSpec_8h.html" title="Framework/AlgorithmSpec.h" alt="" coords="615,385,820,411"/>
+<area shape="rect" id="node58" href="$d0/d1c/ConfigParamSpec_8h.html" title="Framework/ConfigParamSpec.h" alt="" coords="4254,474,4477,501"/>
+<area shape="rect" id="node60" href="$d1/df2/DataProcessorLabel_8h.html" title="Framework/DataProcessorLabel.h" alt="" coords="3727,385,3966,411"/>
+<area shape="rect" id="node61" href="$d5/dfb/DataRef_8h.html" title="Framework/DataRef.h" alt="" coords="3990,385,4151,411"/>
+<area shape="rect" id="node62" href="$d1/d28/DataAllocator_8h.html" title="Framework/DataAllocator.h" alt="" coords="2374,385,2573,411"/>
+<area shape="rect" id="node76" href="$db/d2d/OutputSpec_8h.html" title="Framework/OutputSpec.h" alt="" coords="3322,563,3507,590"/>
+<area shape="rect" id="node83" href="$d5/d3f/InputSpec_8h.html" title="Framework/InputSpec.h" alt="" coords="3529,385,3703,411"/>
+<area shape="rect" id="node86" href="$d8/d02/CommonServices_8h.html" title="Framework/CommonServices.h" alt="" coords="4176,385,4400,411"/>
+<area shape="rect" id="node51" href="$de/d6a/ProcessingContext_8h.html" title="Framework/ProcessingContext.h" alt="" coords="602,474,833,501"/>
+<area shape="rect" id="node52" href="$d7/dad/ErrorContext_8h.html" title="Framework/ErrorContext.h" alt="" coords="908,474,1100,501"/>
+<area shape="rect" id="node56" href="$d4/d2b/InitContext_8h.html" title="Framework/InitContext.h" alt="" coords="395,474,578,501"/>
+<area shape="rect" id="node57" href="$de/d9b/FunctionalHelpers_8h.html" title="Framework/FunctionalHelpers.h" alt="" coords="144,474,371,501"/>
+<area shape="rect" id="node53" href="$d8/d17/ServiceRegistry_8h.html" title="Framework/ServiceRegistry.h" alt="" coords="1034,563,1243,590"/>
+<area shape="rect" id="node54" href="$d1/d76/RuntimeError_8h.html" title="Framework/RuntimeError.h" alt="" coords="1641,653,1836,679"/>
+<area shape="rect" id="node59" href="$de/d56/Variant_8h.html" title="Framework/Variant.h" alt="" coords="4058,563,4214,590"/>
+<area shape="rect" id="node63" href="$dc/dc4/MessageContext_8h.html" title="Framework/MessageContext.h" alt="" coords="1897,474,2116,501"/>
+<area shape="rect" id="node64" href="$d8/d71/FairMQDeviceProxy_8h.html" title="Framework/FairMQDeviceProxy.h" alt="" coords="1180,653,1415,679"/>
+<area shape="rect" id="node66" href="$d8/d3c/TMessageSerializer_8h.html" title="Framework/TMessageSerializer.h" alt="" coords="1743,563,1977,590"/>
+<area shape="rect" id="node67" href="$d0/d95/TypeTraits_8h.html" title="Framework/TypeTraits.h" alt="" coords="2255,563,2430,590"/>
+<area shape="rect" id="node68" href="$db/d31/Traits_8h.html" title="Framework/Traits.h" alt="" coords="2381,653,2526,679"/>
+<area shape="rect" id="node69" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="2831,735,3001,761"/>
+<area shape="rect" id="node70" href="$dd/df6/StringContext_8h.html" title="Framework/StringContext.h" alt="" coords="1369,563,1567,590"/>
+<area shape="rect" id="node71" href="$d8/d25/RawBufferContext_8h.html" title=" " alt="" coords="730,563,958,590"/>
+<area shape="rect" id="node72" href="$d3/ddf/Output_8h.html" title="Framework/Output.h" alt="" coords="2505,563,2660,590"/>
+<area shape="rect" id="node74" href="$d6/d5a/OutputRef_8h.html" title="Framework/OutputRef.h" alt="" coords="2826,653,3001,679"/>
+<area shape="rect" id="node75" href="$d6/df4/OutputRoute_8h.html" title="Framework/OutputRoute.h" alt="" coords="2970,474,3161,501"/>
+<area shape="rect" id="node79" href="$d7/d31/DataChunk_8h.html" title="Framework/DataChunk.h" alt="" coords="1277,474,1459,501"/>
+<area shape="rect" id="node80" href="$da/d2b/TimingInfo_8h.html" title="Framework/TimingInfo.h" alt="" coords="2714,474,2894,501"/>
+<area shape="rect" id="node81" href="$d1/d53/SerializationMethods_8h.html" title="Type wrappers for enfording a specific serialization method. " alt="" coords="2190,474,2437,501"/>
+<area shape="rect" id="node82" href="$d1/d00/CheckTypes_8h.html" title="Framework/CheckTypes.h" alt="" coords="1484,474,1671,501"/>
+<area shape="rect" id="node73" href="$dc/dca/Lifetime_8h.html" title="Framework/Lifetime.h" alt="" coords="3077,653,3241,679"/>
+<area shape="rect" id="node77" href="$d0/d1b/ConcreteDataMatcher_8h.html" title="Framework/ConcreteDataMatcher.h" alt="" coords="3316,653,3567,679"/>
+<area shape="rect" id="node84" href="$d3/da3/DataDescriptorMatcher_8h.html" title="Framework/DataDescriptor\lMatcher.h" alt="" coords="3685,556,3881,597"/>
+<area shape="rect" id="node88" href="$d9/d7f/CallbackService_8h.html" title="Framework/CallbackService.h" alt="" coords="1155,295,1370,322"/>
+<area shape="rect" id="node89" href="$d0/d77/EndOfStreamContext_8h.html" title="Framework/EndOfStreamContext.h" alt="" coords="885,295,1131,322"/>
+<area shape="rect" id="node93" href="$da/d58/Units_8h.html" title="Header to collect definitions for different units. " alt="" coords="7897,563,8065,590"/>
+<area shape="rect" id="node94" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="7375,556,7603,597"/>
+<area shape="rect" id="node96" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="7539,653,7669,679"/>
+<area shape="rect" id="node99" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="7628,563,7823,590"/>
+</map>

@@ -1,0 +1,75 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Steer/DigitizerWorkflow/src/SimpleDigitizerWorkflow.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Steer/DigitizerWorkflow/src/SimpleDigitizerWorkflow.cxx">
+<area shape="rect" id="node3" href="$db/dff/RootSerializationSupport_8h.html" title="Framework/RootSerialization\lSupport.h" alt="" coords="229,124,437,165"/>
+<area shape="rect" id="node7" href="$d2/df9/Propagator_8h.html" title="DetectorsBase/Propagator.h" alt="" coords="1104,221,1307,247"/>
+<area shape="rect" id="node16" href="$df/da1/WorkflowSpec_8h.html" title="Framework/WorkflowSpec.h" alt="" coords="4738,221,4939,247"/>
+<area shape="rect" id="node20" href="$d0/d1c/ConfigParamSpec_8h.html" title="Framework/ConfigParamSpec.h" alt="" coords="3369,399,3591,426"/>
+<area shape="rect" id="node29" href="$df/dd6/CompletionPolicy_8h.html" title="Framework/CompletionPolicy.h" alt="" coords="4465,310,4687,337"/>
+<area shape="rect" id="node31" href="$d4/de5/CompletionPolicyHelpers_8h.html" title="Framework/CompletionPolicy\lHelpers.h" alt="" coords="5115,213,5327,255"/>
+<area shape="rect" id="node35" href="$df/de8/DeviceSpec_8h.html" title="Framework/DeviceSpec.h" alt="" coords="5592,131,5779,158"/>
+<area shape="rect" id="node46" href="$db/dc5/RangeTokenizer_8h.html" title="Helper function to tokenize sequences and ranges of integral numbers. " alt="" coords="6650,310,6854,337"/>
+<area shape="rect" id="node48" href="$d1/d8a/SimReaderSpec_8h.html" title="SimReaderSpec.h" alt="" coords="3799,221,3934,247"/>
+<area shape="rect" id="node49" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="666,303,894,344"/>
+<area shape="rect" id="node52" href="$d7/d61/NameConf_8h.html" title="Definition of the Names Generator class. " alt="" coords="801,213,1029,255"/>
+<area shape="rect" id="node54" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="7159,213,7356,255"/>
+<area shape="rect" id="node59" href="$d7/db0/TPCDigitizerSpec_8h.html" title="TPCDigitizerSpec.h" alt="" coords="5270,131,5415,158"/>
+<area shape="rect" id="node60" href="$d0/d34/TPCDigitRootWriterSpec_8h.html" title="TPCDigitRootWriterSpec.h" alt="" coords="1499,221,1688,247"/>
+<area shape="rect" id="node62" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="7442,131,7577,158"/>
+<area shape="rect" id="node66" href="$dc/df2/CDBInterface_8h.html" title="Simple interface to the CDB manager. " alt="" coords="391,221,572,247"/>
+<area shape="rect" id="node67" href="$d9/d79/GEMAmplification_8h.html" title="Definition of the GEM amplification. " alt="" coords="7652,131,7900,158"/>
+<area shape="rect" id="node68" href="$de/d49/ITSMFTDigitizerSpec_8h.html" title="ITSMFTDigitizerSpec.h" alt="" coords="3958,221,4125,247"/>
+<area shape="rect" id="node69" href="$d6/dfd/DigitWriterSpec_8h.html" title="ITSMFTWorkflow/DigitWriter\lSpec.h" alt="" coords="1645,124,1848,165"/>
+<area shape="rect" id="node70" href="$d7/d11/TOFDigitizerSpec_8h.html" title="TOFDigitizerSpec.h" alt="" coords="1873,131,2018,158"/>
+<area shape="rect" id="node71" href="$d1/d0b/TOFDigitWriterSpec_8h.html" title="TOFWorkflowUtils/TOFDigit\lWriterSpec.h" alt="" coords="2043,124,2240,165"/>
+<area shape="rect" id="node72" href="$d1/de1/FT0DigitizerSpec_8h.html" title="FT0DigitizerSpec.h" alt="" coords="2265,131,2407,158"/>
+<area shape="rect" id="node73" href="$d2/d92/Steer_2DigitizerWorkflow_2src_2FT0DigitWriterSpec_8h.html" title="FT0DigitWriterSpec.h" alt="" coords="2431,131,2590,158"/>
+<area shape="rect" id="node74" href="$d2/de4/FV0DigitizerSpec_8h.html" title="FV0DigitizerSpec.h" alt="" coords="2615,131,2759,158"/>
+<area shape="rect" id="node75" href="$d3/d12/FV0DigitWriterSpec_8h.html" title="FV0DigitWriterSpec.h" alt="" coords="2783,131,2942,158"/>
+<area shape="rect" id="node76" href="$db/de3/FDDDigitizerSpec_8h.html" title="FDDDigitizerSpec.h" alt="" coords="2967,131,3113,158"/>
+<area shape="rect" id="node77" href="$d8/dcd/FDDDigitWriterSpec_8h.html" title="FDDDigitWriterSpec.h" alt="" coords="3137,131,3300,158"/>
+<area shape="rect" id="node78" href="$df/d81/EMCALDigitizerSpec_8h.html" title="EMCALDigitizerSpec.h" alt="" coords="1713,221,1877,247"/>
+<area shape="rect" id="node79" href="$df/d33/EMCALDigitWriterSpec_8h.html" title="EMCALDigitWriterSpec.h" alt="" coords="3324,131,3503,158"/>
+<area shape="rect" id="node80" href="$da/dcb/HMPIDDigitizerSpec_8h.html" title="HMPIDDigitizerSpec.h" alt="" coords="3527,131,3689,158"/>
+<area shape="rect" id="node81" href="$d5/d5b/HMPIDDigitWriterSpec_8h.html" title="HMPIDDigitWriterSpec.h" alt="" coords="3713,131,3892,158"/>
+<area shape="rect" id="node82" href="$dc/d52/TRDDigitizerSpec_8h.html" title="TRDWorkflow/TRDDigitizer\lSpec.h" alt="" coords="7924,124,8119,165"/>
+<area shape="rect" id="node83" href="$da/d27/TRDDigitWriterSpec_8h.html" title="TRDWorkflow/TRDDigitWriter\lSpec.h" alt="" coords="8143,124,8353,165"/>
+<area shape="rect" id="node84" href="$dc/d96/TRDTrapSimulatorSpec_8h.html" title="TRDWorkflow/TRDTrapSimulator\lSpec.h" alt="" coords="2447,213,2678,255"/>
+<area shape="rect" id="node85" href="$d8/dff/TRDTrackletWriterSpec_8h.html" title="TRDWorkflow/TRDTrackletWriter\lSpec.h" alt="" coords="6903,213,7134,255"/>
+<area shape="rect" id="node86" href="$da/d51/MCHDigitizerSpec_8h.html" title="MCHDigitizerSpec.h" alt="" coords="3917,131,4067,158"/>
+<area shape="rect" id="node87" href="$d8/d60/MCHDigitWriterSpec_8h.html" title="MCHDigitWriterSpec.h" alt="" coords="4092,131,4257,158"/>
+<area shape="rect" id="node88" href="$d5/d91/MIDDigitizerSpec_8h.html" title="MIDDigitizerSpec.h" alt="" coords="4282,131,4427,158"/>
+<area shape="rect" id="node89" href="$d9/d65/MIDDigitWriterSpec_8h.html" title="MIDDigitWriterSpec.h" alt="" coords="2703,221,2863,247"/>
+<area shape="rect" id="node90" href="$dd/d48/PHOSDigitizerSpec_8h.html" title="PHOSDigitizerSpec.h" alt="" coords="1901,221,2057,247"/>
+<area shape="rect" id="node91" href="$d4/d33/PHOSDigitWriterSpec_8h.html" title="PHOSDigitWriterSpec.h" alt="" coords="2081,221,2252,247"/>
+<area shape="rect" id="node92" href="$d1/d37/CPVDigitizerSpec_8h.html" title="CPVDigitizerSpec.h" alt="" coords="2276,221,2423,247"/>
+<area shape="rect" id="node93" href="$d1/dc0/CPVDigitWriterSpec_8h.html" title="CPVDigitWriterSpec.h" alt="" coords="4149,221,4310,247"/>
+<area shape="rect" id="node94" href="$d8/dd9/ZDCDigitizerSpec_8h.html" title="ZDCDigitizerSpec.h" alt="" coords="4451,131,4599,158"/>
+<area shape="rect" id="node95" href="$d9/d31/ZDCDigitWriterSpec_8h.html" title="ZDCDigitWriterSpec.h" alt="" coords="4624,131,4787,158"/>
+<area shape="rect" id="node96" href="$de/d28/GRPObject_8h.html" title="Header of the General Run Parameters object. " alt="" coords="597,213,777,255"/>
+<area shape="rect" id="node97" href="$da/dcd/GRPUpdaterSpec_8h.html" title="GRPUpdaterSpec.h" alt="" coords="1331,221,1475,247"/>
+<area shape="rect" id="node100" href="$db/dd0/runDataProcessing_8h.html" title="Framework/runDataProcessing.h" alt="" coords="5013,131,5245,158"/>
+<area shape="rect" id="node4" href="$d8/d3c/TMessageSerializer_8h.html" title="Framework/TMessageSerializer.h" alt="" coords="172,399,407,426"/>
+<area shape="rect" id="node9" href="$d3/d9d/PhysicsConstants_8h.html" title="Header to collect physics constants. " alt="" coords="1189,310,1465,337"/>
+<area shape="rect" id="node10" href="$d7/d8b/DataFormats_2Reconstruction_2include_2ReconstructionDataFormats_2Track_8h.html" title="ReconstructionDataFormats\l/Track.h" alt="" coords="1489,392,1692,433"/>
+<area shape="rect" id="node11" href="$d7/d99/DCA_8h.html" title="ReconstructionDataFormats\l/DCA.h" alt="" coords="1993,303,2196,344"/>
+<area shape="rect" id="node13" href="$d6/db1/TrackLTIntegral_8h.html" title="Track Length and TOF integral. " alt="" coords="1489,303,1692,344"/>
+<area shape="rect" id="node15" href="$d9/da9/MatLayerCylSet_8h.html" title="Declarations for the wrapper for the set of cylindrical material layers. " alt="" coords="1716,303,1919,344"/>
+<area shape="rect" id="node17" href="$d0/df4/DataProcessorSpec_8h.html" title="Framework/DataProcessorSpec.h" alt="" coords="3289,310,3524,337"/>
+<area shape="rect" id="node18" href="$d0/d14/AlgorithmSpec_8h.html" title="Framework/AlgorithmSpec.h" alt="" coords="5064,399,5269,426"/>
+<area shape="rect" id="node27" href="$d5/dfb/DataRef_8h.html" title="Framework/DataRef.h" alt="" coords="4382,481,4543,508"/>
+<area shape="rect" id="node21" href="$de/d56/Variant_8h.html" title="Framework/Variant.h" alt="" coords="1989,481,2145,508"/>
+<area shape="rect" id="node30" href="$da/d0f/InputSpan_8h.html" title="Framework/InputSpan.h" alt="" coords="4433,399,4607,426"/>
+<area shape="rect" id="node32" href="$d6/d72/ChannelSpec_8h.html" title="Framework/ChannelSpec.h" alt="" coords="5679,310,5873,337"/>
+<area shape="rect" id="node33" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="1797,399,1966,426"/>
+<area shape="rect" id="node36" href="$d8/d62/ComputingResource_8h.html" title="Framework/ComputingResource.h" alt="" coords="6196,481,6436,508"/>
+<area shape="rect" id="node37" href="$dd/de5/ChannelInfo_8h.html" title="Framework/ChannelInfo.h" alt="" coords="5649,481,5837,508"/>
+<area shape="rect" id="node38" href="$d2/d2c/DeviceControl_8h.html" title="Framework/DeviceControl.h" alt="" coords="6473,221,6676,247"/>
+<area shape="rect" id="node40" href="$d7/d12/ForwardRoute_8h.html" title="Framework/ForwardRoute.h" alt="" coords="5934,221,6133,247"/>
+<area shape="rect" id="node41" href="$d5/d19/InputRoute_8h.html" title="Framework/InputRoute.h" alt="" coords="5730,221,5910,247"/>
+<area shape="rect" id="node42" href="$d6/df4/OutputRoute_8h.html" title="Framework/OutputRoute.h" alt="" coords="6157,221,6347,247"/>
+<area shape="rect" id="node43" href="$da/de6/DispatchPolicy_8h.html" title="Framework/DispatchPolicy.h" alt="" coords="4785,399,4989,426"/>
+<area shape="rect" id="node44" href="$d4/d61/ServiceSpec_8h.html" title="Framework/ServiceSpec.h" alt="" coords="5445,399,5635,426"/>
+<area shape="rect" id="node51" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="716,399,847,426"/>
+<area shape="rect" id="node53" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="969,310,1164,337"/>
+<area shape="rect" id="node63" href="$d0/dda/DataFormats_2Detectors_2TPC_2include_2DataFormatsTPC_2Constants_8h.html" title="DataFormatsTPC/Constants.h" alt="" coords="7633,221,7845,247"/>
+<area shape="rect" id="node64" href="$d1/d73/Defs_8h.html" title="DataFormatsTPC/Defs.h" alt="" coords="7431,221,7609,247"/>
+</map>

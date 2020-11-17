@@ -1,0 +1,18 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/src/ServiceRegistry.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/src/ServiceRegistry.cxx">
+<area shape="rect" id="node2" href="$d8/d17/ServiceRegistry_8h.html" title="Framework/ServiceRegistry.h" alt="" coords="2234,109,2443,136"/>
+<area shape="rect" id="node35" href="$d2/d16/Tracing_8h.html" title="Framework/Tracing.h" alt="" coords="2650,109,2806,136"/>
+<area shape="rect" id="node36" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2830,109,2983,136"/>
+<area shape="rect" id="node3" href="$d3/d28/ServiceHandle_8h.html" title="Framework/ServiceHandle.h" alt="" coords="145,281,349,307"/>
+<area shape="rect" id="node5" href="$d4/d61/ServiceSpec_8h.html" title="Framework/ServiceSpec.h" alt="" coords="565,191,755,218"/>
+<area shape="rect" id="node7" href="$d1/d76/RuntimeError_8h.html" title="Framework/RuntimeError.h" alt="" coords="448,370,643,397"/>
+<area shape="rect" id="node24" href="$d0/d6d/ServiceRegistryHelpers_8h.html" title="Framework/ServiceRegistry\lHelpers.h" alt="" coords="2171,184,2370,225"/>
+<area shape="rect" id="node25" href="$d2/d9a/TypeIdHelpers_8h.html" title="Framework/TypeIdHelpers.h" alt="" coords="2171,281,2373,307"/>
+<area shape="rect" id="node32" href="$d9/de8/CompilerBuiltins_8h.html" title="Framework/CompilerBuiltins.h" alt="" coords="2545,191,2764,218"/>
+<area shape="rect" id="node6" href="$dc/df0/DeviceMetricsInfo_8h.html" title="Framework/DeviceMetricsInfo.h" alt="" coords="809,281,1036,307"/>
+<area shape="rect" id="node14" href="$d7/d58/DeviceInfo_8h.html" title="Framework/DeviceInfo.h" alt="" coords="1437,281,1617,307"/>
+<area shape="rect" id="node15" href="$d8/d4a/LogParsingHelpers_8h.html" title="Framework/LogParsingHelpers.h" alt="" coords="1961,370,2191,397"/>
+<area shape="rect" id="node16" href="$d0/d2c/Metric2DViewIndex_8h.html" title="Framework/Metric2DViewIndex.h" alt="" coords="1061,370,1297,397"/>
+<area shape="rect" id="node17" href="$d9/de0/DeviceState_8h.html" title="Framework/DeviceState.h" alt="" coords="1747,370,1936,397"/>
+<area shape="rect" id="node18" href="$dd/de5/ChannelInfo_8h.html" title="Framework/ChannelInfo.h" alt="" coords="1603,452,1791,479"/>
+<area shape="rect" id="node26" href="$db/dff/StringHelpers_8h.html" title="Framework/StringHelpers.h" alt="" coords="2447,370,2646,397"/>
+</map>

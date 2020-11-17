@@ -1,0 +1,24 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/test/test_Kernels.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/test/test_Kernels.cxx">
+<area shape="rect" id="node2" href="$d0/d92/Kernels_8h.html" title="Framework/Kernels.h" alt="" coords="3139,124,3298,151"/>
+<area shape="rect" id="node4" href="$d5/d98/TableBuilder_8h.html" title="Framework/TableBuilder.h" alt="" coords="2341,199,2531,225"/>
+<area shape="rect" id="node6" href="$dd/dce/Pack_8h.html" title="Framework/Pack.h" alt="" coords="205,423,345,449"/>
+<area shape="rect" id="node3" href="$dd/dc2/BasicOps_8h.html" title="Framework/BasicOps.h" alt="" coords="3472,423,3643,449"/>
+<area shape="rect" id="node5" href="$de/d33/ASoA_8h.html" title="Framework/ASoA.h" alt="" coords="1855,273,1999,300"/>
+<area shape="rect" id="node11" href="$de/d9b/FunctionalHelpers_8h.html" title="Framework/FunctionalHelpers.h" alt="" coords="220,348,447,375"/>
+<area shape="rect" id="node20" href="$d1/d76/RuntimeError_8h.html" title="Framework/RuntimeError.h" alt="" coords="408,840,603,867"/>
+<area shape="rect" id="node55" href="$db/d4f/StructToTuple_8h.html" title="Framework/StructToTuple.h" alt="" coords="3257,273,3453,300"/>
+<area shape="rect" id="node57" href="$d7/dbe/VariantHelpers_8h.html" title="Framework/VariantHelpers.h" alt="" coords="2873,273,3079,300"/>
+<area shape="rect" id="node10" href="$d1/d00/CheckTypes_8h.html" title="Framework/CheckTypes.h" alt="" coords="2487,423,2673,449"/>
+<area shape="rect" id="node13" href="$d9/de8/CompilerBuiltins_8h.html" title="Framework/CompilerBuiltins.h" alt="" coords="3077,423,3296,449"/>
+<area shape="rect" id="node14" href="$db/d31/Traits_8h.html" title="Framework/Traits.h" alt="" coords="3251,348,3397,375"/>
+<area shape="rect" id="node16" href="$d0/d91/Expressions_8h.html" title="Framework/Expressions.h" alt="" coords="1750,348,1938,375"/>
+<area shape="rect" id="node50" href="$d4/de7/ArrowTypes_8h.html" title="Framework/ArrowTypes.h" alt="" coords="2406,348,2591,375"/>
+<area shape="rect" id="node17" href="$d9/dff/Configurable_8h.html" title="Framework/Configurable.h" alt="" coords="1881,765,2073,792"/>
+<area shape="rect" id="node19" href="$de/d56/Variant_8h.html" title="Framework/Variant.h" alt="" coords="807,765,963,792"/>
+<area shape="rect" id="node28" href="$d4/d2b/InitContext_8h.html" title="Framework/InitContext.h" alt="" coords="1933,423,2115,449"/>
+<area shape="rect" id="node29" href="$de/dc6/ConfigParamRegistry_8h.html" title="Framework/ConfigParamRegistry.h" alt="" coords="1564,423,1807,449"/>
+<area shape="rect" id="node37" href="$da/d88/RootConfigParamHelpers_8h.html" title="Framework/RootConfigParam\lHelpers.h" alt="" coords="1059,587,1269,628"/>
+<area shape="rect" id="node30" href="$df/d72/ParamRetriever_8h.html" title="Framework/ParamRetriever.h" alt="" coords="1459,594,1669,621"/>
+<area shape="rect" id="node33" href="$dd/daf/ConfigParamStore_8h.html" title="Framework/ConfigParamStore.h" alt="" coords="1303,505,1529,531"/>
+<area shape="rect" id="node31" href="$d0/d1c/ConfigParamSpec_8h.html" title="Framework/ConfigParamSpec.h" alt="" coords="1203,683,1426,710"/>
+</map>

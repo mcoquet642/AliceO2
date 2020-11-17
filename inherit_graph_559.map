@@ -1,0 +1,19 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$de/de1/classo2_1_1base_1_1BaseDPLDigitizer.html" title="o2::base::BaseDPLDigitizer" alt="" coords="5,335,203,361"/>
+<area shape="rect" id="node2" href="$d2/d9d/classo2_1_1cpv_1_1DigitizerSpec.html" title="Task for CPV digitization in the data processing layer. " alt="" coords="293,5,456,32"/>
+<area shape="rect" id="node3" href="$df/d27/classo2_1_1emcal_1_1DigitizerSpec.html" title="Create new digitizer spec. " alt="" coords="285,56,465,83"/>
+<area shape="rect" id="node4" href="$db/d20/classo2_1_1fdd_1_1FDDDPLDigitizerTask.html" title="o2::fdd::FDDDPLDigitizerTask" alt="" coords="269,107,480,133"/>
+<area shape="rect" id="node5" href="$d8/d99/classo2_1_1ft0_1_1FT0DPLDigitizerTask.html" title="o2::ft0::FT0DPLDigitizerTask" alt="" coords="273,157,477,184"/>
+<area shape="rect" id="node6" href="$d1/d36/classo2_1_1fv0_1_1FV0DPLDigitizerTask.html" title="o2::fv0::FV0DPLDigitizerTask" alt="" coords="271,208,479,235"/>
+<area shape="rect" id="node7" href="$db/d9c/classo2_1_1hmpid_1_1HMPIDDPLDigitizerTask.html" title="o2::hmpid::HMPIDDPLDigitizerTask" alt="" coords="251,259,498,285"/>
+<area shape="rect" id="node8" href="$dd/d3a/classo2_1_1itsmft_1_1ITSMFTDPLDigitizerTask.html" title="o2::itsmft::ITSMFTDPLDigitizerTask" alt="" coords="251,309,499,336"/>
+<area shape="rect" id="node11" href="$d9/d0d/classo2_1_1mch_1_1MCHDPLDigitizerTask.html" title="o2::mch::MCHDPLDigitizerTask" alt="" coords="264,360,485,387"/>
+<area shape="rect" id="node12" href="$d1/d9e/classo2_1_1mid_1_1MIDDPLDigitizerTask.html" title="o2::mid::MIDDPLDigitizerTask" alt="" coords="268,411,481,437"/>
+<area shape="rect" id="node13" href="$d7/de6/classo2_1_1phos_1_1DigitizerSpec.html" title="Task for PHOS digitization in the data processing layer. " alt="" coords="289,461,460,488"/>
+<area shape="rect" id="node14" href="$d0/d34/classo2_1_1tof_1_1TOFDPLDigitizerTask.html" title="o2::tof::TOFDPLDigitizerTask" alt="" coords="271,512,478,539"/>
+<area shape="rect" id="node15" href="$dc/d44/classo2_1_1tpc_1_1TPCDPLDigitizerTask.html" title="o2::tpc::TPCDPLDigitizerTask" alt="" coords="271,563,479,589"/>
+<area shape="rect" id="node16" href="$d0/dab/classo2_1_1trd_1_1TRDDPLDigitizerTask.html" title="o2::trd::TRDDPLDigitizerTask" alt="" coords="271,613,479,640"/>
+<area shape="rect" id="node17" href="$df/d4d/classo2_1_1zdc_1_1ZDCDPLDigitizerTask.html" title="o2::zdc::ZDCDPLDigitizerTask" alt="" coords="268,664,481,691"/>
+<area shape="rect" id="node9" href="$da/d25/classo2_1_1itsmft_1_1ITSDPLDigitizerTask.html" title="o2::itsmft::ITSDPLDigitizerTask" alt="" coords="549,284,772,311"/>
+<area shape="rect" id="node10" href="$d2/dc2/classo2_1_1itsmft_1_1MFTDPLDigitizerTask.html" title="o2::itsmft::MFTDPLDigitizerTask" alt="" coords="547,335,775,361"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/Raw/include/DetectorsRaw/RawFileReader.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/Raw/include/DetectorsRaw/RawFileReader.h">
+<area shape="rect" id="node2" href="$d0/d27/rawReaderFile_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/EMCAL/reconstruction\l/run/rawReaderFile.cxx" alt="" coords="5,124,240,195"/>
+<area shape="rect" id="node3" href="$d5/d52/bench__Raw_8cxx.html" title="Benchmark MID raw data decoder. " alt="" coords="264,124,459,195"/>
+<area shape="rect" id="node4" href="$d8/d4c/testRaw_8cxx.html" title="Test MID raw data decoder. " alt="" coords="483,124,677,195"/>
+<area shape="rect" id="node5" href="$d6/dad/SimpleRawReader_8h.html" title="Definition of the simple reader for non&#45;DPL tests. " alt="" coords="701,124,952,195"/>
+<area shape="rect" id="node8" href="$d0/d99/rawfile-reader-workflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/src/rawfile\l&#45;reader&#45;workflow.cxx" alt="" coords="976,124,1168,195"/>
+<area shape="rect" id="node9" href="$d0/d6f/rawfileCheck_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/src/rawfileCheck.cxx" alt="" coords="1192,131,1451,187"/>
+<area shape="rect" id="node10" href="$db/de5/Raw_2src_2RawFileReader_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/src/RawFileReader.cxx" alt="" coords="1475,131,1744,187"/>
+<area shape="rect" id="node11" href="$d3/d87/RawFileReaderWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/src/RawFileReader\lWorkflow.cxx" alt="" coords="1768,124,2011,195"/>
+<area shape="rect" id="node6" href="$d5/dfd/SimpleRawReader_8cxx.html" title="Simple reader for non&#45;DPL tests. " alt="" coords="585,243,807,313"/>
+<area shape="rect" id="node7" href="$d3/d09/testRawReaderWriter_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/test/testRawReader\lWriter.cxx" alt="" coords="831,243,1083,313"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/base/include/MFTBase/LadderSegmentation.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/base/include/MFTBase/LadderSegmentation.h">
+<area shape="rect" id="node2" href="$dc/d53/HalfDiskSegmentation_8h.html" title="Class for the description of the structure of a half&#45;disk. " alt="" coords="509,124,740,209"/>
+<area shape="rect" id="node3" href="$de/d37/ITSMFT_2MFT_2base_2src_2Geometry_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/MFT\l/base/src/Geometry.cxx" alt="" coords="5,257,180,328"/>
+<area shape="rect" id="node8" href="$d7/d41/ITSMFT_2MFT_2base_2src_2Segmentation_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/MFT\l/base/src/Segmentation.cxx" alt="" coords="1151,257,1354,328"/>
+<area shape="rect" id="node9" href="$d7/d93/Flex_8cxx.html" title="Flex class for ALICE MFT upgrade. " alt="" coords="816,131,985,202"/>
+<area shape="rect" id="node10" href="$dc/d80/Ladder_8cxx.html" title="Ladder builder. " alt="" coords="1009,131,1179,202"/>
+<area shape="rect" id="node11" href="$d6/dc0/LadderSegmentation_8cxx.html" title="Description of the virtual segmentation of a ladder. " alt="" coords="1203,131,1449,202"/>
+<area shape="rect" id="node4" href="$d3/d36/HalfDetector_8cxx.html" title="Class Building the geometry of one half of the ALICE Muon Forward Tracker. " alt="" coords="204,257,397,328"/>
+<area shape="rect" id="node5" href="$d6/d66/HalfDisk_8cxx.html" title="Class describing geometry of one half of a MFT disk. " alt="" coords="421,257,591,328"/>
+<area shape="rect" id="node6" href="$d1/d8f/HalfDiskSegmentation_8cxx.html" title="Class for the description of the structure of a half&#45;disk. " alt="" coords="615,257,874,328"/>
+<area shape="rect" id="node7" href="$d1/d7f/HalfSegmentation_8cxx.html" title="Segmentation class for each half of the ALICE Muon Forward Tracker. " alt="" coords="898,257,1127,328"/>
+</map>

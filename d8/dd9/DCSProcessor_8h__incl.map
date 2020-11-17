@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/DCS/include/DetectorsDCS/DCSProcessor.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/DCS/include/DetectorsDCS/DCSProcessor.h">
+<area shape="rect" id="node7" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2035,288,2188,315"/>
+<area shape="rect" id="node9" href="$d0/dee/DataPointCompositeObject_8h.html" title="DetectorsDCS/DataPointComposite\lObject.h" alt="" coords="431,124,682,165"/>
+<area shape="rect" id="node17" href="$d1/d2d/DataPointIdentifier_8h.html" title="DetectorsDCS/DataPointIdentifier.h" alt="" coords="763,213,1012,240"/>
+<area shape="rect" id="node23" href="$d5/d79/DeliveryType_8h.html" title="DetectorsDCS/DeliveryType.h" alt="" coords="21,288,234,315"/>
+<area shape="rect" id="node25" href="$d6/d8e/DataPointValue_8h.html" title="DetectorsDCS/DataPointValue.h" alt="" coords="1043,213,1271,240"/>
+<area shape="rect" id="node31" href="$d4/dab/CcdbObjectInfo_8h.html" title="CCDB/CcdbObjectInfo.h" alt="" coords="2024,213,2199,240"/>
+<area shape="rect" id="node32" href="$da/db7/MemFileHelper_8h.html" title="CommonUtils/MemFileHelper.h" alt="" coords="1503,131,1725,158"/>
+<area shape="rect" id="node37" href="$dd/d3e/CcdbApi_8h.html" title="CCDB/CcdbApi.h" alt="" coords="2305,131,2433,158"/>
+<area shape="rect" id="node14" href="$dd/de9/Detectors_2DCS_2include_2DetectorsDCS_2StringUtils_8h.html" title="DetectorsDCS/StringUtils.h" alt="" coords="621,288,817,315"/>
+<area shape="rect" id="node22" href="$d6/de3/GenericFunctions_8h.html" title="DetectorsDCS/GenericFunctions.h" alt="" coords="203,363,441,389"/>
+<area shape="rect" id="node29" href="$d2/d52/Clock_8h.html" title="DetectorsDCS/Clock.h" alt="" coords="1429,288,1593,315"/>
+<area shape="rect" id="node36" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="1602,213,1797,240"/>
+</map>

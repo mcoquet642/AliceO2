@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/include/TRDSimulation/Digitizer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/include/TRDSimulation/Digitizer.h">
+<area shape="rect" id="node2" href="$d7/d42/TrapSimulator_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/include/TRDSimulation/TrapSimulator.h" alt="" coords="277,124,555,195"/>
+<area shape="rect" id="node4" href="$da/deb/TrapSimulator_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapSimulator.cxx" alt="" coords="34,250,227,321"/>
+<area shape="rect" id="node6" href="$dd/de7/TRDTrapSimulatorSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorSpec.cxx" alt="" coords="288,376,512,447"/>
+<area shape="rect" id="node9" href="$d7/da6/TRDDigitReaderSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDDigitReaderSpec.cxx" alt="" coords="831,250,1041,321"/>
+<area shape="rect" id="node10" href="$d7/d40/TRD_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/Digitizer.cxx" alt="" coords="631,124,825,195"/>
+<area shape="rect" id="node11" href="$d6/df2/TRDDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDDigitizerSpec.cxx" alt="" coords="849,124,1039,195"/>
+<area shape="rect" id="node3" href="$db/dc3/TrapConfigHandler_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapConfigHandler.cxx" alt="" coords="252,250,447,321"/>
+<area shape="rect" id="node5" href="$dc/d96/TRDTrapSimulatorSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/include/TRDWorkflow/TRDTrapSimulator\lSpec.h" alt="" coords="521,243,807,328"/>
+<area shape="rect" id="node7" href="$d2/dc0/TRDTrapSimulatorWorkFlow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorWorkFlow.cxx" alt="" coords="537,376,791,447"/>
+<area shape="rect" id="node8" href="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx" alt="" coords="816,376,1051,447"/>
+</map>

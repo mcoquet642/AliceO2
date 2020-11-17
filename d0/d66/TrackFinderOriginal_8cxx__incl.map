@@ -1,0 +1,22 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Tracking/src/TrackFinderOriginal.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Tracking/src/TrackFinderOriginal.cxx">
+<area shape="rect" id="node2" href="$d7/d7f/TrackFinderOriginal_8h.html" title="Definition of a class to reconstruct tracks with the original algorithm. " alt="" coords="227,124,474,151"/>
+<area shape="rect" id="node18" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="873,124,1031,151"/>
+<area shape="rect" id="node47" href="$d8/d9c/TrackExtrap_8h.html" title="Definition of tools for track extrapolation. " alt="" coords="4001,124,4199,151"/>
+<area shape="rect" id="node4" href="$d3/d5c/Detectors_2MUON_2MCH_2Tracking_2include_2MCHTracking_2Cluster_8h.html" title="MCHTracking/Cluster.h" alt="" coords="502,355,669,382"/>
+<area shape="rect" id="node8" href="$df/d7a/Detectors_2MUON_2MCH_2Tracking_2include_2MCHTracking_2Track_8h.html" title="MCHTracking/Track.h" alt="" coords="179,273,335,300"/>
+<area shape="rect" id="node14" href="$d2/d6f/MUON_2MCH_2Tracking_2include_2MCHTracking_2TrackFitter_8h.html" title="MCHTracking/TrackFitter.h" alt="" coords="257,199,445,225"/>
+<area shape="rect" id="node7" href="$d3/db8/ClusterBlock_8h.html" title="Definition of the MCH cluster minimal structure. " alt="" coords="419,437,602,464"/>
+<area shape="rect" id="node11" href="$de/d4b/TrackParam_8h.html" title="Definition of the MCH track parameters for internal use. " alt="" coords="280,355,477,382"/>
+<area shape="rect" id="node13" href="$d6/d45/TrackBlock_8h.html" title="Definition of the MCH track parameters minimal structure. " alt="" coords="224,437,395,464"/>
+<area shape="rect" id="node20" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="747,199,914,225"/>
+<area shape="rect" id="node23" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="1126,199,1378,225"/>
+<area shape="rect" id="node30" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="1631,199,1782,225"/>
+<area shape="rect" id="node26" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="1157,273,1347,300"/>
+<area shape="rect" id="node28" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="1000,355,1219,382"/>
+<area shape="rect" id="node31" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1569,355,1735,382"/>
+<area shape="rect" id="node32" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2805,273,2968,300"/>
+<area shape="rect" id="node33" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="3805,437,3947,464"/>
+<area shape="rect" id="node45" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="3764,355,3951,382"/>
+<area shape="rect" id="node34" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="3675,512,3872,539"/>
+<area shape="rect" id="node35" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="3896,512,4061,539"/>
+</map>

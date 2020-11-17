@@ -1,0 +1,5 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/workflow/test/test_TPCWorkflow.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/workflow/test/test_TPCWorkflow.cxx">
+<area shape="rect" id="node6" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="475,124,645,165"/>
+<area shape="rect" id="node9" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="669,124,838,165"/>
+<area shape="rect" id="node7" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="283,213,450,240"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/workflow/include/TPCWorkflow" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/workflow/include/TPCWorkflow">
+<area shape="rect" id="node1" href="dir_24b8bac55cb140e3af9e30ab593ab26a.html" title="TPCWorkflow" alt="" coords="45,52,151,100"/>
+<area shape="rect" id="node2" href="dir_677b030cc750909e4cd27413873678d8.html" title="base" alt="" coords="21,244,93,292"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000426_000060.html" title="1" alt="" coords="66,220,75,235"/>
+<area shape="rect" id="node3" href="dir_a5de047958dd458e809773c6ffaa8478.html" title="reconstruction" alt="" coords="89,148,203,196"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000426_000405.html" title="2" alt="" coords="129,120,138,135"/>
+<area shape="rect" id="node4" href="dir_bcbb2cf9a3d3d83e5515c82071a07177.html" title="Framework" alt="" coords="65,340,160,388"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000426_000063.html" title="21" alt="" coords="150,326,167,340"/>
+<area shape="rect" id="node5" href="dir_2171f7ec022c5423887b07c69b2f5b48.html" title="DataFormats" alt="" coords="59,436,166,484"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000426_000090.html" title="6" alt="" coords="71,410,80,425"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000060_000063.html" title="3" alt="" coords="92,312,101,327"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000060_000090.html" title="21" alt="" coords="70,409,88,424"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000405_000060.html" title="38" alt="" coords="89,229,107,243"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000405_000063.html" title="2" alt="" coords="124,316,133,331"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000405_000090.html" title="48" alt="" coords="150,420,167,435"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000063_000090.html" title="73" alt="" coords="103,409,121,424"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000090_000063.html" title="22" alt="" coords="105,400,122,414"/>
+<area shape="rect" id="clust1" href="dir_1ccc0e6feb2a9e42d8edde27429c6d63.html" title="include" alt="" coords="34,16,162,111"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/reconstruction/include/ITSMFTReconstruction/RawPixelDecoder.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/reconstruction/include/ITSMFTReconstruction/RawPixelDecoder.h">
+<area shape="rect" id="node2" href="$dd/df6/RawPixelDecoder_8cxx.html" title="Alpide pixel reader for raw data processing. " alt="" coords="5,146,292,217"/>
+<area shape="rect" id="node3" href="$d0/d26/STFDecoderSpec_8h.html" title="Device to decode ITS/MFT raw data from STF. " alt="" coords="316,139,563,224"/>
+<area shape="rect" id="node5" href="$d6/d14/STFDecoderSpec_8cxx.html" title="Device to decode ITS or MFT raw data from STF. " alt="" coords="476,279,723,350"/>
+<area shape="rect" id="node4" href="$dd/d1f/stf-decoder-workflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/ITSMFT/common\l/workflow/src/stf&#45;decoder\l&#45;workflow.cxx" alt="" coords="253,272,453,357"/>
+</map>

@@ -1,0 +1,28 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/EMCAL/include/DataFormatsEMCAL/CTF.h" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/EMCAL/include/DataFormatsEMCAL/CTF.h">
+<area shape="rect" id="node4" href="$da/d91/EncodedBlocks_8h.html" title="DetectorsCommonDataFormats\l/EncodedBlocks.h" alt="" coords="1955,124,2183,165"/>
+<area shape="rect" id="node42" href="$d9/d38/EMCAL_2include_2DataFormatsEMCAL_2TriggerRecord_8h.html" title="DataFormatsEMCAL/Trigger\lRecord.h" alt="" coords="3241,124,3439,165"/>
+<area shape="rect" id="node48" href="$d5/dd3/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Cell_8h.html" title="DataFormatsEMCAL/Cell.h" alt="" coords="3691,131,3882,158"/>
+<area shape="rect" id="node6" href="$d4/de7/rans_8h.html" title="header for public api " alt="" coords="1840,221,1939,247"/>
+<area shape="rect" id="node39" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="2461,221,2656,247"/>
+<area shape="rect" id="node41" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="2078,616,2231,643"/>
+<area shape="rect" id="node7" href="$dd/d65/FrequencyTable_8h.html" title="Histogram to depict frequencies of source symbols for rANS compression. " alt="" coords="1259,616,1394,643"/>
+<area shape="rect" id="node15" href="$d4/da1/helper_8h.html" title="various helper functions " alt="" coords="2519,691,2647,717"/>
+<area shape="rect" id="node18" href="$dd/d74/Utilities_2rANS_2include_2rANS_2Encoder_8h.html" title="Encoder.h" alt="" coords="2392,377,2477,404"/>
+<area shape="rect" id="node29" href="$dc/d62/Utilities_2rANS_2include_2rANS_2Decoder_8h.html" title="Decoder.h" alt="" coords="1221,377,1307,404"/>
+<area shape="rect" id="node32" href="$d5/ddf/DedupEncoder_8h.html" title="DedupEncoder.h" alt="" coords="2658,303,2785,329"/>
+<area shape="rect" id="node35" href="$da/da6/DedupDecoder_8h.html" title="DedupDecoder.h" alt="" coords="1295,303,1425,329"/>
+<area shape="rect" id="node36" href="$d9/de1/LiteralEncoder_8h.html" title="LiteralEncoder.h" alt="" coords="2294,303,2421,329"/>
+<area shape="rect" id="node37" href="$df/dfe/LiteralDecoder_8h.html" title="LiteralDecoder.h" alt="" coords="1449,303,1577,329"/>
+<area shape="rect" id="node19" href="$de/d8e/Utilities_2rANS_2include_2rANS_2internal_2Encoder_8h.html" title="internal/Encoder.h" alt="" coords="2259,459,2397,486"/>
+<area shape="rect" id="node23" href="$d2/d53/EncoderSymbol_8h.html" title="Structure containing all relevant information to encode a symbol. " alt="" coords="2445,541,2579,568"/>
+<area shape="rect" id="node27" href="$d8/dd9/SymbolTable_8h.html" title="Container for information needed to encode/decode a symbol of the alphabet. " alt="" coords="1493,459,1664,486"/>
+<area shape="rect" id="node22" href="$d7/d99/DecoderSymbol_8h.html" title="Structure containing all relevant information for decoding a rANS encoded symbol. ..." alt="" coords="1899,541,2037,568"/>
+<area shape="rect" id="node28" href="$d0/d51/SymbolStatistics_8h.html" title="Structure to depict the distribution of symbols in the source message. " alt="" coords="1073,541,1215,568"/>
+<area shape="rect" id="node30" href="$d6/dfb/Utilities_2rANS_2include_2rANS_2internal_2Decoder_8h.html" title="internal/Decoder.h" alt="" coords="1739,459,1880,486"/>
+<area shape="rect" id="node31" href="$dc/d3b/ReverseSymbolLookupTable_8h.html" title="Maps CDF back to source symbol &#45; needed for the decoder. " alt="" coords="941,452,1165,493"/>
+<area shape="rect" id="node44" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="3364,213,3596,255"/>
+<area shape="rect" id="node47" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="3060,221,3340,247"/>
+<area shape="rect" id="node45" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="3090,303,3257,329"/>
+<area shape="rect" id="node46" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="3332,303,3585,329"/>
+<area shape="rect" id="node50" href="$dd/dda/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Constants_8h.html" title="DataFormatsEMCAL/Constants.h" alt="" coords="3671,221,3902,247"/>
+</map>

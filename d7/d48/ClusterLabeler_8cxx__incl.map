@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/src/ClusterLabeler.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/src/ClusterLabeler.cxx">
+<area shape="rect" id="node2" href="$d2/d6b/ClusterLabeler_8h.html" title="ClusterLabeler for MID. " alt="" coords="319,124,546,151"/>
+<area shape="rect" id="node5" href="$d6/d31/Cluster2D_8h.html" title="Reconstructed cluster per RPC. " alt="" coords="554,206,765,233"/>
+<area shape="rect" id="node8" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="845,199,1015,240"/>
+<area shape="rect" id="node17" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="209,288,379,329"/>
+<area shape="rect" id="node18" href="$d0/d8d/MID_2Clustering_2include_2MIDClustering_2PreCluster_8h.html" title="Pre&#45;cluster structure for MID. " alt="" coords="335,206,530,233"/>
+<area shape="rect" id="node19" href="$d3/db3/MCClusterLabel_8h.html" title="Label for MID clusters. " alt="" coords="26,206,261,233"/>
+<area shape="rect" id="node9" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="712,377,879,404"/>
+</map>

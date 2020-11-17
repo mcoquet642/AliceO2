@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Decoder/src/BareGBTDecoder.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Decoder/src/BareGBTDecoder.h">
+<area shape="rect" id="node3" href="$d7/ddc/BareElinkDecoder_8h.html" title="BareElinkDecoder.h" alt="" coords="1789,213,1939,240"/>
+<area shape="rect" id="node4" href="$dc/d46/Assertions_8h.html" title="Assertions.h" alt="" coords="1303,295,1406,322"/>
+<area shape="rect" id="node11" href="$dd/d58/SampaChannelHandler_8h.html" title="MCHRawDecoder/SampaChannel\lHandler.h" alt="" coords="942,288,1178,329"/>
+<area shape="rect" id="node23" href="$d7/dee/MakeArray_8h.html" title="MakeArray.h" alt="" coords="61,131,163,158"/>
+<area shape="rect" id="node26" href="$d0/da1/PayloadDecoder_8h.html" title="PayloadDecoder.h" alt="" coords="700,131,839,158"/>
+<area shape="rect" id="node6" href="$d0/d64/DataFormats_8h.html" title="MCHRawCommon/DataFormats.h" alt="" coords="1802,452,2041,479"/>
+<area shape="rect" id="node8" href="$d5/d49/SampaHeader_8h.html" title="MCHRawCommon/SampaHeader.h" alt="" coords="1901,377,2147,404"/>
+<area shape="rect" id="node13" href="$d0/d5b/SampaCluster_8h.html" title="MCHRawCommon/SampaCluster.h" alt="" coords="1581,377,1827,404"/>
+<area shape="rect" id="node15" href="$d4/d09/DsElecId_8h.html" title="MCHRawElecMap/DsElecId.h" alt="" coords="874,377,1081,404"/>
+<area shape="rect" id="node27" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="253,213,451,240"/>
+<area shape="rect" id="node28" href="$dc/d36/PageDecoder_8h.html" title="MCHRawDecoder/PageDecoder.h" alt="" coords="652,213,887,240"/>
+<area shape="rect" id="node30" href="$d2/d71/MUON_2MCH_2Raw_2ElecMap_2include_2MCHRawElecMap_2Mapper_8h.html" title="MCHRawElecMap/Mapper.h" alt="" coords="671,295,868,322"/>
+<area shape="rect" id="node32" href="$d5/dcd/DsDetId_8h.html" title="MCHRawElecMap/DsDetId.h" alt="" coords="295,377,497,404"/>
+<area shape="rect" id="node33" href="$d8/d97/FeeLinkId_8h.html" title="MCHRawElecMap/FeeLinkId.h" alt="" coords="521,377,732,404"/>
+</map>

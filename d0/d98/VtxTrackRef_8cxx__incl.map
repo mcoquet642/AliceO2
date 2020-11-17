@@ -1,0 +1,8 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Reconstruction/src/VtxTrackRef.cxx" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Reconstruction/src/VtxTrackRef.cxx">
+<area shape="rect" id="node2" href="$d7/dac/VtxTrackRef_8h.html" title="Referenc on track indices contributing to the vertex, with possibility chose tracks from specific sou..." alt="" coords="380,124,583,165"/>
+<area shape="rect" id="node13" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="738,131,891,158"/>
+<area shape="rect" id="node3" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="569,221,849,247"/>
+<area shape="rect" id="node6" href="$d0/d00/VtxTrackIndex_8h.html" title="Index of track attached to vertx: index in its proper container, container source and flags..." alt="" coords="148,213,351,255"/>
+<area shape="rect" id="node4" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="625,310,791,337"/>
+<area shape="rect" id="node7" href="$df/d9a/AbstractRef_8h.html" title="Class to refer to object indicating its Indec, Source and status flags. " alt="" coords="208,303,424,344"/>
+</map>

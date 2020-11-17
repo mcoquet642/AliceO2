@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/Raw/include/DetectorsRaw/RawFileReader.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/Raw/include/DetectorsRaw/RawFileReader.h">
+<area shape="rect" id="node10" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="739,288,938,315"/>
+<area shape="rect" id="node12" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="546,288,715,315"/>
+<area shape="rect" id="node21" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="950,124,1138,151"/>
+<area shape="rect" id="node19" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="131,363,325,389"/>
+<area shape="rect" id="node22" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1129,288,1271,315"/>
+<area shape="rect" id="node25" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1802,288,1969,315"/>
+<area shape="rect" id="node26" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="972,206,1116,233"/>
+<area shape="rect" id="node28" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1351,199,1583,240"/>
+<area shape="rect" id="node32" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="669,206,803,233"/>
+<area shape="rect" id="node23" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1315,363,1512,389"/>
+<area shape="rect" id="node24" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1125,363,1291,389"/>
+<area shape="rect" id="node31" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1435,288,1688,315"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/Geometry.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/Geometry.h">
+<area shape="rect" id="node2" href="$db/dac/MUON_2MID_2Simulation_2src_2Detector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MID/Simulation\l/src/Detector.cxx" alt="" coords="5,124,243,195"/>
+<area shape="rect" id="node3" href="$d7/de7/MUON_2MID_2Simulation_2src_2Geometry_8cxx.html" title="Implementation of the trigger&#45;stations geometry. " alt="" coords="267,124,504,195"/>
+<area shape="rect" id="node4" href="$d1/d58/MID_2Simulation_2test_2testGeometry_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MID/Simulation\l/test/testGeometry.cxx" alt="" coords="528,124,765,195"/>
+<area shape="rect" id="node5" href="$da/d28/TrackerMCSpec_8cxx.html" title="Data processor spec for MID MC tracker device. " alt="" coords="789,124,1016,195"/>
+<area shape="rect" id="node6" href="$d4/dd3/MIDDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/MIDDigitizerSpec.cxx" alt="" coords="1040,124,1227,195"/>
+</map>

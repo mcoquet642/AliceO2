@@ -1,0 +1,20 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Encoder/Digit/DigitReader.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/Encoder/Digit/DigitReader.cxx">
+<area shape="rect" id="node2" href="$d3/d01/MUON_2MCH_2Raw_2Encoder_2Digit_2DigitReader_8h.html" title="DigitReader.h" alt="" coords="2009,206,2119,233"/>
+<area shape="rect" id="node17" href="$d1/dec/HBFUtils_8h.html" title="DetectorsRaw/HBFUtils.h" alt="" coords="2482,124,2667,151"/>
+<area shape="rect" id="node5" href="$d8/d72/Detectors_2MUON_2MCH_2Base_2include_2MCHBase_2Digit_8h.html" title="MCHBase/Digit.h" alt="" coords="1563,295,1693,322"/>
+<area shape="rect" id="node7" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1788,288,2020,329"/>
+<area shape="rect" id="node8" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="2047,385,2214,411"/>
+<area shape="rect" id="node12" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1593,385,1847,411"/>
+<area shape="rect" id="node18" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="1170,206,1358,233"/>
+<area shape="rect" id="node36" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="2364,288,2561,329"/>
+<area shape="rect" id="node41" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="2488,199,2685,240"/>
+<area shape="rect" id="node43" href="$de/da4/Triggers_8h.html" title="Definition of the 32 Central Trigger System (CTS) Trigger Types defined in https://twiki.cern.ch/twiki/pub/ALICE/NoteForFEDevelopers/CTS_CRU_FE_interface.pdf. " alt="" coords="1564,206,1777,233"/>
+<area shape="rect" id="node19" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="461,385,603,411"/>
+<area shape="rect" id="node22" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="1102,385,1301,411"/>
+<area shape="rect" id="node23" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="1083,295,1227,322"/>
+<area shape="rect" id="node26" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="899,295,1034,322"/>
+<area shape="rect" id="node20" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="195,467,392,493"/>
+<area shape="rect" id="node21" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="5,467,171,493"/>
+<area shape="rect" id="node27" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="858,385,1027,411"/>
+<area shape="rect" id="node34" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="699,467,893,493"/>
+</map>

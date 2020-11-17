@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/EMCAL/include/DataFormatsEMCAL/EventHandler.h" name="/home/travis/build/AliceO2Group/AliceO2/DataFormats/Detectors/EMCAL/include/DataFormatsEMCAL/EventHandler.h">
+<area shape="rect" id="node7" href="$d5/dd3/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Cell_8h.html" title="DataFormatsEMCAL/Cell.h" alt="" coords="511,221,701,247"/>
+<area shape="rect" id="node12" href="$dc/d27/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Cluster_8h.html" title="DataFormatsEMCAL/Cluster.h" alt="" coords="1077,221,1287,247"/>
+<area shape="rect" id="node22" href="$d3/d6e/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Digit_8h.html" title="DataFormatsEMCAL/Digit.h" alt="" coords="262,221,459,247"/>
+<area shape="rect" id="node25" href="$dd/df3/EventData_8h.html" title="DataFormatsEMCAL/EventData.h" alt="" coords="910,139,1145,165"/>
+<area shape="rect" id="node28" href="$d9/d38/EMCAL_2include_2DataFormatsEMCAL_2TriggerRecord_8h.html" title="DataFormatsEMCAL/Trigger\lRecord.h" alt="" coords="752,213,951,255"/>
+<area shape="rect" id="node9" href="$dd/dda/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Constants_8h.html" title="DataFormatsEMCAL/Constants.h" alt="" coords="245,310,476,337"/>
+<area shape="rect" id="node16" href="$df/d5d/common_2include_2CommonDataFormat_2TimeStamp_8h.html" title="CommonDataFormat/TimeStamp.h" alt="" coords="1347,310,1596,337"/>
+<area shape="rect" id="node21" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="1042,310,1322,337"/>
+<area shape="rect" id="node17" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1125,392,1292,419"/>
+<area shape="rect" id="node18" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1921,392,2064,419"/>
+<area shape="rect" id="node19" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1997,467,2194,493"/>
+<area shape="rect" id="node20" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1807,467,1973,493"/>
+<area shape="rect" id="node26" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="735,303,967,344"/>
+<area shape="rect" id="node27" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="847,392,1101,419"/>
+</map>

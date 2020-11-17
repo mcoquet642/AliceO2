@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/ExternalFairMQDeviceProxy.h" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/ExternalFairMQDeviceProxy.h">
+<area shape="rect" id="node2" href="$de/d43/ReadoutAdapter_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/include\l/Framework/ReadoutAdapter.h" alt="" coords="175,146,392,217"/>
+<area shape="rect" id="node5" href="$df/d93/CommonDataProcessors_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/CommonData\lProcessors.cxx" alt="" coords="416,146,665,217"/>
+<area shape="rect" id="node6" href="$dc/df3/ExternalFairMQDeviceProxy_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/External\lFairMQDeviceProxy.cxx" alt="" coords="690,146,903,217"/>
+<area shape="rect" id="node7" href="$d1/dd3/test__ExternalFairMQDeviceProxy_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_ExternalFairMQDeviceProxy.cxx" alt="" coords="927,146,1162,217"/>
+<area shape="rect" id="node8" href="$d4/d00/test__ExternalFairMQDeviceWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_ExternalFairMQDeviceWorkflow.cxx" alt="" coords="1186,146,1445,217"/>
+<area shape="rect" id="node9" href="$da/d19/test__RawDeviceInjector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/TestWorkflows\l/src/test_RawDeviceInjector.cxx" alt="" coords="1469,146,1698,217"/>
+<area shape="rect" id="node10" href="$d6/d4b/dpl-output-proxy_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Utils/src/dpl\l&#45;output&#45;proxy.cxx" alt="" coords="1722,146,1901,217"/>
+<area shape="rect" id="node11" href="$df/de6/raw-proxy_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Utils/src/raw\l&#45;proxy.cxx" alt="" coords="1925,146,2108,217"/>
+<area shape="rect" id="node12" href="$dc/dc8/DataSamplingReadoutAdapter_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Utilities/DataSampling\l/include/DataSampling/DataSampling\lReadoutAdapter.h" alt="" coords="2132,139,2397,224"/>
+<area shape="rect" id="node14" href="$d1/de8/test__DataSampling_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Utilities/DataSampling\l/test/test_DataSampling.cxx" alt="" coords="2332,272,2539,343"/>
+<area shape="rect" id="node15" href="$dc/dbc/multinodeBenchmarkMergers_8cxx.html" title="This is a DPL workflow to run Mergers and an input proxy for benchmarks. " alt="" coords="2473,146,2718,217"/>
+<area shape="rect" id="node16" href="$d7/d5a/multinodeBenchmarkProducers_8cxx.html" title="This is a DPL workflow with TH1 producers used to benchmark Mergers. " alt="" coords="2743,146,3000,217"/>
+<area shape="rect" id="node3" href="$da/df2/ReadoutAdapter_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/ReadoutAdapter.cxx" alt="" coords="5,279,295,335"/>
+<area shape="rect" id="node4" href="$db/d1a/flpQualification_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/TestWorkflows\l/src/flpQualification.cxx" alt="" coords="319,272,514,343"/>
+<area shape="rect" id="node13" href="$dc/da2/DataSamplingReadoutAdapter_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Utilities/DataSampling\l/src/DataSamplingReadoutAdapter.cxx" alt="" coords="2037,272,2308,343"/>
+</map>

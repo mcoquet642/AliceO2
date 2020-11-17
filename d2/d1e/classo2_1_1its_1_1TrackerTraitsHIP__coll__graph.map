@@ -1,0 +1,7 @@
+<map id="o2::its::TrackerTraitsHIP" name="o2::its::TrackerTraitsHIP">
+<area shape="rect" id="node2" href="$d5/dde/classo2_1_1its_1_1TrackerTraits.html" title="{o2::its::TrackerTraits\n||+ ~TrackerTraits()\l+ SetRecoChain()\l+ computeLayerTracklets()\l+ computeLayerCells()\l+ refitTracks()\l+ UpdateTrackingParameters()\l+ getPrimaryVertexContext()\l+ getEmptyBinsRect()\l+ getBinsRect()\l}" alt="" coords="404,924,627,1119"/>
+<area shape="rect" id="node4" href="$d2/db0/structo2_1_1its_1_1TrackingParameters.html" title="{o2::its::TrackingParameters\n||+ operator=()\l+ CellMinimumLevel()\l}" alt="" coords="5,277,204,369"/>
+<area shape="rect" id="node5" href="$d4/dc3/classfloat.html" title="{float\n||}" alt="" coords="1626,5,1677,83"/>
+<area shape="rect" id="node18" href="$d9/d19/structfloat3.html" title="{float3\n||}" alt="" coords="2511,285,2570,362"/>
+<area shape="rect" id="node8" href="$df/dde/classo2_1_1its_1_1PrimaryVertexContext.html" title="{o2::its::PrimaryVertexContext\n||+ PrimaryVertexContext()\l+ ~PrimaryVertexContext()\l+ PrimaryVertexContext()\l+ operator=()\l+ initialise()\l+ getPrimaryVertex()\l+ getClusters()\l+ getCells()\l+ getCellsLookupTable()\l+ getCellsNeighbours()\l+ getRoads()\l+ getMinR()\l+ getMaxR()\l+ isClusterUsed()\l+ markUsedCluster()\l+ getIndexTables()\l+ getTracklets()\l+ getTrackletsLookupTable()\l+ initialiseRoadLabels()\l+ setRoadLabel()\l+ getRoadLabel()\l+ isRoadFake()\l}" alt="" coords="1107,476,1321,861"/>
+</map>

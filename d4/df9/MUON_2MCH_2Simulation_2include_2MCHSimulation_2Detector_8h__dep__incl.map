@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Simulation/include/MCHSimulation/Detector.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Simulation/include/MCHSimulation/Detector.h">
+<area shape="rect" id="node2" href="$df/d3f/Response_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/include/MCHSimulation/Response.h" alt="" coords="266,124,521,195"/>
+<area shape="rect" id="node6" href="$da/ddd/MUON_2MCH_2Simulation_2src_2Detector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/src/Detector.cxx" alt="" coords="545,124,788,195"/>
+<area shape="rect" id="node7" href="$d7/df8/GeometryTest_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/src/GeometryTest.cxx" alt="" coords="812,124,1055,195"/>
+<area shape="rect" id="node8" href="$db/d50/O2HitMerger_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMerger.h" alt="" coords="1079,131,1249,187"/>
+<area shape="rect" id="node10" href="$db/d2f/MCHDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/MCHDigitizerSpec.cxx" alt="" coords="1297,124,1489,195"/>
+<area shape="rect" id="node3" href="$d7/de0/MUON_2MCH_2Simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/src/Digitizer.cxx" alt="" coords="5,243,248,313"/>
+<area shape="rect" id="node4" href="$d9/dbf/Response_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/src/Response.cxx" alt="" coords="272,243,515,313"/>
+<area shape="rect" id="node5" href="$d5/d7c/testResponse_8cxx.html" title="This task tests of the Response of the MCH digitization. " alt="" coords="539,243,781,313"/>
+<area shape="rect" id="node9" href="$d9/d16/O2HitMergerRunner_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMergerRunner.cxx" alt="" coords="1062,250,1266,306"/>
+</map>

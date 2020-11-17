@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/FIT/FT0/reconstruction/include/FT0Reconstruction/InteractionTag.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/FIT/FT0/reconstruction/include/FT0Reconstruction/InteractionTag.h">
+<area shape="rect" id="node2" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="336,213,533,255"/>
+<area shape="rect" id="node9" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="656,124,853,165"/>
+<area shape="rect" id="node13" href="$d4/d57/RecPoints_8h.html" title="Definition of the FIT RecPoints class. " alt="" coords="1336,131,1544,158"/>
+<area shape="rect" id="node20" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1780,392,2033,419"/>
+<area shape="rect" id="node14" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1759,303,1991,344"/>
+<area shape="rect" id="node21" href="$df/d5d/common_2include_2CommonDataFormat_2TimeStamp_8h.html" title="CommonDataFormat/TimeStamp.h" alt="" coords="795,310,1045,337"/>
+<area shape="rect" id="node25" href="$dc/d44/FIT_2FT0_2include_2DataFormatsFT0_2ChannelData_8h.html" title="DataFormatsFT0/ChannelData.h" alt="" coords="1201,310,1431,337"/>
+<area shape="rect" id="node26" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="1455,310,1735,337"/>
+<area shape="rect" id="node27" href="$d0/d0a/DataFormats_2Detectors_2FIT_2FT0_2include_2DataFormatsFT0_2Digit_8h.html" title="DataFormatsFT0/Digit.h" alt="" coords="1076,221,1252,247"/>
+<area shape="rect" id="node15" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1321,392,1487,419"/>
+<area shape="rect" id="node22" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="849,392,991,419"/>
+<area shape="rect" id="node23" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="924,467,1121,493"/>
+<area shape="rect" id="node24" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="735,467,900,493"/>
+</map>

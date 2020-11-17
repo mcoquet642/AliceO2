@@ -1,0 +1,10 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/tracking/cuda/include/ITStrackingCUDA" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/tracking/cuda/include/ITStrackingCUDA">
+<area shape="rect" id="node1" href="dir_3bdffa002291626711552570056460cb.html" title="ITStrackingCUDA" alt="" coords="27,52,160,100"/>
+<area shape="rect" id="node2" href="dir_6ff49626c189e19df9a205eb87521670.html" title="include" alt="" coords="20,148,92,196"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000058_000126.html" title="30" alt="" coords="71,126,89,141"/>
+<area shape="rect" id="node3" href="dir_f511f1e9c03c071966ae594f00bbc5e0.html" title="GPU" alt="" coords="20,244,92,292"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000058_000762.html" title="3" alt="" coords="90,227,100,242"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000126_000762.html" title="12" alt="" coords="47,217,64,232"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000762_000126.html" title="7" alt="" coords="52,208,61,222"/>
+<area shape="rect" id="clust1" href="dir_bccd31a20802342bc472d5c92186a3f8.html" title="include" alt="" coords="16,16,171,111"/>
+</map>

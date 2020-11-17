@@ -1,0 +1,10 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/simulation/include/TOFSimulation/Detector.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/simulation/include/TOFSimulation/Detector.h">
+<area shape="rect" id="node2" href="$d0/d85/TOF_2simulation_2include_2TOFSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/include/TOFSimulation/Digitizer.h" alt="" coords="227,124,470,195"/>
+<area shape="rect" id="node3" href="$d8/dc6/TOF_2simulation_2include_2TOFSimulation_2DigitizerTask_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/include/TOFSimulation/Digitizer\lTask.h" alt="" coords="5,243,236,328"/>
+<area shape="rect" id="node7" href="$d4/d59/TOF_2simulation_2src_2Detector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/src/Detector.cxx" alt="" coords="495,124,685,195"/>
+<area shape="rect" id="node8" href="$db/d50/O2HitMerger_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMerger.h" alt="" coords="709,131,879,187"/>
+<area shape="rect" id="node5" href="$d4/df3/TOF_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/src/Digitizer.cxx" alt="" coords="260,250,451,321"/>
+<area shape="rect" id="node6" href="$d6/d61/TOFDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TOFDigitizerSpec.cxx" alt="" coords="475,250,662,321"/>
+<area shape="rect" id="node4" href="$dd/df3/TOF_2simulation_2src_2DigitizerTask_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/src/DigitizerTask.cxx" alt="" coords="25,376,216,447"/>
+<area shape="rect" id="node9" href="$d9/d16/O2HitMergerRunner_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMergerRunner.cxx" alt="" coords="692,257,896,313"/>
+</map>

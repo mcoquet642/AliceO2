@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/run/o2sim_parallel.cxx" name="/home/travis/build/AliceO2Group/AliceO2/run/o2sim_parallel.cxx">
+<area shape="rect" id="node8" href="$d4/dee/SimConfig_8h.html" title="SimConfig/SimConfig.h" alt="" coords="1679,117,1849,143"/>
+<area shape="rect" id="node17" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="2789,117,3000,143"/>
+<area shape="rect" id="node25" href="$d6/d2a/FreePortFinder_8h.html" title="Framework/FreePortFinder.h" alt="" coords="3206,117,3407,143"/>
+<area shape="rect" id="node27" href="$d7/d61/NameConf_8h.html" title="Definition of the Names Generator class. " alt="" coords="1375,109,1603,151"/>
+<area shape="rect" id="node28" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="902,199,1130,240"/>
+<area shape="rect" id="node55" href="$d1/d1e/Common_2Utils_2include_2CommonUtils_2StringUtils_8h.html" title="CommonUtils/StringUtils.h" alt="" coords="1409,206,1604,233"/>
+<area shape="rect" id="node36" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="447,288,577,315"/>
+<area shape="rect" id="node48" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="1186,288,1355,315"/>
+<area shape="rect" id="node37" href="$de/def/bitOps_8h.html" title="MathUtils/detail/bitOps.h" alt="" coords="535,363,718,389"/>
+<area shape="rect" id="node38" href="$d3/dfc/StatAccumulator_8h.html" title="MathUtils/detail/StatAccumulator.h" alt="" coords="5,363,253,389"/>
+<area shape="rect" id="node40" href="$dd/d7d/trigonometric_8h.html" title="MathUtils/detail/trigonometric.h" alt="" coords="281,363,511,389"/>
+<area shape="rect" id="node42" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="469,512,611,539"/>
+<area shape="rect" id="node45" href="$d6/da2/GPUCommonMath_8h.html" title="GPUCommonMath.h" alt="" coords="555,437,709,464"/>
+<area shape="rect" id="node47" href="$d6/d84/MathConstants_8h.html" title="useful math constants " alt="" coords="273,437,532,464"/>
+<area shape="rect" id="node43" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="339,587,536,613"/>
+<area shape="rect" id="node44" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="560,587,725,613"/>
+<area shape="rect" id="node53" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="1020,363,1215,389"/>
+</map>

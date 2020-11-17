@@ -1,0 +1,8 @@
+digraph "o2::trd::LinkRecord"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{o2::trd::LinkRecord\n||+ LinkRecord()\l+ LinkRecord()\l+ LinkRecord()\l+ ~LinkRecord()\l+ setLinkId()\l+ setLinkId()\l+ setDataRange()\l+ setIndexFirstObject()\l+ setNumberOfObjects()\l+ getLinkId()\l+ getSector()\l+ getStack()\l+ getLayer()\l+ getSide()\l+ getNumberOfObjects()\l+ getFirstEntry()\l+ printStream()\l+ getHalfChamberLinkId()\l+ getHalfChamberLinkId()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

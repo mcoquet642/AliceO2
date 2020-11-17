@@ -1,0 +1,12 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/GlobalTrackingWorkflow/tofworkflow/include/TOFWorkflow/TOFMatchedReaderSpec.h"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node183 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/include/TOFWorkflow\l/TOFMatchedReaderSpec.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node183 -> Node184 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node184 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/src/TOFMatchedReaderSpec.cxx",height=0.2,width=0.4,color="black",URL="$df/d18/TOFMatchedReaderSpec_8cxx.html"];
+  Node183 -> Node185 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node185 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tpcinterpolationworkflow/src\l/TrackInterpolationWorkflow.cxx",height=0.2,width=0.4,color="black",URL="$d1/d67/TrackInterpolationWorkflow_8cxx.html"];
+}

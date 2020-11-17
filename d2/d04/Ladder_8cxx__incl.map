@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/base/src/Ladder.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/base/src/Ladder.cxx">
+<area shape="rect" id="node9" href="$da/d2d/AlpideChip_8h.html" title="Creates an ALPIDE chip in simulation. " alt="" coords="104,124,328,151"/>
+<area shape="rect" id="node11" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="2015,124,2263,151"/>
+<area shape="rect" id="node26" href="$d9/de7/LadderSegmentation_8h.html" title="Description of the virtual segmentation of a ladder. " alt="" coords="2338,124,2569,151"/>
+<area shape="rect" id="node31" href="$d3/dbd/ChipSegmentation_8h.html" title="Chip (sensor) segmentation description. " alt="" coords="2669,206,2885,233"/>
+<area shape="rect" id="node32" href="$d2/d8d/Flex_8h.html" title="Flex (Printed Cabled Board) class for ALICE MFT upgrade. " alt="" coords="2644,124,2767,151"/>
+<area shape="rect" id="node33" href="$d0/d12/Ladder_8h.html" title="Class building the Ladder geometry. " alt="" coords="3083,124,3221,151"/>
+<area shape="rect" id="node35" href="$d6/d2e/ITSMFT_2MFT_2base_2include_2MFTBase_2Geometry_8h.html" title="MFTBase/Geometry.h" alt="" coords="2910,206,3069,233"/>
+<area shape="rect" id="node36" href="$d1/d04/MFTBaseParam_8h.html" title="MFTBase/MFTBaseParam.h" alt="" coords="3316,124,3511,151"/>
+<area shape="rect" id="node12" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1303,206,1465,233"/>
+<area shape="rect" id="node13" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="533,385,675,411"/>
+<area shape="rect" id="node16" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="254,295,421,322"/>
+<area shape="rect" id="node25" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="445,295,632,322"/>
+<area shape="rect" id="node14" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="403,467,600,493"/>
+<area shape="rect" id="node15" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="624,467,789,493"/>
+<area shape="rect" id="node29" href="$d3/de7/VSegmentation_8h.html" title="Abstract base class for MFT Segmentation description. " alt="" coords="2679,295,2875,322"/>
+<area shape="rect" id="node37" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="3315,288,3512,329"/>
+<area shape="rect" id="node44" href="$da/d6b/ConfigurableParamHelper_8h.html" title="CommonUtils/Configurable\lParamHelper.h" alt="" coords="3504,199,3701,240"/>
+</map>

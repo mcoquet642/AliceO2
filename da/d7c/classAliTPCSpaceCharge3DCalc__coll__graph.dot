@@ -1,0 +1,8 @@
+digraph "AliTPCSpaceCharge3DCalc"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AliTPCSpaceCharge3DCalc\n||+ AliTPCSpaceCharge3DCalc()\l+ AliTPCSpaceCharge3DCalc()\l+ AliTPCSpaceCharge3DCalc()\l+ ~AliTPCSpaceCharge3DCalc()\l+ InitSpaceCharge3DPoisson\lIntegralDz()\l+ InitSpaceCharge3DPoisson\lIntegralDz()\l+ InitSpaceCharge3DPoisson\lIntegralDz()\l+ InitSpaceCharge3DPoisson()\l+ ForceInitSpaceCharge3DPoisson\lIntegralDz()\l+ GetDistortionCyl()\l+ GetDistortionCylAC()\l+ GetCorrectionCyl()\l+ GetCorrectionCylAC()\l+ GetCorrectionCylACIrregular()\l+ GetCorrectionCylACIrregular()\l+ GetDistortion()\l+ GetCorrection()\l+ GetCorrection()\l+ GetChargeCylAC()\l+ GetPotentialCylAC()\l+ GetInverseChargeCylAC()\l+ SetCorrectionType()\l+ SetInputSpaceCharge()\l+ SetInputSpaceCharge()\l+ SetInputSpaceCharge()\l+ SetInputSpaceCharge()\l+ SetInputSpaceChargeA()\l+ SetInputSpaceChargeC()\l+ SetNRRows()\l+ SetNPhiSlices()\l+ SetNZColumns()\l+ GetNRRows()\l+ GetNPhiSlices()\l+ GetNZColumns()\l+ SetPoissonSolver()\l+ GetPoissonSolver()\l+ SetInterpolationOrder()\l+ GetInterpolationOrder()\l+ SetOmegaTauT1T2()\l+ SetC0C1()\l+ GetC0()\l+ GetC1()\l+ SetCorrectionFactor()\l+ GetCorrectionFactor()\l+ InverseDistortionMaps()\l+ InverseDistortionMapsNoDrift()\l+ GetCorrectionCylNoDrift()\l+ GetDistortionCylNoDrift()\l+ InverseGlobalToLocalDistortion\lNoDrift()\l+ GetChargeDensity()\land 26 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

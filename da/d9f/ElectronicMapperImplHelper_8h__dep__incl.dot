@@ -1,0 +1,12 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Raw/ElecMap/src/ElectronicMapperImplHelper.h"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node12 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Raw\l/ElecMap/src/ElectronicMapperImpl\lHelper.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Raw\l/ElecMap/src/ElectronicMapperDummy.cxx",height=0.2,width=0.4,color="black",URL="$d3/d4b/ElectronicMapperDummy_8cxx.html"];
+  Node12 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Raw\l/ElecMap/src/ElectronicMapperGenerated.cxx",height=0.2,width=0.4,color="black",URL="$d1/d4a/ElectronicMapperGenerated_8cxx.html"];
+}

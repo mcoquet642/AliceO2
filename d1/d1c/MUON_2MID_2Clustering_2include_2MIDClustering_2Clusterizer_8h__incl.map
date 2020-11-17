@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Clustering/include/MIDClustering/Clusterizer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Clustering/include/MIDClustering/Clusterizer.h">
+<area shape="rect" id="node6" href="$d6/d31/Cluster2D_8h.html" title="Reconstructed cluster per RPC. " alt="" coords="1057,221,1267,247"/>
+<area shape="rect" id="node9" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="921,131,1139,158"/>
+<area shape="rect" id="node16" href="$d7/d0a/MpArea_8h.html" title="Mapping area for MID. " alt="" coords="551,303,695,329"/>
+<area shape="rect" id="node18" href="$d0/d8d/MID_2Clustering_2include_2MIDClustering_2PreCluster_8h.html" title="Pre&#45;cluster structure for MID. " alt="" coords="838,221,1033,247"/>
+<area shape="rect" id="node19" href="$d8/dc8/PreClusterHelper_8h.html" title="Pre&#45;clusters helper for MID. " alt="" coords="611,124,795,165"/>
+<area shape="rect" id="node21" href="$d3/dde/PreClustersDE_8h.html" title="Structure with pre&#45;clusters in the MID detection element. " alt="" coords="315,221,537,247"/>
+<area shape="rect" id="node10" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1291,213,1523,255"/>
+<area shape="rect" id="node11" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1184,303,1351,329"/>
+<area shape="rect" id="node15" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1551,303,1805,329"/>
+<area shape="rect" id="node20" href="$d2/d0e/Mapping_8h.html" title="Mapping for MID. " alt="" coords="663,221,813,247"/>
+</map>

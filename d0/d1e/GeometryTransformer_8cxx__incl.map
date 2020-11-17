@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Base/src/GeometryTransformer.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Base/src/GeometryTransformer.cxx">
+<area shape="rect" id="node2" href="$de/d0c/GeometryTransformer_8h.html" title="Geometry transformer for MID. " alt="" coords="2137,124,2375,151"/>
+<area shape="rect" id="node28" href="$db/db5/GeometryParameters_8h.html" title="Useful geometrical parameters for MID. " alt="" coords="2541,199,2776,225"/>
+<area shape="rect" id="node4" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="2293,199,2518,225"/>
+<area shape="rect" id="node6" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1265,199,1428,225"/>
+<area shape="rect" id="node7" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1334,363,1477,389"/>
+<area shape="rect" id="node10" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1515,281,1682,307"/>
+<area shape="rect" id="node21" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="1253,281,1440,307"/>
+<area shape="rect" id="node8" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1204,437,1401,464"/>
+<area shape="rect" id="node9" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1425,437,1591,464"/>
+</map>

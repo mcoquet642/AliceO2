@@ -1,0 +1,5 @@
+<map id="AliHLTTPCClusterMCData" name="AliHLTTPCClusterMCData">
+<area shape="rect" id="node2" href="$d0/d7b/structAliHLTTPCClusterMCLabel.html" title="{AliHLTTPCClusterMCLabel\n||}" alt="" coords="35,285,223,363"/>
+<area shape="rect" id="node3" href="$db/d57/structAliHLTTPCClusterMCWeight.html" title="{AliHLTTPCClusterMCWeight\n||+ AliHLTTPCClusterMCWeight()\l}" alt="" coords="5,145,228,223"/>
+<area shape="rect" id="node4" href="$d4/dc3/classfloat.html" title="{float\n||}" alt="" coords="69,5,119,83"/>
+</map>

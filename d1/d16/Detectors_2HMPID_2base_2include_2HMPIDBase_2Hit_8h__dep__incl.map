@@ -1,0 +1,13 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/HMPID/base/include/HMPIDBase/Hit.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/HMPID/base/include/HMPIDBase/Hit.h">
+<area shape="rect" id="node2" href="$da/d3c/Detectors_2HMPID_2base_2include_2HMPIDBase_2Digit_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/base\l/include/HMPIDBase/Digit.h" alt="" coords="383,124,582,195"/>
+<area shape="rect" id="node9" href="$df/d79/HMPID_2simulation_2include_2HMPIDSimulation_2Detector_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/simulation\l/include/HMPIDSimulation/Detector.h" alt="" coords="756,124,1017,195"/>
+<area shape="rect" id="node3" href="$d0/d3a/Detectors_2HMPID_2base_2src_2Digit_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/base\l/src/Digit.cxx" alt="" coords="249,243,420,313"/>
+<area shape="rect" id="node4" href="$d7/d3d/HMPIDDigitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/simulation\l/include/HMPIDSimulation/HMPIDDigitizer.h" alt="" coords="546,243,849,313"/>
+<area shape="rect" id="node5" href="$dc/d6e/HMPIDDigitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/simulation\l/src/HMPIDDigitizer.cxx" alt="" coords="357,361,566,432"/>
+<area shape="rect" id="node6" href="$d8/d00/HMPIDDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/HMPIDDigitizerSpec.cxx" alt="" coords="595,361,800,432"/>
+<area shape="rect" id="node7" href="$d5/d5b/HMPIDDigitWriterSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/HMPIDDigitWriterSpec.h" alt="" coords="20,243,225,313"/>
+<area shape="rect" id="node8" href="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx" alt="" coords="5,361,240,432"/>
+<area shape="rect" id="node10" href="$d7/d24/HMPID_2simulation_2src_2Detector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/HMPID/simulation\l/src/Detector.cxx" alt="" coords="925,243,1134,313"/>
+<area shape="rect" id="node11" href="$db/d50/O2HitMerger_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMerger.h" alt="" coords="1158,250,1327,306"/>
+<area shape="rect" id="node12" href="$d9/d16/O2HitMergerRunner_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMergerRunner.cxx" alt="" coords="1141,369,1345,425"/>
+</map>

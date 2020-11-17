@@ -1,0 +1,14 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/workflow/include/TOFWorkflowUtils/EntropyDecoderSpec.h"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node194 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/workflow\l/include/TOFWorkflowUtils\l/EntropyDecoderSpec.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node194 -> Node195 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node195 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CTF/workflow\l/src/ctf-reader-workflow.cxx",height=0.2,width=0.4,color="black",URL="$dc/d55/ctf-reader-workflow_8cxx.html"];
+  Node194 -> Node196 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node196 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/GlobalTrackingWorkflow\l/tofworkflow/src/tof-reco-workflow.cxx",height=0.2,width=0.4,color="black",URL="$da/dfd/tof-reco-workflow_8cxx.html",tooltip="Basic DPL workflow for TOF reconstruction starting from digits. "];
+  Node194 -> Node197 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node197 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/workflow\l/src/EntropyDecoderSpec.cxx",height=0.2,width=0.4,color="black",URL="$d8/dc2/TOF_2workflow_2src_2EntropyDecoderSpec_8cxx.html"];
+}

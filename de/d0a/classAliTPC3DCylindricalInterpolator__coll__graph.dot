@@ -1,0 +1,8 @@
+digraph "AliTPC3DCylindricalInterpolator"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AliTPC3DCylindricalInterpolator\n||+ AliTPC3DCylindricalInterpolator()\l+ ~AliTPC3DCylindricalInterpolator()\l+ GetValue()\l+ InitCubicSpline()\l+ SetOrder()\l+ SetNR()\l+ SetNPhi()\l+ SetNZ()\l+ SetNGridPoints()\l+ SetRList()\l+ SetPhiList()\l+ SetZList()\l+ SetValue()\l+ SetValue()\l+ SetValue()\l+ GetNR()\l+ GetNPhi()\l+ GetNZ()\l+ GetOrder()\l+ GetSecondDerZ()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

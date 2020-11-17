@@ -1,0 +1,8 @@
+digraph "AliTPCLookUpTable3DInterpolatorD"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AliTPCLookUpTable3DInterpolatorD\n||+ AliTPCLookUpTable3DInterpolatorD()\l+ AliTPCLookUpTable3DInterpolatorD()\l+ ~AliTPCLookUpTable3DInterpolatorD()\l+ SetNR()\l+ SetNPhi()\l+ SetNZ()\l+ GetNR()\l+ GetNPhi()\l+ GetNZ()\l+ SetRList()\l+ SetPhiList()\l+ SetZList()\l+ SetLookUpR()\l+ SetLookUpPhi()\l+ SetLookUpZ()\l+ SetOrder()\l+ GetValue()\l+ GetValue()\l+ CopyFromMatricesToInterpolator()\l+ CopyFromMatricesToInterpolator()\l+ GetLookUpR()\l+ GetLookUpPhi()\l+ GetLookUpZ()\l+ GetRList()\l+ GetPhiList()\l+ GetZList()\l+ GetInterpolatorR()\l+ GetInterpolatorPhi()\l+ GetInterpolatorZ()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

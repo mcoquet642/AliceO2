@@ -1,0 +1,10 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Utilities/rANS/include/rANS/DedupEncoder.h" name="/home/travis/build/AliceO2Group/AliceO2/Utilities/rANS/include/rANS/DedupEncoder.h">
+<area shape="rect" id="node2" href="$dd/d74/Utilities_2rANS_2include_2rANS_2Encoder_8h.html" title="Encoder.h" alt="" coords="921,124,1007,151"/>
+<area shape="rect" id="node10" href="$d2/d53/EncoderSymbol_8h.html" title="Structure containing all relevant information to encode a symbol. " alt="" coords="145,348,279,375"/>
+<area shape="rect" id="node11" href="$d4/da1/helper_8h.html" title="various helper functions " alt="" coords="623,423,697,449"/>
+<area shape="rect" id="node20" href="$d8/dd9/SymbolTable_8h.html" title="Container for information needed to encode/decode a symbol of the alphabet. " alt="" coords="1285,199,1456,225"/>
+<area shape="rect" id="node3" href="$de/d8e/Utilities_2rANS_2include_2rANS_2internal_2Encoder_8h.html" title="internal/Encoder.h" alt="" coords="591,273,729,300"/>
+<area shape="rect" id="node25" href="$dd/d65/FrequencyTable_8h.html" title="Histogram to depict frequencies of source symbols for rANS compression. " alt="" coords="1103,348,1273,375"/>
+<area shape="rect" id="node9" href="$d7/d99/DecoderSymbol_8h.html" title="Structure containing all relevant information for decoding a rANS encoded symbol. ..." alt="" coords="355,348,493,375"/>
+<area shape="rect" id="node21" href="$d0/d51/SymbolStatistics_8h.html" title="Structure to depict the distribution of symbols in the source message. " alt="" coords="1265,273,1407,300"/>
+</map>

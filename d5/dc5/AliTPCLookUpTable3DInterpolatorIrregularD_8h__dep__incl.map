@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCLookUpTable3DInterpolatorIrregularD.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCLookUpTable3DInterpolatorIrregularD.h">
+<area shape="rect" id="node2" href="$d7/dd1/AliTPCLookUpTable3DInterpolatorIrregularD_8cxx.html" title="Wrap up look&#45;up table with irregular grid. " alt="" coords="227,139,473,224"/>
+<area shape="rect" id="node3" href="$d9/d9a/AliTPCSpaceCharge3DCalc_8h.html" title="This class provides distortion and correction map calculation with integration following electron dri..." alt="" coords="497,146,707,217"/>
+<area shape="rect" id="node4" href="$d3/db6/SpaceCharge_8h.html" title="Definition of the handler for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="191,272,464,343"/>
+<area shape="rect" id="node9" href="$d2/daf/AliTPCSpaceCharge3DCalc_8cxx.html" title="This class provides distortion and correction map with integration following electron drift..." alt="" coords="489,272,715,343"/>
+<area shape="rect" id="node10" href="$dc/d31/testTPCSpaceChargeBase_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/ctest/testTPCSpaceChargeBase.cxx" alt="" coords="739,272,995,343"/>
+<area shape="rect" id="node5" href="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/include/TPCSimulation/Digitizer.h" alt="" coords="86,391,329,461"/>
+<area shape="rect" id="node8" href="$da/d8e/SpaceCharge_8cxx.html" title="Implementation of the interface for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="353,391,544,461"/>
+<area shape="rect" id="node6" href="$d7/d0a/TPC_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/src/Digitizer.cxx" alt="" coords="5,509,196,580"/>
+<area shape="rect" id="node7" href="$d2/d0b/TPCDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TPCDigitizerSpec.cxx" alt="" coords="221,509,407,580"/>
+</map>

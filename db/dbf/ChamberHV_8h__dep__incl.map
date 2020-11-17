@@ -1,0 +1,9 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/ChamberHV.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/ChamberHV.h">
+<area shape="rect" id="node2" href="$d5/d62/ChamberResponse_8h.html" title="MID RPC response. " alt="" coords="447,124,756,195"/>
+<area shape="rect" id="node8" href="$d1/d9f/ChamberHV_8cxx.html" title="Implementation of the HV for MID RPCs. " alt="" coords="780,124,1017,195"/>
+<area shape="rect" id="node3" href="$da/de1/MUON_2MID_2Simulation_2include_2MIDSimulation_2Digitizer_8h.html" title="Digitizer for MID. " alt="" coords="303,243,545,313"/>
+<area shape="rect" id="node6" href="$d4/dd3/MIDDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/MIDDigitizerSpec.cxx" alt="" coords="528,361,715,432"/>
+<area shape="rect" id="node7" href="$de/dc3/ChamberResponse_8cxx.html" title="Implementation MID RPC response. " alt="" coords="639,243,876,313"/>
+<area shape="rect" id="node4" href="$d6/df9/MUON_2MID_2Simulation_2src_2Digitizer_8cxx.html" title="Implementation of the digitizer for MID. " alt="" coords="5,361,243,432"/>
+<area shape="rect" id="node5" href="$d6/d45/testSimulation_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MID/Simulation\l/test/testSimulation.cxx" alt="" coords="267,361,504,432"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/include/MIDRaw/DecodedDataAggregator.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Raw/include/MIDRaw/DecodedDataAggregator.h">
+<area shape="rect" id="node2" href="$d1/d9a/DecodedDataAggregator_8cxx.html" title="MID decoded raw data aggregator. " alt="" coords="5,124,240,195"/>
+<area shape="rect" id="node3" href="$d8/d4c/testRaw_8cxx.html" title="Test MID raw data decoder. " alt="" coords="264,124,459,195"/>
+<area shape="rect" id="node4" href="$db/de7/RawAggregatorSpec_8cxx.html" title="Data processor spec for MID raw data aggregator device. " alt="" coords="483,124,709,195"/>
+<area shape="rect" id="node5" href="$de/d2b/ZeroSuppressionSpec_8cxx.html" title="MID zero suppression spec. " alt="" coords="733,124,960,195"/>
+</map>

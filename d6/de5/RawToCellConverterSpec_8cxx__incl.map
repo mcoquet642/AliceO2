@@ -1,0 +1,60 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/workflow/src/RawToCellConverterSpec.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/workflow/src/RawToCellConverterSpec.cxx">
+<area shape="rect" id="node4" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="6117,392,6349,433"/>
+<area shape="rect" id="node11" href="$de/dc6/ConfigParamRegistry_8h.html" title="Framework/ConfigParamRegistry.h" alt="" coords="627,221,870,247"/>
+<area shape="rect" id="node20" href="$d2/d43/ControlService_8h.html" title="Framework/ControlService.h" alt="" coords="139,221,345,247"/>
+<area shape="rect" id="node22" href="$df/da1/WorkflowSpec_8h.html" title="Framework/WorkflowSpec.h" alt="" coords="1803,221,2004,247"/>
+<area shape="rect" id="node47" href="$da/d0f/EMCALBlockHeader_8h.html" title="DataFormatsEMCAL/EMCALBlock\lHeader.h" alt="" coords="3502,124,3737,165"/>
+<area shape="rect" id="node48" href="$d9/d38/EMCAL_2include_2DataFormatsEMCAL_2TriggerRecord_8h.html" title="DataFormatsEMCAL/Trigger\lRecord.h" alt="" coords="6059,303,6257,344"/>
+<area shape="rect" id="node50" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="5347,310,5535,337"/>
+<area shape="rect" id="node57" href="$dd/da8/EMCAL_2base_2include_2EMCALBase_2Geometry_8h.html" title="EMCALBase/Geometry.h" alt="" coords="3781,310,3959,337"/>
+<area shape="rect" id="node76" href="$d1/d7a/EMCAL_2base_2include_2EMCALBase_2Mapper_8h.html" title="EMCALBase/Mapper.h" alt="" coords="5060,310,5221,337"/>
+<area shape="rect" id="node81" href="$d2/d39/CaloFitResults_8h.html" title="EMCALReconstruction\l/CaloFitResults.h" alt="" coords="8183,303,8346,344"/>
+<area shape="rect" id="node82" href="$d1/d29/Bunch_8h.html" title="EMCALReconstruction\l/Bunch.h" alt="" coords="7578,392,7741,433"/>
+<area shape="rect" id="node83" href="$dd/d8f/CaloRawFitterStandard_8h.html" title="EMCALReconstruction\l/CaloRawFitterStandard.h" alt="" coords="8239,124,8426,165"/>
+<area shape="rect" id="node86" href="$d8/d35/CaloRawFitterGamma2_8h.html" title="EMCALReconstruction\l/CaloRawFitterGamma2.h" alt="" coords="7887,124,8075,165"/>
+<area shape="rect" id="node87" href="$db/d4a/AltroDecoder_8h.html" title="EMCALReconstruction\l/AltroDecoder.h" alt="" coords="7010,213,7173,255"/>
+<area shape="rect" id="node93" href="$d5/da4/RawToCellConverterSpec_8h.html" title="EMCALWorkflow/RawToCellConverter\lSpec.h" alt="" coords="4961,124,5221,165"/>
+<area shape="rect" id="node98" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="5611,124,5780,165"/>
+<area shape="rect" id="node99" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="5045,392,5215,433"/>
+<area shape="rect" id="node5" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="5543,489,5709,515"/>
+<area shape="rect" id="node10" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="5957,489,6210,515"/>
+<area shape="rect" id="node12" href="$df/d72/ParamRetriever_8h.html" title="Framework/ParamRetriever.h" alt="" coords="312,399,521,426"/>
+<area shape="rect" id="node16" href="$dd/daf/ConfigParamStore_8h.html" title="Framework/ConfigParamStore.h" alt="" coords="322,310,549,337"/>
+<area shape="rect" id="node13" href="$d0/d1c/ConfigParamSpec_8h.html" title="Framework/ConfigParamSpec.h" alt="" coords="305,489,528,515"/>
+<area shape="rect" id="node21" href="$d3/d28/ServiceHandle_8h.html" title="Framework/ServiceHandle.h" alt="" coords="29,399,233,426"/>
+<area shape="rect" id="node23" href="$d0/df4/DataProcessorSpec_8h.html" title="Framework/DataProcessorSpec.h" alt="" coords="2014,310,2249,337"/>
+<area shape="rect" id="node24" href="$d0/d14/AlgorithmSpec_8h.html" title="Framework/AlgorithmSpec.h" alt="" coords="1159,399,1365,426"/>
+<area shape="rect" id="node30" href="$d1/df2/DataProcessorLabel_8h.html" title="Framework/DataProcessorLabel.h" alt="" coords="1820,399,2059,426"/>
+<area shape="rect" id="node31" href="$d5/dfb/DataRef_8h.html" title="Framework/DataRef.h" alt="" coords="2083,399,2244,426"/>
+<area shape="rect" id="node32" href="$d1/d28/DataAllocator_8h.html" title="Framework/DataAllocator.h" alt="" coords="3351,399,3549,426"/>
+<area shape="rect" id="node44" href="$d5/d3f/InputSpec_8h.html" title="Framework/InputSpec.h" alt="" coords="1389,399,1564,426"/>
+<area shape="rect" id="node45" href="$db/d2d/OutputSpec_8h.html" title="Framework/OutputSpec.h" alt="" coords="3091,399,3276,426"/>
+<area shape="rect" id="node46" href="$d8/d02/CommonServices_8h.html" title="Framework/CommonServices.h" alt="" coords="2269,399,2493,426"/>
+<area shape="rect" id="node25" href="$de/d6a/ProcessingContext_8h.html" title="Framework/ProcessingContext.h" alt="" coords="1377,489,1608,515"/>
+<area shape="rect" id="node26" href="$d7/dad/ErrorContext_8h.html" title="Framework/ErrorContext.h" alt="" coords="954,489,1146,515"/>
+<area shape="rect" id="node27" href="$d4/d2b/InitContext_8h.html" title="Framework/InitContext.h" alt="" coords="1171,489,1353,515"/>
+<area shape="rect" id="node28" href="$de/d9b/FunctionalHelpers_8h.html" title="Framework/FunctionalHelpers.h" alt="" coords="602,489,829,515"/>
+<area shape="rect" id="node33" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="4135,489,4304,515"/>
+<area shape="rect" id="node38" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="4191,571,4386,597"/>
+<area shape="rect" id="node49" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="5813,399,6093,426"/>
+<area shape="rect" id="node51" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="5231,571,5373,597"/>
+<area shape="rect" id="node54" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="5733,489,5932,515"/>
+<area shape="rect" id="node55" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="5391,399,5535,426"/>
+<area shape="rect" id="node56" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="4835,399,4969,426"/>
+<area shape="rect" id="node52" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="5101,645,5298,672"/>
+<area shape="rect" id="node53" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="5322,645,5487,672"/>
+<area shape="rect" id="node65" href="$dd/dda/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Constants_8h.html" title="DataFormatsEMCAL/Constants.h" alt="" coords="6627,399,6857,426"/>
+<area shape="rect" id="node66" href="$db/dcf/EMCAL_2base_2include_2EMCALBase_2GeometryBase_8h.html" title="EMCALBase/GeometryBase.h" alt="" coords="2618,399,2829,426"/>
+<area shape="rect" id="node67" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="2903,399,3066,426"/>
+<area shape="rect" id="node75" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="4329,489,4515,515"/>
+<area shape="rect" id="node85" href="$d4/d18/CaloRawFitter_8h.html" title="EMCALReconstruction\l/CaloRawFitter.h" alt="" coords="7899,213,8062,255"/>
+<area shape="rect" id="node88" href="$df/ddd/RCUTrailer_8h.html" title="EMCALBase/RCUTrailer.h" alt="" coords="7120,399,7300,426"/>
+<area shape="rect" id="node89" href="$de/d03/Channel_8h.html" title="EMCALReconstruction\l/Channel.h" alt="" coords="6493,303,6655,344"/>
+<area shape="rect" id="node90" href="$d8/d86/RawReaderMemory_8h.html" title="EMCALReconstruction\l/RawReaderMemory.h" alt="" coords="7010,303,7173,344"/>
+<area shape="rect" id="node91" href="$d1/da5/RawBuffer_8h.html" title="EMCALReconstruction\l/RawBuffer.h" alt="" coords="7815,392,7978,433"/>
+<area shape="rect" id="node92" href="$d5/dfc/RawPayload_8h.html" title="EMCALReconstruction\l/RawPayload.h" alt="" coords="6933,392,7095,433"/>
+<area shape="rect" id="node94" href="$df/d4f/Task_8h.html" title="Framework/Task.h" alt="" coords="2102,221,2241,247"/>
+<area shape="rect" id="node97" href="$d5/dd3/DataFormats_2Detectors_2EMCAL_2include_2DataFormatsEMCAL_2Cell_8h.html" title="DataFormatsEMCAL/Cell.h" alt="" coords="6303,221,6493,247"/>
+<area shape="rect" id="node95" href="$d9/d7f/CallbackService_8h.html" title="Framework/CallbackService.h" alt="" coords="1640,310,1855,337"/>
+<area shape="rect" id="node96" href="$d0/d77/EndOfStreamContext_8h.html" title="Framework/EndOfStreamContext.h" alt="" coords="2788,310,3035,337"/>
+</map>

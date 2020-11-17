@@ -1,0 +1,20 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/Passive/include/DetectorsPassive/PassiveBase.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/Passive/include/DetectorsPassive/PassiveBase.h">
+<area shape="rect" id="node2" href="$d9/da3/Absorber_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Absorber.h" alt="" coords="994,124,1205,195"/>
+<area shape="rect" id="node5" href="$dc/ded/Compensator_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Compensator.h" alt="" coords="74,124,314,195"/>
+<area shape="rect" id="node7" href="$d8/d70/Dipole_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Dipole.h" alt="" coords="339,124,535,195"/>
+<area shape="rect" id="node9" href="$d2/d69/FrameStructure_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/FrameStructure.h" alt="" coords="1229,124,1482,195"/>
+<area shape="rect" id="node11" href="$dc/db0/Hall_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Hall.h" alt="" coords="1507,124,1700,195"/>
+<area shape="rect" id="node13" href="$dd/db0/Magnet_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Magnet.h" alt="" coords="1725,124,1927,195"/>
+<area shape="rect" id="node15" href="$d4/d5f/Pipe_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Pipe.h" alt="" coords="559,124,752,195"/>
+<area shape="rect" id="node17" href="$d3/d2f/Shil_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/include\l/DetectorsPassive/Shil.h" alt="" coords="776,124,969,195"/>
+<area shape="rect" id="node19" href="$d2/da7/PassiveBase_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/PassiveBase.cxx" alt="" coords="1952,124,2121,195"/>
+<area shape="rect" id="node3" href="$d7/df8/GeometryTest_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Simulation\l/src/GeometryTest.cxx" alt="" coords="586,243,829,313"/>
+<area shape="rect" id="node4" href="$d5/df3/Absorber_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Absorber.cxx" alt="" coords="1047,243,1216,313"/>
+<area shape="rect" id="node6" href="$d1/d9d/Compensator_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Compensator.cxx" alt="" coords="5,243,175,313"/>
+<area shape="rect" id="node8" href="$d7/d64/Dipole_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Dipole.cxx" alt="" coords="199,243,368,313"/>
+<area shape="rect" id="node10" href="$de/da5/FrameStructure_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/FrameStructure.cxx" alt="" coords="1271,243,1440,313"/>
+<area shape="rect" id="node12" href="$da/d60/Hall_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Hall.cxx" alt="" coords="1519,243,1688,313"/>
+<area shape="rect" id="node14" href="$d9/d06/Magnet_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Magnet.cxx" alt="" coords="1741,243,1911,313"/>
+<area shape="rect" id="node16" href="$d3/d29/Pipe_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Pipe.cxx" alt="" coords="392,243,561,313"/>
+<area shape="rect" id="node18" href="$d5/dcd/Shil_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Passive/src\l/Shil.cxx" alt="" coords="853,243,1023,313"/>
+</map>

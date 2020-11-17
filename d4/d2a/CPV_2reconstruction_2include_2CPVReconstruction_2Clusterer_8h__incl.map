@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/CPV/reconstruction/include/CPVReconstruction/Clusterer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/CPV/reconstruction/include/CPVReconstruction/Clusterer.h">
+<area shape="rect" id="node2" href="$de/dfb/DataFormats_2Detectors_2CPV_2include_2DataFormatsCPV_2Digit_8h.html" title="DataFormatsCPV/Digit.h" alt="" coords="173,310,352,337"/>
+<area shape="rect" id="node10" href="$d1/d8b/DataFormats_2Detectors_2CPV_2include_2DataFormatsCPV_2Cluster_8h.html" title="DataFormatsCPV/Cluster.h" alt="" coords="307,221,501,247"/>
+<area shape="rect" id="node11" href="$db/d2a/CPV_2reconstruction_2include_2CPVReconstruction_2FullCluster_8h.html" title="CPVReconstruction/FullCluster.h" alt="" coords="548,139,775,165"/>
+<area shape="rect" id="node14" href="$dc/d40/CPV_2calib_2include_2CPVCalib_2CalibParams_8h.html" title="CPVCalib/CalibParams.h" alt="" coords="1445,139,1624,165"/>
+<area shape="rect" id="node17" href="$d1/d72/CPV_2calib_2include_2CPVCalib_2BadChannelMap_8h.html" title="CPVCalib/BadChannelMap.h" alt="" coords="1051,221,1253,247"/>
+<area shape="rect" id="node26" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="1797,303,1966,344"/>
+<area shape="rect" id="node32" href="$d6/d7a/CPV_2include_2DataFormatsCPV_2TriggerRecord_8h.html" title="DataFormatsCPV/TriggerRecord.h" alt="" coords="771,221,1007,247"/>
+<area shape="rect" id="node4" href="$df/d5d/common_2include_2CommonDataFormat_2TimeStamp_8h.html" title="CommonDataFormat/TimeStamp.h" alt="" coords="117,392,366,419"/>
+<area shape="rect" id="node5" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="441,467,607,493"/>
+<area shape="rect" id="node7" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="170,467,313,493"/>
+<area shape="rect" id="node8" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="5,541,203,568"/>
+<area shape="rect" id="node9" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="227,541,392,568"/>
+<area shape="rect" id="node13" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="577,213,746,255"/>
+<area shape="rect" id="node20" href="$d7/d44/TObjectWrapper_8h.html" title="CCDB/TObjectWrapper.h" alt="" coords="1236,310,1415,337"/>
+<area shape="rect" id="node33" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="781,303,1013,344"/>
+<area shape="rect" id="node35" href="$de/d64/RangeReference_8h.html" title="Class to refer to the 1st entry and N elements of some group in the continuous container. " alt="" coords="477,310,757,337"/>
+<area shape="rect" id="node34" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="629,392,883,419"/>
+</map>

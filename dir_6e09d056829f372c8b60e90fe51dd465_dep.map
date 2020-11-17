@@ -1,0 +1,21 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/Calibration/include" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/Calibration/include">
+<area shape="rect" id="node2" href="dir_20a8303141a4c6be44972275a89f3e6f.html" title="DetectorsCalibration" alt="" coords="61,63,217,111"/>
+<area shape="rect" id="node3" href="dir_4ab6b4cc6a7edbff49100e9123df213f.html" title="Common" alt="" coords="5,255,87,303"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000052_000036.html" title="4" alt="" coords="45,228,55,243"/>
+<area shape="rect" id="node4" href="dir_6af676bf18881990e4083e191d0e63e0.html" title="CCDB" alt="" coords="67,159,139,207"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000052_000028.html" title="2" alt="" coords="122,137,131,151"/>
+<area shape="rect" id="node5" href="dir_bcbb2cf9a3d3d83e5515c82071a07177.html" title="Framework" alt="" coords="95,351,189,399"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000052_000063.html" title="1" alt="" coords="151,326,160,341"/>
+<area shape="rect" id="node6" href="dir_2171f7ec022c5423887b07c69b2f5b48.html" title="DataFormats" alt="" coords="89,447,195,495"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000052_000090.html" title="3" alt="" coords="183,431,192,445"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000036_000063.html" title="2" alt="" coords="98,325,107,339"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000036_000090.html" title="2" alt="" coords="96,420,105,435"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000028_000036.html" title="4" alt="" coords="73,236,82,250"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000028_000063.html" title="2" alt="" coords="137,324,147,338"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000063_000036.html" title="8" alt="" coords="81,314,90,329"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000063_000090.html" title="73" alt="" coords="133,420,150,435"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000090_000036.html" title="38" alt="" coords="48,315,65,330"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000090_000063.html" title="22" alt="" coords="134,410,151,425"/>
+<area shape="rect" id="clust2" href="dir_6e09d056829f372c8b60e90fe51dd465.html" alt="" coords="50,52,325,121"/>
+<area shape="rect" id="clust1" href="dir_2f1defcce8b8bdfe202c8bfd41228d47.html" title="Calibration" alt="" coords="39,16,335,132"/>
+</map>

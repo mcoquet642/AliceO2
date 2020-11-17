@@ -1,0 +1,23 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/include/TRDSimulation/TrapSimulator.h"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node110 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/include/TRDSimulation/TrapSimulator.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node110 -> Node111 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node111 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapConfigHandler.cxx",height=0.2,width=0.4,color="black",URL="$db/dc3/TrapConfigHandler_8cxx.html"];
+  Node110 -> Node112 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node112 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/simulation\l/src/TrapSimulator.cxx",height=0.2,width=0.4,color="black",URL="$da/deb/TrapSimulator_8cxx.html"];
+  Node110 -> Node113 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node113 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/include/TRDWorkflow/TRDTrapSimulator\lSpec.h",height=0.2,width=0.4,color="black",URL="$dc/d96/TRDTrapSimulatorSpec_8h.html"];
+  Node113 -> Node114 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node114 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorSpec.cxx",height=0.2,width=0.4,color="black",URL="$dd/de7/TRDTrapSimulatorSpec_8cxx.html"];
+  Node113 -> Node115 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node115 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDTrapSimulatorWorkFlow.cxx",height=0.2,width=0.4,color="black",URL="$d2/dc0/TRDTrapSimulatorWorkFlow_8cxx.html"];
+  Node113 -> Node116 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node116 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx",height=0.2,width=0.4,color="black",URL="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html"];
+  Node110 -> Node117 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node117 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TRD/workflow\l/src/TRDDigitReaderSpec.cxx",height=0.2,width=0.4,color="black",URL="$d7/da6/TRDDigitReaderSpec_8cxx.html"];
+  Node110 -> Node114 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

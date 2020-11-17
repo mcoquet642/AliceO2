@@ -1,0 +1,14 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Utilities/Mergers/include/Mergers/MergerConfig.h" name="/home/travis/build/AliceO2Group/AliceO2/Utilities/Mergers/include/Mergers/MergerConfig.h">
+<area shape="rect" id="node2" href="$d4/dd2/FullHistoryMerger_8h.html" title="Definition of O2 FullHistoryMerger, v0.1. " alt="" coords="143,124,349,195"/>
+<area shape="rect" id="node5" href="$db/d19/IntegratingMerger_8h.html" title="Definition of O2 IntegratingMerger, v0.1. " alt="" coords="373,124,583,195"/>
+<area shape="rect" id="node7" href="$d4/df8/MergerBuilder_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Utilities/Mergers/include\l/Mergers/MergerBuilder.h" alt="" coords="610,124,794,195"/>
+<area shape="rect" id="node12" href="$da/d43/MergerInfrastructureBuilder_8h.html" title="Definition of O2 MergerInfrastructureBuilder, v0.1. " alt="" coords="965,124,1237,195"/>
+<area shape="rect" id="node3" href="$db/d51/FullHistoryMerger_8cxx.html" title="Implementation of O2 Mergers, v0.1. " alt="" coords="5,243,175,313"/>
+<area shape="rect" id="node4" href="$d8/d56/MergerBuilder_8cxx.html" title="Definition of MergerBuilder for O2 Mergers. " alt="" coords="199,243,368,313"/>
+<area shape="rect" id="node6" href="$d0/d24/IntegratingMerger_8cxx.html" title="Implementation of O2 Mergers, v0.1. " alt="" coords="392,243,561,313"/>
+<area shape="rect" id="node8" href="$d4/dda/MergerInfrastructureBuilder_8cxx.html" title="Definition of Mergers&#39; Infrastructure Builder. " alt="" coords="1117,243,1348,313"/>
+<area shape="rect" id="node9" href="$d9/de7/mergersTopologyExample_8cxx.html" title="This is a DPL workflow to see Mergers in action. " alt="" coords="1372,243,1595,313"/>
+<area shape="rect" id="node10" href="$dc/daf/mergersBenchmarkTopology_8cxx.html" title="This is a DPL workflow to benchmark Mergers. " alt="" coords="586,243,823,313"/>
+<area shape="rect" id="node11" href="$dc/dbc/multinodeBenchmarkMergers_8cxx.html" title="This is a DPL workflow to run Mergers and an input proxy for benchmarks. " alt="" coords="847,243,1093,313"/>
+<area shape="rect" id="node13" href="$d9/db1/test__InfrastructureBuilder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Utilities/Mergers/test\l/test_InfrastructureBuilder.cxx" alt="" coords="1619,243,1838,313"/>
+</map>

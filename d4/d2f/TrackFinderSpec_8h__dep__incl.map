@@ -1,0 +1,4 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Workflow/src/TrackFinderSpec.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MCH/Workflow/src/TrackFinderSpec.h">
+<area shape="rect" id="node2" href="$da/d0f/clusters-to-tracks-workflow_8cxx.html" title="Implementation of a DPL device to run the track finder algorithm. " alt="" coords="5,124,259,195"/>
+<area shape="rect" id="node3" href="$dd/dea/TrackFinderSpec_8cxx.html" title="Implementation of a data processor to read clusters, reconstruct tracks and send them. " alt="" coords="283,124,515,195"/>
+</map>

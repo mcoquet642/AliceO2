@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUMemorySizeScalers.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUMemorySizeScalers.h">
+<area shape="rect" id="node2" href="$db/d5b/GPUReconstruction_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/GPUReconstruction.cxx" alt="" coords="5,124,183,195"/>
+<area shape="rect" id="node3" href="$d2/d58/GPUChainTracking_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTracking.cxx" alt="" coords="207,124,394,195"/>
+<area shape="rect" id="node4" href="$d3/d85/GPUChainTrackingIO_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Global\l/GPUChainTrackingIO.cxx" alt="" coords="418,124,605,195"/>
+<area shape="rect" id="node5" href="$d0/d48/GPUO2Interface_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Interface\l/GPUO2Interface.cxx" alt="" coords="629,124,831,195"/>
+<area shape="rect" id="node6" href="$d0/dd4/GPUTPCGMMerger_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Merger\l/GPUTPCGMMerger.cxx" alt="" coords="855,124,1045,195"/>
+<area shape="rect" id="node9" href="$db/d4b/GPUTPCTracker_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/SliceTracker\l/GPUTPCTracker.cxx" alt="" coords="1069,124,1292,195"/>
+<area shape="rect" id="node10" href="$df/da0/GPUTPCClusterFinder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/TPCClusterFinder\l/GPUTPCClusterFinder.cxx" alt="" coords="1316,124,1571,195"/>
+<area shape="rect" id="node7" href="$d0/d25/GPUReconstructionIncludesDevice_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/GPUReconstructionIncludesDevice.h" alt="" coords="934,243,1195,313"/>
+<area shape="rect" id="node8" href="$d3/d33/GPUReconstructionHIP_8hip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/GPUTracking/Base\l/hip/GPUReconstructionHIP.hip.cxx" alt="" coords="942,361,1187,432"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="DTask" name="DTask">
+<area shape="rect" id="node2" href="$d8/d34/classo2_1_1framework_1_1HistogramRegistry.html" title="{o2::framework::Histogram\lRegistry\n||+ HistogramRegistry()\l+ add()\l+ add()\l+ add()\l+ addClone()\l+ contains()\l+ get()\l+ operator()()\l+ spec()\l+ ref()\l+ setHash()\l+ operator*()\l+ fill()\l+ fill()\l+ getSize()\l+ getSize()\l+ print()\l}" alt="" coords="1012,651,1206,977"/>
+<area shape="rect" id="node5" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\l\&lt; TList \&gt;\n||+ spec()\l+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="568,1001,759,1240"/>
+<area shape="rect" id="node14" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\&lt; T \&gt;\n||+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ spec()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="429,403,658,627"/>
+<area shape="rect" id="node10" href="$da/d96/structo2_1_1framework_1_1InputSpec.html" title="{o2::framework::InputSpec\n||+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ operator==()\l}" alt="" coords="712,189,901,340"/>
+</map>

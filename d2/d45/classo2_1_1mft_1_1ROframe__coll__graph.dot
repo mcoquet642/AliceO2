@@ -1,0 +1,8 @@
+digraph "o2::mft::ROframe"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{o2::mft::ROframe\n||+ ROframe()\l+ getROFrameId()\l+ getTotalClusters()\l+ setROFrameId()\l+ getClusters()\l+ getClustersInLayer()\l+ getClusterLabels()\l+ getClusterLabels()\l+ getClusterBinIndexRange()\l+ getClusterExternalIndex()\l+ getCells()\l+ getCellsInLayer()\l+ getTracksLTF()\l+ getCurrentTrackLTF()\l+ removeCurrentTrackLTF()\l+ getCurrentRoad()\l+ removeCurrentRoad()\l+ getRoads()\l+ getTracksCA()\l+ getCurrentTrackCA()\l+ removeCurrentTrackCA()\l+ addClusterToLayer()\l+ addCellToLayer()\l+ addClusterLabelToLayer()\l+ addClusterExternalIndexTo\lLayer()\l+ addClusterBinIndexRangeTo\lLayer()\l+ addTrackLTF()\l+ addTrackCA()\l+ addRoad()\l+ initialise()\l+ sortClusters()\l+ isClusterUsed()\l+ markUsedCluster()\l+ clear()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

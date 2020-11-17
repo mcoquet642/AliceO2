@@ -1,0 +1,18 @@
+<map id="pidTPCTask" name="pidTPCTask">
+<area shape="rect" id="node2" href="$de/de9/structo2_1_1framework_1_1Service.html" title="{o2::framework::Service\l\&lt; o2::ccdb::BasicCCDBManager \&gt;\n||+ operator&#45;\&gt;()\l}" alt="" coords="185,593,428,685"/>
+<area shape="rect" id="node3" href="$da/d73/classo2_1_1ccdb_1_1BasicCCDBManager.html" title="{o2::ccdb::BasicCCDBManager\n||+ setURL()\l+ setTimestamp()\l+ getURL()\l+ getTimestamp()\l+ getForTimeStamp()\l+ get()\l+ isHostReachable()\l+ clearCache()\l+ clearCache()\l+ isCachingEnabled()\l+ setCaching()\l+ isLocalObjectValidityChecking\lEnabled()\l+ setLocalObjectValidityChecking()\l+ setCreatedNotAfter()\l+ getCreatedNotAfter()\l+ resetCreatedNotAfter()\l+ setCreatedNotBefore()\l+ getCreatedNotBefore()\l+ resetCreatedNotBefore()\l+ instance()\l}" alt="" coords="241,160,493,531"/>
+<area shape="rect" id="node4" href="$de/de9/structo2_1_1framework_1_1Service.html" title="{o2::framework::Service\&lt; T \&gt;\n||+ operator&#45;\&gt;()\l}" alt="" coords="5,307,216,384"/>
+<area shape="rect" id="node13" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; T \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="702,299,909,391"/>
+<area shape="rect" id="node6" href="$dc/d34/classo2_1_1pid_1_1DetectorResponse.html" title="Class to handle the general detector response. " alt="" coords="355,903,547,1068"/>
+<area shape="rect" id="node8" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; std::string \&gt;\n||+ Configurable()\l}" alt="" coords="571,939,778,1031"/>
+<area shape="rect" id="node9" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; std::string \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="510,748,717,840"/>
+<area shape="rect" id="node10" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; std::string \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="453,593,659,685"/>
+<area shape="rect" id="node19" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; long \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="977,593,1183,685"/>
+<area shape="rect" id="node14" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; T \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="683,593,890,685"/>
+<area shape="rect" id="node18" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; long \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="971,748,1178,840"/>
+<area shape="rect" id="node15" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; T, IP \&gt;\n||+ Configurable()\l}" alt="" coords="741,748,947,840"/>
+<area shape="rect" id="node17" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; long \&gt;\n||+ Configurable()\l}" alt="" coords="802,939,1009,1031"/>
+<area shape="rect" id="node20" href="$d7/d63/classlong.html" title="{long\n||}" alt="" coords="1055,307,1105,384"/>
+<area shape="rect" id="node21" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\l\&lt; aod::pidRespTPC \&gt;\n||}" alt="" coords="1133,939,1317,1031"/>
+<area shape="rect" id="node22" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\&lt; T \&gt;\n||}" alt="" coords="1202,755,1425,833"/>
+</map>

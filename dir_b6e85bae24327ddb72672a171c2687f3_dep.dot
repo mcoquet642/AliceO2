@@ -1,0 +1,14 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase" {
+  bgcolor=transparent;
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_f511f1e9c03c071966ae594f00bbc5e0 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="GPU" fontname="Helvetica", fontsize="10", URL="dir_f511f1e9c03c071966ae594f00bbc5e0.html"]
+  subgraph clusterdir_b6e85bae24327ddb72672a171c2687f3 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_b6e85bae24327ddb72672a171c2687f3.html"];
+    dir_b6e85bae24327ddb72672a171c2687f3 [shape=plaintext label="TPCSpaceChargeBase"];
+    dir_b35e76f95de4f60f00325aee69002900 [shape=box label="ctest" color="black" fillcolor="white" style="filled" URL="dir_b35e76f95de4f60f00325aee69002900.html"];
+  }
+  }
+}

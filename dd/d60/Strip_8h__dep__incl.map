@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/base/include/TOFBase/Strip.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TOF/base/include/TOFBase/Strip.h">
+<area shape="rect" id="node2" href="$d0/de5/WindowFiller_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/base/include\l/TOFBase/WindowFiller.h" alt="" coords="603,124,807,195"/>
+<area shape="rect" id="node4" href="$d4/d36/Detectors_2TOF_2reconstruction_2include_2TOFReconstruction_2Decoder_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/reconstruction\l/include/TOFReconstruction\l/Decoder.h" alt="" coords="377,243,592,328"/>
+<area shape="rect" id="node10" href="$d0/d85/TOF_2simulation_2include_2TOFSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/include/TOFSimulation/Digitizer.h" alt="" coords="817,250,1059,321"/>
+<area shape="rect" id="node15" href="$d6/d43/Strip_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/base/src\l/Strip.cxx" alt="" coords="882,124,1058,195"/>
+<area shape="rect" id="node3" href="$dc/d87/WindowFiller_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/base/src\l/WindowFiller.cxx" alt="" coords="617,250,793,321"/>
+<area shape="rect" id="node5" href="$de/da8/TOF_2reconstruction_2src_2Decoder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/reconstruction\l/src/Decoder.cxx" alt="" coords="5,383,220,454"/>
+<area shape="rect" id="node6" href="$de/d5e/TOF_2reconstruction_2src_2Encoder_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/reconstruction\l/src/Encoder.cxx" alt="" coords="244,383,459,454"/>
+<area shape="rect" id="node7" href="$db/d4c/CompressedDecodingTask_8h.html" title="TOF compressed data decoding task. " alt="" coords="483,376,692,461"/>
+<area shape="rect" id="node8" href="$da/dfd/tof-reco-workflow_8cxx.html" title="Basic DPL workflow for TOF reconstruction starting from digits. " alt="" coords="452,509,723,580"/>
+<area shape="rect" id="node9" href="$d8/d56/CompressedDecodingTask_8cxx.html" title="TOF compressed data decoding task. " alt="" coords="181,509,428,580"/>
+<area shape="rect" id="node11" href="$d8/dc6/TOF_2simulation_2include_2TOFSimulation_2DigitizerTask_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/include/TOFSimulation/Digitizer\lTask.h" alt="" coords="721,376,952,461"/>
+<area shape="rect" id="node13" href="$d4/df3/TOF_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/src/Digitizer.cxx" alt="" coords="976,383,1167,454"/>
+<area shape="rect" id="node14" href="$d6/d61/TOFDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TOFDigitizerSpec.cxx" alt="" coords="1191,383,1378,454"/>
+<area shape="rect" id="node12" href="$dd/df3/TOF_2simulation_2src_2DigitizerTask_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TOF/simulation\l/src/DigitizerTask.cxx" alt="" coords="747,509,937,580"/>
+</map>

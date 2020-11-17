@@ -1,0 +1,14 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/Detectors/PHOS/reconstruction/include/PHOSReconstruction" {
+  bgcolor=transparent;
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_31b4a6c34d54b2347b970402ffd45e26 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="include" fontname="Helvetica", fontsize="10", URL="dir_31b4a6c34d54b2347b970402ffd45e26.html"]
+  dir_6eae14b033f2ceabd5b808883edf11bd [shape=box, label="PHOSReconstruction", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_6eae14b033f2ceabd5b808883edf11bd.html"];
+  }
+  dir_f8d0b672e09eeb12dbd411d9fb531afa [shape=box label="calib" color="red" URL="dir_f8d0b672e09eeb12dbd411d9fb531afa.html"];
+  dir_2171f7ec022c5423887b07c69b2f5b48 [shape=box label="DataFormats" color="red" URL="dir_2171f7ec022c5423887b07c69b2f5b48.html"];
+  dir_6eae14b033f2ceabd5b808883edf11bd->dir_f8d0b672e09eeb12dbd411d9fb531afa [headlabel="2", labeldistance=1.5 headhref="dir_000401_000387.html"];
+  dir_6eae14b033f2ceabd5b808883edf11bd->dir_2171f7ec022c5423887b07c69b2f5b48 [headlabel="9", labeldistance=1.5 headhref="dir_000401_000090.html"];
+}

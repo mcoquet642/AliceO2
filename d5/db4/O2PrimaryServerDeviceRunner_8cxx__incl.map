@@ -1,0 +1,35 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/run/O2PrimaryServerDeviceRunner.cxx" name="/home/travis/build/AliceO2Group/AliceO2/run/O2PrimaryServerDeviceRunner.cxx">
+<area shape="rect" id="node3" href="$dc/d50/O2PrimaryServerDevice_8h.html" title="O2PrimaryServerDevice.h" alt="" coords="2929,109,3119,136"/>
+<area shape="rect" id="node63" href="$d4/dee/SimConfig_8h.html" title="SimConfig/SimConfig.h" alt="" coords="4481,191,4652,218"/>
+<area shape="rect" id="node6" href="$d4/d6f/GeneratorFactory_8h.html" title="Generators/GeneratorFactory.h" alt="" coords="1574,191,1794,218"/>
+<area shape="rect" id="node8" href="$d4/d03/simulation_2include_2SimulationDataFormat_2Stack_8h.html" title="SimulationDataFormat\l/Stack.h" alt="" coords="1381,184,1550,225"/>
+<area shape="rect" id="node55" href="$d2/d1f/MCEventHeader_8h.html" title="SimulationDataFormat\l/MCEventHeader.h" alt="" coords="2426,273,2595,315"/>
+<area shape="rect" id="node59" href="$d9/d45/PrimaryChunk_8h.html" title="SimulationDataFormat\l/PrimaryChunk.h" alt="" coords="2499,184,2669,225"/>
+<area shape="rect" id="node60" href="$de/daf/GeneratorFromFile_8h.html" title="Generators/GeneratorFrom\lFile.h" alt="" coords="2744,184,2939,225"/>
+<area shape="rect" id="node62" href="$d4/dd2/PrimaryGenerator_8h.html" title="Generators/PrimaryGenerator.h" alt="" coords="1977,191,2202,218"/>
+<area shape="rect" id="node65" href="$db/d2c/ConfigurableParam_8h.html" title="CommonUtils/Configurable\lParam.h" alt="" coords="3109,184,3307,225"/>
+<area shape="rect" id="node70" href="$d6/d83/RngHelper_8h.html" title="CommonUtils/RngHelper.h" alt="" coords="3381,191,3576,218"/>
+<area shape="rect" id="node73" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="3600,191,3757,218"/>
+<area shape="rect" id="node9" href="$d6/d31/DetID_8h.html" title="DetectorsCommonDataFormats\l/DetID.h" alt="" coords="435,363,663,404"/>
+<area shape="rect" id="node36" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="1094,273,1263,315"/>
+<area shape="rect" id="node44" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="1939,363,2109,404"/>
+<area shape="rect" id="node48" href="$d5/dbe/TrackReference_8h.html" title="SimulationDataFormat\l/TrackReference.h" alt="" coords="1642,273,1811,315"/>
+<area shape="rect" id="node51" href="$d6/d9d/MCEventStats_8h.html" title="SimulationDataFormat\l/MCEventStats.h" alt="" coords="2337,363,2506,404"/>
+<area shape="rect" id="node18" href="$d9/d52/Common_2MathUtils_2include_2MathUtils_2Utils_8h.html" title="MathUtils/Utils.h" alt="" coords="288,459,419,486"/>
+<area shape="rect" id="node28" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="1006,459,1175,486"/>
+<area shape="rect" id="node19" href="$de/def/bitOps_8h.html" title="MathUtils/detail/bitOps.h" alt="" coords="617,541,799,568"/>
+<area shape="rect" id="node20" href="$d3/dfc/StatAccumulator_8h.html" title="MathUtils/detail/StatAccumulator.h" alt="" coords="5,541,253,568"/>
+<area shape="rect" id="node22" href="$dd/d7d/trigonometric_8h.html" title="MathUtils/detail/trigonometric.h" alt="" coords="277,541,507,568"/>
+<area shape="rect" id="node24" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="810,691,953,717"/>
+<area shape="rect" id="node25" href="$d6/da2/GPUCommonMath_8h.html" title="GPUCommonMath.h" alt="" coords="233,616,386,643"/>
+<area shape="rect" id="node27" href="$d6/d84/MathConstants_8h.html" title="useful math constants " alt="" coords="411,616,669,643"/>
+<area shape="rect" id="node33" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="965,541,1160,568"/>
+<area shape="rect" id="node45" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="2489,459,2655,486"/>
+<area shape="rect" id="node75" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="4274,281,4441,307"/>
+<area shape="rect" id="node78" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="4935,281,5187,307"/>
+<area shape="rect" id="node84" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="3666,281,3817,307"/>
+<area shape="rect" id="node81" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="5099,370,5290,397"/>
+<area shape="rect" id="node83" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="5267,459,5485,486"/>
+<area shape="rect" id="node85" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="3728,370,3891,397"/>
+<area shape="rect" id="node95" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="2999,616,3185,643"/>
+</map>

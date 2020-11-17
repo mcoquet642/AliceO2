@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/MCLabel.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/include/MIDSimulation/MCLabel.h">
+<area shape="rect" id="node2" href="$da/de1/MUON_2MID_2Simulation_2include_2MIDSimulation_2Digitizer_8h.html" title="Digitizer for MID. " alt="" coords="397,124,640,195"/>
+<area shape="rect" id="node5" href="$d4/dd3/MIDDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/MIDDigitizerSpec.cxx" alt="" coords="267,243,453,313"/>
+<area shape="rect" id="node6" href="$dc/d92/DigitsMerger_8h.html" title="Digits merger for MID. " alt="" coords="665,124,935,195"/>
+<area shape="rect" id="node8" href="$de/d28/PreClusterLabeler_8h.html" title="PreClusterLabeler for MID. " alt="" coords="959,124,1262,195"/>
+<area shape="rect" id="node10" href="$d3/d1e/ClusterizerMCSpec_8cxx.html" title="Data processor spec for MID MC clustering device. " alt="" coords="1261,243,1488,313"/>
+<area shape="rect" id="node11" href="$de/dc9/Detectors_2MUON_2MID_2Simulation_2src_2MCLabel_8cxx.html" title="Implementation of MC label for MID. " alt="" coords="1337,124,1575,195"/>
+<area shape="rect" id="node12" href="$d6/d1b/MUON_2MID_2Workflow_2src_2DigitReaderSpec_8cxx.html" title="Data processor spec for MID digits reader device. " alt="" coords="1599,124,1825,195"/>
+<area shape="rect" id="node13" href="$dc/dac/MUON_2MID_2Workflow_2src_2digits-reader-workflow_8cxx.html" title="MID digits reader workflow. " alt="" coords="1849,124,2076,195"/>
+<area shape="rect" id="node14" href="$de/d2b/ZeroSuppressionSpec_8cxx.html" title="MID zero suppression spec. " alt="" coords="2100,124,2327,195"/>
+<area shape="rect" id="node15" href="$d9/d65/MIDDigitWriterSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/MIDDigitWriterSpec.h" alt="" coords="2351,124,2537,195"/>
+<area shape="rect" id="node3" href="$d6/df9/MUON_2MID_2Simulation_2src_2Digitizer_8cxx.html" title="Implementation of the digitizer for MID. " alt="" coords="5,243,243,313"/>
+<area shape="rect" id="node4" href="$d6/d45/testSimulation_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MID/Simulation\l/test/testSimulation.cxx" alt="" coords="739,243,976,313"/>
+<area shape="rect" id="node7" href="$db/d63/DigitsMerger_8cxx.html" title="Implementation of the digits merger for MID. " alt="" coords="477,243,715,313"/>
+<area shape="rect" id="node9" href="$db/d5b/PreClusterLabeler_8cxx.html" title="Implementation of the PreClusterLabeler for MID. " alt="" coords="1000,243,1237,313"/>
+<area shape="rect" id="node16" href="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx" alt="" coords="2327,243,2561,313"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Analysis/DataModel/src/handleParamTOFReso.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Analysis/DataModel/src/handleParamTOFReso.cxx">
+<area shape="rect" id="node2" href="$dd/d3e/CcdbApi_8h.html" title="CCDB/CcdbApi.h" alt="" coords="244,124,372,151"/>
+<area shape="rect" id="node16" href="$d3/da9/TOFReso_8h.html" title="Implementation for the TOF PID response of the expected times resolution. " alt="" coords="833,124,949,151"/>
+<area shape="rect" id="node9" href="$d4/dab/CcdbObjectInfo_8h.html" title="CCDB/CcdbObjectInfo.h" alt="" coords="607,199,782,225"/>
+<area shape="rect" id="node11" href="$dd/da4/Logger_8h.html" title="Framework/Logger.h" alt="" coords="689,273,842,300"/>
+<area shape="rect" id="node18" href="$d0/ded/ParamBase_8h.html" title="Set of utilities to handle the parametrization of the PID response for each detector These are the ba..." alt="" coords="929,199,1095,225"/>
+</map>

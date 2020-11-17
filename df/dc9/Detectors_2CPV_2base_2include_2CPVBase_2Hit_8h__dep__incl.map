@@ -1,0 +1,13 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/CPV/base/include/CPVBase/Hit.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/CPV/base/include/CPVBase/Hit.h">
+<area shape="rect" id="node2" href="$d4/d01/DataFormats_2Detectors_2CPV_2src_2Digit_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/DataFormats/Detectors\l/CPV/src/Digit.cxx" alt="" coords="5,124,183,195"/>
+<area shape="rect" id="node3" href="$d2/dfe/Detectors_2CPV_2base_2src_2Hit_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CPV/base/src\l/Hit.cxx" alt="" coords="207,124,384,195"/>
+<area shape="rect" id="node4" href="$d3/de1/CPV_2simulation_2include_2CPVSimulation_2Detector_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CPV/simulation\l/include/CPVSimulation/Detector.h" alt="" coords="460,124,704,195"/>
+<area shape="rect" id="node5" href="$de/de0/CPV_2simulation_2src_2Detector_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CPV/simulation\l/src/Detector.cxx" alt="" coords="281,243,473,313"/>
+<area shape="rect" id="node8" href="$d4/d37/CPV_2simulation_2include_2CPVSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CPV/simulation\l/include/CPVSimulation/Digitizer.h" alt="" coords="745,124,987,195"/>
+<area shape="rect" id="node10" href="$d1/d37/CPVDigitizerSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/CPVDigitizerSpec.h" alt="" coords="982,243,1161,313"/>
+<area shape="rect" id="node6" href="$db/d50/O2HitMerger_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMerger.h" alt="" coords="497,250,667,306"/>
+<area shape="rect" id="node7" href="$d9/d16/O2HitMergerRunner_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/run/O2HitMergerRunner.cxx" alt="" coords="480,369,684,425"/>
+<area shape="rect" id="node9" href="$d3/d11/CPV_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/CPV/simulation\l/src/Digitizer.cxx" alt="" coords="715,243,907,313"/>
+<area shape="rect" id="node11" href="$da/dfe/CPVDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/CPVDigitizerSpec.cxx" alt="" coords="851,361,1039,432"/>
+<area shape="rect" id="node12" href="$d2/dd7/SimpleDigitizerWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/SimpleDigitizerWorkflow.cxx" alt="" coords="1063,361,1298,432"/>
+</map>

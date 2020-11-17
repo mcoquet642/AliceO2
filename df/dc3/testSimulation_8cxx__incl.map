@@ -1,0 +1,46 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/test/testSimulation.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/MUON/MID/Simulation/test/testSimulation.cxx">
+<area shape="rect" id="node5" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1663,399,1825,426"/>
+<area shape="rect" id="node21" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="3585,489,3839,515"/>
+<area shape="rect" id="node22" href="$d6/d31/Cluster2D_8h.html" title="Reconstructed cluster per RPC. " alt="" coords="5383,310,5593,337"/>
+<area shape="rect" id="node25" href="$d0/daa/Cluster3D_8h.html" title="Reconstructed MID cluster (global coordinates) " alt="" coords="4945,310,5156,337"/>
+<area shape="rect" id="node26" href="$d3/d53/ColumnData_8h.html" title="Strip pattern (aka digits) " alt="" coords="6475,399,6703,426"/>
+<area shape="rect" id="node29" href="$d4/d54/DataFormats_2Detectors_2MUON_2MID_2include_2DataFormatsMID_2Track_8h.html" title="Reconstructed MID track. " alt="" coords="3935,310,4116,337"/>
+<area shape="rect" id="node30" href="$d2/d0e/Mapping_8h.html" title="Mapping for MID. " alt="" coords="6197,310,6347,337"/>
+<area shape="rect" id="node33" href="$de/d0c/GeometryTransformer_8h.html" title="Geometry transformer for MID. " alt="" coords="2365,310,2603,337"/>
+<area shape="rect" id="node36" href="$d8/d17/ChamberResponseParams_8h.html" title="Parameters for MID RPC response. " alt="" coords="3668,303,3911,344"/>
+<area shape="rect" id="node37" href="$d2/d6b/ClusterLabeler_8h.html" title="ClusterLabeler for MID. " alt="" coords="5188,221,5415,247"/>
+<area shape="rect" id="node48" href="$d0/d00/ColumnDataMC_8h.html" title="Strip pattern (aka digits) for simulations. " alt="" coords="5887,310,6121,337"/>
+<area shape="rect" id="node49" href="$da/de1/MUON_2MID_2Simulation_2include_2MIDSimulation_2Digitizer_8h.html" title="Digitizer for MID. " alt="" coords="3080,131,3267,158"/>
+<area shape="rect" id="node56" href="$d7/d8d/Detectors_2MUON_2MID_2Simulation_2include_2MIDSimulation_2Hit_8h.html" title="Hit for MID. " alt="" coords="2315,221,2467,247"/>
+<area shape="rect" id="node66" href="$dc/d92/DigitsMerger_8h.html" title="Digits merger for MID. " alt="" coords="4097,221,4311,247"/>
+<area shape="rect" id="node70" href="$de/d28/PreClusterLabeler_8h.html" title="PreClusterLabeler for MID. " alt="" coords="3782,213,3970,255"/>
+<area shape="rect" id="node71" href="$df/d00/TrackLabeler_8h.html" title="Tracks labeler for MID. " alt="" coords="4606,221,4821,247"/>
+<area shape="rect" id="node72" href="$d5/d51/MUON_2MID_2Clustering_2include_2MIDClustering_2Clusterizer_8h.html" title="Cluster reconstruction algorithm for MID. " alt="" coords="6059,131,6258,158"/>
+<area shape="rect" id="node75" href="$d8/dc8/PreClusterHelper_8h.html" title="Pre&#45;clusters helper for MID. " alt="" coords="5937,213,6121,255"/>
+<area shape="rect" id="node77" href="$d7/d1a/PreClusterizer_8h.html" title="Pre&#45;cluster reconstruction algorithm for MID. " alt="" coords="6693,221,6912,247"/>
+<area shape="rect" id="node78" href="$db/d8e/MUON_2MID_2Tracking_2include_2MIDTracking_2Tracker_8h.html" title="Track reconstruction algorithm for MID. " alt="" coords="4927,221,5089,247"/>
+<area shape="rect" id="node79" href="$d3/d93/TrackGenerator_8h.html" title="Fast track generator for MID. " alt="" coords="3607,213,3758,255"/>
+<area shape="rect" id="node80" href="$d7/d40/HitFinder_8h.html" title="Hit finder for MID. " alt="" coords="2491,213,2642,255"/>
+<area shape="rect" id="node6" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="226,571,369,597"/>
+<area shape="rect" id="node9" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="3294,489,3461,515"/>
+<area shape="rect" id="node20" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="139,489,325,515"/>
+<area shape="rect" id="node7" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="96,645,293,672"/>
+<area shape="rect" id="node8" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="317,645,483,672"/>
+<area shape="rect" id="node32" href="$d7/d0a/MpArea_8h.html" title="Mapping area for MID. " alt="" coords="6256,399,6400,426"/>
+<area shape="rect" id="node34" href="$dc/de4/DetectorParameters_8h.html" title="Useful detector parameters for MID. " alt="" coords="2394,399,2619,426"/>
+<area shape="rect" id="node39" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="3423,303,3593,344"/>
+<area shape="rect" id="node45" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="3667,392,3837,433"/>
+<area shape="rect" id="node46" href="$d0/d8d/MID_2Clustering_2include_2MIDClustering_2PreCluster_8h.html" title="Pre&#45;cluster structure for MID. " alt="" coords="5668,310,5863,337"/>
+<area shape="rect" id="node47" href="$d3/db3/MCClusterLabel_8h.html" title="Label for MID clusters. " alt="" coords="4636,310,4871,337"/>
+<area shape="rect" id="node51" href="$d5/d62/ChamberResponse_8h.html" title="MID RPC response. " alt="" coords="3313,221,3567,247"/>
+<area shape="rect" id="node53" href="$de/d74/ChamberEfficiencyResponse_8h.html" title="MID RPC effciency response. " alt="" coords="2717,213,2960,255"/>
+<area shape="rect" id="node65" href="$de/da1/Detectors_2MUON_2MID_2Simulation_2include_2MIDSimulation_2MCLabel_8h.html" title="Label for MID. " alt="" coords="3211,310,3399,337"/>
+<area shape="rect" id="node52" href="$d8/d82/ChamberHV_8h.html" title="HV values for MID RPCs. " alt="" coords="2875,310,3085,337"/>
+<area shape="rect" id="node54" href="$d3/dbe/ChamberEfficiency_8h.html" title="Measured values of the RPC efficiency. " alt="" coords="2694,399,2909,426"/>
+<area shape="rect" id="node57" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1833,303,2002,344"/>
+<area shape="rect" id="node58" href="$d0/d91/ShmAllocator_8h.html" title="CommonUtils/ShmAllocator.h" alt="" coords="2128,310,2341,337"/>
+<area shape="rect" id="node59" href="$de/d61/ShmManager_8h.html" title="CommonUtils/ShmManager.h" alt="" coords="2109,399,2320,426"/>
+<area shape="rect" id="node67" href="$d2/df9/MUON_2MID_2include_2DataFormatsMID_2ROFRecord_8h.html" title="Definition of the MID event record. " alt="" coords="4343,310,4561,337"/>
+<area shape="rect" id="node68" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="3861,392,4093,433"/>
+<area shape="rect" id="node76" href="$d3/dde/PreClustersDE_8h.html" title="Structure with pre&#45;clusters in the MID detection element. " alt="" coords="6524,310,6745,337"/>
+</map>

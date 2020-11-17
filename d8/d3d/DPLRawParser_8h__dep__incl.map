@@ -1,0 +1,16 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Utils/include/DPLUtils/DPLRawParser.h" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Utils/include/DPLUtils/DPLRawParser.h">
+<area shape="rect" id="node2" href="$d4/dfa/FT0DataReaderDPLSpec_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/FIT/FT0/workflow\l/include/FT0Workflow/FT0DataReader\lDPLSpec.h" alt="" coords="231,124,493,209"/>
+<area shape="rect" id="node6" href="$dd/df6/RawPixelDecoder_8cxx.html" title="Alpide pixel reader for raw data processing. " alt="" coords="517,131,804,202"/>
+<area shape="rect" id="node7" href="$db/dc9/cru-page-reader-workflow_8cxx.html" title="This is an executable that reads a data file from disk and sends the individual CRU pages via DPL..." alt="" coords="829,131,1071,202"/>
+<area shape="rect" id="node8" href="$d0/d75/DataDecoderSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/MUON/MCH/Workflow\l/src/DataDecoderSpec.cxx" alt="" coords="1095,131,1327,202"/>
+<area shape="rect" id="node9" href="$dd/da0/digits-sink-workflow_8cxx.html" title="This is an executable that dumps to a file on disk the digits received via DPL. " alt="" coords="1351,131,1583,202"/>
+<area shape="rect" id="node10" href="$d1/dc9/RawDecoderSpec_8cxx.html" title="Data processor spec for MID raw decoder device. " alt="" coords="1607,131,1834,202"/>
+<area shape="rect" id="node11" href="$d3/d09/testRawReaderWriter_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/Raw/test/testRawReader\lWriter.cxx" alt="" coords="1859,131,2111,202"/>
+<area shape="rect" id="node12" href="$da/d78/CATrackerSpec_8cxx.html" title="Processor spec for running TPC CA tracking. " alt="" coords="2135,131,2317,202"/>
+<area shape="rect" id="node13" href="$d2/dbc/ZSSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/workflow\l/src/ZSSpec.cxx" alt="" coords="2341,131,2522,202"/>
+<area shape="rect" id="node14" href="$d4/d96/raw-parser_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Utils/src/raw\l&#45;parser.cxx" alt="" coords="2547,131,2729,202"/>
+<area shape="rect" id="node15" href="$d0/d6f/test__DPLRawParser_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Utils/test\l/test_DPLRawParser.cxx" alt="" coords="2753,131,2931,202"/>
+<area shape="rect" id="node3" href="$d2/dc4/FT0DataReaderDPLSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/FIT/FT0/workflow\l/src/FT0DataReaderDPLSpec.cxx" alt="" coords="5,257,236,328"/>
+<area shape="rect" id="node4" href="$d6/d99/FT0Workflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/FIT/FT0/workflow\l/src/FT0Workflow.cxx" alt="" coords="261,257,463,328"/>
+<area shape="rect" id="node5" href="$d3/d63/FIT_2FT0_2workflow_2src_2RecoWorkflow_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/FIT/FT0/workflow\l/src/RecoWorkflow.cxx" alt="" coords="487,257,690,328"/>
+</map>

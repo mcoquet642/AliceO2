@@ -1,0 +1,31 @@
+digraph "/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPC3DCylindricalInterpolatorIrregular.h"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node2 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPC3DCylindricalInterpolator\lIrregular.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPC3DCylindricalInterpolator\lIrregular.cxx",height=0.2,width=0.4,color="black",URL="$d4/de9/AliTPC3DCylindricalInterpolatorIrregular_8cxx.html",tooltip="Irregular grid interpolator for cylindrical coordinate with r,phi,z different coordinates RBF-based i..."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPCLookUpTable3DInterpolator\lIrregularD.h",height=0.2,width=0.4,color="black",URL="$df/d79/AliTPCLookUpTable3DInterpolatorIrregularD_8h.html",tooltip="Wrap up look-up table with irregular grid. "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPCLookUpTable3DInterpolator\lIrregularD.cxx",height=0.2,width=0.4,color="black",URL="$d7/dd1/AliTPCLookUpTable3DInterpolatorIrregularD_8cxx.html",tooltip="Wrap up look-up table with irregular grid. "];
+  Node4 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPCSpaceCharge3DCalc.h",height=0.2,width=0.4,color="black",URL="$d9/d9a/AliTPCSpaceCharge3DCalc_8h.html",tooltip="This class provides distortion and correction map calculation with integration following electron dri..."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/include/TPCSimulation/SpaceCharge.h",height=0.2,width=0.4,color="black",URL="$d3/db6/SpaceCharge_8h.html",tooltip="Definition of the handler for the ALICE TPC space-charge distortions calculations. "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/include/TPCSimulation/Digitizer.h",height=0.2,width=0.4,color="black",URL="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html"];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/src/Digitizer.cxx",height=0.2,width=0.4,color="black",URL="$d7/d0a/TPC_2simulation_2src_2Digitizer_8cxx.html"];
+  Node8 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TPCDigitizerSpec.cxx",height=0.2,width=0.4,color="black",URL="$d2/d0b/TPCDigitizerSpec_8cxx.html"];
+  Node7 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/src/SpaceCharge.cxx",height=0.2,width=0.4,color="black",URL="$da/d8e/SpaceCharge_8cxx.html",tooltip="Implementation of the interface for the ALICE TPC space-charge distortions calculations. "];
+  Node6 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/AliTPCSpaceCharge3DCalc.cxx",height=0.2,width=0.4,color="black",URL="$d2/daf/AliTPCSpaceCharge3DCalc_8cxx.html",tooltip="This class provides distortion and correction map with integration following electron drift..."];
+  Node6 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/ctest/testTPCSpaceChargeBase.cxx",height=0.2,width=0.4,color="black",URL="$dc/d31/testTPCSpaceChargeBase_8cxx.html"];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

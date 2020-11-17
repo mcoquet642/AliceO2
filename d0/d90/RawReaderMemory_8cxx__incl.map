@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/reconstruction/src/RawReaderMemory.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/reconstruction/src/RawReaderMemory.cxx">
+<area shape="rect" id="node4" href="$d8/d86/RawReaderMemory_8h.html" title="EMCALReconstruction\l/RawReaderMemory.h" alt="" coords="475,124,637,165"/>
+<area shape="rect" id="node22" href="$d9/dd2/RawDecodingError_8h.html" title="EMCALReconstruction\l/RawDecodingError.h" alt="" coords="661,124,824,165"/>
+<area shape="rect" id="node23" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="1119,131,1307,158"/>
+<area shape="rect" id="node7" href="$df/ddd/RCUTrailer_8h.html" title="EMCALBase/RCUTrailer.h" alt="" coords="481,221,661,247"/>
+<area shape="rect" id="node11" href="$d1/da5/RawBuffer_8h.html" title="EMCALReconstruction\l/RawBuffer.h" alt="" coords="293,213,456,255"/>
+<area shape="rect" id="node13" href="$d5/dfc/RawPayload_8h.html" title="EMCALReconstruction\l/RawPayload.h" alt="" coords="56,213,219,255"/>
+<area shape="rect" id="node15" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="961,303,1159,329"/>
+<area shape="rect" id="node16" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="1464,221,1608,247"/>
+<area shape="rect" id="node17" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1715,303,1858,329"/>
+<area shape="rect" id="node18" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1599,377,1796,404"/>
+<area shape="rect" id="node19" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1409,377,1575,404"/>
+<area shape="rect" id="node24" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="770,303,937,329"/>
+<area shape="rect" id="node25" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1097,213,1329,255"/>
+<area shape="rect" id="node28" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="2003,221,2138,247"/>
+<area shape="rect" id="node27" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1321,303,1575,329"/>
+<area shape="rect" id="node29" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="2055,303,2225,329"/>
+<area shape="rect" id="node35" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="2587,377,2781,404"/>
+</map>

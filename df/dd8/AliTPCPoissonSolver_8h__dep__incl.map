@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCPoissonSolver.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/TPCSpaceChargeBase/AliTPCPoissonSolver.h">
+<area shape="rect" id="node2" href="$d4/de9/AliTPC3DCylindricalInterpolatorIrregular_8cxx.html" title="Irregular grid interpolator for cylindrical coordinate with r,phi,z different coordinates RBF&#45;based i..." alt="" coords="17,124,248,209"/>
+<area shape="rect" id="node3" href="$dc/d01/AliTPCPoissonSolver_8cxx.html" title="This class provides implementation of Poisson Eq solver by MultiGrid Method. " alt="" coords="273,131,473,202"/>
+<area shape="rect" id="node4" href="$d9/d9a/AliTPCSpaceCharge3DCalc_8h.html" title="This class provides distortion and correction map calculation with integration following electron dri..." alt="" coords="497,131,707,202"/>
+<area shape="rect" id="node5" href="$d3/db6/SpaceCharge_8h.html" title="Definition of the handler for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="191,257,464,328"/>
+<area shape="rect" id="node10" href="$d2/daf/AliTPCSpaceCharge3DCalc_8cxx.html" title="This class provides distortion and correction map with integration following electron drift..." alt="" coords="489,257,715,328"/>
+<area shape="rect" id="node11" href="$dc/d31/testTPCSpaceChargeBase_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/GPU/TPCSpaceChargeBase\l/ctest/testTPCSpaceChargeBase.cxx" alt="" coords="739,257,995,328"/>
+<area shape="rect" id="node6" href="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/include/TPCSimulation/Digitizer.h" alt="" coords="86,376,329,447"/>
+<area shape="rect" id="node9" href="$da/d8e/SpaceCharge_8cxx.html" title="Implementation of the interface for the ALICE TPC space&#45;charge distortions calculations. " alt="" coords="353,376,544,447"/>
+<area shape="rect" id="node7" href="$d7/d0a/TPC_2simulation_2src_2Digitizer_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Detectors/TPC/simulation\l/src/Digitizer.cxx" alt="" coords="5,495,196,565"/>
+<area shape="rect" id="node8" href="$d2/d0b/TPCDigitizerSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Steer/DigitizerWorkflow\l/src/TPCDigitizerSpec.cxx" alt="" coords="221,495,407,565"/>
+</map>

@@ -1,0 +1,23 @@
+digraph "Graphical Class Hierarchy"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node119 [label="type",height=0.2,width=0.4,color="grey75"];
+  Node119 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="o2::fit::DataBlockBase\l\< DataBlockPM, RawHeaderPM,\l RawDataPM \>",height=0.2,width=0.4,color="black",URL="$d3/dfa/classo2_1_1fit_1_1DataBlockBase.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="o2::ft0::DataBlockPM",height=0.2,width=0.4,color="black",URL="$d7/dde/classo2_1_1ft0_1_1DataBlockPM.html"];
+  Node119 -> Node122 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node122 [label="o2::fit::DataBlockBase\l\< DataBlockTCM, RawHeaderTCM,\l RawDataTCM \>",height=0.2,width=0.4,color="black",URL="$d3/dfa/classo2_1_1fit_1_1DataBlockBase.html"];
+  Node122 -> Node123 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node123 [label="o2::ft0::DataBlockTCM",height=0.2,width=0.4,color="black",URL="$de/d11/classo2_1_1ft0_1_1DataBlockTCM.html"];
+  Node119 -> Node124 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node124 [label="o2::fit::DataBlockBase\l\< DataBlockTCMext, RawHeader\lTCMext, RawDataTCM, RawDataTCMext \>",height=0.2,width=0.4,color="black",URL="$d3/dfa/classo2_1_1fit_1_1DataBlockBase.html"];
+  Node124 -> Node125 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node125 [label="o2::ft0::DataBlockTCMext",height=0.2,width=0.4,color="black",URL="$df/d91/classo2_1_1ft0_1_1DataBlockTCMext.html"];
+  Node119 -> Node126 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node126 [label="o2::fit::DataBlockBase\l\< DataBlock, Header, DataStructures \>",height=0.2,width=0.4,color="black",URL="$d3/dfa/classo2_1_1fit_1_1DataBlockBase.html"];
+}

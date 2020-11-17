@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUParam.h" name="/home/travis/build/AliceO2Group/AliceO2/GPU/GPUTracking/Base/GPUParam.h">
+<area shape="rect" id="node2" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="655,497,797,524"/>
+<area shape="rect" id="node5" href="$d6/da2/GPUCommonMath_8h.html" title="GPUCommonMath.h" alt="" coords="99,124,252,151"/>
+<area shape="rect" id="node8" href="$d2/d6d/GPUDef_8h.html" title="GPUDef.h" alt="" coords="856,273,940,300"/>
+<area shape="rect" id="node15" href="$dd/dc6/GPUSettings_8h.html" title="GPUSettings.h" alt="" coords="426,124,541,151"/>
+<area shape="rect" id="node21" href="$d6/d1b/GPUTPCGeometry_8h.html" title="GPUTPCGeometry.h" alt="" coords="629,273,780,300"/>
+<area shape="rect" id="node22" href="$d9/d9c/GPUTPCGMPolynomialField_8h.html" title="GPUTPCGMPolynomialField.h" alt="" coords="793,124,1003,151"/>
+<area shape="rect" id="node3" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="525,572,722,599"/>
+<area shape="rect" id="node4" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="746,572,911,599"/>
+<area shape="rect" id="node9" href="$d2/d37/GPUDefConstantsAndSettings_8h.html" title="GPUDefConstantsAndSettings.h" alt="" coords="688,423,916,449"/>
+<area shape="rect" id="node10" href="$dc/de9/GPUDefGPUParameters_8h.html" title="GPUDefGPUParameters.h" alt="" coords="981,348,1167,375"/>
+<area shape="rect" id="node12" href="$d3/d4c/GPUDefOpenCL12Templates_8h.html" title="GPUDefOpenCL12Templates.h" alt="" coords="738,348,957,375"/>
+<area shape="rect" id="node13" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1192,348,1359,375"/>
+<area shape="rect" id="node11" href="$d6/dff/GPUDefMacros_8h.html" title="GPUDefMacros.h" alt="" coords="1009,423,1139,449"/>
+<area shape="rect" id="node18" href="$da/d08/qconfig_8h.html" title="utils/qconfig.h" alt="" coords="475,199,588,225"/>
+<area shape="rect" id="node19" href="$d8/de9/qconfigoptions_8h.html" title="qconfigoptions.h" alt="" coords="476,273,605,300"/>
+<area shape="rect" id="node20" href="$d4/d57/GPUSettingsList_8h.html" title="GPUSettingsList.h" alt="" coords="474,348,613,375"/>
+<area shape="rect" id="node23" href="$da/dab/GPUTPCDef_8h.html" title="GPUTPCDef.h" alt="" coords="843,199,953,225"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="JetFinderHFTask" name="JetFinderHFTask">
+<area shape="rect" id="node2" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\l\&lt; o2::aod::JetConstituents \&gt;\n||}" alt="" coords="363,1291,569,1383"/>
+<area shape="rect" id="node3" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\&lt; T \&gt;\n||}" alt="" coords="119,1063,341,1141"/>
+<area shape="rect" id="node39" href="$d6/d86/structo2_1_1framework_1_1Produces.html" title="{o2::framework::Produces\l\&lt; o2::aod::Jets \&gt;\n||}" alt="" coords="151,1291,335,1383"/>
+<area shape="rect" id="node4" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; int \&gt;\n||+ Configurable()\l}" alt="" coords="595,1291,801,1383"/>
+<area shape="rect" id="node5" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; int \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="365,1056,572,1148"/>
+<area shape="rect" id="node6" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; int \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="236,696,443,788"/>
+<area shape="rect" id="node8" href="$da/d2f/structo2_1_1framework_1_1ConfigurableBase.html" title="{o2::framework::Configurable\lBase\&lt; T \&gt;\n||+ ConfigurableBase()\l}" alt="" coords="5,233,212,325"/>
+<area shape="rect" id="node13" href="$d4/dd2/classJetFinder.html" title="{JetFinder\n|+ phiMax\l+ etaMin\l+ etaMax\l+ jetPtMin\l+ jetPtMax\l+ jetPhiMin\l+ jetPhiMax\l+ jetEtaMin\l+ ghostEtaMin\l+ jetBkgR\l+ bkgPhiMin\l+ bkgPhiMax\l+ bkgEtaMin\l+ bkgEtaMax\l|+ setBkgSubMode()\l+ JetFinder()\l+ ~JetFinder()\l+ setParams()\l+ setBkgE()\l+ setSub()\l+ findJets()\l}" alt="" coords="995,564,1145,920"/>
+<area shape="rect" id="node27" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\l\&lt; TH1F \&gt;\n||+ spec()\l+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="2135,983,2325,1221"/>
+<area shape="rect" id="node30" href="$da/d96/structo2_1_1framework_1_1InputSpec.html" title="{o2::framework::InputSpec\n||+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ InputSpec()\l+ operator==()\l}" alt="" coords="2653,204,2842,355"/>
+<area shape="rect" id="node35" href="$d4/d79/structo2_1_1framework_1_1OutputObj.html" title="{o2::framework::OutputObj\&lt; T \&gt;\n||+ OutputObj()\l+ OutputObj()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setObject()\l+ setHash()\l+ spec()\l+ operator&#45;\&gt;()\l+ operator*()\l+ ref()\l}" alt="" coords="2115,630,2345,854"/>
+<area shape="rect" id="node10" href="$da/def/structo2_1_1framework_1_1ConfigurablePolicyConst.html" title="{o2::framework::Configurable\lPolicyConst\&lt; T \&gt;\n||+ ConfigurablePolicyConst()\l}" alt="" coords="5,696,212,788"/>
+<area shape="rect" id="node11" href="$d8/d71/structo2_1_1framework_1_1Configurable.html" title="{o2::framework::Configurable\l\&lt; T, IP \&gt;\n||+ Configurable()\l}" alt="" coords="596,1056,803,1148"/>
+<area shape="rect" id="node17" href="$d4/dc3/classfloat.html" title="{float\n||}" alt="" coords="667,241,718,318"/>
+<area shape="rect" id="node29" href="$d3/d87/classuint32__t.html" title="{uint32_t\n||}" alt="" coords="2001,241,2075,318"/>
+<area shape="rect" id="node37" href="$d1/d9a/structo2_1_1framework_1_1expressions_1_1Filter.html" title="A struct, containing the root of the expression tree. " alt="" coords="2058,1284,2261,1391"/>
+</map>

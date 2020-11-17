@@ -1,0 +1,23 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/reconstruction/include/TPCReconstruction/RawReaderCRU.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/reconstruction/include/TPCReconstruction/RawReaderCRU.h">
+<area shape="rect" id="node15" href="$d6/dec/Raw_2include_2DetectorsRaw_2RDHUtils_8h.html" title="DetectorsRaw/RDHUtils.h" alt="" coords="827,213,1015,240"/>
+<area shape="rect" id="node21" href="$d4/dee/RAWDataHeader_8h.html" title="Definition of the RAW Data Header. " alt="" coords="856,370,1055,397"/>
+<area shape="rect" id="node35" href="$d7/df8/Types_8h.html" title="MemoryResources/Types.h" alt="" coords="798,452,993,479"/>
+<area shape="rect" id="node37" href="$df/d26/CRU_8h.html" title="TPCBase/CRU.h" alt="" coords="1598,139,1721,165"/>
+<area shape="rect" id="node52" href="$de/d41/PadPos_8h.html" title="TPCBase/PadPos.h" alt="" coords="1332,213,1473,240"/>
+<area shape="rect" id="node53" href="$da/d61/PadROCPos_8h.html" title="TPCBase/PadROCPos.h" alt="" coords="1404,139,1574,165"/>
+<area shape="rect" id="node16" href="$df/d21/GPUCommonDef_8h.html" title="GPUCommonDef.h" alt="" coords="1420,616,1563,643"/>
+<area shape="rect" id="node19" href="$d2/d45/GPUCommonRtypes_8h.html" title="GPUCommonRtypes.h" alt="" coords="1088,534,1255,561"/>
+<area shape="rect" id="node22" href="$d6/d89/RDHAny_8h.html" title="Headers/RDHAny.h" alt="" coords="748,288,892,315"/>
+<area shape="rect" id="node25" href="$d9/d80/InteractionRecord_8h.html" title="CommonDataFormat/Interaction\lRecord.h" alt="" coords="1230,363,1462,404"/>
+<area shape="rect" id="node28" href="$d7/d34/DAQID_8h.html" title="Headers/DAQID.h" alt="" coords="532,288,667,315"/>
+<area shape="rect" id="node17" href="$d5/d93/GPUCommonDefSettings_8h.html" title="GPUCommonDefSettings.h" alt="" coords="1290,691,1488,717"/>
+<area shape="rect" id="node18" href="$da/d5a/GPUCommonDefAPI_8h.html" title="GPUCommonDefAPI.h" alt="" coords="1512,691,1677,717"/>
+<area shape="rect" id="node27" href="$d4/dc6/LHCConstants_8h.html" title="Header to collect LHC related constants. " alt="" coords="1209,452,1462,479"/>
+<area shape="rect" id="node29" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="460,370,630,397"/>
+<area shape="rect" id="node38" href="$d1/d73/Defs_8h.html" title="DataFormatsTPC/Defs.h" alt="" coords="1538,370,1715,397"/>
+<area shape="rect" id="node49" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="1619,288,1754,315"/>
+<area shape="rect" id="node51" href="$dc/d14/ROC_8h.html" title="TPCBase/ROC.h" alt="" coords="1548,213,1670,240"/>
+<area shape="rect" id="node39" href="$d1/da8/GPUROOTCartesianFwd_8h.html" title="GPUROOTCartesianFwd.h" alt="" coords="1509,534,1696,561"/>
+<area shape="rect" id="node40" href="$dc/d73/Cartesian_8h.html" title="MathUtils/Cartesian.h" alt="" coords="1790,452,1953,479"/>
+<area shape="rect" id="node50" href="$d0/dda/DataFormats_2Detectors_2TPC_2include_2DataFormatsTPC_2Constants_8h.html" title="DataFormatsTPC/Constants.h" alt="" coords="1739,370,1951,397"/>
+</map>
