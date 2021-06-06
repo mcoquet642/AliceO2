@@ -54,6 +54,10 @@ class TrackParFwd
   void setPhi(Double_t phi) { mParameters(2) = phi; }
   Double_t getPhi() const { return mParameters(2); }
 
+  Double_t getSnp() const { 
+    auto sinphi = o2::math_utils::sin(mParameters(2));
+    return sinphi; }
+
   void setTanl(Double_t tanl) { mParameters(3) = tanl; }
   Double_t getTanl() const { return mParameters(3); }
 
@@ -75,6 +79,11 @@ class TrackParFwd
   Double_t getInverseMomentum() const { return 1.f / getP(); }
 
   Double_t getEta() const { return -TMath::Log(TMath::Tan((TMath::PiOver2() - TMath::ATan(getTanl())) / 2)); } // return total momentum
+  
+  Double_t getCurvature(double b) const {
+    auto invqpt = getInvQPt(); // q/pt
+    return o2::constants::math::B2C * b * invqpt; 
+  }
 
   /// return the charge (assumed forward motion)
   Double_t getCharge() const { return TMath::Sign(1., mParameters(4)); }
@@ -102,6 +111,7 @@ class TrackParFwd
   void propagateParamToZlinear(double zEnd);
   void propagateParamToZquadratic(double zEnd, double zField);
   void propagateParamToZhelix(double zEnd, double zField);
+//  Double_t getCurvature(double b);
 
  protected:
   Double_t mZ = 0.; ///< Z coordinate (cm)
@@ -134,6 +144,7 @@ class TrackParCovFwd : public TrackParFwd
 
   Double_t getSigma2X() const { return mCovariances(0, 0); }
   Double_t getSigma2Y() const { return mCovariances(1, 1); }
+  Double_t getSigmaXY() const { return mCovariances(0, 1); }
   Double_t getSigma2Phi() const { return mCovariances(2, 2); }
   Double_t getSigma2Tanl() const { return mCovariances(3, 3); }
   Double_t getSigma2InvQPt() const { return mCovariances(4, 4); }

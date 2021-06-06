@@ -93,7 +93,7 @@ void TrackParFwd::propagateParamToZquadratic(double zEnd, double zField)
   auto invtanl0 = 1.0 / getTanl();
   auto invqpt0 = getInvQPt();
   auto Hz = std::copysign(1, zField);
-  auto k = TMath::Abs(o2::constants::math::B2C * zField);
+  auto k = TMath::Abs(o2::constants::math::B2C * zField); // 0.3*Bz*    *q  /pT 
   auto n = dZ * invtanl0;
   auto theta = -invqpt0 * dZ * k * invtanl0;
 

@@ -19,8 +19,9 @@ o2_add_library(DetectorsVertexing
                        src/SVertexer.cxx
                        src/SVertexerParams.cxx
                        src/SVertexHypothesis.cxx
+                       src/FwdDCAFitterN.cxx
                PUBLIC_LINK_LIBRARIES ROOT::Core
-                                     O2::CommonUtils
+	                             O2::CommonUtils
                                      O2::ReconstructionDataFormats
                                      O2::DataFormatsParameters
                                      O2::DataFormatsTPC
@@ -30,13 +31,15 @@ o2_add_library(DetectorsVertexing
                                      O2::FT0Reconstruction
                                      O2::DataFormatsFT0
                                      O2::GlobalTracking
-                                     Microsoft.GSL::GSL)
+                                     ms_gsl::ms_gsl)
 
 o2_target_root_dictionary(DetectorsVertexing
                           HEADERS include/DetectorsVertexing/HelixHelper.h
+                                  include/DetectorsVertexing/FwdHelixHelper.h
                                   include/DetectorsVertexing/PVertexerHelpers.h
                                   include/DetectorsVertexing/PVertexerParams.h
                                   include/DetectorsVertexing/DCAFitterN.h
+                                  include/DetectorsVertexing/FwdDCAFitterN.h
                                   include/DetectorsVertexing/SVertexerParams.h
                                   include/DetectorsVertexing/SVertexHypothesis.h)
 
@@ -44,7 +47,7 @@ if (OpenMP_CXX_FOUND)
     target_compile_definitions(${targetName} PRIVATE WITH_OPENMP)
     target_link_libraries(${targetName} PRIVATE OpenMP::OpenMP_CXX)
 endif()
-
+                              
 
 o2_add_test(
   DCAFitterN
