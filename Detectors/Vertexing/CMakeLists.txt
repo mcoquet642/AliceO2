@@ -35,6 +35,7 @@ o2_add_library(DetectorsVertexing
 
 o2_target_root_dictionary(DetectorsVertexing
                           HEADERS include/DetectorsVertexing/HelixHelper.h
+                                  include/DetectorsVertexing/FwdHelixHelper.h
                                   include/DetectorsVertexing/PVertexerHelpers.h
                                   include/DetectorsVertexing/PVertexerParams.h
                                   include/DetectorsVertexing/DCAFitterN.h
