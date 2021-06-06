@@ -1347,7 +1347,6 @@ bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck? on yz 
 
 // TO ADD VERBOSE SYS
 
-/*
 //___________________________________________________________________
 template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::print() const
@@ -1445,7 +1444,6 @@ o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::createParentTrackPar(int cand)
   return trc; 
 }
 
-*/
 
 using FwdDCAFitter2 = FwdDCAFitterN<2, o2::track::TrackParCovFwd>;
 using FwdDCAFitter3 = FwdDCAFitterN<3, o2::track::TrackParCovFwd>;
