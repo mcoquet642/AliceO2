@@ -200,6 +200,12 @@ class VarManager : public TObject
     kVertexingLxyErr,
     kVertexingLxyz,
     kVertexingLxyzErr,
+    kVertexingLz,
+    kVertexingLzErr,
+    kVertexingTauxyz,
+    kVertexingTauxyzErr,
+    kVertexingTauz,
+    kVertexingTauzErr,
     kVertexingProcCode,
     kVertexingChi2PCA,
     kNPairVariables,
@@ -665,8 +671,16 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     values[kVertexingChi2PCA] = -999.;
     values[kVertexingLxy] = -999.;
     values[kVertexingLxyz] = -999.;
+    values[kVertexingLz] = -999.;
     values[kVertexingLxyErr] = -999.;
     values[kVertexingLxyzErr] = -999.;
+    values[kVertexingLzErr] = -999.;
+
+    values[kVertexingTauxyz] = -999.;
+    values[kVertexingTauz] = -999.;
+    values[kVertexingTauxyzErr] = -999.;
+    values[kVertexingTauzErr] = -999.;
+
     return;
   }
 
@@ -705,12 +719,33 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
 
   values[kVertexingLxyzErr] = std::sqrt(getRotatedCovMatrixXX(covMatrixPV, phi, theta) + getRotatedCovMatrixXX(covMatrixPCA, phi, theta));
   values[kVertexingLxyErr] = std::sqrt(getRotatedCovMatrixXX(covMatrixPV, phi, 0.) + getRotatedCovMatrixXX(covMatrixPCA, phi, 0.));
+  values[kVertexingLzErr] = std::sqrt(getRotatedCovMatrixXX(covMatrixPV, 0, theta) + getRotatedCovMatrixXX(covMatrixPCA, 0, theta));
 
   values[kVertexingLxy] = (collision.posX() - secondaryVertex[0]) * (collision.posX() - secondaryVertex[0]) +
                           (collision.posY() - secondaryVertex[1]) * (collision.posY() - secondaryVertex[1]);
   values[kVertexingLxyz] = values[kVertexingLxy] + (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
+  values[kVertexingLz] = (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
   values[kVertexingLxy] = std::sqrt(values[kVertexingLxy]);
   values[kVertexingLxyz] = std::sqrt(values[kVertexingLxyz]);
+  values[kVertexingLz] = std::sqrt(values[kVertexingLz]);
+
+  float m1 = fgkElectronMass;
+  float m2 = fgkElectronMass;
+  if (pairType == kJpsiToMuMu) {
+    m1 = fgkMuonMass;
+    m2 = fgkMuonMass;
+  }
+
+  ROOT::Math::PtEtaPhiMVector v1(t1.pt(), t1.eta(), t1.phi(), m1);
+  ROOT::Math::PtEtaPhiMVector v2(t2.pt(), t2.eta(), t2.phi(), m2);
+  ROOT::Math::PtEtaPhiMVector v12 = v1 + v2;
+
+  values[kVertexingTauz] = (collision.posZ() - secondaryVertex[2])*v12.M()/(v12.Pz()*o2::constants::physics::LightSpeedCm2NS);
+  values[kVertexingTauxyz] = values[kVertexingLxyz]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
+
+  values[kVertexingTauzErr] = values[kVertexingLzErr]*v12.M()/(v12.Pz()*o2::constants::physics::LightSpeedCm2NS);
+  values[kVertexingTauxyzErr] = values[kVertexingLxyzErr]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
+
 }
 
 template <typename T1, typename T2>
