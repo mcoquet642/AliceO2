@@ -768,12 +768,12 @@ bool FwdDCAFitterN<N, Args...>::FwdpropagateTracksToVertex(int icand)
 template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::findZatXY(int icand) // Between 2 tracks 
 {
-
+  
   double step = 1.;  // initial step 
   double startPoint = 77.5; // fifth MFT disk 
 
-  double z0, z1 =  startPoint;
-  double newX0, newY0, newX1, newY1;
+  double z[2] =  {startPoint, startPoint};
+  double newX[2], newY[2];
 
   double X = mPCA[mCurHyp][0]; //X seed
   double Y = mPCA[mCurHyp][1]; //Y seed
@@ -786,55 +786,37 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int icand) // Between 2 tracks
   mCandTr[mCurHyp][1] = *mOrigTrPtr[1]; //fetch second track 
   auto& trc1 = mCandTr[ord][1];
 
-  double dstXY0[3]={999.,999.,999.};
-  double dstXY1[3]={999.,999.,999.};
+  auto& trc[2]={trc0, trc1}; //
 
-  double Z0, Z1;
+  double dstXY[2][3]={{999.,999.,999.},{999.,999.,999.}};
+
+  double Z[2];
     
-    // to improve: create a function(z0,trc0,...)
+  for (int i=0; i<2; i++) {
 
-    while (z0 > -1){
-      trc0.propagateToZlinear(z0);
-      newX0 = trc0.getX();
-      newY0 = trc0.getY();
+    while (z[i] > -1){
+      trc[i].propagateToZlinear(z[i]);
+      newX[i] = trc[i].getX();
+      newY[i] = trc[i].getY();
 
-      double newDstXY = (newX0 - X) * (newX0 - X) +
-                 (newY0 - Y) * (newY0 - Y);   
-
-      // Update points 
-      dstXY0[0]=dstXY0[1];
-      dstXY0[1]=dstXY0[2];
-      dstXY0[2]= newDstXY;
-
-      if(dstXY0[2]>dstXY0[1] && dstXY0[1]<dstXY0[0]) {
-        Z0=z0+1;
-        break;
-      }
-      z0-=step;
-    }
-
-    while (z1 > -1){
-      trc1.propagateToZlinear(z1);
-      newX1 = trc1.getX();
-      newY1 = trc1.getY();
-
-      double newDstXY = (newX1 - X) * (newX1 - X) +
-                 (newY1 - Y) * (newY1 - Y);   
+      double newDstXY = (newX[i] - X) * (newX[i] - X) +
+                 (newY[i] - Y) * (newY[i] - Y);   
 
       // Update points 
-      dstXY1[0]=dstXY1[1];
-      dstXY1[1]=dstXY1[2];
-      dstXY1[2]= newDstXY;
+      dstXY[i][0]=dstXY[i][1];
+      dstXY[i][1]=dstXY[i][2];
+      dstXY[i][2]= newDstXY;
 
-      if(dstXY1[2]>dstXY1[1] && dstXY1[1]<dstXY1[0]) {
-        Z1=z1+1;
+      if(dstXY[i][2]>dstXY[i][1] && dstXY[i][1]<dstXY[i][0]) {
+        finalZ[i]=z[i]+1;
         break;
       }
-      z1-=step;
+      z[i]-=step;
     }
 
+    }
 
-  mPCA[mCurHyp][2] = 0.5 * (Z0+Z1);
+  mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]);
 
 }
 
@@ -847,11 +829,16 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
   double endPoint = 77.5; // fifth MFT disk 
   double midPoint = 0.5 * (startPoint + endPoint); 
 
+  double z[2][2]= {{startPoint,endPoint},{startPoint,endPoint}}; // z for tracks 0/1 on starting poing and endpoint 
+
   double z0_0, z1_0 =  startPoint; // z for track 0 and 1 on starting point 
   double z0_1, z1_1 = endPoint; //  z for track 0 and 1 on end point 
 
-  double DeltaZ0 = 999.; //delta Z for track 0
+  double DeltaZ[2] = {999.,999.}; //delta Z for track 0
   double DeltaZ1 = 999.; //delta Z for track 0
+
+  double newX[2][2]; 
+  double newY[2][2];
 
   double newX0_0, newY0_0; 
   double newX0_1, newY0_1; 
@@ -860,6 +847,8 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
   double newX1_1, newY1_1; 
 
   double epsilon = 0.001;
+
+  double dstXY[2][2];
 
   double dstXY0_0, dstXY0_1; //track 0 for both ends
   double dstXY1_0, dstXY1_1; //track  1 for both ends 
@@ -875,84 +864,55 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
   mCandTr[mCurHyp][1] = *mOrigTrPtr[1]; //fetch second track 
   auto& trc1 = mCandTr[ord][1];
 
-  double Z0, Z1;
+  auto& trc[2]={trc0,trc1};
 
-  // to improve: create a function(z0,trc0,...)
-  
-  while (DeltaZ0 < epsilon){
+  double finalZ[2];
+
+
+  for (int i=0; i<2; i++){
+    
+    while (DeltaZ[i] < epsilon){
 
       midPoint=0.5*(startPoint+endPoint);
 
-      trc0.propagateToZlinear(startPoint);
-      newX0_0 = trc0.getX();
-      newY0_0 = trc0.getY();
+      trc[i].propagateToZlinear(startPoint);
+      newX[i][0] = trc[i].getX();
+      newY[i][0] = trc[i].getY();
 
-      trc0.propagateToZlinear(endPoint);
-      newX0_1 = trc0.getX();
-      newY0_1 = trc0.getY();
+      trc[i].propagateToZlinear(endPoint);
+      newX[i][1] = trc[i].getX();
+      newY[i][1] = trc[i].getY();
 
       // improve: to vectorize 
-      double newDstXY0_0 = (newX0_0 - X) * (newX0_0 - X) +
-                 (newY0_0 - Y) * (newY0_0 - Y);  
+      double newDstXY[i][0] = (newX[i][0] - X) * (newX[i][0] - X) +
+                 (newY[i][0] - Y) * (newY[i][0] - Y);  
 
-      double newDstXY0_1 = (newX0_1 - X) * (newX0_1 - X) +
-                 (newY0_1 - Y) * (newY0_1 - Y);
+      double newDstXY[i][1] = (newX[i][1] - X) * (newX[i][1] - X) +
+                 (newY[i][1] - Y) * (newY[i][1] - Y);
 
-      DeltaZ0 = endPoint - startPoint;
+      DeltaZ[i] = endPoint - startPoint;
 
-      if(DeltaZ0<epsilon) {
-        Z0=0.5 * (startPoint+endPoint);
+      if(DeltaZ[i]<epsilon) {
+        finalZ[i]=0.5 * (startPoint+endPoint);
         break;
       }
 
       // chose new start and end Point  in according to the smallest  D_XY
-      if (newDstXY0_1 > newDstXY0_0) {
+      if (newDstXY[i][1] > newDstXY[i][0]) {
          endPoint= midPoint;
       }
       else { 
         startPoint=midPoint;
       }
+
     }
 
-  startPoint = 0.0;
-  endPoint = 77.5; // fifth MFT disk  
+    startPoint = 0.0;
+    endPoint = 77.5; // fifth MFT disk  
 
-  while (DeltaZ1 < epsilon){
-
-      midPoint=0.5*(startPoint+endPoint);
-
-      trc1.propagateToZlinear(startPoint);
-      newX1_0 = trc0.getX();
-      newY1_0 = trc0.getY();
-
-      trc1.propagateToZlinear(endPoint);
-      newX1_1 = trc0.getX();
-      newY1_1 = trc0.getY();
-
-      // improve: to vectorize 
-      double newDstXY1_0 = (newX1_0 - X) * (newX1_0 - X) +
-                 (newY1_0 - Y) * (newY1_0 - Y);  
-
-      double newDstXY1_1 = (newX1_1 - X) * (newX1_1 - X) +
-                 (newY1_1 - Y) * (newY1_1 - Y);
-
-      DeltaZ1 = endPoint - startPoint;
-
-      if(DeltaZ1<epsilon) {
-        Z1=0.5 * (startPoint+endPoint) ;
-        break;
-      }
-
-      // chose new start and end Point  in according to the smallest  D_XY
-      if (newDstXY1_1 > newDstXY1_0) {
-         endPoint= midPoint;
-      }
-      else { 
-        startPoint=midPoint;
-      }
     }
 
-  mPCA[mCurHyp][2] = 0.5 * (Z0+Z1);
+  mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]);
 
 }
 
