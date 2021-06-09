@@ -866,6 +866,11 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
     while (DeltaZ < epsilon){
 
       midPoint=0.5*(startPoint+endPoint);
+      
+      for (int i=0; i<2; i++){
+        trc[i].propagateToZlinear(startPoint);
+        newX[i][0] = trc[i].getX();
+        newY[i][0] = trc[i].getY();
 
       trc = trc0;
       for (int i=0; i<2; i++){
