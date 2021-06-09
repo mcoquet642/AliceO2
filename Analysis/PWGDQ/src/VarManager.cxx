@@ -258,12 +258,12 @@ void VarManager::SetDefaultVarNames()
   fgVariableUnits[kVertexingLxyzErr] = "cm";
   fgVariableNames[kVertexingTauz] = "Pair pseudo-proper Tauz";
   fgVariableUnits[kVertexingTauz] = "ns";
-  fgVariableNames[kVertexingTauxyz] = "Pair pseudo-proper Tauxyz";
-  fgVariableUnits[kVertexingTauxyz] = "ns";
+  fgVariableNames[kVertexingTauxy] = "Pair pseudo-proper Tauxy";
+  fgVariableUnits[kVertexingTauxy] = "ns";
   fgVariableNames[kVertexingTauzErr] = "Pair pseudo-proper Tauz err.";
   fgVariableUnits[kVertexingTauzErr] = "ns";
-  fgVariableNames[kVertexingTauxyzErr] = "Pair pseudo-proper Tauxyz err.";
-  fgVariableUnits[kVertexingTauxyzErr] = "ns";
+  fgVariableNames[kVertexingTauxyErr] = "Pair pseudo-proper Tauxy err.";
+  fgVariableUnits[kVertexingTauxyErr] = "ns";
   fgVariableNames[kVertexingProcCode] = "DCAFitterN<2> processing code";
   fgVariableUnits[kVertexingProcCode] = "";
   fgVariableNames[kVertexingChi2PCA] = "Pair #chi^{2} at PCA";
