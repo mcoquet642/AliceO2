@@ -202,8 +202,8 @@ class VarManager : public TObject
     kVertexingLxyzErr,
     kVertexingLz,
     kVertexingLzErr,
-    kVertexingTauxyz,
-    kVertexingTauxyzErr,
+    kVertexingTauxy,
+    kVertexingTauxyErr,
     kVertexingTauz,
     kVertexingTauzErr,
     kVertexingProcCode,
@@ -676,9 +676,9 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     values[kVertexingLxyzErr] = -999.;
     values[kVertexingLzErr] = -999.;
 
-    values[kVertexingTauxyz] = -999.;
+    values[kVertexingTauxy] = -999.;
     values[kVertexingTauz] = -999.;
-    values[kVertexingTauxyzErr] = -999.;
+    values[kVertexingTauxyErr] = -999.;
     values[kVertexingTauzErr] = -999.;
 
     return;
@@ -723,11 +723,11 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
 
   values[kVertexingLxy] = (collision.posX() - secondaryVertex[0]) * (collision.posX() - secondaryVertex[0]) +
                           (collision.posY() - secondaryVertex[1]) * (collision.posY() - secondaryVertex[1]);
-  values[kVertexingLxyz] = values[kVertexingLxy] + (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
   values[kVertexingLz] = (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
+  values[kVertexingLxyz] = values[kVertexingLxy] + values[kVertexingLz];
   values[kVertexingLxy] = std::sqrt(values[kVertexingLxy]);
-  values[kVertexingLxyz] = std::sqrt(values[kVertexingLxyz]);
   values[kVertexingLz] = std::sqrt(values[kVertexingLz]);
+  values[kVertexingLxyz] = std::sqrt(values[kVertexingLxyz]);
 
   float m1 = fgkElectronMass;
   float m2 = fgkElectronMass;
@@ -741,10 +741,10 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   ROOT::Math::PtEtaPhiMVector v12 = v1 + v2;
 
   values[kVertexingTauz] = (collision.posZ() - secondaryVertex[2])*v12.M()/(v12.Pz()*o2::constants::physics::LightSpeedCm2NS);
-  values[kVertexingTauxyz] = values[kVertexingLxyz]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
+  values[kVertexingTauxy] = values[kVertexingLxy]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
 
   values[kVertexingTauzErr] = values[kVertexingLzErr]*v12.M()/(v12.Pz()*o2::constants::physics::LightSpeedCm2NS);
-  values[kVertexingTauxyzErr] = values[kVertexingLxyzErr]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
+  values[kVertexingTauxyErr] = values[kVertexingLxyErr]*v12.M()/(v12.P()*o2::constants::physics::LightSpeedCm2NS);
 
 }
 
