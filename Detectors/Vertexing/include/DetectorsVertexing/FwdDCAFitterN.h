@@ -192,6 +192,7 @@ class FwdDCAFitterN
   void calcTrackDerivatives();
   void findZatXY(int cand = 0);
   void findZatXY_mid(int cand = 0);
+  void findZatXY_lineApprox(int cand = 0);
   double FwdcalcChi2() const;
   double FwdcalcChi2NoErr() const;
   bool FwdcorrectTracks(const VecND& corrX);
@@ -770,7 +771,7 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int icand) // Between 2 tracks
 {
   
   double step = 1.;  // initial step 
-  double startPoint = 77.5; // fifth MFT disk 
+  double startPoint = 40.; // first MFT disk 
 
   double z[2] =  {startPoint, startPoint};
   double newX[2], newY[2];
@@ -824,34 +825,20 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int icand) // Between 2 tracks
 template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks 
 {
+  // look into dXY of T0 - T1 between 2 points(0,40cm); the one with the highest dXY is moved to mid
 
-  double startPoint = 0.0;
-  double endPoint = 77.5; // fifth MFT disk 
+  double startPoint = 0.;
+  double endPoint = 40.; // first disk
   double midPoint = 0.5 * (startPoint + endPoint); 
 
   double z[2][2]= {{startPoint,endPoint},{startPoint,endPoint}}; // z for tracks 0/1 on starting poing and endpoint 
 
-  double z0_0, z1_0 =  startPoint; // z for track 0 and 1 on starting point 
-  double z0_1, z1_1 = endPoint; //  z for track 0 and 1 on end point 
-
-  double DeltaZ[2] = {999.,999.}; //delta Z for track 0
-  double DeltaZ1 = 999.; //delta Z for track 0
+  double DeltaZ = 999.; //delta Z for track 0
 
   double newX[2][2]; 
   double newY[2][2];
 
-  double newX0_0, newY0_0; 
-  double newX0_1, newY0_1; 
-
-  double newX1_0, newY1_0;
-  double newX1_1, newY1_1; 
-
   double epsilon = 0.001;
-
-  double dstXY[2][2];
-
-  double dstXY0_0, dstXY0_1; //track 0 for both ends
-  double dstXY1_0, dstXY1_1; //track  1 for both ends 
 
   double X = mPCA[mCurHyp][0]; //X seed
   double Y = mPCA[mCurHyp][1]; //Y seed
@@ -868,37 +855,37 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
 
   double finalZ[2];
 
+  double dstXY[2]; //0 -> distance btwn both tracks at startPoint 
 
-  for (int i=0; i<2; i++){
     
-    while (DeltaZ[i] < epsilon){
+    while (DeltaZ < epsilon){
 
       midPoint=0.5*(startPoint+endPoint);
+      
+      for (int i=0; i<2; i++){
+        trc[i].propagateToZlinear(startPoint);
+        newX[i][0] = trc[i].getX();
+        newY[i][0] = trc[i].getY();
 
-      trc[i].propagateToZlinear(startPoint);
-      newX[i][0] = trc[i].getX();
-      newY[i][0] = trc[i].getY();
+        trc[i].propagateToZlinear(endPoint);
+        newX[i][1] = trc[i].getX();
+        newY[i][1] = trc[i].getY();}
 
-      trc[i].propagateToZlinear(endPoint);
-      newX[i][1] = trc[i].getX();
-      newY[i][1] = trc[i].getY();
+      double dstXY[0] = (newX[0][0] - newX[1][0]) * (newX[0][0] - newX[1][0]) +
+                 (newY[0][0] - newY[1][0]) * (newY[0][0] - newY[1][0]);  
 
-      // improve: to vectorize 
-      double newDstXY[i][0] = (newX[i][0] - X) * (newX[i][0] - X) +
-                 (newY[i][0] - Y) * (newY[i][0] - Y);  
+      double dstXY[1] = (newX[0][1] - newX[1][1]) * (newX[0][1] - newX[1][1]) +
+                 (newY[0][1] - newY[1][1]) * (newY[0][1] - newY[1][1]);  
 
-      double newDstXY[i][1] = (newX[i][1] - X) * (newX[i][1] - X) +
-                 (newY[i][1] - Y) * (newY[i][1] - Y);
+      DeltaZ = endPoint - startPoint;
 
-      DeltaZ[i] = endPoint - startPoint;
-
-      if(DeltaZ[i]<epsilon) {
-        finalZ[i]=0.5 * (startPoint+endPoint);
+      if(DeltaZ<epsilon) {
+        finalZ=0.5 * (startPoint+endPoint);
         break;
       }
 
-      // chose new start and end Point  in according to the smallest  D_XY
-      if (newDstXY[i][1] > newDstXY[i][0]) {
+      // chose new start and end Point according to the smallest D_XY
+      if (dstXY[1] > dstXY[0]) {
          endPoint= midPoint;
       }
       else { 
@@ -907,14 +894,63 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int icand) // Between 2 tracks
 
     }
 
-    startPoint = 0.0;
-    endPoint = 77.5; // fifth MFT disk  
-
-    }
-
-  mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]);
+  mPCA[mCurHyp][2] = finalZ;
 
 }
+
+
+//___________________________________________________________________
+template <int N, typename... Args>
+void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int icand)
+{
+
+  // approx method: z=(b-b')/(a-a') -> tracks to lines with y=az+b / y'=a'z+b' 
+
+  double startPoint = 0.;
+  double endPoint = 40.; // first disk
+  
+  int ord = mOrder[icand];
+
+  mCandTr[mCurHyp][0] = *mOrigTrPtr[0]; //fetch first track 
+  auto& trc0 = mCandTr[ord][0];
+
+  mCandTr[mCurHyp][1] = *mOrigTrPtr[1]; //fetch second track 
+  auto& trc1 = mCandTr[ord][1];
+
+  auto& trc[2]={trc0,trc1};
+
+  double y[2][2]; //Y00: y track 0 at point 0; Y01: y track 0 at point 1
+  double z[2][2];
+
+  double a[2][2];
+  double b[2][2];
+
+  double finalZ;
+
+  // find points of the tracks = 2 straight lines 
+  for (int i=0; i<2; i++){
+    trc[i].propagateToZlinear(startPoint);
+    z[i][0] = startPoint;
+    y[i][0] = trc[i].getY();
+
+    trc[i].propagateToZlinear(endPoint);
+    z[i][1] = endPoint;
+    y[i][1] = trc[i].getY();
+  }
+
+  //find a,b of straight lines 
+  for (int i=0; i<2; i++){
+    b[i]=(y[i][1]-y[i][0]*z[i][1]/z[i][0])/(1-z[i][1]/z[i][0]);
+    a[i]= y[i][0]-b[i]/z[i][0];
+  }
+
+  //z seed: equ. for intersection of these lines
+  finalZ = (b[0]-b[1])/(a[0]-a[1]);
+
+  mPCA[mCurHyp][2] = finalZ;
+
+}
+
 
 //___________________________________________________________________
 template <int N, typename... Args>
