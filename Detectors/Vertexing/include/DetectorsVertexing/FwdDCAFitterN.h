@@ -10,16 +10,16 @@
 
 /// \file FwdDCAFitterN.h
 /// \brief Defintions for N-prongs secondary vertex fit
-/// \author ruben.shahoyan@cern.ch 
+/// \author ruben.shahoyan@cern.ch, adapted from central barrel to fwd rapidities by Rita Sadek, rita.sadek@cern.ch
 /// For the formulae derivation see /afs/cern.ch/user/s/shahoian/public/O2/DCAFitter/FwdDCAFitterN.pdf
+/// For the formulaes used in forward rapidities: https://cernbox.cern.ch/index.php/s/oRpJHTDs6rHdMBs
 
 #ifndef _ALICEO2_DCA_FWDFITTERN_
 #define _ALICEO2_DCA_FWDFITTERN_
 #include <TMath.h>
 #include "MathUtils/Cartesian.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
-
-#include "DetectorsVertexing/FwdHelixHelper.h" // == FwdCheck
+#include "DetectorsVertexing/HelixHelper.h" 
 
 namespace o2
 {
@@ -86,6 +86,7 @@ class FwdDCAFitterN
   using MatStd3D = ROOT::Math::SMatrix<double, 3, 3, ROOT::Math::MatRepStd<double, 3>>;
   using MatSymND = ROOT::Math::SMatrix<double, N, N, ROOT::Math::MatRepSym<double, N>>;
   using MatStdND = ROOT::Math::SMatrix<double, N, N, ROOT::Math::MatRepStd<double, N>>;
+  using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
   using TrackCoefVtx = MatStd3D;
   using ArrTrack = std::array<Track, N>;         // container for prongs (tracks) at single vertex cand.
   using ArrTrackCovI = std::array<FwdTrackCovI, N>; // container for inv.cov.matrices at single vertex cand.
@@ -132,10 +133,10 @@ class FwdDCAFitterN
   }
 
   ///< create parent track param with errors for decay vertex
-  o2::track::TrackParCovFwd createParentTrackParCov(int cand = 0, bool sectorAlpha = true) const; //???
+  o2::track::TrackParCovFwd createParentTrackParCov(int cand = 0) const; //???
 
   ///< create parent track param w/o errors for decay vertex
-  o2::track::TrackParFwd createParentTrackPar(int cand = 0, bool sectorAlpha = true) const;
+  o2::track::TrackParFwd createParentTrackPar(int cand = 0) const;
 
   ///< calculate on the fly track param (no cov mat) at candidate, check isValid to make sure propagation was successful
   o2::track::TrackParFwd FwdgetTrackParamAtPCA(int i, int cand = 0) const;
@@ -193,6 +194,8 @@ class FwdDCAFitterN
   void findZatXY(int cand = 0);
   void findZatXY_mid(int cand = 0);
   void findZatXY_lineApprox(int cand = 0);
+  void findZatXY_quad(int cand = 0);
+  void findZatXY_linear(int cand = 0);
   double FwdcalcChi2() const;
   double FwdcalcChi2NoErr() const;
   bool FwdcorrectTracks(const VecND& corrX);
@@ -904,7 +907,7 @@ template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int icand)
 {
 
-  // approx method: z=(b-b')/(a-a') -> tracks to lines with y=az+b / y'=a'z+b' 
+  // approx method: z=(b-b')/(a-a') -> tracks to lines with y=az+b / y'=a'z+b' (in YZ and XZ plane)
 
   double startPoint = 0.;
   double endPoint = 40.; // first disk
@@ -921,9 +924,13 @@ void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int icand)
 
   double y[2][2]; //Y00: y track 0 at point 0; Y01: y track 0 at point 1
   double z[2][2];
+  double x[2][2];
 
-  double a[2][2];
-  double b[2][2];
+  double aYZ[2][2];
+  double bYZ[2][2];
+
+  double aXZ[2][2];
+  double bXZ[2][2];
 
   double finalZ;
 
@@ -932,20 +939,25 @@ void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int icand)
     trc[i].propagateToZlinear(startPoint);
     z[i][0] = startPoint;
     y[i][0] = trc[i].getY();
+    x[i][0] = trc[i].getX();
 
     trc[i].propagateToZlinear(endPoint);
     z[i][1] = endPoint;
     y[i][1] = trc[i].getY();
+    x[i][1] = trc[i].getX();
   }
 
   //find a,b of straight lines 
   for (int i=0; i<2; i++){
-    b[i]=(y[i][1]-y[i][0]*z[i][1]/z[i][0])/(1-z[i][1]/z[i][0]);
-    a[i]= y[i][0]-b[i]/z[i][0];
+    bYZ[i]=(y[i][1]-y[i][0]*z[i][1]/z[i][0])/(1-z[i][1]/z[i][0]);
+    aYZ[i]= y[i][0]-bYZ[i]/z[i][0];
+
+    bXZ[i]=(x[i][1]-x[i][0]*z[i][1]/z[i][0])/(1-z[i][1]/z[i][0]);
+    aXZ[i]= x[i][0]-bXZ[i]/z[i][0];
   }
 
   //z seed: equ. for intersection of these lines
-  finalZ = (b[0]-b[1])/(a[0]-a[1]);
+  finalZ = 0.5*((bYZ[0]-bYZ[1])/(aYZ[0]-aYZ[1])+(bXZ[0]-bXZ[1])/(aXZ[0]-aXZ[1]));
 
   mPCA[mCurHyp][2] = finalZ;
 
@@ -954,9 +966,187 @@ void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int icand)
 
 //___________________________________________________________________
 template <int N, typename... Args>
+void FwdDCAFitterN<N, Args...>::findZatXY_quad(int icand)
+{
+  double startPoint= 0.;
+  double endPoint = 40.; // first disk
+
+  double X = mPCA[mCurHyp][0]; //X seed
+  double Y = mPCA[mCurHyp][1]; //Y seed
+
+
+  int ord = mOrder[icand];
+
+  mCandTr[mCurHyp][0] = *mOrigTrPtr[0];
+  auto& trc0 = mCandTr[ord][0];
+
+  mCandTr[mCurHyp][1] = *mOrigTrPtr[1]; 
+  auto& trc1 = mCandTr[ord][1];
+
+  auto& trc[2]={trc0,trc1};
+
+  double x0[2];
+  double y0[2];
+  double sinPhi0[2];
+  double cosPhi0[2];
+  double tanL0[2];
+  double qpt0[2]; 
+
+  double k[2]; // B2C *abs(mBz)
+  double Hz[2]; // mBz/abs(mBz) 
+
+  double Ax[2], Bx[2], Cx[2];
+  double Ay[2], By[2], Cy[2];
+
+  double deltaX[2], deltaY[2];
+
+  bool posX[2], nulX[2], negX[2];
+  double z1X[2], z2X[2], z12X[2];
+
+  bool posY[2], nulY[2], negY[2];
+  double z1Y[2], z2Y[2], z12Y[2];
+
+
+  double finalZ[2];
+
+  // find all variables for 2 tracks at z0 = startPoint 
+  //set A, B, C variables for x/y equation for 2 tracks
+  //calculate Deltax/y for both and roots
+
+  for (int i=0; i<2; i++){
+    trc[i].propagateToZquadratic(startPoint, mBz);
+    x[i] = trc[i].getX();
+    y[i] = trc[i].getY();
+    sinPhi0[i]= trc[i].getSnp();
+    cosPhi0[i]= std::sqrt((1. - sinPhi0[i]) * (1. + sinPhi0[i]));
+    tanL0[i]= trc[i].getTanl();
+    qpt0[i]= trc[i].getInvQPt();
+    k[i]=trc[i].getK(mBz);  
+    Hz[i]=trc[i].getHz(mBz); 
+
+    Ax[i]= qpt0[i]*Hz[i]*k[i]*sinPhi0[i]/(2*tanL0[i]*tanL0[i]);
+    Bx[i]=cosPhi0[i]/tanL0[i];
+    Cx[i]=x[i]-X;
+
+    Ay[i]= qpt0[i]*Hz[i]*k[i]*cosPhi0[i]/(2*tanL0[i]*tanL0[i]);
+    By[i]=sinPhi0[i]/tanL0[i];
+    Cy[i]=y[i]-Y;
+
+    deltaX[i]=Bx[i]*Bx[i] - 4*Ax[i]*Cx[i];
+    deltaY[i]=By[i]*By[i] - 4*Ay[i]*Cy[i];
+
+    if(deltaX[i]>0){
+      posX[i]=true;
+      z1X[i]= (-Bx[i]-std::sqrt(deltaX))/(2*Ax[i]);
+      z2X[i]= (-Bx[i]+std::sqrt(deltaX))/(2*Ax[i]);
+    }
+    else if(deltaX[i]==0){
+      nulX[i]=true;
+      z12X=-Bx[i]/(2*Ax[i]);
+    }
+    else {negX[i]=true;}
+
+    if(deltaY[i]>0){
+      posY[i]=true;
+      z1Y[i]= (-By[i]-std::sqrt(deltaY))/(2*Ay[i]);
+      z2Y[i]= (-By[i]+std::sqrt(deltaY))/(2*Ay[i]);
+    }
+    else if(deltaX[i]==0){
+      nulY[i]=true;
+      z12Y=-By[i]/(2*Ay[i]);
+    }
+    else {negY[i]=true;}
+
+    // find the z located in an acceptable interval 
+    if(posX[i]){
+      if (z1X[i]<endPoint && z1X[i]>startPoint){
+        z12X[i]=z1X[i];
+      }
+      else {z12X[i]=z2X[i];}
+    }
+
+    if(posY[i]){
+      if (z1Y[i]<endPoint && z1Y[i]>startPoint){
+        z12Y[i]=z1Y[i];
+      }
+      else {z12Y[i]=z2Y[i];}
+    }
+
+    finalZ[i]= 0.5*(z12X[i]+z12Y[i]);
+
+  }
+
+  mPCA[mCurHyp][2] = 0.5*(finalZ[0]+ finalZ[1]);
+
+}
+
+
+//___________________________________________________________________
+template <int N, typename... Args>
+void FwdDCAFitterN<N, Args...>::findZatXY_linear(int icand)
+{
+
+  double startPoint= 0.;
+
+  double X = mPCA[mCurHyp][0]; //X seed
+  double Y = mPCA[mCurHyp][1]; //Y seed
+
+  int ord = mOrder[icand];
+
+  mCandTr[mCurHyp][0] = *mOrigTrPtr[0];
+  auto& trc0 = mCandTr[ord][0];
+
+  mCandTr[mCurHyp][1] = *mOrigTrPtr[1]; 
+  auto& trc1 = mCandTr[ord][1];
+
+  auto& trc[2]={trc0,trc1};
+
+  double x0[2];
+  double y0[2];
+  double sinPhi0[2];
+  double cosPhi0[2];
+  double tanL0[2];
+
+  double Ax[2], Bx[2];
+  double Ay[2], By[2];
+
+  double z12X[2];
+  double z12Y[2];
+
+  double finalZ[2];
+
+  //find all variables for 2 tracks at z0 = startPoint 
+  //set A, B variables for x/y equation for 2 tracks
+  //calculate root
+
+  for (int i=0; i<2; i++){
+    trc[i].propagateToZlinear(startPoint);
+    x[i] = trc[i].getX();
+    y[i] = trc[i].getY();
+    sinPhi0[i]= trc[i].getSnp();
+    cosPhi0[i]= std::sqrt((1. - sinPhi0[i]) * (1. + sinPhi0[i]));
+    tanL0[i]= trc[i].getTanl();
+
+    Ax[i]=cosPhi0[i]/tanL0[i];
+    Bx[i]=x[i]-X;
+
+    Ay[i]=sinPhi0[i]/tanL0[i];
+    By[i]=y[i]-Y;
+
+    z12X[i]=-Bx[i]/Ax[i];
+    z12Y[i]=-By[i]/Ay[i];
+
+    finalZ[i]= 0.5*(z12X[i]+z12Y[i]);
+  }
+
+  mPCA[mCurHyp][2] = 0.5*(finalZ[0]+ finalZ[1]);
+
+}
+
+
+//___________________________________________________________________
+template <int N, typename... Args>
 inline o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::FwdgetTrackParamAtPCA(int i, int icand) const
-//FwdCHECK:  std::move() doesn't work for trackFwd ? 
-//void FwdDCAFitterN<N, Args...>::FwdgetTrackParamAtPCA(int i, int icand) 
 {
   // propagate tracks param only to current vertex (if not already done)
   int ord = mOrder[icand];
@@ -971,7 +1161,8 @@ inline o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::FwdgetTrackParamAtPCA(i
      // trc.invalidate();
    // }
   }
-  return std::move(trc);
+  // return std::move(trc);
+  return trc;
 }
 
 //___________________________________________________________________
@@ -1129,7 +1320,7 @@ bool FwdDCAFitterN<N, Args...>::roughDXCut() const
 
 //___________________________________________________________________
 template <int N, typename... Args>
-bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck? 
+bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck? on yz plane?
 {
   // check if the point current PCA point is closer to the seeding XY point being tested or to alternative see (if any)
   auto dxCur = mPCA[mCurHyp][0] - mCrossings.xDCA[mCrossIDCur], dyCur = mPCA[mCurHyp][1] - mCrossings.yDCA[mCrossIDCur];
@@ -1149,20 +1340,22 @@ void FwdDCAFitterN<N, Args...>::print() const
 
 //___________________________________________________________________
 template <int N, typename... Args>
-o2::track::TrackParCovFwd FwdDCAFitterN<N, Args...>::createParentTrackParCov(int cand, bool sectorAlpha) const
+o2::track::TrackParCovFwd FwdDCAFitterN<N, Args...>::createParentTrackParCov(int cand) const
 //CreateParentTrack: Replace 2 tracks by 1 
 {
   const auto& trP = getTrack(0, cand); 
   const auto& trN = getTrack(1, cand);
-  std::array<float, 21> covV = {0.};
-  std::array<float, 3> pvecV = {0.};
+  std::array<float, 21> covV = {0.}; //cov matrix of V 
+  std::array<float, 3> pvecV = {0.}; // P vector of V (new  parent tarck)
   int q = 0;
   for (int it = 0; it < N; it++) {
     const auto& trc = getTrack(it, cand); 
     std::array<float, 3> pvecT = {0.};
     std::array<float, 21> covT = {0.};
-    trc.getPxPyPzGlo(pvecT);
-    trc.getCovXYZPxPyPzGlo(covT);
+
+    trc.getPxPyPzGlo(pvecT); //fwdcheck
+    trc.getCovXYZPxPyPzGlo(covT);  //fwdcheck
+
     constexpr int MomInd[6] = {9, 13, 14, 18, 19, 20}; // ind for cov matrix elements for momentum component //x,y,z,px,py,pz  -> Cov: 6x6 -> Error on each variable
     for (int i = 0; i < 6; i++) {
       covV[MomInd[i]] += covT[MomInd[i]];
@@ -1172,19 +1365,28 @@ o2::track::TrackParCovFwd FwdDCAFitterN<N, Args...>::createParentTrackParCov(int
     }
     q += trc.getCharge();
   }
-  auto covVtxV = calcPCACovMatrix(cand);
+
+  auto covVtxV = calcPCACovMatrix(cand); //
+ // SMatrix55 covVtxV; 
+
   covV[0] = covVtxV(0, 0);
   covV[1] = covVtxV(1, 0);
   covV[2] = covVtxV(1, 1);
   covV[3] = covVtxV(2, 0);
   covV[4] = covVtxV(2, 1);
   covV[5] = covVtxV(2, 2);
-  return std::move(o2::track::TrackParCovFwd(getPCACandidatePos(cand), pvecV, covV, q, sectorAlpha));
+
+  // o2::track::TrackParCovFwd trc;
+  // trc.setCovariances(); //FWD ?? 
+  //trc.set ... 
+
+  // return std::move(o2::track::TrackParCovFwd(getPCACandidatePos(cand), pvecV, covV, q));
+  return trc;
 }
 
 //___________________________________________________________________
 template <int N, typename... Args>
-o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::createParentTrackPar(int cand, bool sectorAlpha) const
+o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::createParentTrackPar(int cand) const //to remove sectorAlpha -> no rotation
 {
   const auto& trP = getTrack(0, cand);
   const auto& trN = getTrack(1, cand);
@@ -1194,14 +1396,32 @@ o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::createParentTrackPar(int cand,
   for (int it = 0; it < N; it++) {
     const auto& trc = getTrack(it, cand);
     std::array<float, 3> pvecT = {0.};
-    trc.getPxPyPzGlo(pvecT);
+    trc.getPxPyPzGlo(pvecT); //fwdcheck
     for (int i = 0; i < 3; i++) {
       pvecV[i] += pvecT[i];
     }
-    q += trc.getCharge();
+    q += trc.getCharge(); 
   }
+
+  double pt=std::sqrt(pvecV[0]*pvecV[0]+pvecV[1]*pvecV[1]);
+
+  double qpt= q/pt;
+  double phi=std::acos(pvecV[0]*qpt);
+  double tanL=pvecV[2]*qpt;
+
   const std::array<float, 3> vertex = {(float)wvtx[0], (float)wvtx[1], (float)wvtx[2]};
-  return std::move(o2::track::TrackParFwd(vertex, pvecV, q, sectorAlpha)); //Fwdcheck??
+
+  o2::track::TrackParFwd trc;
+
+  trc.setX(vertex[0]);
+  trc.setY(vertex[1]);
+  trc.setZ(vertex[2]);
+  trc.setInvQPt(qpt);
+  trc.setCharge(q);
+  trc.setPhi(phi);
+  trc.setTanl(tanL);
+
+  return trc; 
 }
 
 using FwdDCAFitter2 = FwdDCAFitterN<2, o2::track::TrackParCovFwd>;

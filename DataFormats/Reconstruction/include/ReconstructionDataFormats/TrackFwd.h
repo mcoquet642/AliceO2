@@ -85,6 +85,14 @@ class TrackParFwd
     return o2::constants::math::B2C * b * invqpt; 
   }
 
+  Double_t getK(double b) const {
+    return o2::constants::math::B2C * std::abs(b);
+  } 
+
+  Double_t getHz(double b) const {
+    return std::copysign(1, b);
+  }
+
   /// return the charge (assumed forward motion)
   Double_t getCharge() const { return TMath::Sign(1., mParameters(4)); }
   /// set the charge (assumed forward motion)
@@ -111,7 +119,7 @@ class TrackParFwd
   void propagateParamToZlinear(double zEnd);
   void propagateParamToZquadratic(double zEnd, double zField);
   void propagateParamToZhelix(double zEnd, double zField);
-//  Double_t getCurvature(double b);
+  void getCircleParams(double bz, o2::math_utils::CircleXY<double>& c);
 
  protected:
   Double_t mZ = 0.; ///< Z coordinate (cm)
@@ -136,7 +144,7 @@ class TrackParCovFwd : public TrackParFwd
   TrackParCovFwd() = default;
   ~TrackParCovFwd() = default;
   TrackParCovFwd& operator=(const TrackParCovFwd& tpf) = default;
-  TrackParCovFwd(const Double_t z, const SMatrix5 parameters, const SMatrix55 covariances, const Double_t chi2);
+  TrackParCovFwd(const Double_t z, const SMatrix5 parameters, const SMatrix55 covariances, const Double_t chi2); //diff. then  trackparwitherror.h  
 
   const SMatrix55& getCovariances() const { return mCovariances; }
   void setCovariances(const SMatrix55& covariances) { mCovariances = covariances; }
