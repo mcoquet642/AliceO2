@@ -657,7 +657,7 @@ void DefineHistograms(HistogramManager* histMan, TString histClasses)
         dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-barrel");
       }
       if (classStr.Contains("Muon")) {
-//        dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-forward");
+        //        dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-forward");
         dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair");
       }
     }
