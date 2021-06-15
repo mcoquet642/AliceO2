@@ -492,7 +492,7 @@ struct DQTableReader {
       }
       dileptonFilterMap = uint16_t(twoTrackFilter);
       VarManager::FillPair(t1, t2, fValues);
-      VarManager::FillPairVertexing(event, t1, t2, fValues);
+      VarManager::FillPairVertexing<gkTrackFillMap>(event, t1, t2, fValues);
       dileptonList(event, fValues[VarManager::kMass], fValues[VarManager::kPt], fValues[VarManager::kEta], fValues[VarManager::kPhi], t1.sign() + t2.sign(), dileptonFilterMap);
       for (int i = 0; i < fCutNames.size(); ++i) {
         if (twoTrackFilter & (uint8_t(1) << i)) {
@@ -520,6 +520,7 @@ struct DQTableReader {
       // TBD:  Other implementations may be possible, for example add a column to the dilepton table to specify the pair type (dielectron, dimuon, electron-muon, etc.)
       dileptonFilterMap = uint16_t(twoTrackFilter) << 8;
       VarManager::FillPair(muon1, muon2, fValues);
+      VarManager::FillPairVertexing<gkMuonFillMap>(event, muon1, muon2, fValues, VarManager::kJpsiToMuMu);
       dileptonList(event, fValues[VarManager::kMass], fValues[VarManager::kPt], fValues[VarManager::kEta], fValues[VarManager::kPhi], muon1.sign() + muon2.sign(), dileptonFilterMap);
       if (muon1.sign() * muon2.sign() < 0) {
         fHistMan->FillHistClass("PairsMuonSEPM", fValues);
@@ -652,7 +653,13 @@ void DefineHistograms(HistogramManager* histMan, TString histClasses)
     }
 
     if (classStr.Contains("Pairs")) {
-      dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-barrel");
+      if (classStr.Contains("Barrel")) {
+        dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-barrel");
+      }
+      if (classStr.Contains("Muon")) {
+//        dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair", "vertexing-forward");
+        dqhistograms::DefineHistograms(histMan, objArray->At(iclass)->GetName(), "pair");
+      }
     }
 
     if (classStr.Contains("DileptonsSelected")) {
