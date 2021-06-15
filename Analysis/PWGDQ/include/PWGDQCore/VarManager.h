@@ -684,36 +684,36 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   //auto pars1 = getTrackParCov(t1);
   //auto pars2 = getTrackParCov(t2);
   if constexpr ((fillMap & ReducedTrack) > 0 || (fillMap & ReducedTrackBarrel) > 0 || (fillMap & ReducedTrackBarrelCov) > 0) {
-  	  std::array<float, 5> t1pars = {t1.y(), t1.z(), t1.snp(), t1.tgl(), t1.signed1Pt()};
-	  std::array<float, 15> t1covs = {t1.cYY(), t1.cZY(), t1.cZZ(), t1.cSnpY(), t1.cSnpZ(),
-        	                          t1.cSnpSnp(), t1.cTglY(), t1.cTglZ(), t1.cTglSnp(), t1.cTglTgl(),
-                	                  t1.c1PtY(), t1.c1PtZ(), t1.c1PtSnp(), t1.c1PtTgl(), t1.c1Pt21Pt2()};
-	  o2::track::TrackParCov pars1{t1.x(), t1.alpha(), t1pars, t1covs};
-	  std::array<float, 5> t2pars = {t2.y(), t2.z(), t2.snp(), t2.tgl(), t2.signed1Pt()};
-	  std::array<float, 15> t2covs = {t2.cYY(), t2.cZY(), t2.cZZ(), t2.cSnpY(), t2.cSnpZ(),
-        	                          t2.cSnpSnp(), t2.cTglY(), t2.cTglZ(), t2.cTglSnp(), t2.cTglTgl(),
-                	                  t2.c1PtY(), t2.c1PtZ(), t2.c1PtSnp(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
-	  o2::track::TrackParCov pars2{t2.x(), t2.alpha(), t2pars, t2covs};
-  	  procCode = fgFitterTwoProng.process(pars1, pars2);
+      std::array<float, 5> t1pars = {t1.y(), t1.z(), t1.snp(), t1.tgl(), t1.signed1Pt()};
+    std::array<float, 15> t1covs = {t1.cYY(), t1.cZY(), t1.cZZ(), t1.cSnpY(), t1.cSnpZ(),
+                                    t1.cSnpSnp(), t1.cTglY(), t1.cTglZ(), t1.cTglSnp(), t1.cTglTgl(),
+                                    t1.c1PtY(), t1.c1PtZ(), t1.c1PtSnp(), t1.c1PtTgl(), t1.c1Pt21Pt2()};
+    o2::track::TrackParCov pars1{t1.x(), t1.alpha(), t1pars, t1covs};
+    std::array<float, 5> t2pars = {t2.y(), t2.z(), t2.snp(), t2.tgl(), t2.signed1Pt()};
+    std::array<float, 15> t2covs = {t2.cYY(), t2.cZY(), t2.cZZ(), t2.cSnpY(), t2.cSnpZ(),
+                                    t2.cSnpSnp(), t2.cTglY(), t2.cTglZ(), t2.cTglSnp(), t2.cTglTgl(),
+                                    t2.c1PtY(), t2.c1PtZ(), t2.c1PtSnp(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
+    o2::track::TrackParCov pars2{t2.x(), t2.alpha(), t2pars, t2covs};
+      procCode = fgFitterTwoProng.process(pars1, pars2);
   }else{
 //  if constexpr ((fillMap & ReducedMuon)>0 || (fillMap & ReducedMuonExtra) > 0 || (fillMap & ReducedMuonCov) > 0) {
-	  //Initialize track parameters for forward
-	  double chi21=t1.chi2(); 
-	  double chi22=t2.chi2();
-  	  SMatrix5 t1pars(t1.x(), t1.y(), t1.phi(), t1.tgl(), t1.signed1Pt());
-	  std::vector<double> v1 {t1.cXX(), t1.cXY(), t1.cYY(), t1.cPhiX(), t1.cPhiY(), 
-		                  t1.cPhiPhi(), t1.cTglX(), t1.cTglY(), t1.cTglPhi(), t1.cTglTgl(), 
-				  t1.c1PtX(), t1.c1PtY(), t1.c1PtPhi(), t1.c1PtTgl(), t1.c1Pt21Pt2()};
-	  SMatrix55 t1covs(v1.begin(), v1.end());
-	  o2::track::TrackParCovFwd pars1{t1.z(), t1pars, t1covs, chi21};
-	  SMatrix5 t2pars(t2.x(), t2.y(), t2.phi(), t2.tgl(), t2.signed1Pt());
-	   std::vector<double> v2 {t2.cXX(), t2.cXY(), t2.cYY(), t2.cPhiX(), t2.cPhiY(), 
-		                   t2.cPhiPhi(), t2.cTglX(), t2.cTglY(), t2.cTglPhi(), t2.cTglTgl(), 
-				   t2.c1PtX(), t2.c1PtY(), t2.c1PtPhi(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
-	  SMatrix55 t2covs(v2.begin(), v2.end());
-	  o2::track::TrackParCovFwd pars2{t2.z(), t2pars, t2covs, chi22};
-	  return;
-//  	  int procCode = fgForwardFitterTwoProng.process(pars1, pars2);
+    //Initialize track parameters for forward
+    double chi21=t1.chi2();
+    double chi22=t2.chi2();
+      SMatrix5 t1pars(t1.x(), t1.y(), t1.phi(), t1.tgl(), t1.signed1Pt());
+    std::vector<double> v1 {t1.cXX(), t1.cXY(), t1.cYY(), t1.cPhiX(), t1.cPhiY(),
+                      t1.cPhiPhi(), t1.cTglX(), t1.cTglY(), t1.cTglPhi(), t1.cTglTgl(),
+          t1.c1PtX(), t1.c1PtY(), t1.c1PtPhi(), t1.c1PtTgl(), t1.c1Pt21Pt2()};
+    SMatrix55 t1covs(v1.begin(), v1.end());
+    o2::track::TrackParCovFwd pars1{t1.z(), t1pars, t1covs, chi21};
+    SMatrix5 t2pars(t2.x(), t2.y(), t2.phi(), t2.tgl(), t2.signed1Pt());
+     std::vector<double> v2 {t2.cXX(), t2.cXY(), t2.cYY(), t2.cPhiX(), t2.cPhiY(),
+                       t2.cPhiPhi(), t2.cTglX(), t2.cTglY(), t2.cTglPhi(), t2.cTglTgl(),
+           t2.c1PtX(), t2.c1PtY(), t2.c1PtPhi(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
+    SMatrix55 t2covs(v2.begin(), v2.end());
+    o2::track::TrackParCovFwd pars2{t2.z(), t2pars, t2covs, chi22};
+    return;
+//      int procCode = fgForwardFitterTwoProng.process(pars1, pars2);
   }
 
   // reconstruct the 2-prong secondary vertex
@@ -748,7 +748,7 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     auto bz = fgFitterTwoProng.getBz();
     values[kVertexingChi2PCA] = chi2PCA;
 //  }else{
-  	//Get pca candidate from forward DCA fitter
+    //Get pca candidate from forward DCA fitter
 
 //    m1 = fgkMuonMass;
 //    m2 = fgkMuonMass;
