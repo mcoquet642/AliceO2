@@ -386,7 +386,7 @@ void TrackParCovFwd::addMCSEffect(double dZ, double x_over_X0)
 }
 
 //_______________________________________________________
-void TrackParFwd::getCircleParams(double bz, o2::math_utils::CircleXY<double>& c) const //put an include to get the o2::math_utils::CircleXY 
+void TrackParFwd::getCircleParams(double bz, o2::math_utils::CircleXY<double>& c) //put an include to get the o2::math_utils::CircleXY 
 {
   // get circle params in track global frame, for straight line just set to local coordinates
   c.rC = getCurvature(bz);
@@ -394,7 +394,7 @@ void TrackParFwd::getCircleParams(double bz, o2::math_utils::CircleXY<double>& c
   constexpr double MinCurv = 1e-6; //check for optimization
   if (std::abs(c.rC) > MinCurv) { 
     c.rC = 1.f / getCurvature(bz);
-    value_t sn = getSnp(), cs = std::sqrt((1.f - sn) * (1.f + sn));
+    double sn = getSnp(), cs = std::sqrt((1.f - sn) * (1.f + sn));
     c.xC = getX() - sn * c.rC; // center in tracking
     c.yC = getY() + cs * c.rC; // frame. Note: r is signed!!!
     c.rC = std::abs(c.rC); 

@@ -19,7 +19,7 @@ namespace o2
 namespace vertexing
 {
 
-void __dummy_instance__()
+void __test_instance__()
 {
   FwdDCAFitter2 ft2;
   FwdDCAFitter3 ft3;

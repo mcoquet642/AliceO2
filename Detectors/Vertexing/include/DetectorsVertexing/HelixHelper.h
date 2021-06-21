@@ -16,6 +16,8 @@
 #ifndef _ALICEO2_HELIX_HELPER_
 #define _ALICEO2_HELIX_HELPER_
 
+#include "CommonConstants/MathConstants.h"
+#include "MathUtils/Utils.h"
 #include "MathUtils/Primitive2D.h"
 // #include "ReconstructionDataFormats/Track.h"
 

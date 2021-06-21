@@ -21,6 +21,8 @@
 #include <TMath.h>
 #include "Math/SMatrix.h"
 #include "MathUtils/Utils.h"
+#include "ReconstructionDataFormats/TrackUtils.h"
+#include "MathUtils/Primitive2D.h"
 
 namespace o2
 {
