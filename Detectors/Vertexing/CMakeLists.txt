@@ -56,3 +56,12 @@ o2_add_test(
   LABELS vertexing
   ENVIRONMENT O2_ROOT=${CMAKE_BINARY_DIR}/stage
   VMCWORKDIR=${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_DATADIR})
+
+o2_add_test(
+  FwdDCAFitterN
+  SOURCES test/testFwdDCAFitterN.cxx
+  COMPONENT_NAME DetectorsVertexing
+  PUBLIC_LINK_LIBRARIES O2::DetectorsVertexing ROOT::Core ROOT::Physics
+  LABELS vertexing
+  ENVIRONMENT O2_ROOT=${CMAKE_BINARY_DIR}/stage
+  VMCWORKDIR=${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_DATADIR})
