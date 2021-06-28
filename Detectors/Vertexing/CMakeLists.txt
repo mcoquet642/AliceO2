@@ -31,7 +31,7 @@ o2_add_library(DetectorsVertexing
                                      O2::FT0Reconstruction
                                      O2::DataFormatsFT0
                                      O2::GlobalTracking
-                                     ms_gsl::ms_gsl)
+                                     Microsoft.GSL::GSL)
 
 o2_target_root_dictionary(DetectorsVertexing
                           HEADERS include/DetectorsVertexing/HelixHelper.h
