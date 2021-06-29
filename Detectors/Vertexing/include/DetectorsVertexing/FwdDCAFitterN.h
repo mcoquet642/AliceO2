@@ -19,6 +19,7 @@
 #include <TMath.h>
 #include "MathUtils/Cartesian.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
+#include "ReconstructionDataFormats/Track.h"
 #include "DetectorsVertexing/HelixHelper.h" 
 
 namespace o2
@@ -77,7 +78,7 @@ class FwdDCAFitterN
   static constexpr int MAXHYP = 2;
   static constexpr float ZerrFactor = 5.; // factor for conversion of track covXX to dummy covZZ 
   using Track = o2::track::TrackParCovFwd;
-//  using TrackAuxPar = o2::track::TrackAuxParFwd; // not available in Fwdtrack (no alfa, for frame rotation)
+  using TrackAuxPar = o2::track::TrackAuxPar; // not available in Fwdtrack (no alfa, for frame rotation)
   using CrossInfo = o2::track::CrossInfo; // check - not available in Fwdtrack: fwdcheck
 
   using Vec3D = ROOT::Math::SVector<double, 3>;
@@ -177,7 +178,7 @@ class FwdDCAFitterN
 
   template <class... Tr>
   int process(const Tr&... args);
-  // void print() const;
+  void print() const;
 
  protected:
   bool FwdcalcPCACoefs();
@@ -265,7 +266,7 @@ class FwdDCAFitterN
   MatSymND mCosDif;    // matrix with cos(alp_j-alp_i) for j<i
   MatSymND mSinDif;    // matrix with sin(alp_j-alp_i) for j<i
   std::array<const Track*, N> mOrigTrPtr;
-  //   std::array<TrackAuxPar, N> mTrAux; // Aux track info for each track at each cand. vertex
+  std::array<TrackAuxPar, N> mTrAux; // Aux track info for each track at each cand. vertex
   CrossInfo mCrossings;              // info on track crossing
 
   std::array<ArrTrackCovI, MAXHYP> mTrcEInv; // errors for each track at each cand. vertex
@@ -309,8 +310,8 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
   clear();
   // Fwdcheck
 
-/*
-  for (int i = 0; i < N; i++) {
+
+/*  for (int i = 0; i < N; i++) {
     mTrAux[i].set(*mOrigTrPtr[i], mBz);
   }
 
@@ -338,6 +339,7 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     }
   }
   // check all crossings
+  LOG(ERROR) << "Checking all crossings";
   for (int ic = 0; ic < mCrossings.nDCA; ic++) { //nDCA=1 or 2 
     // check if radius is acceptable
     if (mCrossings.xDCA[ic] * mCrossings.xDCA[ic] + mCrossings.yDCA[ic] * mCrossings.yDCA[ic] > mMaxR2) { // mMaxR = 200; 
@@ -823,6 +825,7 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int icand) // Between 2 tracks
     }
 
   mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]);
+  LOG(ERROR) << "Found seed at X=" << X << ", Y=" << Y << ", Z=" << mPCA[mCurHyp][2];
 
 }
 
@@ -1347,7 +1350,7 @@ bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck? on yz 
 
 // TO ADD VERBOSE SYS
 
-/*
+
 //___________________________________________________________________
 template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::print() const
@@ -1358,7 +1361,7 @@ void FwdDCAFitterN<N, Args...>::print() const
   LOG(INFO) << "Discard candidates for : Rvtx > " << getMaxR() << " DZ between tracks > " << mMaxDXIni;
 }
 
-
+/*
 //___________________________________________________________________
 template <int N, typename... Args>
 o2::track::TrackParCovFwd FwdDCAFitterN<N, Args...>::createParentTrackParCov(int cand) const

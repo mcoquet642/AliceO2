@@ -15,6 +15,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "DetectorsVertexing/FwdDCAFitterN.h"
+#include "DetectorsVertexing/DCAFitterN.h"
 #include "CommonUtils/TreeStreamRedirector.h"
 #include <TRandom.h>
 #include <TGenPhaseSpace.h>
@@ -69,7 +70,7 @@ float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName,
 }
 
 TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr, float bz,
-                        TGenPhaseSpace& genPHS, double parMass, const std::vector<double>& dtMass, std::vector<int> forceQ)
+                        TGenPhaseSpace& genPHS, double parMass, const std::vector<double>& dtMass, std::vector<int> forceQ, bool print)
 {
   const float errXY = 1e-2, errPhil = 1e-3, errQPT = 2e-2;
   std::vector<double> covm = {
@@ -82,13 +83,13 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
   TLorentzVector parent, d0, d1, d2;
   do {
     accept = true;
-    double y = -1.1*gRandom->Rndm() - 2.5;
+    double y = 1.1*gRandom->Rndm() + 2.5;
     double pt = 0.1 + gRandom->Rndm() * 3;
     double mt = TMath::Sqrt(parMass * parMass + pt * pt);
     double pz = mt * TMath::SinH(y);
     double phi = gRandom->Rndm() * TMath::Pi() * 2;
     double en = mt * TMath::CosH(y);
-    double zdec = 10.; // radius of the decay
+    double zdec = 10.; 
     double rdec = zdec * pt / pz;
     vtx[0] = rdec * TMath::Cos(phi);
     vtx[1] = rdec * TMath::Sin(phi);
@@ -99,6 +100,9 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
     genPHS.Generate();
     vctr.clear();
     float p[4];
+    if(print){
+	    LOG(INFO) << "Decaying particle : y = " << y << ", pt = " << pt << ", vtxX = " << vtx[0] << ", vtxY = " << vtx[1] << ", vtxZ = " << vtx[2] ;  
+    }
     for (int i = 0; i < nd; i++) {
       auto* dt = genPHS.GetDecay(i);
       if (dt->Pt() < 0.05) {
@@ -133,7 +137,7 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
       SMatrix5 tpars(params[0], params[1], params[2], params[3], params[4]);
       SMatrix55 tcovs(covm.begin(), covm.end());
       double chi2=1e-2;
-      auto& trc = vctr.emplace_back(vtx[2], params, covm, chi2);
+      auto& trc = vctr.emplace_back(vtx[2], tpars, tcovs, chi2);
 //      float rad = forceQ[i] == 0 ? 600. : TMath::Abs(1. / trc.getCurvature(bz));
 //      if (!trc.propagateTo(trc.getX() + (gRandom->Rndm() - 0.5) * rad * 0.05, bz)) {
       if (forceQ[i] == 0) {
@@ -142,6 +146,10 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
 	trc.propagateToZquadratic(gRandom->Rndm()*20+40, bz);
       }
 //      trc.print();
+    if(print){
+	LOG(INFO) << "Track params before propagating : z = " << vtx[2] << ", x = " << params[0] << ", y = " << params[1] << ", Phi = " << params[2] << ", tanlambda = " << params[3] << ", InvQt = " << params[4];      
+	LOG(INFO) << "Track params after propagating : z = " << trc.getZ() << ", x = " << trc.getX() << ", y = " << trc.getY() << ", Phi = " << trc.getPhi() << ", tanlambda = " << trc.getTanl() << ", InvQt = " << trc.getInvQPt();      
+    }
     }
   } while (!accept);
 
@@ -150,8 +158,8 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
 
 BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
 {
-  constexpr int NTest = 10000;
-  o2::utils::TreeStreamRedirector outStream("dcafitterNTest.root");
+  constexpr int NTest = 10;
+  o2::utils::TreeStreamRedirector outStream("fwddcafitterNTest.root");
 
   TGenPhaseSpace genPHS;
   constexpr double jpsi = 3.0969;
@@ -187,14 +195,18 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
+    bool print=true;
     for (int iev = 0; iev < NTest; iev++) {
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ);
+//	if (iev%1000==0){print=true;}else{print=false;}
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      LOG(DEBUG) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      if (print){
+      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      }
       if (ncA) {
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, k0dec);
         meanDA += minD;
@@ -205,14 +217,16 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      LOG(DEBUG) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+//      if (print){
+      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+//      }
       if (ncW) {
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, k0dec);
         meanDW += minD;
         nfoundW++;
       }
     }
-//    ft.print();
+    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices Helix : Helix";
@@ -244,16 +258,20 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
+    bool print=true;
     for (int iev = 0; iev < NTest; iev++) {
+//	if (iev%1000==0){print=true;}else{print=false;}
       forceQ[iev % 2] = 1;
       forceQ[1 - iev % 2] = 0;
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ);
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      LOG(DEBUG) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      if (print){
+      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      }
       if (ncA) {
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, k0dec);
         meanDA += minD;
@@ -264,14 +282,16 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      LOG(DEBUG) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+      if (print){
+      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+      }
       if (ncW) {
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, k0dec);
         meanDW += minD;
         nfoundW++;
       }
     }
-//    ft.print();
+    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices: Helix : Line";
@@ -303,15 +323,19 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
+    bool print=true;
     for (int iev = 0; iev < NTest; iev++) {
+//	if (iev%1000==0){print=true;}else{print=false;}
       forceQ[0] = forceQ[1] = 0;
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ);
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      LOG(DEBUG) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      if (print){
+      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+//      }
       if (ncA) {
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, k0dec);
         meanDA += minD;
@@ -322,14 +346,16 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      LOG(DEBUG) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+//      if (print){
+      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+//      }
       if (ncW) {
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, k0dec);
         meanDW += minD;
         nfoundW++;
       }
     }
-//    ft.print();
+    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices: Line : Line";
