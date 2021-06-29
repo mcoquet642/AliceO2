@@ -296,7 +296,7 @@ class VarManager : public TObject
   static void FillTrack(T const& track, float* values = nullptr);
   template <typename T1, typename T2>
   static void FillPair(T1 const& t1, T2 const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
-  template <typename C, typename T>
+  template <uint32_t fillMap, typename C, typename T>
   static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
   template <typename T1, typename T2>
   static void FillDileptonHadron(T1 const& dilepton, T2 const& hadron, float* values = nullptr, float hadronMass = 0.0f);

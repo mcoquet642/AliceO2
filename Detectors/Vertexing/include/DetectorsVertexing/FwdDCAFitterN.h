@@ -332,6 +332,7 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     }
   }
   // check all crossings
+  LOG(ERROR) << "Checking all crossings";
   for (int ic = 0; ic < mCrossings.nDCA; ic++) { //nDCA=1 or 2 
     // check if radius is acceptable
     if (mCrossings.xDCA[ic] * mCrossings.xDCA[ic] + mCrossings.yDCA[ic] * mCrossings.yDCA[ic] > mMaxR2) { // mMaxR = 200; 
@@ -1327,7 +1328,6 @@ void FwdDCAFitterN<N, Args...>::print() const
   LOG(INFO) << "Stopping condition: Max.param change < " << mMinParamChange << " Rel.Chi2 change > " << mMinRelChi2Change;
   LOG(INFO) << "Discard candidates for : Rvtx > " << getMaxR() << " DZ between tracks > " << mMaxDXIni;
 }
-
 
 /*
 //___________________________________________________________________
