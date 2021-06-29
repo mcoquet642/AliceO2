@@ -9,7 +9,7 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
-#define BOOST_TEST_MODULE Test DCAFitterN class
+#define BOOST_TEST_MODULE Test FwdDCAFitterN class
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
@@ -48,7 +48,10 @@ float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName,
     TLorentzVector moth, prong;
     for (int i = 0; i < fitter.getNProngs(); i++) {
       const auto& trc = fitter.getTrack(i, ic);
-      trc.getPxPyPzGlo(p);
+//      trc.getPxPyPzGlo(p);
+      p[0]=trc.getPx();
+      p[1]=trc.getPy();
+      p[2]=trc.getPz();
       prong.SetVectM({p[0], p[1], p[2]}, dtMass[i]);
       moth += prong;
     }
@@ -138,14 +141,14 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
       }else{
 	trc.propagateToZquadratic(gRandom->Rndm()*20+40, bz);
       }
-      trc.print();
+//      trc.print();
     }
   } while (!accept);
 
   return parent;
 }
 
-BOOST_AUTO_TEST_CASE(DCAFitterNProngs)
+BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
 {
   constexpr int NTest = 10000;
   o2::utils::TreeStreamRedirector outStream("dcafitterNTest.root");
@@ -209,7 +212,7 @@ BOOST_AUTO_TEST_CASE(DCAFitterNProngs)
         nfoundW++;
       }
     }
-    ft.print();
+//    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices Helix : Helix";
@@ -268,7 +271,7 @@ BOOST_AUTO_TEST_CASE(DCAFitterNProngs)
         nfoundW++;
       }
     }
-    ft.print();
+//    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices: Helix : Line";
@@ -326,7 +329,7 @@ BOOST_AUTO_TEST_CASE(DCAFitterNProngs)
         nfoundW++;
       }
     }
-    ft.print();
+//    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices: Line : Line";
