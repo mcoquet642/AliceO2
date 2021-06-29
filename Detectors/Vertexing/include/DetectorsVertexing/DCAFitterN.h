@@ -99,7 +99,7 @@ class DCAFitterN
   DCAFitterN() = default;
   DCAFitterN(float bz, bool useAbsDCA, bool prop2DCA) : mBz(bz), mUseAbsDCA(useAbsDCA), mPropagateToPCA(prop2DCA)
   {
-    static_assert(N >= NMin && N <= NMax, "N prongs outside of allowed range"); 
+    static_assert(N >= NMin && N <= NMax, "N prongs outside of allowed range");
   }
 
   //=========================================================================
@@ -124,6 +124,14 @@ class DCAFitterN
   ///< track param propagated to V0 candidate (no check for the candidate validity)
   ///  propagateTracksToVertex must be called in advance
   Track& getTrack(int i, int cand = 0)
+  {
+    if (!mTrPropDone[mOrder[cand]]) {
+      throw std::runtime_error("propagateTracksToVertex was not called yet");
+    }
+    return mCandTr[mOrder[cand]][i];
+  }
+
+  const Track& getTrack(int i, int cand = 0) const
   {
     if (!mTrPropDone[mOrder[cand]]) {
       throw std::runtime_error("propagateTracksToVertex was not called yet");
@@ -156,6 +164,7 @@ class DCAFitterN
   void setMaxIter(int n = 20) { mMaxIter = n > 2 ? n : 2; }
   void setMaxR(float r = 200.) { mMaxR2 = r * r; }
   void setMaxDZIni(float d = 4.) { mMaxDZIni = d; }
+  void setMaxDXYIni(float d = 4.) { mMaxDXYIni = d > 0 ? d : 1e9; }
   void setMaxChi2(float chi2 = 999.) { mMaxChi2 = chi2; }
   void setBz(float bz) { mBz = std::abs(bz) > o2::constants::math::Almost0 ? bz : 0.f; }
   void setMinParamChange(float x = 1e-3) { mMinParamChange = x > 1e-4 ? x : 1.e-4; }
@@ -167,6 +176,7 @@ class DCAFitterN
   int getMaxIter() const { return mMaxIter; }
   float getMaxR() const { return std::sqrt(mMaxR2); }
   float getMaxDZIni() const { return mMaxDZIni; }
+  float getMaxDXYIni() const { return mMaxDXYIni; }
   float getMaxChi2() const { return mMaxChi2; }
   float getMinParamChange() const { return mMinParamChange; }
   float getBz() const { return mBz; }
@@ -284,6 +294,7 @@ class DCAFitterN
   float mBz = 0;                    // bz field, to be set by user
   float mMaxR2 = 200. * 200.;       // reject PCA's above this radius
   float mMaxDZIni = 4.;             // reject (if>0) PCA candidate if tracks DZ exceeds threshold
+  float mMaxDXYIni = 4.;            // reject (if>0) PCA candidate if tracks dXY exceeds threshold
   float mMinParamChange = 1e-3;     // stop iterations if largest change of any X is smaller than this
   float mMinRelChi2Change = 0.9;    // stop iterations is chi2/chi2old > this
   float mMaxChi2 = 100;             // abs cut on chi2 or abs distance
@@ -304,7 +315,7 @@ int DCAFitterN<N, Args...>::process(const Tr&... args)
   for (int i = 0; i < N; i++) {
     mTrAux[i].set(*mOrigTrPtr[i], mBz);
   }
-  if (!mCrossings.set(mTrAux[0], *mOrigTrPtr[0], mTrAux[1], *mOrigTrPtr[1])) { // even for N>2 it should be enough to test just 1 loop
+  if (!mCrossings.set(mTrAux[0], *mOrigTrPtr[0], mTrAux[1], *mOrigTrPtr[1], mMaxDXYIni)) { // even for N>2 it should be enough to test just 1 loop
     return 0;                                                                  // no crossing
   }
   if (mUseAbsDCA) {
