@@ -332,10 +332,11 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     }
   }
   // check all crossings
-  LOG(ERROR) << "Checking all crossings";
   for (int ic = 0; ic < mCrossings.nDCA; ic++) { //nDCA=1 or 2 
+  LOG(INFO) << "Checking all crossings";
     // check if radius is acceptable
     if (mCrossings.xDCA[ic] * mCrossings.xDCA[ic] + mCrossings.yDCA[ic] * mCrossings.yDCA[ic] > mMaxR2) { // mMaxR = 200; 
+	    LOG(ERROR) << "Candidate too far";
       continue;
     }
     mCrossIDCur = ic;
@@ -356,9 +357,12 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     if (mUseAbsDCA ? minimizeChi2NoErr() : minimizeChi2()) {
       mOrder[mCurHyp] = mCurHyp;
       if (mPropagateToPCA && !FwdpropagateTracksToVertex(mCurHyp)) {
+	      LOG(ERROR) << "Failed to propagate";
         continue; // discard candidate if failed to propagate to it
       }
       mCurHyp++; //the crossing to which we were able to min chi2 
+    }else{
+	    LOG(ERROR) << "Failed to minimze chi2";
     }
   }
 
@@ -856,12 +860,6 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int mCurHyp) // Between 2 tracks
 
       midPoint=0.5*(startPoint+endPoint);
 
-      trc = trc0;
-      for (int i=0; i<2; i++){
-        trc.propagateToZlinear(startPoint);
-        newX[i][0] = trc.getX();
-        newY[i][0] = trc.getY();
-
       for (int i=0; i<2; i++){
         mCandTr[mCurHyp][i].propagateParamToZlinear(startPoint);
         newX[i][0] = mCandTr[mCurHyp][i].getX();
@@ -1189,10 +1187,12 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2()
   }
 
   if (mMaxDXIni > 0 && !roughDXCut()) { // apply rough cut on tracks X difference
+	  LOG(ERROR) << "Does not respect geometry cuts";
     return false;
   }
 
   if (!FwdcalcPCACoefs()) { // prepare tracks contribution matrices to the global PCA
+	  LOG(ERROR) << "Couldn't compute PCA coefficients";
     return false;
   }
   FwdcalcPCA();            // current PCA
@@ -1211,11 +1211,13 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2()
     }
     VecND dz = mD2Chi2Dz2 * mDChi2Dz; // 
     if (!FwdcorrectTracks(dz)) {  //calculate new Pi (mTrPos) following Newton-Rapson iteration - taylor's expansion :
+	    LOG(ERROR) << "Couldn't correct tracks";
       return false;
     }
     FwdcalcPCA(); // updated mPCA (new V coordinates with new mTrPos (Pi))
     if (mCrossIDAlt >= 0 && closerToAlternative()) {
       mAllowAltPreference = false;
+      LOG(ERROR) << "Chosing alternative";
       return false;
     }
     FwdcalcTrackResiduals(); // updated residuals
@@ -1229,6 +1231,9 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2()
   } while (++mNIters[mCurHyp] < mMaxIter);
   //
   mChi2[mCurHyp] = chi2 * NInv;
+  if (!(mChi2[mCurHyp] < mMaxChi2)){
+	  LOG(ERROR) << "Chi2 too big at end of iterations";
+  }
   return mChi2[mCurHyp] < mMaxChi2;
 }
 
