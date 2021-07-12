@@ -38,11 +38,13 @@
 
 #include "Math/SMatrix.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
+#include "DetectorsVertexing/FwdDCAFitterN.h"
 
 using std::cout;
 using std::endl;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
+using Vec3D = ROOT::Math::SVector<double, 3>;
 
 // TODO: create an array holding these constants for all needed particles or check for a place where these are already defined
 static const float fgkElectronMass = 0.000511; // GeV
@@ -290,14 +292,28 @@ class VarManager : public TObject
     fgFitterTwoProng.setUseAbsDCA(useAbsDCA);
   }
 
+    // Setup the 2 prong DCAFitterN
+  static void SetupTwoProngFwdDCAFitter(float magField, bool propagateToPCA, float maxR, float minParamChange, float minRelChi2Change, bool useAbsDCA)
+  {
+    FwdfgFitterTwoProng.setBz(magField);
+    FwdfgFitterTwoProng.setPropagateToPCA(propagateToPCA);
+    FwdfgFitterTwoProng.setMaxR(maxR);
+    FwdfgFitterTwoProng.setMinParamChange(minParamChange);
+    FwdfgFitterTwoProng.setMinRelChi2Change(minRelChi2Change);
+    FwdfgFitterTwoProng.setUseAbsDCA(useAbsDCA);
+  }
+
+
   template <uint32_t fillMap, typename T>
   static void FillEvent(T const& event, float* values = nullptr);
   template <uint32_t fillMap, typename T>
   static void FillTrack(T const& track, float* values = nullptr);
   template <typename T1, typename T2>
   static void FillPair(T1 const& t1, T2 const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
-  template <uint32_t fillMap, typename C, typename T>
-  static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
+  template <int pairType, typename C, typename T>
+  static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr);
+//  template <uint32_t fillMap, typename C, typename T>
+//  static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
   template <typename T1, typename T2>
   static void FillDileptonHadron(T1 const& dilepton, T2 const& hadron, float* values = nullptr, float hadronMass = 0.0f);
 
@@ -322,6 +338,7 @@ class VarManager : public TObject
   static auto getRotatedCovMatrixXX(const T& matrix, U phi, V theta);
 
   static o2::vertexing::DCAFitterN<2> fgFitterTwoProng;
+  static o2::vertexing::FwdDCAFitterN<2> FwdfgFitterTwoProng;
 
   VarManager& operator=(const VarManager& c);
   VarManager(const VarManager& c);
@@ -670,8 +687,10 @@ void VarManager::FillPair(T1 const& t1, T2 const& t2, float* values, PairCandida
   values[kCosThetaHE] = cosTheta;
 }
 
-template <uint32_t fillMap, typename C, typename T>
-void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values, PairCandidateType pairType)
+template <int pairType, typename C, typename T>
+void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values)
+//template <uint32_t fillMap, typename C, typename T>
+//void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values, PairCandidateType pairType)
 {
   if (!values) {
     values = fgValues;
@@ -682,7 +701,8 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   // TODO: use trackUtilities functions to initialize the various matrices to avoid code duplication
   //auto pars1 = getTrackParCov(t1);
   //auto pars2 = getTrackParCov(t2);
-  if constexpr ((fillMap & ReducedTrack) > 0 || (fillMap & ReducedTrackBarrel) > 0 || (fillMap & ReducedTrackBarrelCov) > 0) {
+  if constexpr (pairType == kJpsiToEE) {
+//  if constexpr ((fillMap & ReducedTrack) > 0 || (fillMap & ReducedTrackBarrel) > 0 || (fillMap & ReducedTrackBarrelCov) > 0) {
     std::array<float, 5> t1pars = {t1.y(), t1.z(), t1.snp(), t1.tgl(), t1.signed1Pt()};
     std::array<float, 15> t1covs = {t1.cYY(), t1.cZY(), t1.cZZ(), t1.cSnpY(), t1.cSnpZ(),
                                     t1.cSnpSnp(), t1.cTglY(), t1.cTglZ(), t1.cTglSnp(), t1.cTglTgl(),
@@ -694,8 +714,8 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
                                     t2.c1PtY(), t2.c1PtZ(), t2.c1PtSnp(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
     o2::track::TrackParCov pars2{t2.x(), t2.alpha(), t2pars, t2covs};
     procCode = fgFitterTwoProng.process(pars1, pars2);
-  } else {
-    //  if constexpr ((fillMap & ReducedMuon)>0 || (fillMap & ReducedMuonExtra) > 0 || (fillMap & ReducedMuonCov) > 0) {
+  } else if constexpr (pairType == kJpsiToMuMu) {
+//  }else{
     //Initialize track parameters for forward
     double chi21 = t1.chi2();
     double chi22 = t2.chi2();
@@ -711,8 +731,8 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
                            t2.c1PtX(), t2.c1PtY(), t2.c1PtPhi(), t2.c1PtTgl(), t2.c1Pt21Pt2()};
     SMatrix55 t2covs(v2.begin(), v2.end());
     o2::track::TrackParCovFwd pars2{t2.z(), t2pars, t2covs, chi22};
+    procCode = FwdfgFitterTwoProng.process(pars1, pars2);
     return;
-    //      int procCode = fgForwardFitterTwoProng.process(pars1, pars2);
   }
 
   // reconstruct the 2-prong secondary vertex
@@ -738,27 +758,15 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   float m1 = fgkElectronMass;
   float m2 = fgkElectronMass;
 
-  //  if (pairType == kJpsiToEE) {
-  const auto& secondaryVertex = fgFitterTwoProng.getPCACandidate();
-  auto chi2PCA = fgFitterTwoProng.getChi2AtPCACandidate();
-  auto covMatrixPCA = fgFitterTwoProng.calcPCACovMatrix().Array();
-  auto trackParVar0 = fgFitterTwoProng.getTrack(0);
-  auto trackParVar1 = fgFitterTwoProng.getTrack(1);
-  auto bz = fgFitterTwoProng.getBz();
-  values[kVertexingChi2PCA] = chi2PCA;
-  //  }else{
-  //Get pca candidate from forward DCA fitter
-
-  //    m1 = fgkMuonMass;
-  //    m2 = fgkMuonMass;
-  //  }
-
-  // get track momenta
+  Vec3D secondaryVertex;
+  float bz=0;
   std::array<float, 3> pvec0;
   std::array<float, 3> pvec1;
-  trackParVar0.getPxPyPzGlo(pvec0);
-  trackParVar1.getPxPyPzGlo(pvec1);
 
+  double *covMatrixPCA;
+
+  o2::dataformats::DCA impactParameter0;
+  o2::dataformats::DCA impactParameter1;
   // get track impact parameters
   // This modifies track momenta!
   o2::math_utils::Point3D<float> vtxXYZ(collision.posX(), collision.posY(), collision.posZ());
@@ -766,10 +774,42 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   o2::dataformats::VertexBase primaryVertex = {std::move(vtxXYZ), std::move(vtxCov)};
   //auto primaryVertex = getPrimaryVertex(collision);
   auto covMatrixPV = primaryVertex.getCov();
-  o2::dataformats::DCA impactParameter0;
-  o2::dataformats::DCA impactParameter1;
-  trackParVar0.propagateToDCA(primaryVertex, bz, &impactParameter0);
-  trackParVar1.propagateToDCA(primaryVertex, bz, &impactParameter1);
+
+  if constexpr (pairType == kJpsiToEE) {
+	  secondaryVertex = fgFitterTwoProng.getPCACandidate();
+	  bz = fgFitterTwoProng.getBz();
+	  covMatrixPCA = fgFitterTwoProng.calcPCACovMatrix().Array();
+	  auto chi2PCA = fgFitterTwoProng.getChi2AtPCACandidate();
+	  auto trackParVar0 = fgFitterTwoProng.getTrack(0);
+	  auto trackParVar1 = fgFitterTwoProng.getTrack(1);
+	  values[kVertexingChi2PCA] = chi2PCA;
+	  trackParVar0.getPxPyPzGlo(pvec0);
+	  trackParVar1.getPxPyPzGlo(pvec1);
+	  trackParVar0.propagateToDCA(primaryVertex, bz, &impactParameter0);
+	  trackParVar1.propagateToDCA(primaryVertex, bz, &impactParameter1);
+  }else if constexpr (pairType == kJpsiToMuMu) {
+  //Get pca candidate from forward DCA fitter
+           m1 = fgkMuonMass;
+           m2 = fgkMuonMass;
+
+	  secondaryVertex = FwdfgFitterTwoProng.getPCACandidate();
+	  bz = FwdfgFitterTwoProng.getBz();
+	  covMatrixPCA = FwdfgFitterTwoProng.calcPCACovMatrix().Array();
+	  auto chi2PCA = FwdfgFitterTwoProng.getChi2AtPCACandidate();
+	  auto trackParVar0 = FwdfgFitterTwoProng.getTrack(0);
+	  auto trackParVar1 = FwdfgFitterTwoProng.getTrack(1);
+	  values[kVertexingChi2PCA] = chi2PCA;
+	  pvec0[0]=trackParVar0.getPx();
+	  pvec0[1]=trackParVar0.getPy();
+	  pvec0[2]=trackParVar0.getPz();
+	  pvec1[0]=trackParVar1.getPx();
+	  pvec1[1]=trackParVar1.getPy();
+	  pvec1[2]=trackParVar1.getPz();
+  	  trackParVar0.propagateToZlinear(primaryVertex.getZ());
+	  trackParVar1.propagateToZlinear(primaryVertex.getZ());
+  }
+
+
 
   // get uncertainty of the decay length
   //double phi, theta;

@@ -22,6 +22,7 @@ float VarManager::fgValues[VarManager::kNVars] = {0.0f};
 std::map<int, int> VarManager::fgRunMap;
 TString VarManager::fgRunStr = "";
 o2::vertexing::DCAFitterN<2> VarManager::fgFitterTwoProng;
+o2::vertexing::FwdDCAFitterN<2> VarManager::FwdfgFitterTwoProng;
 
 //__________________________________________________________________
 VarManager::VarManager() : TObject()

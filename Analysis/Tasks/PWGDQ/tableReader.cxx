@@ -84,6 +84,10 @@ constexpr static uint32_t gkEventFillMap = VarManager::ObjTypes::ReducedEvent | 
 constexpr static uint32_t gkTrackFillMap = VarManager::ObjTypes::ReducedTrack | VarManager::ObjTypes::ReducedTrackBarrel | VarManager::ObjTypes::ReducedTrackBarrelCov | VarManager::ObjTypes::ReducedTrackBarrelPID;
 constexpr static uint32_t gkMuonFillMap = VarManager::ObjTypes::ReducedMuon | VarManager::ObjTypes::ReducedMuonExtra | VarManager::ObjTypes::ReducedMuonCov;
 
+constexpr int pairTypeEE = VarManager::kJpsiToEE;
+constexpr int pairTypeMuMu = VarManager::kJpsiToMuMu;
+constexpr int pairTypeEMu = VarManager::kElectronMuon;
+
 struct DQEventSelection {
   Produces<aod::EventCuts> eventSel;
   Produces<aod::MixingHashes> hash;
@@ -498,6 +502,7 @@ struct DQTableReader {
     fOutputList.setObject(fHistMan->GetMainHistogramList());
 
     VarManager::SetupTwoProngDCAFitter(5.0f, true, 200.0f, 4.0f, 1.0e-3f, 0.9f, true); // TODO: get these parameters from Configurables
+    VarManager::SetupTwoProngFwdDCAFitter(5.0f, true, 200.0f, 1.0e-3f, 0.9f, true); // TODO: get these parameters from Configurables
   }
 
   void process(soa::Filtered<MyEventsVtxCovSelected>::iterator const& event, soa::Filtered<MyBarrelTracksSelected> const& tracks, soa::Filtered<MyMuonTracksSelected> const& muons)
@@ -519,6 +524,8 @@ struct DQTableReader {
       }
       dileptonFilterMap = uint32_t(twoTrackFilter);
       VarManager::FillPair(t1, t2, fValues);
+      VarManager::FillPairVertexing<pairTypeEE>(event, t1, t2, fValues);
+//      VarManager::FillPairVertexing<gkTrackFillMap>(event, t1, t2, fValues);
       dileptonList(event, fValues[VarManager::kMass], fValues[VarManager::kPt], fValues[VarManager::kEta], fValues[VarManager::kPhi], t1.sign() + t2.sign(), dileptonFilterMap);
       for (int i = 0; i < fCutNames.size(); ++i) {
         if (twoTrackFilter & (uint8_t(1) << i)) {
@@ -545,7 +552,9 @@ struct DQTableReader {
       //       In order to discriminate them, the dileptonFilterMap uses the first 8 bits for dielectrons, the next 8 for dimuons and the rest for electron-muon
       // TBD:  Other implementations may be possible, for example add a column to the dilepton table to specify the pair type (dielectron, dimuon, electron-muon, etc.)
       dileptonFilterMap = uint32_t(twoTrackFilter) << 8;
-      VarManager::FillPair(muon1, muon2, fValues, VarManager::kJpsiToMuMu);
+//      VarManager::FillPair(muon1, muon2, fValues, VarManager::kJpsiToMuMu);
+      VarManager::FillPairVertexing<pairTypeMuMu>(event, muon1, muon2, fValues);
+//      VarManager::FillPairVertexing<gkMuonFillMap>(event, muon1, muon2, fValues, VarManager::kJpsiToMuMu);
       dileptonList(event, fValues[VarManager::kMass], fValues[VarManager::kPt], fValues[VarManager::kEta], fValues[VarManager::kPhi], muon1.sign() + muon2.sign(), dileptonFilterMap);
       if (muon1.sign() * muon2.sign() < 0) {
         fHistMan->FillHistClass("PairsMuonSEPM", fValues);
