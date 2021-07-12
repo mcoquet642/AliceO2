@@ -77,8 +77,8 @@ class FwdDCAFitterN
   static constexpr int MAXHYP = 2;
   static constexpr float ZerrFactor = 5.; // factor for conversion of track covXX to dummy covZZ 
   using Track = o2::track::TrackParCovFwd;
-  using TrackAuxPar = o2::track::TrackAuxPar; // not available in Fwdtrack (no alfa, for frame rotation)
-  using CrossInfo = o2::track::CrossInfo; // check - not available in Fwdtrack: fwdcheck
+  using TrackAuxPar = o2::track::TrackAuxPar;
+  using CrossInfo = o2::track::CrossInfo; 
 
   using Vec3D = ROOT::Math::SVector<double, 3>;
   using VecND = ROOT::Math::SVector<double, N>;
@@ -215,8 +215,16 @@ class FwdDCAFitterN
   //no rotation needed, mat=I;
   {
     MatStd3D mat;
-    mat(0, 0) = 1; 
+    mat(0, 0) = 1;
+    mat(0, 1) = 0;  
+    mat(0, 2) = 0; 
+
+    mat(1, 0) = 0;  
     mat(1, 1) = 1; 
+    mat(1, 2) = 0;  
+
+    mat(2, 0) = 0; 
+    mat(2, 1) = 0;  
     mat(2, 2) = 1; 
     return mat;
   }
@@ -227,7 +235,7 @@ class FwdDCAFitterN
     MatSym3D mat;
     mat(0, 0) = trc.getSigma2X();
     mat(1, 1) = trc.getSigma2Y();
-    mat(2, 1) = trc.getSigmaXY();
+    mat(1, 0) = trc.getSigmaXY();
     mat(2, 2) = trc.getSigma2Y() * ZerrFactor; 
     return mat;
   }
@@ -256,10 +264,10 @@ class FwdDCAFitterN
 
  private:
   // vectors of 1st derivatives of track local residuals over X parameters 
-  std::array<std::array<Vec3D, N>, N> mDResidDx; //
+  std::array<std::array<Vec3D, N>, N> mDResidDz; //
   // vectors of 1nd derivatives of track local residuals over X parameters
   // (cross-derivatives DR/(dx_j*dx_k) = 0 for j!=k, therefore the hessian is diagonal)
-  std::array<std::array<Vec3D, N>, N> mD2ResidDx2;
+  std::array<std::array<Vec3D, N>, N> mD2ResidDz2;
   VecND mDChi2Dz;      // 1st derivatives of chi2 over tracks X params
   MatSymND mD2Chi2Dz2; // 2nd derivatives of chi2 over tracks X params (symmetric matrix)
   MatSymND mCosDif;    // matrix with cos(alp_j-alp_i) for j<i
@@ -331,9 +339,8 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     }
   }
   // check all crossings
-
-  for (int ic = 0; ic < mCrossings.nDCA; ic++) { //nDCA=1 or 2 
-  LOG(INFO) << "Checking all crossings";
+  for (int ic = 0; ic < mCrossings.nDCA; ic++) { 
+    LOG(INFO) << "Checking all crossings";
     // check if radius is acceptable
     if (mCrossings.xDCA[ic] * mCrossings.xDCA[ic] + mCrossings.yDCA[ic] * mCrossings.yDCA[ic] > mMaxR2) { // mMaxR = 200; 
 	    LOG(ERROR) << "Candidate too far";
@@ -348,11 +355,11 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     mPCA[mCurHyp][0] = mCrossings.xDCA[ic];
     mPCA[mCurHyp][1] = mCrossings.yDCA[ic]; 
     
-    findZatXY(mCurHyp); // find mPCA[mCurHyp][2] 
-    // findZatXY_mid(mCurHyp); 
+    // findZatXY(mCurHyp); // find mPCA[mCurHyp][2]  -> found a problem when not quadratic -> Z= 49/50... Not working !
+    findZatXY_mid(mCurHyp); //best method - until now 
     // findZatXY_lineApprox(mCurHyp); 
     // findZatXY_quad(mCurHyp); // Z=nan when a invqpt=0  ->  if q=0, give back 1/pt ?
-    // findZatXY_linear(mCurHyp); 
+    // findZatXY_linear(mCurHyp); //check if should prop with quad -> not with
 
     if (mUseAbsDCA ? minimizeChi2NoErr() : minimizeChi2()) {
       mOrder[mCurHyp] = mCurHyp;
@@ -387,7 +394,7 @@ bool FwdDCAFitterN<N, Args...>::FwdcalcPCACoefs()
   }
   for (int i = N; i--;) { // build Mi*Ei matrix, with Mi = I 
     //const auto& taux = mTrAux[i];
-    const auto& tcov = mTrcEInv[mCurHyp][i]; // 
+    const auto& tcov = mTrcEInv[mCurHyp][i]; 
     MatStd3D miei;
 
     miei[0][0] = tcov.sxx; // cxx
@@ -449,9 +456,9 @@ void FwdDCAFitterN<N, Args...>::FwdcalcResidDerivatives()
     for (int j = N; j--;) {                   // track over which we differentiate
       const auto& matT = mTrCFVT[mCurHyp][j]; // coefficient matrix for track J
       const auto& trDx = mTrDer[mCurHyp][j];  // track point derivs over track Z param
-      auto& dr1 = mDResidDx[i][j];
-      auto& dr2 = mD2ResidDx2[i][j];
-      // calculate M_i^transverse * T_j , M_i^transverse=I  
+      auto& dr1 = mDResidDz[i][j];
+      auto& dr2 = mD2ResidDz2[i][j];
+      // calculate M_i^transverse * T_j , M_i^transverse=I -> MT=T
       matMT[0][0] = matT[0][0];
       matMT[0][1] = matT[0][1];
       matMT[0][2] = matT[0][2];
@@ -473,7 +480,7 @@ void FwdDCAFitterN<N, Args...>::FwdcalcResidDerivatives()
       dr2[2] = -(matMT[2][1] * trDx.d2ydz2 + matMT[2][0] * trDx.d2xdz2);
 
       if (i == j) {
-        dr1[0] += trDx.dxdz;;
+        dr1[0] += trDx.dxdz;
         dr1[1] += trDx.dydz;
         dr1[2] += 1.;
 
@@ -491,46 +498,46 @@ void FwdDCAFitterN<N, Args...>::FwdcalcResidDerivativesNoErr()
   //< calculate matrix of derivatives for absolute distance chi2: residual i vs parameter X of track j
   constexpr double NInv1 = 1. - NInv;       // profit from Rii = I/Ninv
   for (int i = N; i--;) {                   // residual being differentiated
-    const auto& trDxi = mTrDer[mCurHyp][i]; // track point derivs over track Z param
-    auto& dr1ii = mDResidDx[i][i];
-    auto& dr2ii = mD2ResidDx2[i][i];
+    const auto& trDzi = mTrDer[mCurHyp][i]; // track point derivs over track Z param
+    auto& dr1ii = mDResidDz[i][i];
+    auto& dr2ii = mD2ResidDz2[i][i];
 
-    dr1ii[0] = NInv1 * trDxi.dxdz; 
-    dr1ii[1] = NInv1 * trDxi.dydz;
+    dr1ii[0] = NInv1 * trDzi.dxdz; 
+    dr1ii[1] = NInv1 * trDzi.dydz;
     dr1ii[2] = NInv1; 
 
-    dr2ii[0] = NInv1 * trDxi.d2xdz2;
-    dr2ii[1] = NInv1 * trDxi.d2ydz2;
+    dr2ii[0] = NInv1 * trDzi.d2xdz2;
+    dr2ii[1] = NInv1 * trDzi.d2ydz2;
     dr2ii[2] = 0;
 
     for (int j = i; j--;) { // track over which we differentiate
-      auto& dr1ij = mDResidDx[i][j];
-      auto& dr1ji = mDResidDx[j][i];
-      const auto& trDxj = mTrDer[mCurHyp][j];        // track point derivs over track Z param
+      auto& dr1ij = mDResidDz[i][j];
+      auto& dr1ji = mDResidDz[j][i];
+      const auto& trDzj = mTrDer[mCurHyp][j];        // track point derivs over track Z param
 
       //no need in fwd rap
-      //auto cij = mCosDif[i][j], sij = mSinDif[i][j]; // M_i^T*M_j / N matrices non-trivial elements = {ci*cj+si*sj , si*cj-ci*sj }, see 5 in ref.
+      // auto cij = mCosDif[i][j], sij = mSinDif[i][j]; // M_i^T*M_j / N matrices non-trivial elements = {ci*cj+si*sj , si*cj-ci*sj }, see 5 in ref.
 
       // calculate DResid_i/Dx_j = (delta_ij - R_ij) * DTrack_j/Dx_j  for j<i
-      dr1ij[0] = -trDxj.dxdz * NInv;
-      dr1ij[1] = -trDxj.dydz * NInv;
+      dr1ij[0] = -trDzj.dxdz * NInv;
+      dr1ij[1] = -trDzj.dydz * NInv;
       dr1ij[2] = -1 * NInv;
 
       // calculate DResid_j/Dx_i = (delta_ij - R_ji) * DTrack_i/Dx_i  for j<i
-      dr1ji[0] = -trDxi.dxdz * NInv;
-      dr1ji[1] = -trDxi.dydz * NInv;
+      dr1ji[0] = -trDzi.dxdz * NInv;
+      dr1ji[1] = -trDzi.dydz * NInv;
       dr1ji[2] = -1 * NInv;
 
-      auto& dr2ij = mD2ResidDx2[i][j];
-      auto& dr2ji = mD2ResidDx2[j][i];
+      auto& dr2ij = mD2ResidDz2[i][j];
+      auto& dr2ji = mD2ResidDz2[j][i];
       // calculate D2Resid_I/(Dx_J Dx_K) = (delta_ij - Rij) * D2Track_j/dx_j^2 * delta_jk for j<i
-      dr2ij[0] = -trDxj.d2xdz2 * NInv;
-      dr2ij[1] = -trDxj.d2ydz2 * NInv;
-      dr2ij[2] = 0;
+      dr2ij[0] = -trDzj.d2xdz2 * NInv;
+      dr2ij[1] = -trDzj.d2ydz2 * NInv;
+      dr2ij[2] = 0; 
 
       // calculate D2Resid_j/(Dx_i Dx_k) = (delta_ij - Rji) * D2Track_i/dx_i^2 * delta_ik for j<i
-      dr2ji[0] = -trDxi.d2xdz2 * NInv;
-      dr2ji[1] = -trDxi.d2ydz2 * NInv;
+      dr2ji[0] = -trDzi.d2xdz2 * NInv;
+      dr2ji[1] = -trDzi.d2ydz2 * NInv;
       dr2ji[2] = 0;
 
     } // track over which we differentiate
@@ -568,7 +575,7 @@ void FwdDCAFitterN<N, Args...>::FwdcalcChi2Derivatives()
     for (int j = N; j--;) {
       const auto& res = mTrRes[mCurHyp][j];    // vector of residuals of track j
       const auto& covI = mTrcEInv[mCurHyp][j]; // inverse cov matrix of track j
-      const auto& dr1 = mDResidDx[j][i];       // vector of j-th residuals 1st derivative over X param of track i
+      const auto& dr1 = mDResidDz[j][i];       // vector of j-th residuals 1st derivative over X param of track i
       auto& cidr = covIDrDx[i][j];             // vector covI_j * dres_j/dx_i, save for 2nd derivative calculation
       //fwd
       cidr[0] = covI.sxx * dr1[0] + covI.sxy * dr1[1];
@@ -586,13 +593,13 @@ void FwdDCAFitterN<N, Args...>::FwdcalcChi2Derivatives()
       auto& dchi2 = mD2Chi2Dz2[i][j]; // D2Chi2/Dx_i/Dx_j = sum_k { Dres_k/Dx_j * covI_k * Dres_k/Dx_i + res_k * covI_k * D2res_k/Dx_i/Dx_j }
       dchi2 = 0;
       for (int k = N; k--;) {
-        const auto& dr1j = mDResidDx[k][j];  // vector of k-th residuals 1st derivative over X param of track j
+        const auto& dr1j = mDResidDz[k][j];  // vector of k-th residuals 1st derivative over X param of track j
         const auto& cidrkj = covIDrDx[i][k]; // vector covI_k * dres_k/dx_i
         dchi2 += ROOT::Math::Dot(dr1j, cidrkj);
         if (k == j) {
           const auto& res = mTrRes[mCurHyp][k];    // vector of residuals of track k
           const auto& covI = mTrcEInv[mCurHyp][k]; // inverse cov matrix of track k
-          const auto& dr2ij = mD2ResidDx2[k][j];   // vector of k-th residuals 2nd derivative over X params of track j
+          const auto& dr2ij = mD2ResidDz2[k][j];   // vector of k-th residuals 2nd derivative over X params of track j
           dchi2 += res[0] * (covI.sxx * dr2ij[0] + covI.sxy * dr2ij[1]) +  res[1] * (covI.sxy * dr2ij[0] + covI.syy * dr2ij[1]) + res[2] * covI.szz * dr2ij[2];
         }
       }
@@ -610,14 +617,14 @@ void FwdDCAFitterN<N, Args...>::FwdcalcChi2DerivativesNoErr()
     dchi1 = 0;                 // chi2 1st derivative
     for (int j = N; j--;) {
       const auto& res = mTrRes[mCurHyp][j]; // vector of residuals of track j
-      const auto& dr1 = mDResidDx[j][i];    // vector of j-th residuals 1st derivative over X param of track i
+      const auto& dr1 = mDResidDz[j][i];    // vector of j-th residuals 1st derivative over X param of track i
       dchi1 += ROOT::Math::Dot(res, dr1);
       if (i >= j) { // symmetrix matrix
         // chi2 2nd derivative
         auto& dchi2 = mD2Chi2Dz2[i][j]; // D2Chi2/Dx_i/Dx_j = sum_k { Dres_k/Dx_j * covI_k * Dres_k/Dx_i + res_k * covI_k * D2res_k/Dx_i/Dx_j }
-        dchi2 = ROOT::Math::Dot(mTrRes[mCurHyp][i], mD2ResidDx2[i][j]);
+        dchi2 = ROOT::Math::Dot(mTrRes[mCurHyp][i], mD2ResidDz2[i][j]);
         for (int k = N; k--;) {
-          dchi2 += ROOT::Math::Dot(mDResidDx[k][i], mDResidDx[k][j]);
+          dchi2 += ROOT::Math::Dot(mDResidDz[k][i], mDResidDz[k][j]);
         }
       }
     }
@@ -641,23 +648,19 @@ template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::FwdcalcPCANoErr()
 {
   // calculate point of closest approach for N prongs w/o errors
+
   auto& pca = mPCA[mCurHyp];
-
-  // no rotation for fwd rap:
-  // o2::math_utils::rotateZd(mTrPos[mCurHyp][N - 1][0], mTrPos[mCurHyp][N - 1][1], pca[0], pca[1], mTrAux[N - 1].s, mTrAux[N - 1].c);
-  //RRRR    mTrAux[N-1].loc2glo(mTrPos[mCurHyp][N-1][0], mTrPos[mCurHyp][N-1][1], pca[0], pca[1] );
-
-  pca[0] = mTrPos[mCurHyp][N - 1][2];
+  //theta=0;
+  o2::math_utils::rotateZd(mTrPos[mCurHyp][N - 1][1], mTrPos[mCurHyp][N - 1][2], pca[1], pca[2], 0, 1); 
+  pca[0] = mTrPos[mCurHyp][N - 1][0];
 
   for (int i = N - 1; i--;) {
     double y, z; // working on z axis, with no rotattion needed from lab to track frame
-
-//    o2::math_utils::rotateZd(mTrPos[mCurHyp][i][0], mTrPos[mCurHyp][i][1], x, y, mTrAux[i].s, mTrAux[i].c);
+    o2::math_utils::rotateZd(mTrPos[mCurHyp][i][1], mTrPos[mCurHyp][i][2], y, z, 0, 1); //
     //RRRR mTrAux[i].loc2glo(mTrPos[mCurHyp][i][0], mTrPos[mCurHyp][i][1], x, y );
 
 //Fwdcheck
     pca[0] += mTrPos[mCurHyp][i][0];
-    // pca[1] += mTrPos[mCurHyp][i][1]; //?
     pca[1] += y;
     pca[2] += z;
   }
@@ -688,7 +691,7 @@ void FwdDCAFitterN<N, Args...>::FwdcalcTrackResiduals()
   for (int i = N; i--;) {
     mTrRes[mCurHyp][i] = mTrPos[mCurHyp][i];
     vtxLoc = mPCA[mCurHyp];
-    // o2::math_utils::rotateZInvd(vtxLoc[0], vtxLoc[1], vtxLoc[0], vtxLoc[1], mTrAux[i].s, mTrAux[i].c); // glo->loc: No need for rotation 
+    o2::math_utils::rotateZInvd(vtxLoc[0], vtxLoc[1], vtxLoc[0], vtxLoc[1], 0, 1); // glo->loc: No need for rotation : alfa=0
     mTrRes[mCurHyp][i] -= vtxLoc;
   }
 }
@@ -712,7 +715,7 @@ inline double FwdDCAFitterN<N, Args...>::FwdcalcChi2() const
   for (int i = N; i--;) {
     const auto& res = mTrRes[mCurHyp][i];
     const auto& covI = mTrcEInv[mCurHyp][i];
-    chi2 += res[0] * res[0] * covI.sxx + res[1] * res[1] * covI.syy + res[2] * res[2] * covI.szz + 2. * res[1] * res[2] * covI.sxy;
+    chi2 += res[0] * res[0] * covI.sxx + res[1] * res[1] * covI.syy + res[2] * res[2] * covI.szz + 2. * res[0] * res[1] * covI.sxy; 
   }
   return chi2;
 }
@@ -756,15 +759,18 @@ bool FwdDCAFitterN<N, Args...>::FwdpropagateTracksToVertex(int icand)
   }
   const Vec3D& pca = mPCA[ord];
   for (int i = N; i--;) {
-    if (mUseAbsDCA) { //?
+    if (mUseAbsDCA) { 
       mCandTr[ord][i] = *mOrigTrPtr[i]; // fetch the track again, as mCandTr might have been propagated w/o errors
     }
     auto& trc = mCandTr[ord][i];
     // auto x = mTrAux[i].c * pca[0] + mTrAux[i].s * pca[1]; // X of PCA in the track frame 
 
     auto z = pca[2]; // to Fwdcheck ? 
-    // trc.propagateToZquadratic(z, mBz); // prop for FwdTracks: propagateToZquadratic : to test
-    trc.propagateToZlinear(z); //check : No bool required for impossible cases? 
+    // trc.propagateToZlinear(z); // prop for FwdTracks: propagateToZquadratic : to test
+    //trc.propagateParamToZlinear(z); //check : No bool required for impossible cases? 
+    trc.propagateToZlinear(z);
+    // trc.propagateToZlinear(z);
+
 
   }
   mTrPropDone[ord] = true;
@@ -776,8 +782,8 @@ template <int N, typename... Args>
 void FwdDCAFitterN<N, Args...>::findZatXY(int mCurHyp) // Between 2 tracks 
 {
   
-  double step = 1.;  // initial step 
-  double startPoint = 50.; // first MFT disk 
+  double step = 0.1;  // initial step 
+  double startPoint = 40.; // first MFT disk 
 
   double z[2] =  {startPoint, startPoint};
   double newX[2], newY[2];
@@ -798,7 +804,7 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int mCurHyp) // Between 2 tracks
   for (int i=0; i<2; i++) {
 
     while (z[i] > -1){
-      mCandTr[mCurHyp][i].propagateParamToZlinear(z[i]);
+      mCandTr[mCurHyp][i].propagateToZlinear(z[i]);   
       newX[i] = mCandTr[mCurHyp][i].getX();
       newY[i] = mCandTr[mCurHyp][i].getY();
       
@@ -820,7 +826,7 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int mCurHyp) // Between 2 tracks
 
     }
 
-  mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]); //if Z0 and Z1 very spaced: chi2 =-1 
+  mPCA[mCurHyp][2] = 0.5 * (finalZ[0]+finalZ[1]); 
 
   LOG(INFO) << "Found seed at X=" << X << ", Y=" << Y << ", Z=" << mPCA[mCurHyp][2];
 
@@ -828,12 +834,12 @@ void FwdDCAFitterN<N, Args...>::findZatXY(int mCurHyp) // Between 2 tracks
 
 //___________________________________________________________________
 template <int N, typename... Args>
-void FwdDCAFitterN<N, Args...>::findZatXY_mid(int mCurHyp) // Between 2 tracks 
+void FwdDCAFitterN<N, Args...>::findZatXY_mid(int mCurHyp) 
 {
   // look into dXY of T0 - T1 between 2 points(0,40cm); the one with the highest dXY is moved to mid
 
   double startPoint = 0.;
-  double endPoint = 70.; // first disk
+  double endPoint = 40.; // first disk
   double midPoint = 0.5 * (startPoint + endPoint); 
 
   double z[2][2]= {{startPoint,endPoint},{startPoint,endPoint}}; // z for tracks 0/1 on starting poing and endpoint 
@@ -861,11 +867,11 @@ void FwdDCAFitterN<N, Args...>::findZatXY_mid(int mCurHyp) // Between 2 tracks
       midPoint=0.5*(startPoint+endPoint);
 
       for (int i=0; i<2; i++){
-        mCandTr[mCurHyp][i].propagateParamToZlinear(startPoint);
+        mCandTr[mCurHyp][i].propagateToZlinear(startPoint);  //linear is better? 
         newX[i][0] = mCandTr[mCurHyp][i].getX();
         newY[i][0] = mCandTr[mCurHyp][i].getY();
 
-        mCandTr[mCurHyp][i].propagateParamToZlinear(endPoint);
+        mCandTr[mCurHyp][i].propagateToZlinear(endPoint);
         newX[i][1] = mCandTr[mCurHyp][i].getX();
         newY[i][1] = mCandTr[mCurHyp][i].getY();
       }
@@ -928,12 +934,12 @@ void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int mCurHyp)
 
   // find points of the tracks = 2 straight lines 
   for (int i=0; i<2; i++){
-    mCandTr[mCurHyp][i].propagateParamToZlinear(startPoint);
+    mCandTr[mCurHyp][i].propagateToZlinear(startPoint); 
     z[i][0] = startPoint;
     y[i][0] = mCandTr[mCurHyp][i].getY();
     x[i][0] = mCandTr[mCurHyp][i].getX();
 
-    mCandTr[mCurHyp][i].propagateParamToZlinear(endPoint);
+    mCandTr[mCurHyp][i].propagateToZlinear(endPoint);
     z[i][1] = endPoint;
     y[i][1] = mCandTr[mCurHyp][i].getY();
     x[i][1] = mCandTr[mCurHyp][i].getX();
@@ -958,7 +964,8 @@ void FwdDCAFitterN<N, Args...>::findZatXY_lineApprox(int mCurHyp)
 
 //___________________________________________________________________
 template <int N, typename... Args>
-void FwdDCAFitterN<N, Args...>::findZatXY_quad(int mCurHyp)
+void FwdDCAFitterN<N, Args...>::findZatXY_quad(int mCurHyp) //method does not work when InvQPT is 0: TO FIX
+// + check if can input 1/Pt (when no charge ) -> Central barrel 
 {
   double startPoint= 0.;
   double endPoint = 40.; // first disk
@@ -1104,7 +1111,7 @@ void FwdDCAFitterN<N, Args...>::findZatXY_linear(int mCurHyp)
   //calculate root
 
   for (int i=0; i<2; i++){
-    mCandTr[mCurHyp][i].propagateParamToZlinear(startPoint);
+    mCandTr[mCurHyp][i].propagateToZlinear(startPoint);
     x[i] = mCandTr[mCurHyp][i].getX();
     y[i] = mCandTr[mCurHyp][i].getY();
     sinPhi0[i]= mCandTr[mCurHyp][i].getSnp();
@@ -1144,7 +1151,7 @@ inline o2::track::TrackParFwd FwdDCAFitterN<N, Args...>::FwdgetTrackParamAtPCA(i
     trc.propagateParamToZlinear(z);
 
     //if (!trc.propagateParamToZlinear(z)) {
-    //if (!trc.propagateParamToZquadratic(z, mBz)) { //to test
+    //if (!trc.propagateParamToZlinear(z)) { //to test
      // trc.invalidate();
    // }
   }
@@ -1177,8 +1184,9 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2()
     // int ord = mOrder[i];
 
     auto z = mPCA[mCurHyp][2]; 
-    // if (!mCandTr[mCurHyp][i].propagateToZquadratic(z, mBz)) { //to test 
-    mCandTr[mCurHyp][i].propagateToZlinear(z);
+    // if (!mCandTr[mCurHyp][i].propagateToZlinear(z)) { //to test 
+    mCandTr[mCurHyp][i].propagateToZlinear(z); //
+
     //if (!mCandTr[mCurHyp][i].propagateToZlinear(z)) {
     //  return false;
     //}
@@ -1250,7 +1258,7 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2NoErr()
     mCandTr[mCurHyp][i].propagateParamToZlinear(z);
 
    // if (!mCandTr[mCurHyp][i].propagateParamToZlinear(z)) {
-    // if (!mCandTr[mCurHyp][i].propagateParamToZquadratic(z, mBz)) { //to test
+    // if (!mCandTr[mCurHyp][i].propagateParamToZlinear(z)) { //to test
     //  return false;
    // }
    
@@ -1315,7 +1323,7 @@ bool FwdDCAFitterN<N, Args...>::roughDXCut() const
 
 //___________________________________________________________________
 template <int N, typename... Args>
-bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck (YZ plane?
+bool FwdDCAFitterN<N, Args...>::closerToAlternative() const  // Fwdcheck - YZ plane?
 {
   // check if the point current PCA point is closer to the seeding XY point being tested or to alternative see (if any)
   auto dxCur = mPCA[mCurHyp][0] - mCrossings.xDCA[mCrossIDCur], dyCur = mPCA[mCurHyp][1] - mCrossings.yDCA[mCrossIDCur];
