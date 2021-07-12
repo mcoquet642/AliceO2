@@ -303,7 +303,6 @@ template <int N, typename... Args>
 template <class... Tr>
 int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
 {
-
   // This is a main entry point: fit PCA of N tracks 
   static_assert(sizeof...(args) == N, "incorrect number of input tracks");
   assign(0, args...);
@@ -332,6 +331,7 @@ int FwdDCAFitterN<N, Args...>::process(const Tr&... args)
     }
   }
   // check all crossings
+
   for (int ic = 0; ic < mCrossings.nDCA; ic++) { //nDCA=1 or 2 
   LOG(INFO) << "Checking all crossings";
     // check if radius is acceptable
@@ -764,7 +764,7 @@ bool FwdDCAFitterN<N, Args...>::FwdpropagateTracksToVertex(int icand)
 
     auto z = pca[2]; // to Fwdcheck ? 
     // trc.propagateToZquadratic(z, mBz); // prop for FwdTracks: propagateToZquadratic : to test
-    trc.propagateParamToZlinear(z); //check : No bool required for impossible cases? 
+    trc.propagateToZlinear(z); //check : No bool required for impossible cases? 
 
   }
   mTrPropDone[ord] = true;
@@ -1178,7 +1178,7 @@ bool FwdDCAFitterN<N, Args...>::minimizeChi2()
 
     auto z = mPCA[mCurHyp][2]; 
     // if (!mCandTr[mCurHyp][i].propagateToZquadratic(z, mBz)) { //to test 
-    mCandTr[mCurHyp][i].propagateParamToZlinear(z);
+    mCandTr[mCurHyp][i].propagateToZlinear(z);
     //if (!mCandTr[mCurHyp][i].propagateToZlinear(z)) {
     //  return false;
     //}

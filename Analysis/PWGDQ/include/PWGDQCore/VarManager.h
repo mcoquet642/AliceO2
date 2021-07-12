@@ -312,8 +312,6 @@ class VarManager : public TObject
   static void FillPair(T1 const& t1, T2 const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
   template <int pairType, typename C, typename T>
   static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr);
-//  template <uint32_t fillMap, typename C, typename T>
-//  static void FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values = nullptr, PairCandidateType pairType = kJpsiToEE);
   template <typename T1, typename T2>
   static void FillDileptonHadron(T1 const& dilepton, T2 const& hadron, float* values = nullptr, float hadronMass = 0.0f);
 
@@ -689,8 +687,6 @@ void VarManager::FillPair(T1 const& t1, T2 const& t2, float* values, PairCandida
 
 template <int pairType, typename C, typename T>
 void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values)
-//template <uint32_t fillMap, typename C, typename T>
-//void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2, float* values, PairCandidateType pairType)
 {
   if (!values) {
     values = fgValues;
@@ -702,7 +698,6 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   //auto pars1 = getTrackParCov(t1);
   //auto pars2 = getTrackParCov(t2);
   if constexpr (pairType == kJpsiToEE) {
-//  if constexpr ((fillMap & ReducedTrack) > 0 || (fillMap & ReducedTrackBarrel) > 0 || (fillMap & ReducedTrackBarrelCov) > 0) {
     std::array<float, 5> t1pars = {t1.y(), t1.z(), t1.snp(), t1.tgl(), t1.signed1Pt()};
     std::array<float, 15> t1covs = {t1.cYY(), t1.cZY(), t1.cZZ(), t1.cSnpY(), t1.cSnpZ(),
                                     t1.cSnpSnp(), t1.cTglY(), t1.cTglZ(), t1.cTglSnp(), t1.cTglTgl(),
@@ -715,7 +710,6 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     o2::track::TrackParCov pars2{t2.x(), t2.alpha(), t2pars, t2covs};
     procCode = fgFitterTwoProng.process(pars1, pars2);
   } else if constexpr (pairType == kJpsiToMuMu) {
-//  }else{
     //Initialize track parameters for forward
     double chi21 = t1.chi2();
     double chi22 = t2.chi2();
@@ -732,7 +726,6 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     SMatrix55 t2covs(v2.begin(), v2.end());
     o2::track::TrackParCovFwd pars2{t2.z(), t2pars, t2covs, chi22};
     procCode = FwdfgFitterTwoProng.process(pars1, pars2);
-    return;
   }
 
   // reconstruct the 2-prong secondary vertex
@@ -808,7 +801,6 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   	  trackParVar0.propagateToZlinear(primaryVertex.getZ());
 	  trackParVar1.propagateToZlinear(primaryVertex.getZ());
   }
-
 
 
   // get uncertainty of the decay length
