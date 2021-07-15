@@ -769,37 +769,37 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   auto covMatrixPV = primaryVertex.getCov();
 
   if constexpr (pairType == kJpsiToEE) {
-	  secondaryVertex = fgFitterTwoProng.getPCACandidate();
-	  bz = fgFitterTwoProng.getBz();
-	  covMatrixPCA = fgFitterTwoProng.calcPCACovMatrix().Array();
-	  auto chi2PCA = fgFitterTwoProng.getChi2AtPCACandidate();
-	  auto trackParVar0 = fgFitterTwoProng.getTrack(0);
-	  auto trackParVar1 = fgFitterTwoProng.getTrack(1);
-	  values[kVertexingChi2PCA] = chi2PCA;
-	  trackParVar0.getPxPyPzGlo(pvec0);
-	  trackParVar1.getPxPyPzGlo(pvec1);
-	  trackParVar0.propagateToDCA(primaryVertex, bz, &impactParameter0);
-	  trackParVar1.propagateToDCA(primaryVertex, bz, &impactParameter1);
+    secondaryVertex = fgFitterTwoProng.getPCACandidate();
+    bz = fgFitterTwoProng.getBz();
+    covMatrixPCA = fgFitterTwoProng.calcPCACovMatrix().Array();
+    auto chi2PCA = fgFitterTwoProng.getChi2AtPCACandidate();
+    auto trackParVar0 = fgFitterTwoProng.getTrack(0);
+    auto trackParVar1 = fgFitterTwoProng.getTrack(1);
+    values[kVertexingChi2PCA] = chi2PCA;
+    trackParVar0.getPxPyPzGlo(pvec0);
+    trackParVar1.getPxPyPzGlo(pvec1);
+    trackParVar0.propagateToDCA(primaryVertex, bz, &impactParameter0);
+    trackParVar1.propagateToDCA(primaryVertex, bz, &impactParameter1);
   }else if constexpr (pairType == kJpsiToMuMu) {
   //Get pca candidate from forward DCA fitter
            m1 = fgkMuonMass;
            m2 = fgkMuonMass;
 
-	  secondaryVertex = FwdfgFitterTwoProng.getPCACandidate();
-	  bz = FwdfgFitterTwoProng.getBz();
-	  covMatrixPCA = FwdfgFitterTwoProng.calcPCACovMatrix().Array();
-	  auto chi2PCA = FwdfgFitterTwoProng.getChi2AtPCACandidate();
-	  auto trackParVar0 = FwdfgFitterTwoProng.getTrack(0);
-	  auto trackParVar1 = FwdfgFitterTwoProng.getTrack(1);
-	  values[kVertexingChi2PCA] = chi2PCA;
-	  pvec0[0]=trackParVar0.getPx();
-	  pvec0[1]=trackParVar0.getPy();
-	  pvec0[2]=trackParVar0.getPz();
-	  pvec1[0]=trackParVar1.getPx();
-	  pvec1[1]=trackParVar1.getPy();
-	  pvec1[2]=trackParVar1.getPz();
-  	  trackParVar0.propagateToZlinear(primaryVertex.getZ());
-	  trackParVar1.propagateToZlinear(primaryVertex.getZ());
+    secondaryVertex = FwdfgFitterTwoProng.getPCACandidate();
+    bz = FwdfgFitterTwoProng.getBz();
+    covMatrixPCA = FwdfgFitterTwoProng.calcPCACovMatrix().Array();
+    auto chi2PCA = FwdfgFitterTwoProng.getChi2AtPCACandidate();
+    auto trackParVar0 = FwdfgFitterTwoProng.getTrack(0);
+    auto trackParVar1 = FwdfgFitterTwoProng.getTrack(1);
+    values[kVertexingChi2PCA] = chi2PCA;
+    pvec0[0]=trackParVar0.getPx();
+    pvec0[1]=trackParVar0.getPy();
+    pvec0[2]=trackParVar0.getPz();
+    pvec1[0]=trackParVar1.getPx();
+    pvec1[1]=trackParVar1.getPy();
+    pvec1[2]=trackParVar1.getPz();
+      trackParVar0.propagateToZlinear(primaryVertex.getZ());
+    trackParVar1.propagateToZlinear(primaryVertex.getZ());
   }
 
 

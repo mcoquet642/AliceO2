@@ -15,6 +15,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "DetectorsVertexing/FwdDCAFitterN.h"
+#include "DetectorsVertexing/FwdFATProbe.h"
 #include "DetectorsVertexing/DCAFitterN.h"
 #include "CommonUtils/TreeStreamRedirector.h"
 #include <TRandom.h>
@@ -23,6 +24,9 @@
 #include <TStopwatch.h>
 #include <Math/SVector.h>
 #include <array>
+#include <TMath.h>
+#include "ReconstructionDataFormats/TrackFwd.h"
+#include "Math/SMatrix.h"
 
 namespace o2
 {
@@ -32,6 +36,8 @@ namespace vertexing
 using Vec3D = ROOT::Math::SVector<double, 3>;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
+using o2::track::TrackParCovFwd;
+
 
 
 template <class FITTER>
@@ -59,7 +65,6 @@ float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName,
     auto chi2 = fitter.getChi2AtPCACandidate(ic);
     double dst = TMath::Sqrt(df[0] * df[0] + df[1] * df[1] + df[2] * df[2]);
     distMin = dst < distMin ? dst : distMin;
-    //    float genX
     outs << treeName.c_str() << "cand=" << ic << "ncand=" << nCand << "nIter=" << nIter << "chi2=" << chi2
          << "genPart=" << genPar << "recPart=" << moth
          << "genX=" << vgen[0] << "genY=" << vgen[1] << "genZ=" << vgen[2]
@@ -68,10 +73,16 @@ float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName,
   return distMin;
 }
 
+Float_t EtaToTanl(Float_t eta)
+{
+  return tan(TMath::Pi() / 2 - 2 * atan(exp(-eta)));
+}
+
 TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr, float bz,
-                        TGenPhaseSpace& genPHS, double parMass, const std::vector<double>& dtMass, std::vector<int> forceQ, bool print)
+                        TGenPhaseSpace& genPHS, double parMass, const std::vector<double>& dtMass, std::vector<int> forceQ, bool print, FwdFATProbe& probe)
 {
   const float errXY = 1e-2, errPhil = 1e-3, errQPT = 2e-2;
+  std::vector<Float_t> zPositionsMFT{45.3, 46.7, 48.6, 50.0, 52.4, 53.8, 67.7, 69.1, 76., 77.5};
   std::vector<double> covm = {
     errXY * errXY,
     0., errXY * errXY,
@@ -111,40 +122,43 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
       dt->GetXYZT(p);
       float s, c, x;
       std::array<float, 5> params;
-//      o2::math_utils::sincos(dt->Phi(), s, c);
-//      o2::math_utils::rotateZInv(vtx[0], vtx[1], x, params[0], s, c);
 
       params[0] = vtx[0];
       params[1] = vtx[1];
       params[2] = dt->Phi(); 
       params[3] = 1. / TMath::Tan(dt->Theta());
       params[4] = (i % 2 ? -1. : 1.) / dt->Pt();
-      covm[14] = errQPT * errQPT * params[4] * params[4];
-      //
+
+      probe.init(params[2], params[3], params[4], zPositionsMFT.back(), bz);
+
+      for (int i = zPositionsMFT.size(); i--;) {
+	    auto z = zPositionsMFT[i];
+	    probe.updateFAT(z, 1e-3*1e-3, 0.042/5);
+
+      }
+      SMatrix55 tcovs = probe.getCovariances();
+
       // randomize
       float r1, r2;
       gRandom->Rannor(r1, r2);
-      params[0] += r1 * errXY;
-      params[1] += r2 * errXY;
+      params[0] += r1 * tcovs(0, 0);
+      params[1] += r2 * tcovs(1, 1);
       gRandom->Rannor(r1, r2);
-      params[2] += r1 * errPhil;
-      params[3] += r2 * errPhil;
-      params[4] *= gRandom->Gaus(1., errQPT);
+      params[2] += r1 * tcovs(2, 2);
+      params[3] += r2 * tcovs(3, 3);
+      params[4] *= gRandom->Gaus(1., tcovs(4, 4));
       if (forceQ[i] == 0) {
         params[4] = 0.; // impose straight track
       }
       SMatrix5 tpars(params[0], params[1], params[2], params[3], params[4]);
-      SMatrix55 tcovs(covm.begin(), covm.end());
+//      SMatrix55 tcovs(covm.begin(), covm.end());
       double chi2=1e-2;
       auto& trc = vctr.emplace_back(vtx[2], tpars, tcovs, chi2);
-//      float rad = forceQ[i] == 0 ? 600. : TMath::Abs(1. / trc.getCurvature(bz));
-//      if (!trc.propagateTo(trc.getX() + (gRandom->Rndm() - 0.5) * rad * 0.05, bz)) {
       if (forceQ[i] == 0) {
-	trc.propagateToZlinear(gRandom->Rndm()*20+40);
+	trc.propagateToZlinear(gRandom->Rndm()*20+46);
       }else{
-	trc.propagateToZquadratic(gRandom->Rndm()*20+40, bz);
+	trc.propagateToZquadratic(gRandom->Rndm()*20+46, bz);
       }
-//      trc.print();
     if(print){
 	LOG(INFO) << "Track params before propagating : z = " << vtx[2] << ", x = " << params[0] << ", y = " << params[1] << ", Phi = " << params[2] << ", tanlambda = " << params[3] << ", InvQt = " << params[4];      
 	LOG(INFO) << "Track params after propagating : z = " << trc.getZ() << ", x = " << trc.getX() << ", y = " << trc.getY() << ", Phi = " << trc.getPhi() << ", tanlambda = " << trc.getTanl() << ", InvQt = " << trc.getInvQPt();      
@@ -161,6 +175,8 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
   o2::utils::TreeStreamRedirector outStream("fwddcafitterNTest.root");
 
   TGenPhaseSpace genPHS;
+  FwdFATProbe probe;
+//  probe.mVerbose = true;
   constexpr double jpsi = 3.0969;
   constexpr double muon = 0.10566;
   constexpr double pion = 0.13957;
@@ -198,7 +214,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     swW.Stop();
     bool print=true;
     for (int iev = 0; iev < NTest; iev++) {
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print, probe);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);
@@ -266,7 +282,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     for (int iev = 0; iev < NTest; iev++) {
       forceQ[iev % 2] = 1;
       forceQ[1 - iev % 2] = 0;
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print, probe);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);
@@ -335,7 +351,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     bool print=true;
     for (int iev = 0; iev < NTest; iev++) {
       forceQ[0] = forceQ[1] = 0;
-      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print);
+      auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print, probe);
 
       ft.setUseAbsDCA(true);
       swA.Start(false);

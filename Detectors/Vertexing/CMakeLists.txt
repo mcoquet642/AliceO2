@@ -40,7 +40,8 @@ o2_target_root_dictionary(DetectorsVertexing
                                   include/DetectorsVertexing/DCAFitterN.h
                                   include/DetectorsVertexing/FwdDCAFitterN.h
                                   include/DetectorsVertexing/SVertexerParams.h
-                                  include/DetectorsVertexing/SVertexHypothesis.h)
+                                  include/DetectorsVertexing/SVertexHypothesis.h
+                                  include/DetectorsVertexing/FwdFATProbe.h)
 
 if (OpenMP_CXX_FOUND)
     target_compile_definitions(${targetName} PRIVATE WITH_OPENMP)
