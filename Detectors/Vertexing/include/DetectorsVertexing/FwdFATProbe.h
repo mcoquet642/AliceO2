@@ -67,7 +67,7 @@ class FwdFATProbe : public o2::track::TrackParCovFwd
     }
 
     if (Layerx2X0 != 0) {
-      addMCSEffect((nextZ-getZ()),Layerx2X0);
+      addMCSEffect((nextZ - getZ()), Layerx2X0);
       if (mVerbose) {
         std::cout << "  UpdateFat After MCS: " << std::endl;
         print();

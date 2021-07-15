@@ -292,7 +292,7 @@ class VarManager : public TObject
     fgFitterTwoProng.setUseAbsDCA(useAbsDCA);
   }
 
-    // Setup the 2 prong DCAFitterN
+  // Setup the 2 prong DCAFitterN
   static void SetupTwoProngFwdDCAFitter(float magField, bool propagateToPCA, float maxR, float minParamChange, float minRelChi2Change, bool useAbsDCA)
   {
     FwdfgFitterTwoProng.setBz(magField);
@@ -302,7 +302,6 @@ class VarManager : public TObject
     FwdfgFitterTwoProng.setMinRelChi2Change(minRelChi2Change);
     FwdfgFitterTwoProng.setUseAbsDCA(useAbsDCA);
   }
-
 
   template <uint32_t fillMap, typename T>
   static void FillEvent(T const& event, float* values = nullptr);
@@ -752,11 +751,11 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
   float m2 = fgkElectronMass;
 
   Vec3D secondaryVertex;
-  float bz=0;
+  float bz = 0;
   std::array<float, 3> pvec0;
   std::array<float, 3> pvec1;
 
-  double *covMatrixPCA;
+  double* covMatrixPCA;
 
   o2::dataformats::DCA impactParameter0;
   o2::dataformats::DCA impactParameter1;
@@ -780,10 +779,10 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     trackParVar1.getPxPyPzGlo(pvec1);
     trackParVar0.propagateToDCA(primaryVertex, bz, &impactParameter0);
     trackParVar1.propagateToDCA(primaryVertex, bz, &impactParameter1);
-  }else if constexpr (pairType == kJpsiToMuMu) {
-  //Get pca candidate from forward DCA fitter
-           m1 = fgkMuonMass;
-           m2 = fgkMuonMass;
+  } else if constexpr (pairType == kJpsiToMuMu) {
+    //Get pca candidate from forward DCA fitter
+    m1 = fgkMuonMass;
+    m2 = fgkMuonMass;
 
     secondaryVertex = FwdfgFitterTwoProng.getPCACandidate();
     bz = FwdfgFitterTwoProng.getBz();
@@ -792,16 +791,15 @@ void VarManager::FillPairVertexing(C const& collision, T const& t1, T const& t2,
     auto trackParVar0 = FwdfgFitterTwoProng.getTrack(0);
     auto trackParVar1 = FwdfgFitterTwoProng.getTrack(1);
     values[kVertexingChi2PCA] = chi2PCA;
-    pvec0[0]=trackParVar0.getPx();
-    pvec0[1]=trackParVar0.getPy();
-    pvec0[2]=trackParVar0.getPz();
-    pvec1[0]=trackParVar1.getPx();
-    pvec1[1]=trackParVar1.getPy();
-    pvec1[2]=trackParVar1.getPz();
-      trackParVar0.propagateToZlinear(primaryVertex.getZ());
+    pvec0[0] = trackParVar0.getPx();
+    pvec0[1] = trackParVar0.getPy();
+    pvec0[2] = trackParVar0.getPz();
+    pvec1[0] = trackParVar1.getPx();
+    pvec1[1] = trackParVar1.getPy();
+    pvec1[2] = trackParVar1.getPz();
+    trackParVar0.propagateToZlinear(primaryVertex.getZ());
     trackParVar1.propagateToZlinear(primaryVertex.getZ());
   }
-
 
   // get uncertainty of the decay length
   //double phi, theta;

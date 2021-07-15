@@ -38,8 +38,6 @@ using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
 using o2::track::TrackParCovFwd;
 
-
-
 template <class FITTER>
 float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName, FITTER& fitter,
                    Vec3D& vgen, TLorentzVector& genPar, const std::vector<double>& dtMass)
@@ -55,9 +53,9 @@ float checkResults(o2::utils::TreeStreamRedirector& outs, std::string& treeName,
     TLorentzVector moth, prong;
     for (int i = 0; i < fitter.getNProngs(); i++) {
       const auto& trc = fitter.getTrack(i, ic);
-      p[0]=trc.getPx();
-      p[1]=trc.getPy();
-      p[2]=trc.getPz();
+      p[0] = trc.getPx();
+      p[1] = trc.getPy();
+      p[2] = trc.getPz();
       prong.SetVectM({p[0], p[1], p[2]}, dtMass[i]);
       moth += prong;
     }
@@ -93,13 +91,13 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
   TLorentzVector parent, d0, d1, d2;
   do {
     accept = true;
-    double y = 1.1*gRandom->Rndm() + 2.5;
+    double y = 1.1 * gRandom->Rndm() + 2.5;
     double pt = 0.1 + gRandom->Rndm() * 3;
     double mt = TMath::Sqrt(parMass * parMass + pt * pt);
     double pz = mt * TMath::SinH(y);
     double phi = gRandom->Rndm() * TMath::Pi() * 2;
     double en = mt * TMath::CosH(y);
-    double zdec = 10.; 
+    double zdec = 10.;
     double rdec = zdec * pt / pz;
     vtx[0] = rdec * TMath::Cos(phi);
     vtx[1] = rdec * TMath::Sin(phi);
@@ -110,8 +108,8 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
     genPHS.Generate();
     vctr.clear();
     float p[4];
-    if(print){
-	    LOG(INFO) << "Decaying particle : y = " << y << ", pt = " << pt << ", vtxX = " << vtx[0] << ", vtxY = " << vtx[1] << ", vtxZ = " << vtx[2] ;  
+    if (print) {
+      LOG(INFO) << "Decaying particle : y = " << y << ", pt = " << pt << ", vtxX = " << vtx[0] << ", vtxY = " << vtx[1] << ", vtxZ = " << vtx[2];
     }
     for (int i = 0; i < nd; i++) {
       auto* dt = genPHS.GetDecay(i);
@@ -125,16 +123,15 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
 
       params[0] = vtx[0];
       params[1] = vtx[1];
-      params[2] = dt->Phi(); 
+      params[2] = dt->Phi();
       params[3] = 1. / TMath::Tan(dt->Theta());
       params[4] = (i % 2 ? -1. : 1.) / dt->Pt();
 
       probe.init(params[2], params[3], params[4], zPositionsMFT.back(), bz);
 
       for (int i = zPositionsMFT.size(); i--;) {
-	    auto z = zPositionsMFT[i];
-	    probe.updateFAT(z, 1e-3*1e-3, 0.042/5);
-
+        auto z = zPositionsMFT[i];
+        probe.updateFAT(z, 1e-3 * 1e-3, 0.042 / 5);
       }
       SMatrix55 tcovs = probe.getCovariances();
 
@@ -151,18 +148,18 @@ TLorentzVector generate(Vec3D& vtx, std::vector<o2::track::TrackParCovFwd>& vctr
         params[4] = 0.; // impose straight track
       }
       SMatrix5 tpars(params[0], params[1], params[2], params[3], params[4]);
-//      SMatrix55 tcovs(covm.begin(), covm.end());
-      double chi2=1e-2;
+      //      SMatrix55 tcovs(covm.begin(), covm.end());
+      double chi2 = 1e-2;
       auto& trc = vctr.emplace_back(vtx[2], tpars, tcovs, chi2);
       if (forceQ[i] == 0) {
-	trc.propagateToZlinear(gRandom->Rndm()*20+46);
-      }else{
-	trc.propagateToZquadratic(gRandom->Rndm()*20+46, bz);
+        trc.propagateToZlinear(gRandom->Rndm() * 20 + 46);
+      } else {
+        trc.propagateToZquadratic(gRandom->Rndm() * 20 + 46, bz);
       }
-    if(print){
-	LOG(INFO) << "Track params before propagating : z = " << vtx[2] << ", x = " << params[0] << ", y = " << params[1] << ", Phi = " << params[2] << ", tanlambda = " << params[3] << ", InvQt = " << params[4];      
-	LOG(INFO) << "Track params after propagating : z = " << trc.getZ() << ", x = " << trc.getX() << ", y = " << trc.getY() << ", Phi = " << trc.getPhi() << ", tanlambda = " << trc.getTanl() << ", InvQt = " << trc.getInvQPt();      
-    }
+      if (print) {
+        LOG(INFO) << "Track params before propagating : z = " << vtx[2] << ", x = " << params[0] << ", y = " << params[1] << ", Phi = " << params[2] << ", tanlambda = " << params[3] << ", InvQt = " << params[4];
+        LOG(INFO) << "Track params after propagating : z = " << trc.getZ() << ", x = " << trc.getX() << ", y = " << trc.getY() << ", Phi = " << trc.getPhi() << ", tanlambda = " << trc.getTanl() << ", InvQt = " << trc.getInvQPt();
+      }
     }
   } while (!accept);
 
@@ -176,7 +173,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
 
   TGenPhaseSpace genPHS;
   FwdFATProbe probe;
-//  probe.mVerbose = true;
+  //  probe.mVerbose = true;
   constexpr double jpsi = 3.0969;
   constexpr double muon = 0.10566;
   constexpr double pion = 0.13957;
@@ -199,8 +196,8 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     ft.setBz(bz);
     ft.setPropagateToPCA(true);  // After finding the vertex, propagate tracks to the DCA. This is default anyway
     ft.setMaxR(200);             // do not consider V0 seeds with 2D circles crossing above this R. This is default anyway
-//    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
-//    ft.setMaxDXYIni(4);          // do not consider V0 seeds with tracks XY-distance exceeding this. This is default anyway
+                                 //    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
+                                 //    ft.setMaxDXYIni(4);          // do not consider V0 seeds with tracks XY-distance exceeding this. This is default anyway
     ft.setMinParamChange(1e-3);  // stop iterations if max correction is below this value. This is default anyway
     ft.setMinRelChi2Change(0.9); // stop iterations if chi2 improves by less that this factor
     ft.setMaxIter(50);
@@ -212,7 +209,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
-    bool print=true;
+    bool print = true;
     for (int iev = 0; iev < NTest; iev++) {
       auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print, probe);
 
@@ -220,12 +217,12 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+      LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
       if (ncA) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDA += minD;
         nfoundA++;
       }
@@ -234,12 +231,12 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+      LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
       if (ncW) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDW += minD;
         nfoundW++;
       }
@@ -266,7 +263,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     ft.setBz(bz);
     ft.setPropagateToPCA(true);  // After finding the vertex, propagate tracks to the DCA. This is default anyway
     ft.setMaxR(200);             // do not consider V0 seeds with 2D circles crossing above this R. This is default anyway
-//    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
+                                 //    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
     ft.setMinParamChange(1e-3);  // stop iterations if max correction is below this value. This is default anyway
     ft.setMinRelChi2Change(0.9); // stop iterations if chi2 improves by less that this factor
     ft.setMaxIter(50);
@@ -278,7 +275,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
-    bool print=true;
+    bool print = true;
     for (int iev = 0; iev < NTest; iev++) {
       forceQ[iev % 2] = 1;
       forceQ[1 - iev % 2] = 0;
@@ -288,12 +285,12 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+      LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
       if (ncA) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDA += minD;
         nfoundA++;
       }
@@ -302,14 +299,14 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      if (print){
-      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+      if (print) {
+        LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
       }
       if (ncW) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDW += minD;
         nfoundW++;
       }
@@ -336,7 +333,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     ft.setBz(bz);
     ft.setPropagateToPCA(true);  // After finding the vertex, propagate tracks to the DCA. This is default anyway
     ft.setMaxR(200);             // do not consider V0 seeds with 2D circles crossing above this R. This is default anyway
-//    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
+                                 //    ft.setMaxDZIni(4);           // do not consider V0 seeds with tracks Z-distance exceeding this. This is default anyway
     ft.setMinParamChange(1e-3);  // stop iterations if max correction is below this value. This is default anyway
     ft.setMinRelChi2Change(0.9); // stop iterations if chi2 improves by less that this factor
     ft.setMaxIter(50);
@@ -348,7 +345,7 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
     double meanDA = 0, meanDW = 0;
     swA.Stop();
     swW.Stop();
-    bool print=true;
+    bool print = true;
     for (int iev = 0; iev < NTest; iev++) {
       forceQ[0] = forceQ[1] = 0;
       auto genParent = generate(vtxGen, vctracks, bz, genPHS, k0, k0dec, forceQ, print, probe);
@@ -357,12 +354,12 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swA.Start(false);
       int ncA = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swA.Stop();
-      	LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
+      LOG(INFO) << "fit abs.dist " << iev << " NC: " << ncA << " Chi2: " << (ncA ? ft.getChi2AtPCACandidate(0) : -1);
       if (ncA) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2A, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDA += minD;
         nfoundA++;
       }
@@ -371,17 +368,17 @@ BOOST_AUTO_TEST_CASE(FwdDCAFitterNProngs)
       swW.Start(false);
       int ncW = ft.process(vctracks[0], vctracks[1]); // HERE WE FIT THE VERTICES
       swW.Stop();
-      	LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
+      LOG(INFO) << "fit wgh.dist " << iev << " NC: " << ncW << " Chi2: " << (ncW ? ft.getChi2AtPCACandidate(0) : -1);
       if (ncW) {
-	const auto& secondaryVertex = ft.getPCACandidate();
-	LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2] ;
+        const auto& secondaryVertex = ft.getPCACandidate();
+        LOG(INFO) << "Reconstructed Vtx : x=" << secondaryVertex[0] << ", y=" << secondaryVertex[1] << ", z=" << secondaryVertex[2];
         auto minD = checkResults(outStream, treeName2W, ft, vtxGen, genParent, jpsidec);
-	LOG(INFO) << "Error : " << minD;
+        LOG(INFO) << "Error : " << minD;
         meanDW += minD;
         nfoundW++;
       }
     }
-//    ft.print();
+    //    ft.print();
     meanDA /= nfoundA ? nfoundA : 1;
     meanDW /= nfoundW ? nfoundW : 1;
     LOG(INFO) << "Processed " << NTest << " 2-prong vertices: Line : Line";
