@@ -56,20 +56,23 @@ class TrackParFwd
   void setPhi(Double_t phi) { mParameters(2) = phi; }
   Double_t getPhi() const { return mParameters(2); }
 
-  Double_t getSnp() const {
+  Double_t getSnp() const
+  {
     auto sinphi = o2::math_utils::sin(mParameters(2));
-    return sinphi; }
+    return sinphi;
+  }
 
-  Double_t getCsp2() const {
+  Double_t getCsp2() const
+  {
     auto snp = o2::math_utils::sin(mParameters(2));
     Double_t csp;
     csp = std::sqrt((1. - snp) * (1. + snp));
-    return csp*csp ;}
+    return csp*csp ;
+  }
 
   void setTanl(Double_t tanl) { mParameters(3) = tanl; }
   Double_t getTanl() const { return mParameters(3); }
   Double_t getTgl() const { return mParameters(3); } //DELETE ME: for sake of test
-
 
   void setInvQPt(Double_t invqpt) { mParameters(4) = invqpt; }
   Double_t getInvQPt() const { return mParameters(4); } // return Inverse charged pt
@@ -97,7 +100,6 @@ class TrackParFwd
 
   Double_t getK(double b) const {
     return std::abs(o2::constants::math::B2C * b);
-
   }
 
   Double_t getHz(double b) const {
