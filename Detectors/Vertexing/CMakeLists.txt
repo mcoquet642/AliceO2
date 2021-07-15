@@ -21,7 +21,7 @@ o2_add_library(DetectorsVertexing
                        src/SVertexHypothesis.cxx
                        src/FwdDCAFitterN.cxx
                PUBLIC_LINK_LIBRARIES ROOT::Core
-	                             O2::CommonUtils
+                               O2::CommonUtils
                                      O2::ReconstructionDataFormats
                                      O2::DataFormatsParameters
                                      O2::DataFormatsTPC
@@ -47,7 +47,7 @@ if (OpenMP_CXX_FOUND)
     target_compile_definitions(${targetName} PRIVATE WITH_OPENMP)
     target_link_libraries(${targetName} PRIVATE OpenMP::OpenMP_CXX)
 endif()
-                              
+
 
 o2_add_test(
   DCAFitterN

@@ -56,11 +56,11 @@ class TrackParFwd
   void setPhi(Double_t phi) { mParameters(2) = phi; }
   Double_t getPhi() const { return mParameters(2); }
 
-  Double_t getSnp() const { 
+  Double_t getSnp() const {
     auto sinphi = o2::math_utils::sin(mParameters(2));
     return sinphi; }
 
-  Double_t getCsp2() const { 
+  Double_t getCsp2() const {
     auto snp = o2::math_utils::sin(mParameters(2));
     Double_t csp;
     csp = std::sqrt((1. - snp) * (1. + snp));
@@ -69,7 +69,7 @@ class TrackParFwd
   void setTanl(Double_t tanl) { mParameters(3) = tanl; }
   Double_t getTanl() const { return mParameters(3); }
   Double_t getTgl() const { return mParameters(3); } //DELETE ME: for sake of test
-  
+
 
   void setInvQPt(Double_t invqpt) { mParameters(4) = invqpt; }
   Double_t getInvQPt() const { return mParameters(4); } // return Inverse charged pt
@@ -89,16 +89,16 @@ class TrackParFwd
   Double_t getInverseMomentum() const { return 1.f / getP(); }
 
   Double_t getEta() const { return -TMath::Log(TMath::Tan((TMath::PiOver2() - TMath::ATan(getTanl())) / 2)); } // return total momentum
-  
+
   Double_t getCurvature(double b) const {
     auto invqpt = getInvQPt(); // q/pt
-    return o2::constants::math::B2C * b * invqpt; 
+    return o2::constants::math::B2C * b * invqpt;
   }
 
   Double_t getK(double b) const {
-    return std::abs(o2::constants::math::B2C * b); 
+    return std::abs(o2::constants::math::B2C * b);
 
-  } 
+  }
 
   Double_t getHz(double b) const {
     return std::copysign(1, b);
@@ -155,7 +155,7 @@ class TrackParCovFwd : public TrackParFwd
   TrackParCovFwd() = default;
   ~TrackParCovFwd() = default;
   TrackParCovFwd& operator=(const TrackParCovFwd& tpf) = default;
-  TrackParCovFwd(const Double_t z, const SMatrix5 parameters, const SMatrix55 covariances, const Double_t chi2); //diff. then  trackparwitherror.h  
+  TrackParCovFwd(const Double_t z, const SMatrix5 parameters, const SMatrix55 covariances, const Double_t chi2); //diff. then  trackparwitherror.h
 
   const SMatrix55& getCovariances() const { return mCovariances; }
   void setCovariances(const SMatrix55& covariances) { mCovariances = covariances; }

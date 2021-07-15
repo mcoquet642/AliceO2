@@ -93,7 +93,7 @@ void TrackParFwd::propagateParamToZquadratic(double zEnd, double zField)
   auto invtanl0 = 1.0 / getTanl();
   auto invqpt0 = getInvQPt();
   auto Hz = std::copysign(1, zField);
-  auto k = TMath::Abs(o2::constants::math::B2C * zField); 
+  auto k = TMath::Abs(o2::constants::math::B2C * zField);
   auto n = dZ * invtanl0;
   auto theta = -invqpt0 * dZ * k * invtanl0;
 
@@ -392,12 +392,12 @@ void TrackParFwd::getCircleParams(float bz, o2::math_utils::CircleXY<float>& c, 
   c.rC = getCurvature(bz);
 
   constexpr double MinCurv = 1e-6; //check for optimization
-  if (std::abs(c.rC) > MinCurv) { 
+  if (std::abs(c.rC) > MinCurv) {
     c.rC = 1.f / getCurvature(bz);
     double sn = getSnp(), cs = std::sqrt((1.f - sn) * (1.f + sn));
     c.xC = getX() - sn * c.rC; // center in tracking
     c.yC = getY() + cs * c.rC; // frame. Note: r is signed!!!
-    c.rC = std::abs(c.rC); 
+    c.rC = std::abs(c.rC);
   } else {
     c.rC = 0.f; // signal straight line
     c.xC = getX();
