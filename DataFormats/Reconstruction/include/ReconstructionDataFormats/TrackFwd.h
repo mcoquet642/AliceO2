@@ -29,7 +29,8 @@ namespace o2
 namespace track
 {
 
-using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
+using SMatrix55Sym = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
+using SMatrix55Std = ROOT::Math::SMatrix<double, 5>;
 using SMatrix5 = ROOT::Math::SVector<Double_t, 5>;
 
 class TrackParFwd
@@ -58,8 +59,7 @@ class TrackParFwd
 
   Double_t getSnp() const
   {
-    auto sinphi = o2::math_utils::sin(mParameters(2));
-    return sinphi;
+    return o2::math_utils::sin(mParameters(2));
   }
 
   Double_t getCsp2() const
@@ -67,42 +67,40 @@ class TrackParFwd
     auto snp = o2::math_utils::sin(mParameters(2));
     Double_t csp;
     csp = std::sqrt((1. - snp) * (1. + snp));
-    return csp*csp ;
+    return csp * csp;
   }
 
   void setTanl(Double_t tanl) { mParameters(3) = tanl; }
   Double_t getTanl() const { return mParameters(3); }
   Double_t getTgl() const { return mParameters(3); } //DELETE ME: for sake of test
 
+  Double_t getTgl() const { return mParameters(3); } // for the sake of helixhelper
+
   void setInvQPt(Double_t invqpt) { mParameters(4) = invqpt; }
   Double_t getInvQPt() const { return mParameters(4); } // return Inverse charged pt
   Double_t getPt() const { return TMath::Abs(1.f / mParameters(4)); }
   Double_t getInvPt() const { return TMath::Abs(mParameters(4)); }
-
   Double_t getPx() const { return TMath::Cos(getPhi()) * getPt(); } // return px
-  Double_t getInvPx() const { return 1. / getPx(); }                // return invpx
-
   Double_t getPy() const { return TMath::Sin(getPhi()) * getPt(); } // return py
-  Double_t getInvPy() const { return 1. / getPx(); }                // return invpy
-
   Double_t getPz() const { return getTanl() * getPt(); } // return pz
-  Double_t getInvPz() const { return 1. / getPz(); }     // return invpz
-
   Double_t getP() const { return getPt() * TMath::Sqrt(1. + getTanl() * getTanl()); } // return total momentum
   Double_t getInverseMomentum() const { return 1.f / getP(); }
 
   Double_t getEta() const { return -TMath::Log(TMath::Tan((TMath::PiOver2() - TMath::ATan(getTanl())) / 2)); } // return total momentum
 
-  Double_t getCurvature(double b) const {
-    auto invqpt = getInvQPt(); // q/pt
+  Double_t getCurvature(double b) const
+  {
+    auto invqpt = getInvQPt();
     return o2::constants::math::B2C * b * invqpt;
   }
 
-  Double_t getK(double b) const {
+  Double_t getK(double b) const
+  {
     return std::abs(o2::constants::math::B2C * b);
   }
 
-  Double_t getHz(double b) const {
+  Double_t getHz(double b) const
+  {
     return std::copysign(1, b);
   }
 
@@ -132,7 +130,7 @@ class TrackParFwd
   void propagateParamToZlinear(double zEnd);
   void propagateParamToZquadratic(double zEnd, double zField);
   void propagateParamToZhelix(double zEnd, double zField);
-  void getCircleParams(float bz, o2::math_utils::CircleXY<float>& c, float& sna  , float& csa ) const;
+  void getCircleParams(float bz, o2::math_utils::CircleXY<float>& c, float& sna, float& csa) const;
 
  protected:
   Double_t mZ = 0.; ///< Z coordinate (cm)
@@ -157,11 +155,11 @@ class TrackParCovFwd : public TrackParFwd
   TrackParCovFwd() = default;
   ~TrackParCovFwd() = default;
   TrackParCovFwd& operator=(const TrackParCovFwd& tpf) = default;
-  TrackParCovFwd(const Double_t z, const SMatrix5 parameters, const SMatrix55 covariances, const Double_t chi2); //diff. then  trackparwitherror.h
+  TrackParCovFwd(const Double_t z, const SMatrix5& parameters, const SMatrix55Sym& covariances, const Double_t chi2);
 
-  const SMatrix55& getCovariances() const { return mCovariances; }
-  void setCovariances(const SMatrix55& covariances) { mCovariances = covariances; }
-  void deleteCovariances() { mCovariances = SMatrix55(); }
+  const SMatrix55Sym& getCovariances() const { return mCovariances; }
+  void setCovariances(const SMatrix55Sym& covariances) { mCovariances = covariances; }
+  void deleteCovariances() { mCovariances = SMatrix55Sym(); }
 
   Double_t getSigma2X() const { return mCovariances(0, 0); }
   Double_t getSigma2Y() const { return mCovariances(1, 1); }
@@ -174,9 +172,10 @@ class TrackParCovFwd : public TrackParFwd
   void propagateToZlinear(double zEnd);
   void propagateToZquadratic(double zEnd, double zField);
   void propagateToZhelix(double zEnd, double zField);
+  void propagateToZ(double zEnd, double zField); // Parameters: helix; errors: quadratic
 
   // Add Multiple Coulomb Scattering effects
-  void addMCSEffect(double dZ, double x2X0);
+  void addMCSEffect(double x2X0);
 
   // Kalman filter/fitting
   bool update(const std::array<float, 2>& p, const std::array<float, 2>& cov);
@@ -188,7 +187,7 @@ class TrackParCovFwd : public TrackParFwd
   /// <X,PHI>       <Y,PHI>         <PHI,PHI>     <TANL,PHI>      <INVQPT,PHI>
   /// <X,TANL>      <Y,TANL>       <PHI,TANL>     <TANL,TANL>     <INVQPT,TANL>
   /// <X,INVQPT>   <Y,INVQPT>     <PHI,INVQPT>   <TANL,INVQPT>   <INVQPT,INVQPT>  </pre>
-  SMatrix55 mCovariances{}; ///< \brief Covariance matrix of track parameters
+  SMatrix55Sym mCovariances{}; ///< \brief Covariance matrix of track parameters
   ClassDefNV(TrackParCovFwd, 1);
 };
 

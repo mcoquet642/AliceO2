@@ -10,7 +10,7 @@
 
 /// \file DCAFitterN.cxx
 /// \brief Defintions for N-prongs secondary vertex fit
-/// \author ruben.shahoyan@cern.ch
+/// \author ruben.shahoyan@cern.ch, adapted from central barrel to fwd rapidities by Rita Sadek, rita.sadek@cern.ch
 
 #include "DetectorsVertexing/FwdDCAFitterN.h"
 

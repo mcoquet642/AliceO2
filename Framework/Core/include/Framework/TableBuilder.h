@@ -617,6 +617,8 @@ class TableBuilder
   }
 
  public:
+  void setLabel(const char* label);
+
   TableBuilder(arrow::MemoryPool* pool = arrow::default_memory_pool())
     : mHolders{nullptr},
       mMemoryPool{pool}
@@ -788,7 +790,7 @@ template <typename T>
 auto makeEmptyTable()
 {
   TableBuilder b;
-  auto writer = b.cursor<T>();
+  [[maybe_unused]] auto writer = b.cursor<T>();
   return b.finalize();
 }
 
@@ -833,7 +835,7 @@ auto spawner(framework::pack<C...> columns, arrow::Table* atable, const char* na
   for (auto i = 0u; i < sizeof...(C); ++i) {
     arrays.push_back(std::make_shared<arrow::ChunkedArray>(chunks[i]));
   }
-
+  new_schema = new_schema->WithMetadata(std::make_shared<arrow::KeyValueMetadata>(std::vector{std::string{"label"}}, std::vector{std::string{name}}));
   return arrow::Table::Make(new_schema, arrays);
 }
 
