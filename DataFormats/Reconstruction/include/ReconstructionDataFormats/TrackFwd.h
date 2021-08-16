@@ -72,7 +72,6 @@ class TrackParFwd
 
   void setTanl(Double_t tanl) { mParameters(3) = tanl; }
   Double_t getTanl() const { return mParameters(3); }
-  Double_t getTgl() const { return mParameters(3); } //DELETE ME: for sake of test
 
   Double_t getTgl() const { return mParameters(3); } // for the sake of helixhelper
 
