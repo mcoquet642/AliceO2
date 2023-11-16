@@ -575,12 +575,12 @@ void AODProducerWorkflowDPL::addToFwdTracksTable(FwdTracksCursorType& fwdTracksC
     }
 
     o2::mch::TrackParam trackParamAtVertex(track.getZ(), track.getParameters(), track.getCovariances());
-    if (mPropMuons){
-    double errVtx{0.0}; // FIXME: get errors associated with vertex if available
-    double errVty{0.0};
-    if (!o2::mch::TrackExtrap::extrapToVertex(trackParamAtVertex, vx, vy, vz, errVtx, errVty)) {
-      return false;
-    }
+    if (mPropMuons) {
+      double errVtx{0.0}; // FIXME: get errors associated with vertex if available
+      double errVty{0.0};
+      if (!o2::mch::TrackExtrap::extrapToVertex(trackParamAtVertex, vx, vy, vz, errVtx, errVty)) {
+        return false;
+      }
     }
 
     // extrapolate to DCA
@@ -1681,7 +1681,7 @@ void AODProducerWorkflowDPL::init(InitContext& ic)
     mZDCTDCMap[ic] = -std::numeric_limits<float>::infinity();
   }
 
-//  o2::globaltracking::MatchGlobalFwd mMatching;
+  //  o2::globaltracking::MatchGlobalFwd mMatching;
   mTimer.Reset();
 }
 
