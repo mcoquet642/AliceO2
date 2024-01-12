@@ -42,6 +42,7 @@
 #include <fairmq/Device.h>
 
 #include <ITSMFTReconstruction/RawPixelDecoder.h> //o2::itsmft::RawPixelDecoder
+#include "DataFormatsITSMFT/TimeDeadMap.h"
 #include "DetectorsCalibration/Utils.h"
 #include "DetectorsCommonDataFormats/FileMetaData.h"
 #include "DetectorsBase/GRPGeomHelper.h"
@@ -101,7 +102,7 @@ class ITSMFTDeadMapBuilder : public Task
 
   int mTFSampling = 1000;
 
-  std::map<unsigned long, std::vector<uint16_t>> mMapObject{};
+  o2::itsmft::TimeDeadMap mMapObject;
 
   void finalizeOutput();
   void PrepareOutputCcdb(DataAllocator& output);

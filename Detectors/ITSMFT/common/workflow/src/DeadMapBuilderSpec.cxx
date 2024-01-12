@@ -16,6 +16,7 @@
 #include "CCDB/BasicCCDBManager.h"
 #include "DataFormatsITSMFT/Digit.h"
 #include "DataFormatsITSMFT/CompCluster.h"
+#include "DataFormatsITSMFT/TimeDeadMap.h"
 
 namespace o2
 {
@@ -92,7 +93,7 @@ void ITSMFTDeadMapBuilder::finalizeOutput()
   if (mDoLocalOutput) {
     std::string localoutfilename = mLocalOutputDir + "/" + mObjectName;
     TFile outfile(localoutfilename.c_str(), "RECREATE");
-    outfile.WriteObjectAny(&mMapObject, "std::map<unsigned long, std::vector<uint16_t>>", "ccdb_object");
+    outfile.WriteObjectAny(&mMapObject, "o2::itsmft::TimeDeadMap", "ccdb_object");
     outfile.Close();
   }
   return;
@@ -176,7 +177,7 @@ void ITSMFTDeadMapBuilder::run(ProcessingContext& pc)
   LOG(info) << "TF contains " << CountDead << " dead elements, saved into " << mDeadMapTF.size() << " words.";
 
   // filling the map
-  mMapObject[mFirstOrbitTF] = mDeadMapTF;
+  mMapObject.fillMap(mFirstOrbitTF, mDeadMapTF);
 
   end = std::chrono::high_resolution_clock::now();
   int difference = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
