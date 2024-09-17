@@ -142,10 +142,8 @@ class ChipMappingMFT
   ///< get chip global SW ID from chipID on module, cable SW ID and stave (RU) info
   uint16_t getGlobalChipID(uint16_t chOnModuleHW, int cableHW, const RUInfo& ruInfo) const
   {
-    LOG(info) << "!!! chOnModuleHW = " << chOnModuleHW << ", cableHW = " << cableHW;
     if (chOnModuleHW >= chipModuleIDHW2SW((int)(ruInfo.ruType),(NConnectors-1)) && chOnModuleHW <= chipModuleIDHW2SW((int)(ruInfo.ruType),0)){
       auto chipOnRU = cableHW2SW(ruInfo.ruType, cableHW);
-      LOG(info) << "chipOnRU = " << (int) chipOnRU;
       return (chipOnRU < NRUCables ? mRUGlobalChipID[(int)(ruInfo.idSW)].at((int)(chipOnRU)) : 0xffff);
     }
     return 0xffff;
