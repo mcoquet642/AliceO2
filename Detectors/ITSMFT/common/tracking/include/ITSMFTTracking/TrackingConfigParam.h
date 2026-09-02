@@ -130,14 +130,15 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   int minTrackLgtIter[o2::itsmft::tracking::MaxIter] = {};                                        // Minimum track length per iteration; <=0 uses code defaults.
   uint8_t startLayerMask[o2::itsmft::tracking::MaxIter] = {};                                     // Start-layer mask per iteration.
   int maxHolesIter[o2::itsmft::tracking::MaxIter] = {};                                           // Maximum missing internal layers per iteration.
-  uint16_t holeLayerMask = 0;                                                                     // Detector layers that may be absent from accepted tracks.
+  uint16_t holeLayerMask = 0;                                                                     // Detector layers that may be absent from accepted tracks (layout).
+  uint16_t holeLayerMaskIter[o2::itsmft::tracking::MaxIter] = {};                                 // Allowed hole layers per iteration (topology + seed filter).
   float minPtIterLgt[o2::itsmft::tracking::MaxIter * (MaxTrackLength - MinTrackLength + 1)] = {}; // Minimum pT by track length; <=0 uses code defaults.
   float sysErr2Row[getNLayers()] = {0};                                                           // Systematic error squared along local X per layer.
   float sysErr2Col[getNLayers()] = {0};                                                           // Systematic error squared along local Z per layer.
   float maxChi2ClusterAttachment = -1.f;
   float maxChi2NDF = -1.f;
   float nSigmaCut = -1.f;
-  float deltaTanLres = -1.f;
+  float deltaTanLres = -1.f; // Multiplier on CellDeltaTanLambdaSigma (MFT cell Δtanλ gate); <=0 uses 1.
   float minPt = -1.f;
   float pvRes = -1.f;
   int LUTbinsU = N == o2::detectors::DetID::MFT ? 64 : -1;                              // LUT bins along the first coordinate (ITS: phi, MFT: global x).
@@ -166,6 +167,9 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float sharedClusterMaxDeltaPhi = 0.05f; // Maximum delta phi at the cluster.
   float sharedClusterMaxDeltaEta = 0.03f; // Maximum delta eta at the cluster.
   bool sharedClusterOppositeSign = false; // Require opposite-sign tracklets.
+  float cellRoadRCut = -1.f;            // MFT: max distance to seed line (ROADclsRCut); <=0 uses default (0.05 cm).
+  float cellDeltaPhiCut = -1.f;         // max |Δφ| between consecutive tracklets; <0 uses default, 0 disables.
+  float trackletMinAbsX = -1.f;         // MFT: min |x| (cm) for tracklet seeds and accepted tracks; <0 uses default.
 
   O2ParamDef(TrackerParamConfig, getParamName().data());
 
