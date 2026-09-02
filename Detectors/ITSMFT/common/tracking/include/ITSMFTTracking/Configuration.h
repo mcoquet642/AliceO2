@@ -117,7 +117,6 @@ struct IterationParameters {
   /// General parameters
   int MinTrackLength = 7;
   int MaxHoles = 0;
-  tracking::LayerMask HoleLayerMask = 0;
   // Positional static-graph surfaces disabled for this tracking pass.
   tracking::LayerMask InactiveLayerMask = 0;
   // Positional layers used to build tracklets, cells, and roads. Empty means all active layers.

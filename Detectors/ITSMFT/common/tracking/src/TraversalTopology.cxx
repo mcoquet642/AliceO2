@@ -70,8 +70,7 @@ TraversalTopologyBuildResult deriveTraversalTopology(const DetectorLayout& layou
   topology.seedingLayers = seedingLayers.empty() ? topology.activeLayers : (seedingLayers & topology.activeLayers);
 
   const auto componentOffsets = layout.getComponentOffsets();
-  // Prefer per-iteration HoleLayerMask when set; fall back to layout holes.
-  const LayerMask holeLayers = parameters.HoleLayerMask.empty() ? layout.getHoleLayers() : parameters.HoleLayerMask;
+  const auto holeLayers = layout.getHoleLayers();
   const auto componentOf = [componentOffsets](uint16_t position) {
     return componentForPosition(componentOffsets, position);
   };

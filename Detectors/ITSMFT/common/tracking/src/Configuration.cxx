@@ -74,9 +74,6 @@ std::string TrackingParameters::asString() const
   if (MaxHoles) {
     str += std::format(" MaxHoles:{}", MaxHoles);
   }
-  if (!HoleLayerMask.empty()) {
-    str += std::format(" HoleMask:{}", HoleLayerMask.asString());
-  }
   if (!InactiveLayerMask.empty()) {
     str += std::format(" InactiveMask:{}", InactiveLayerMask.asString());
   }
@@ -352,7 +349,6 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     const auto iter = &p - trackParams.data();
     if (iter < o2::its::constants::MaxIter) {
       p.MaxHoles = tc.maxHolesIter[iter];
-      p.HoleLayerMask = tc.holeLayerMaskIter[iter] != 0 ? tc.holeLayerMaskIter[iter] : tc.holeLayerMask;
     }
 
     if (tc.useMatCorrTGeo) {

@@ -130,8 +130,7 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   int minTrackLgtIter[o2::itsmft::tracking::MaxIter] = {};                                        // Minimum track length per iteration; <=0 uses code defaults.
   uint8_t startLayerMask[o2::itsmft::tracking::MaxIter] = {};                                     // Start-layer mask per iteration.
   int maxHolesIter[o2::itsmft::tracking::MaxIter] = {};                                           // Maximum missing internal layers per iteration.
-  uint16_t holeLayerMask = 0;                                                                     // Detector layers that may be absent from accepted tracks (layout).
-  uint16_t holeLayerMaskIter[o2::itsmft::tracking::MaxIter] = {};                                 // Allowed hole layers per iteration (topology + seed filter).
+  uint16_t holeLayerMask = 0;                                                                     // Detector layers that may be absent from accepted tracks.
   float minPtIterLgt[o2::itsmft::tracking::MaxIter * (MaxTrackLength - MinTrackLength + 1)] = {}; // Minimum pT by track length; <=0 uses code defaults.
   float sysErr2Row[getNLayers()] = {0};                                                           // Systematic error squared along local X per layer.
   float sysErr2Col[getNLayers()] = {0};                                                           // Systematic error squared along local Z per layer.
