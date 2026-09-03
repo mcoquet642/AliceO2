@@ -86,23 +86,22 @@ bool projectTrackletSearchWindow(
   if (bins.x < 0) {
     return false;
   }
-  out = {};
-  out.bins = bins;
-  out.useHelixProjection = false;
-  out.sourceReferenceCoordinate = referenceCoordinate;
-  out.sourceProjectedCoordinate = projectedCoordinate;
-  out.slope = slope;
-  out.varianceConstant = varianceConstant;
-  out.varianceLinear = varianceLinear;
-  out.varianceQuadratic = varianceQuadratic;
-  out.phiPrediction = sourceMeasurement.phi;
-  out.phiVariance = o2::its::math_utils::Sq(edgeCache.edgePhiCut / nSigmaCut);
+  out = {bins,
+         false,
+         referenceCoordinate,
+         projectedCoordinate,
+         slope,
+         varianceConstant,
+         varianceLinear,
+         varianceQuadratic,
+         sourceMeasurement.phi,
+         o2::its::math_utils::Sq(edgeCache.edgePhiCut / nSigmaCut)};
   return true;
 }
 
 bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
                                          const o2::its::Vertex& vertex,
-                                         float,
+                                         float beamPositionVariance,
                                          const TrackletProjectionCache& edgeCache,
                                          const o2::itsmft::IndexTableUtilsCore& indexUtils,
                                          float bz,
@@ -110,86 +109,53 @@ bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurem
                                          float nSigmaCut,
                                          TrackletSearchWindow& out)
 {
-  using detail::mftLayerZ;
-  using detail::mftTrackletProject;
-  using detail::mftTrackletSigmaXY;
-
-  const int fromLayer = edgeCache.fromLayer;
-  const int toLayer = edgeCache.toLayer;
-  const float meanDeltaZ = mftLayerZ(toLayer) - mftLayerZ(fromLayer);
-  const float sigma2X0 = sourceMeasurement.covariance.xx > 0.f
-                           ? sourceMeasurement.covariance.xx
-                           : o2::its::math_utils::Sq(edgeCache.sourcePositionResolution);
-  const float sigma2Y0 = sourceMeasurement.covariance.yy > 0.f
-                           ? sourceMeasurement.covariance.yy
-                           : o2::its::math_utils::Sq(edgeCache.sourcePositionResolution);
-
-  float xProj = 0.f;
-  float yProj = 0.f;
-  mftTrackletProject(sourceMeasurement.x, sourceMeasurement.y, sourceMeasurement.z,
-                     vertex.getX(), vertex.getY(), vertex.getZ(),
-                     fromLayer, toLayer, bz, trackletMinPt, xProj, yProj);
-
-  float sigmaX = 0.f;
-  float sigmaY = 0.f;
-  mftTrackletSigmaXY(sourceMeasurement.x, sourceMeasurement.y,
-                     vertex.getX(), vertex.getY(), vertex.getZ(),
-                     sigma2X0, sigma2Y0,
-                     vertex.getSigmaX2(), vertex.getSigmaY2(), vertex.getSigmaZ2(),
-                     fromLayer, toLayer, edgeCache.fromRadius,
-                     meanDeltaZ, edgeCache.edgeMSAngle, edgeCache.edgePhiCut,
-                     xProj, yProj, sigmaX, sigmaY);
-
-  if (!(sigmaX > 0.f && sigmaY > 0.f)) {
+  // Keep Tier-3 linear acceptance fields (r/phi chi2, tanL path). Helix only
+  // recenters the PhiR LUT window on the projected (x,y) → (r,φ).
+  if (!projectTrackletSearchWindow(sourceMeasurement, vertex, beamPositionVariance,
+                                   SurfaceKind::Disk, edgeCache, indexUtils, nSigmaCut, out)) {
     return false;
   }
 
-  const float zSpread = nSigmaCut * vertex.getSigmaZ();
-  const float zVtxMin = vertex.getZ() - zSpread;
-  const float zVtxMax = vertex.getZ() + zSpread;
-  const float zLayerFrom = mftLayerZ(fromLayer);
-  const float zLayerTo = mftLayerZ(toLayer);
-  const float absZFrom = std::abs(zLayerFrom);
-  const float absZTo = std::abs(zLayerTo);
-  const float denomMin = zVtxMax + absZFrom;
-  const float denomMax = absZFrom + zVtxMin;
-  float lutRangeMin = (std::abs(denomMin) > 1.e-6f)
-                        ? sourceMeasurement.radius * (zVtxMax + absZTo) / denomMin
-                        : sourceMeasurement.radius;
-  float lutRangeMax = (std::abs(denomMax) > 1.e-6f)
-                        ? sourceMeasurement.radius * (absZTo + zVtxMin) / denomMax
-                        : sourceMeasurement.radius;
-  if (lutRangeMin > lutRangeMax) {
-    const float tmp = lutRangeMin;
-    lutRangeMin = lutRangeMax;
-    lutRangeMax = tmp;
-  }
+  float xProj = 0.f;
+  float yProj = 0.f;
+  detail::mftTrackletProject(sourceMeasurement.x, sourceMeasurement.y, sourceMeasurement.z,
+                             vertex.getX(), vertex.getY(), vertex.getZ(),
+                             edgeCache.fromLayer, edgeCache.toLayer, bz, trackletMinPt, xProj, yProj);
 
   const float rProj = std::hypot(xProj, yProj);
+  if (!(rProj > o2::its::constants::Tolerance)) {
+    return false;
+  }
   const float phiProj = o2::its::math_utils::computePhi(xProj, yProj);
-  const float invR = (rProj > 1.e-6f) ? 1.f / rProj : 0.f;
-  // Cover the Cartesian nσ (σx,σy) box with a polar sector. Using σR = radial
-  // projection alone under-covers the χ² ellipse; hypot(σx,σy) is the bounding
-  // radius, and kPolarCover adds margin for sector-vs-rectangle mismatch.
-  constexpr float kPolarCover = 2.f;
-  const float sigmaTrans = std::hypot(sigmaX, sigmaY);
-  const float halfFromLut = std::max(std::abs(rProj - lutRangeMin), std::abs(rProj - lutRangeMax));
-  const float searchHalfWidth = halfFromLut + kPolarCover * nSigmaCut * sigmaTrans;
-  const float maxDeltaPhi = invR > 0.f
-                              ? std::max(edgeCache.edgePhiCut, kPolarCover * nSigmaCut * sigmaTrans * invR)
-                              : edgeCache.edgePhiCut;
-  const auto bins = o2::itsmft::getBinsPhiColumn(phiProj, toLayer, rProj, searchHalfWidth, maxDeltaPhi, indexUtils);
+
+  const float minDelta = edgeCache.targetMinZ - out.sourceReferenceCoordinate;
+  const float maxDelta = edgeCache.targetMaxZ - out.sourceReferenceCoordinate;
+  const float minPrediction = out.sourceProjectedCoordinate + out.slope * minDelta;
+  const float minVariance = out.varianceConstant + minDelta * (out.varianceLinear + minDelta * out.varianceQuadratic);
+  const float maxPrediction = out.sourceProjectedCoordinate + out.slope * maxDelta;
+  const float maxVariance = out.varianceConstant + maxDelta * (out.varianceLinear + maxDelta * out.varianceQuadratic);
+  if (!(minVariance > 0.f && maxVariance > 0.f)) {
+    return false;
+  }
+  const float lowerBound = o2::gpu::CAMath::Min(minPrediction - nSigmaCut * o2::gpu::CAMath::Sqrt(minVariance),
+                                                maxPrediction - nSigmaCut * o2::gpu::CAMath::Sqrt(maxVariance));
+  const float upperBound = o2::gpu::CAMath::Max(minPrediction + nSigmaCut * o2::gpu::CAMath::Sqrt(minVariance),
+                                                maxPrediction + nSigmaCut * o2::gpu::CAMath::Sqrt(maxVariance));
+  const float linearMid = 0.5f * (lowerBound + upperBound);
+  const float searchHalfWidth = 0.5f * (upperBound - lowerBound) + std::abs(rProj - linearMid);
+
+  const auto bins = o2::itsmft::getBinsPhiColumn(phiProj, edgeCache.toLayer, rProj, searchHalfWidth,
+                                                 edgeCache.edgePhiCut, indexUtils);
   if (bins.x < 0) {
     return false;
   }
 
-  out = {};
   out.bins = bins;
-  out.useHelixProjection = true;
+  out.useHelixProjection = false;
   out.xProj = xProj;
   out.yProj = yProj;
-  out.sigmaX = sigmaX;
-  out.sigmaY = sigmaY;
+  out.sigmaX = 0.f;
+  out.sigmaY = 0.f;
   return true;
 }
 

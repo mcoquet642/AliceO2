@@ -297,29 +297,6 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
                   continue;
                 }
 
-                if (window.useHelixProjection) {
-                  if (!(window.sigmaX > 0.f && window.sigmaY > 0.f)) {
-                    continue;
-                  }
-                  const float dx = targetMeasurement.x - window.xProj;
-                  const float dy = targetMeasurement.y - window.yProj;
-                  const float invSigmaX2 = 1.f / (window.sigmaX * window.sigmaX);
-                  const float invSigmaY2 = 1.f / (window.sigmaY * window.sigmaY);
-                  const float transChi2 = dx * dx * invSigmaX2 + dy * dy * invSigmaY2;
-                  const float nSigmaCut2 = o2::its::math_utils::Sq(mKernelParameters.nSigmaCut);
-                  const float dxHit = targetMeasurement.x - sourceMeasurement.x;
-                  const float dyHit = targetMeasurement.y - sourceMeasurement.y;
-                  const float drHit = std::hypot(dxHit, dyHit);
-                  if (!(transChi2 < nSigmaCut2 && drHit > 1.e-6f)) {
-                    continue;
-                  }
-                  const float tanL = -std::abs(sourceMeasurement.z - targetMeasurement.z) / drHit;
-                  const float phi{o2::gpu::GPUCommonMath::ATan2(sourceMeasurement.y - targetMeasurement.y,
-                                                                sourceMeasurement.x - targetMeasurement.x)};
-                  emit(currentSortedIndex, mFrame->getSortedIndex(targetROF, toLayer, iNext), tanL, phi, ts);
-                  continue;
-                }
-
                 const float targetReferenceCoordinate = kind == SurfaceKind::Cylinder ? targetMeasurement.radius : targetMeasurement.z;
                 const float targetProjectedCoordinate = kind == SurfaceKind::Cylinder ? targetMeasurement.z : targetMeasurement.radius;
                 const float referenceDelta = targetReferenceCoordinate - window.sourceReferenceCoordinate;
