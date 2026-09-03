@@ -435,6 +435,7 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& mKernelParameters = context.configuration.kernelParameters;
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
+  const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
   const bool useMftCells = detail::isMftTopology(topology.nLayers);
 
   mTaskArena->execute([&] {
@@ -476,7 +477,7 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
           }
           o2::track::TrackParCovFwd fwdTrack;
           float fwdChi2 = 0.f;
-          if (!detail::mftFwdFitCellClusters(measurements, hitLayers, trkParam.LayerxX0,
+          if (!detail::mftFwdFitCellClusters(measurements, hitLayers, layerMaterial,
                                              mKernelParameters.trackletMinPt, mBz,
                                              mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
             continue;
@@ -583,7 +584,7 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
   const auto& topology = context.topology;
   const auto& globalMeasurements = context.layerGlobalMeasurements;
   const auto& params = context.configuration.kernelParameters;
-  const auto& trkParam = context.configuration.parameters;
+  const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
   const bool useMftCells = detail::isMftTopology(topology.nLayers);
   const float bz = context.bz;
   for (std::size_t slot = 0; slot < scratch.getCellsNeighbours().size(); ++slot) {
@@ -711,7 +712,7 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
                                                   references[3].surfacePosition};
               neighbourAccepted = measurementsValid &&
                                   detail::mftFwdCellsAreCompatible(currentMeas, currentLayers, nextMeas, nextLayers,
-                                                                   trkParam.LayerxX0, params.trackletMinPt, bz,
+                                                                   layerMaterial, params.trackletMinPt, bz,
                                                                    params.maxChi2ClusterAttachment);
             } else {
               const bool fitValid = measurementsValid &&

@@ -27,6 +27,7 @@
 #include "ITSMFTTracking/Configuration.h"
 #include "ITSMFTTracking/Constants.h"
 #include "ITSMFTTracking/GlobalMeasurement.h"
+#include "ITSMFTTracking/SurfaceDescriptor.h"
 #include "ITSMFTTracking/TrackingConfigParam.h"
 #include "MFTTracking/Constants.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
@@ -248,7 +249,7 @@ inline bool validateMFTCellClusters(const GlobalMeasurement& c0, int layer0,
 /// Build inward forward seed at the outer cluster and Kalman-fit the three cell clusters.
 inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measurements,
                                   const std::array<int, 3>& hitLayers,
-                                  gsl::span<const float> layerxX0,
+                                  gsl::span<const NominalSurfaceMaterial> layerMaterial,
                                   float trackletMinPt,
                                   float bz,
                                   float maxChi2,
@@ -304,14 +305,14 @@ inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measur
   chi2 = 0.f;
   for (int iC{2}; iC >= 0; --iC) {
     const int layer = hitLayers[iC];
-    if (layer < 0 || static_cast<std::size_t>(layer) >= layerxX0.size()) {
+    if (layer < 0 || static_cast<std::size_t>(layer) >= layerMaterial.size()) {
       return false;
     }
     const auto& measurement = measurements[iC];
     const float sigma2X = measurement.covariance.xx > 0.f ? measurement.covariance.xx : 1.f;
     const float sigma2Y = measurement.covariance.yy > 0.f ? measurement.covariance.yy : 1.f;
     if (!mftFwdAttachCluster(track, measurement.z, measurement.x, measurement.y,
-                             sigma2X, sigma2Y, layerxX0[layer], bz, maxChi2, chi2, iC == 0)) {
+                             sigma2X, sigma2Y, layerMaterial[layer].xOverX0, bz, maxChi2, chi2, iC == 0)) {
       return false;
     }
   }
@@ -323,7 +324,7 @@ inline bool mftFwdCellsAreCompatible(const std::array<GlobalMeasurement, 3>& cur
                                      const std::array<int, 3>& currentLayers,
                                      const std::array<GlobalMeasurement, 3>& next,
                                      const std::array<int, 3>& nextLayers,
-                                     gsl::span<const float> layerxX0,
+                                     gsl::span<const NominalSurfaceMaterial> layerMaterial,
                                      float trackletMinPt,
                                      float bz,
                                      float maxChi2)
@@ -332,8 +333,8 @@ inline bool mftFwdCellsAreCompatible(const std::array<GlobalMeasurement, 3>& cur
   o2::track::TrackParCovFwd nextFwd;
   float currentChi2 = 0.f;
   float nextChi2 = 0.f;
-  if (!mftFwdFitCellClusters(current, currentLayers, layerxX0, trackletMinPt, bz, maxChi2, currentFwd, currentChi2) ||
-      !mftFwdFitCellClusters(next, nextLayers, layerxX0, trackletMinPt, bz, maxChi2, nextFwd, nextChi2)) {
+  if (!mftFwdFitCellClusters(current, currentLayers, layerMaterial, trackletMinPt, bz, maxChi2, currentFwd, currentChi2) ||
+      !mftFwdFitCellClusters(next, nextLayers, layerMaterial, trackletMinPt, bz, maxChi2, nextFwd, nextChi2)) {
     return false;
   }
   mftFwdPropagateToZ(nextFwd, static_cast<float>(currentFwd.getZ()), bz);
