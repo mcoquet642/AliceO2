@@ -163,6 +163,7 @@ void checkSearchWindowEqual(const TrackletSearchWindow& lhs, const TrackletSearc
   BOOST_CHECK_EQUAL(lhs.bins.y, rhs.bins.y);
   BOOST_CHECK_EQUAL(lhs.bins.z, rhs.bins.z);
   BOOST_CHECK_EQUAL(lhs.bins.w, rhs.bins.w);
+  BOOST_CHECK_EQUAL(lhs.useHelixProjection, rhs.useHelixProjection);
   BOOST_CHECK_EQUAL(lhs.sourceReferenceCoordinate, rhs.sourceReferenceCoordinate);
   BOOST_CHECK_EQUAL(lhs.sourceProjectedCoordinate, rhs.sourceProjectedCoordinate);
   BOOST_CHECK_EQUAL(lhs.slope, rhs.slope);
@@ -483,7 +484,7 @@ BOOST_AUTO_TEST_CASE(ProjectSearchWindowInvalidBinsLeaveEveryOutputFieldUnchange
   const auto cylinderVertex = makeVertex(0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
   const auto cylinderState = makeCylinderProjectionCache(0, 3, 2.f, 4.f, 3.8f, 4.2f, 5.e-4f, 2.e-3f, 0.08f);
   const TrackletSearchWindow cylinderSentinel{
-    {101, 102, 103, 104}, 105.f, 106.f, 107.f, 108.f, 109.f, 110.f, 111.f, 112.f};
+    {101, 102, 103, 104}, false, 105.f, 106.f, 107.f, 108.f, 109.f, 110.f, 111.f, 112.f};
   auto cylinderOut = cylinderSentinel;
   BOOST_CHECK(!(projectCylinderSearchWindow(
     cylinderMeasurement, cylinderSource, cylinderVertex, cylinderState, cylinderIndexUtils, cylinderParams, cylinderOut)));
@@ -501,7 +502,7 @@ BOOST_AUTO_TEST_CASE(ProjectSearchWindowInvalidBinsLeaveEveryOutputFieldUnchange
   const auto diskVertex = makeVertex(0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
   const auto diskState = makeDiskProjectionCache(fromLayer, toLayer, 2.f, fromZ, toZ, toZ, 3.e-3f, 0.04f);
   const TrackletSearchWindow diskSentinel{
-    {201, 202, 203, 204}, 205.f, 206.f, 207.f, 208.f, 209.f, 210.f, 211.f, 212.f};
+    {201, 202, 203, 204}, false, 205.f, 206.f, 207.f, 208.f, 209.f, 210.f, 211.f, 212.f};
   auto diskOut = diskSentinel;
   BOOST_CHECK(!(projectDiskSearchWindow(
     diskMeasurement, diskSource, diskVertex, diskState, diskIndexUtils, diskParams, diskOut)));
@@ -542,7 +543,7 @@ BOOST_AUTO_TEST_CASE(DiskProjectionUsesBeamCenteredPolarCoordinatesAndIgnoresVer
 
   const auto fallbackVertex = makeVertex(0.1f, -0.2f, fromZ, 4.e-4f, 5.e-4f, 0.f);
   TrackletSearchWindow fallbackWindow{};
-  const TrackletSearchWindow sentinel{{1, 2, 3, 4}, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f};
+  const TrackletSearchWindow sentinel{{1, 2, 3, 4}, false, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f};
   fallbackWindow = sentinel;
   BOOST_CHECK(!(projectDiskSearchWindow(
     sourceMeasurement, source, fallbackVertex, state, indexUtils, params, fallbackWindow)));
