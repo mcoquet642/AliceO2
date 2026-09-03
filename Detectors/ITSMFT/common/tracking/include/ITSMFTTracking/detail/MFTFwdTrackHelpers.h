@@ -16,12 +16,17 @@
 #ifndef ALICEO2_ITSMFT_TRACKING_MFTFWDTRACKHELPERS_H_
 #define ALICEO2_ITSMFT_TRACKING_MFTFWDTRACKHELPERS_H_
 
+#include <algorithm>
 #include <array>
 #include <cmath>
+#include <limits>
+
+#include <gsl/span>
 
 #include "CommonConstants/MathConstants.h"
 #include "ITSMFTTracking/Configuration.h"
 #include "ITSMFTTracking/Constants.h"
+#include "ITSMFTTracking/GlobalMeasurement.h"
 #include "ITSMFTTracking/TrackingConfigParam.h"
 #include "MFTTracking/Constants.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
@@ -140,6 +145,199 @@ inline void mftTrackletSigmaXY(float x0, float y0, float pvX, float pvY, float p
   mftTrackletSigmaXY(x0, y0, pvX, pvY, pvZ, sigma2X0, sigma2Y0, sigma2PvX, sigma2PvY, sigma2PvZ,
                      mftLayerZ(fromLayer), mftLayerZ(toLayer), rLayerFrom, meanDeltaZ, msAngle,
                      bendingAngle, xProj, yProj, sigmaX, sigmaY);
+}
+
+inline void mftFwdPropagateToZ(o2::track::TrackParCovFwd& track, float z, float bz)
+{
+  if (std::abs(bz) > 0.01f) {
+    track.propagateToZhelix(z, bz);
+  } else {
+    track.propagateToZlinear(z);
+  }
+}
+
+inline float mftFwdPredictedChi2(const o2::track::TrackParCovFwd& track, float x, float y, float sigma2X, float sigma2Y)
+{
+  const float dx = x - static_cast<float>(track.getX());
+  const float dy = y - static_cast<float>(track.getY());
+  const float vx = static_cast<float>(track.getSigma2X()) + sigma2X;
+  const float vy = static_cast<float>(track.getSigma2Y()) + sigma2Y;
+  if (vx <= 0.f || vy <= 0.f) {
+    return o2::constants::math::VeryBig;
+  }
+  return dx * dx / vx + dy * dy / vy;
+}
+
+inline float mftFwdStateChi2(const o2::track::TrackParCovFwd& current, const o2::track::TrackParCovFwd& rhs)
+{
+  ROOT::Math::SVector<double, 5> diff{
+    rhs.getX() - current.getX(),
+    rhs.getY() - current.getY(),
+    rhs.getPhi() - current.getPhi(),
+    rhs.getTanl() - current.getTanl(),
+    rhs.getInvQPt() - current.getInvQPt()};
+  auto cov = current.getCovariances();
+  cov += rhs.getCovariances();
+  if (!cov.Invert()) {
+    return o2::constants::math::VeryBig;
+  }
+  return static_cast<float>(ROOT::Math::Similarity(cov, diff));
+}
+
+inline bool mftFwdAttachCluster(o2::track::TrackParCovFwd& track, float z, float x, float y,
+                                float sigma2X, float sigma2Y, float xOverX0, float bz, float maxChi2,
+                                float& chi2, bool checkChi2OnLast = false)
+{
+  mftFwdPropagateToZ(track, z, bz);
+  if (xOverX0 > 0.f) {
+    track.addMCSEffect(xOverX0);
+  }
+  const float predChi2 = mftFwdPredictedChi2(track, x, y, sigma2X, sigma2Y);
+  if (checkChi2OnLast && predChi2 > maxChi2) {
+    return false;
+  }
+  const std::array<float, 2> p{x, y};
+  const std::array<float, 2> cov{sigma2X, sigma2Y};
+  if (!track.update(p, cov)) {
+    return false;
+  }
+  chi2 += predChi2;
+  return true;
+}
+
+/// Squared transverse distance from cluster c to the seed line c1→c2 (legacy MFT getDistanceToSeed).
+inline float mftDistanceToSeedSquared(const GlobalMeasurement& c1, const GlobalMeasurement& c2, const GlobalMeasurement& c)
+{
+  const float dxSeed = c2.x - c1.x;
+  const float dySeed = c2.y - c1.y;
+  const float dzSeed = c2.z - c1.z;
+  if (std::abs(dzSeed) < 1e-9f) {
+    return std::numeric_limits<float>::max();
+  }
+  const float invdzSeed = (c.z - c1.z) / dzSeed;
+  const float xSeed = c1.x + dxSeed * invdzSeed;
+  const float ySeed = c1.y + dySeed * invdzSeed;
+  const float dx = c.x - xSeed;
+  const float dy = c.y - ySeed;
+  return dx * dx + dy * dy;
+}
+
+/// Conical road scale (1 + dz/z_from)^2 between half-layers (legacy ROADclsRCut behaviour).
+inline float mftConicalRoadR2Scale(int layerFrom, int layerTo)
+{
+  const float zFrom = mftLayerZ(layerFrom);
+  if (std::abs(zFrom) < 1e-6f) {
+    return 1.f;
+  }
+  const float dCone = 1.f + (mftLayerZ(layerTo) - zFrom) / zFrom;
+  return dCone * dCone;
+}
+
+/// Cheap geometric pre-cut before forward cell fit (CellRoadRCut / ROADclsRCut).
+inline bool validateMFTCellClusters(const GlobalMeasurement& c0, int layer0,
+                                    const GlobalMeasurement& c1, int layer1,
+                                    const GlobalMeasurement& c2, int layer2,
+                                    float r2Cut)
+{
+  const float r2 = r2Cut * r2Cut;
+  return mftDistanceToSeedSquared(c0, c2, c1) < r2 * mftConicalRoadR2Scale(layer0, layer1) &&
+         mftDistanceToSeedSquared(c0, c1, c2) < r2 * mftConicalRoadR2Scale(layer0, layer2) &&
+         mftDistanceToSeedSquared(c1, c2, c0) < r2 * mftConicalRoadR2Scale(layer1, layer0);
+}
+
+/// Build inward forward seed at the outer cluster and Kalman-fit the three cell clusters.
+inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measurements,
+                                  const std::array<int, 3>& hitLayers,
+                                  gsl::span<const float> layerxX0,
+                                  float trackletMinPt,
+                                  float bz,
+                                  float maxChi2,
+                                  o2::track::TrackParCovFwd& track,
+                                  float& chi2)
+{
+  const auto& cInner = measurements[0];
+  const auto& cMid = measurements[1];
+  const auto& cOuter = measurements[2];
+  if (cInner.z <= cOuter.z + 1.e-6f) {
+    return false;
+  }
+
+  const float dxTan = cMid.x - cInner.x;
+  const float dyTan = cMid.y - cInner.y;
+  const float dzTan = cMid.z - cInner.z;
+  const float drTan = std::sqrt(dxTan * dxTan + dyTan * dyTan);
+  const float dxPhi = cOuter.x - cInner.x;
+  const float dyPhi = cOuter.y - cInner.y;
+  const float dzPhi = cOuter.z - cInner.z;
+  const float drPhi = std::sqrt(dxPhi * dxPhi + dyPhi * dyPhi);
+  if (drTan < 1.e-6f || std::abs(dzTan) < 1.e-6f || drPhi < 1.e-6f || std::abs(dzPhi) < 1.e-6f) {
+    return false;
+  }
+
+  const float invQPt = (trackletMinPt > 0.f) ? 1.f / trackletMinPt : 0.f;
+  float tanl{0.f};
+  float phi{0.f};
+  if (std::abs(bz) > 0.01f) {
+    tanl = -std::abs(dzTan) / drTan;
+    phi = std::atan2(dyPhi, dxPhi);
+    if (std::abs(tanl) > 1.e-6f) {
+      const float k = std::abs(o2::constants::math::B2C * bz);
+      const float hz = (bz > 0.f) ? 1.f : -1.f;
+      phi -= 0.5f * hz * invQPt * dzPhi * k / tanl;
+    }
+  } else {
+    tanl = -std::abs(dzPhi) / drPhi;
+    phi = std::atan2(dyPhi, dxPhi);
+  }
+
+  const float sigma2XOuter = cOuter.covariance.xx > 0.f ? cOuter.covariance.xx : 1.f;
+  const float sigma2YOuter = cOuter.covariance.yy > 0.f ? cOuter.covariance.yy : 1.f;
+  ROOT::Math::SVector<double, 5> seedParams{cOuter.x, cOuter.y, phi, tanl, invQPt};
+  ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>> seedCov{};
+  seedCov(0, 0) = sigma2XOuter;
+  seedCov(1, 1) = sigma2YOuter;
+  seedCov(2, 2) = seedCov(3, 3) = 1.;
+  const double qptSigma = std::clamp(static_cast<double>(std::abs(invQPt)), 1., 10.);
+  seedCov(4, 4) = qptSigma * qptSigma;
+  track = {cOuter.z, seedParams, seedCov, 0.};
+
+  chi2 = 0.f;
+  for (int iC{2}; iC >= 0; --iC) {
+    const int layer = hitLayers[iC];
+    if (layer < 0 || static_cast<std::size_t>(layer) >= layerxX0.size()) {
+      return false;
+    }
+    const auto& measurement = measurements[iC];
+    const float sigma2X = measurement.covariance.xx > 0.f ? measurement.covariance.xx : 1.f;
+    const float sigma2Y = measurement.covariance.yy > 0.f ? measurement.covariance.yy : 1.f;
+    if (!mftFwdAttachCluster(track, measurement.z, measurement.x, measurement.y,
+                             sigma2X, sigma2Y, layerxX0[layer], bz, maxChi2, chi2, iC == 0)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/// Compatibility of two adjacent MFT cells via forward-state χ² (mft-time-aware).
+inline bool mftFwdCellsAreCompatible(const std::array<GlobalMeasurement, 3>& current,
+                                     const std::array<int, 3>& currentLayers,
+                                     const std::array<GlobalMeasurement, 3>& next,
+                                     const std::array<int, 3>& nextLayers,
+                                     gsl::span<const float> layerxX0,
+                                     float trackletMinPt,
+                                     float bz,
+                                     float maxChi2)
+{
+  o2::track::TrackParCovFwd currentFwd;
+  o2::track::TrackParCovFwd nextFwd;
+  float currentChi2 = 0.f;
+  float nextChi2 = 0.f;
+  if (!mftFwdFitCellClusters(current, currentLayers, layerxX0, trackletMinPt, bz, maxChi2, currentFwd, currentChi2) ||
+      !mftFwdFitCellClusters(next, nextLayers, layerxX0, trackletMinPt, bz, maxChi2, nextFwd, nextChi2)) {
+    return false;
+  }
+  mftFwdPropagateToZ(nextFwd, static_cast<float>(currentFwd.getZ()), bz);
+  return mftFwdStateChi2(currentFwd, nextFwd) <= maxChi2;
 }
 
 } // namespace o2::itsmft::tracking::detail

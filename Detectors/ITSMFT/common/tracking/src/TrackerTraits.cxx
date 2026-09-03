@@ -435,6 +435,7 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& mKernelParameters = context.configuration.kernelParameters;
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
+  const bool useMftCells = detail::isMftTopology(topology.nLayers);
 
   mTaskArena->execute([&] {
     auto forTrackletCells = [&](int firstEdgeId, int secondEdgeId, const std::array<int, 3>& hitLayers, int iTracklet, auto&& emit) {
@@ -453,40 +454,65 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
 
         /// Prepare the track seed; clusters are numbered from inner to outer.
         const int sortedId[3]{currentTracklet.firstClusterIndex, nextTracklet.firstClusterIndex, nextTracklet.secondClusterIndex};
-
-        const float edgeMSAngle = scratch.getEdgeMSAngle(secondEdgeId);
-        const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
-        const float lambda01 = std::atan(currentTracklet.tanLambda);
-        const float lambda12 = std::atan(nextTracklet.tanLambda);
-        const float deltaLambda = std::abs(lambda01 - lambda12);
-        if (deltaLambda > angularTolerance) {
-          continue;
-        }
-
         const auto& inner = mLayerGlobalMeasurements[hitLayers[0]][sortedId[0]];
         const auto& middle = mLayerGlobalMeasurements[hitLayers[1]][sortedId[1]];
         const auto& outer = mLayerGlobalMeasurements[hitLayers[2]][sortedId[2]];
-        const float length01 = std::hypot(inner.x - middle.x, inner.y - middle.y);
-        const float length12 = std::hypot(middle.x - outer.x, middle.y - outer.y);
-        const float maximumCurvature = std::min({std::abs(o2::constants::math::B2C * mBz) /
-                                                   mKernelParameters.trackletMinPt,
-                                                 2.f / length01,
-                                                 2.f / length12});
-        const float maximumBending =
-          std::asin(std::clamp(0.5f * maximumCurvature * length01, 0.f, 1.f)) +
-          std::asin(std::clamp(0.5f * maximumCurvature * length12, 0.f, 1.f));
-        const float deltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
-                                                       o2::constants::math::TwoPI));
-        const float sinTheta = std::max(std::abs(std::cos(0.5f * (lambda01 + lambda12))),
-                                        o2::constants::math::Almost0);
-        const float azimuthalTolerance = angularTolerance / sinTheta;
-        if (deltaPhi > maximumBending + azimuthalTolerance) {
-          continue;
+        const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
+
+        if (useMftCells) {
+          // Tier 6: mft-time-aware cell gates (Δtanλ, Δφ, conical road, forward Kalman).
+          const float tanLSigma = std::max(trkParam.CellDeltaTanLambdaSigma, o2::constants::math::Almost0);
+          const float deltaTanLambdaSigma = std::abs(currentTracklet.tanLambda - nextTracklet.tanLambda) / tanLSigma;
+          if (deltaTanLambdaSigma >= mKernelParameters.nSigmaCut) {
+            continue;
+          }
+          if (trkParam.CellDeltaPhiCut > 0.f &&
+              !math_utils::isPhiDifferenceBelow(currentTracklet.phi, nextTracklet.phi, trkParam.CellDeltaPhiCut)) {
+            continue;
+          }
+          if (!detail::validateMFTCellClusters(inner, hitLayers[0], middle, hitLayers[1], outer, hitLayers[2],
+                                               trkParam.CellRoadRCut)) {
+            continue;
+          }
+          o2::track::TrackParCovFwd fwdTrack;
+          float fwdChi2 = 0.f;
+          if (!detail::mftFwdFitCellClusters(measurements, hitLayers, trkParam.LayerxX0,
+                                             mKernelParameters.trackletMinPt, mBz,
+                                             mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
+            continue;
+          }
+        } else {
+          const float edgeMSAngle = scratch.getEdgeMSAngle(secondEdgeId);
+          const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
+          const float lambda01 = std::atan(currentTracklet.tanLambda);
+          const float lambda12 = std::atan(nextTracklet.tanLambda);
+          const float deltaLambda = std::abs(lambda01 - lambda12);
+          if (deltaLambda > angularTolerance) {
+            continue;
+          }
+
+          const float length01 = std::hypot(inner.x - middle.x, inner.y - middle.y);
+          const float length12 = std::hypot(middle.x - outer.x, middle.y - outer.y);
+          const float maximumCurvature = std::min({std::abs(o2::constants::math::B2C * mBz) /
+                                                     mKernelParameters.trackletMinPt,
+                                                   2.f / length01,
+                                                   2.f / length12});
+          const float maximumBending =
+            std::asin(std::clamp(0.5f * maximumCurvature * length01, 0.f, 1.f)) +
+            std::asin(std::clamp(0.5f * maximumCurvature * length12, 0.f, 1.f));
+          const float deltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
+                                                         o2::constants::math::TwoPI));
+          const float sinTheta = std::max(std::abs(std::cos(0.5f * (lambda01 + lambda12))),
+                                          o2::constants::math::Almost0);
+          const float azimuthalTolerance = angularTolerance / sinTheta;
+          if (deltaPhi > maximumBending + azimuthalTolerance) {
+            continue;
+          }
         }
 
-        const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
         TripletFitFactor tripletFactor{};
-        if (makeTripletFitFactor(measurements, tripletFactor)) {
+        // MFT neighbours use forward-state χ²; tripletFactor is best-effort for MFT.
+        if (makeTripletFitFactor(measurements, tripletFactor) || useMftCells) {
           TimeEstBC ts = currentTracklet.getTimeStamp();
           ts += nextTracklet.getTimeStamp();
           // Build directly from the resolved plan positions; plan validation
@@ -557,6 +583,9 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
   const auto& topology = context.topology;
   const auto& globalMeasurements = context.layerGlobalMeasurements;
   const auto& params = context.configuration.kernelParameters;
+  const auto& trkParam = context.configuration.parameters;
+  const bool useMftCells = detail::isMftTopology(topology.nLayers);
+  const float bz = context.bz;
   for (std::size_t slot = 0; slot < scratch.getCellsNeighbours().size(); ++slot) {
     deepVectorClear(scratch.getCellsNeighbours()[slot]);
     deepVectorClear(scratch.getCellsNeighboursTopology()[slot]);
@@ -672,11 +701,26 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
               measurements[hit] = globalMeasurements[reference.surfacePosition][reference.clusterIndex];
             }
             AdjacentTripletFitResult adjacentFit{};
-            const bool fitValid = measurementsValid &&
-                                  fitAdjacentTripletFactors(
-                                    currentCellSeed.tripletFactor(), nextCellSeedRef.tripletFactor(), measurements,
-                                    {currentAngularVariance, successor.angularVariance}, adjacentFit);
-            if (!fitValid || adjacentFit.chi2 > params.maxChi2ClusterAttachment) {
+            bool neighbourAccepted = false;
+            if (useMftCells) {
+              const std::array<GlobalMeasurement, 3> currentMeas{measurements[0], measurements[1], measurements[2]};
+              const std::array<GlobalMeasurement, 3> nextMeas{measurements[1], measurements[2], measurements[3]};
+              const std::array<int, 3> currentLayers{references[0].surfacePosition, references[1].surfacePosition,
+                                                     references[2].surfacePosition};
+              const std::array<int, 3> nextLayers{references[1].surfacePosition, references[2].surfacePosition,
+                                                  references[3].surfacePosition};
+              neighbourAccepted = measurementsValid &&
+                                  detail::mftFwdCellsAreCompatible(currentMeas, currentLayers, nextMeas, nextLayers,
+                                                                   trkParam.LayerxX0, params.trackletMinPt, bz,
+                                                                   params.maxChi2ClusterAttachment);
+            } else {
+              const bool fitValid = measurementsValid &&
+                                    fitAdjacentTripletFactors(
+                                      currentCellSeed.tripletFactor(), nextCellSeedRef.tripletFactor(), measurements,
+                                      {currentAngularVariance, successor.angularVariance}, adjacentFit);
+              neighbourAccepted = fitValid && adjacentFit.chi2 <= params.maxChi2ClusterAttachment;
+            }
+            if (!neighbourAccepted) {
               continue;
             }
 
