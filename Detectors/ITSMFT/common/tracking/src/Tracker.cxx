@@ -31,7 +31,9 @@
 #include "ITSMFTTracking/BoundedAllocator.h"
 #include "ITSMFTTracking/IndexTableConfiguration.h"
 #include "ITSMFTTracking/MaterialPhysics.h"
+#include "ITSMFTTracking/detail/McTrackLabels.h"
 #include "ITSMFTTracking/detail/TrackerTraversalPreparation.h"
+#include "MFTTracking/MFTTrackingParam.h"
 
 namespace o2::itsmft::tracking
 {
@@ -507,54 +509,29 @@ void Tracker::computeTracksMClabels(TimeFrame& frame) const
   const auto& references = frame.getTrackClusterIndices();
   trackLabels.reserve(tracks.size());
 
-  struct Candidate {
-    MCCompLabel representative;
-    std::size_t count{0};
-    std::size_t lastSeenCluster{0};
-  };
+  const bool useMftThreshold = !mIterations.empty() && detail::isMftTopology(mIterations.front().topology.nLayers);
+  const float mftTrueTrackThreshold = useMftThreshold ? o2::mft::MFTTrackingParam::Instance().TrueTrackMCThreshold : 0.f;
 
   for (const auto& track : tracks) {
     if (!isValidTrackRange(track, static_cast<uint32_t>(references.size()))) {
       throw std::logic_error{"Tracker::computeTracksMClabels(): invalid track cluster-reference range"};
     }
 
-    std::vector<Candidate> candidates;
-    std::size_t attachedClusters = 0;
     for (uint32_t index = track.firstClusterRef; index < track.clusterRefEnd; ++index) {
       const auto& reference = references[index];
       if (!reference.isValid() || frame.getSurfaceMeasurement(reference.layer, reference.clusterId) == nullptr) {
         throw std::logic_error{"Tracker::computeTracksMClabels(): unresolved track cluster reference"};
       }
-
-      ++attachedClusters;
-      for (const auto& label : frame.getLabels(reference.layer, reference.clusterId)) {
-        const auto candidate = std::find_if(candidates.begin(), candidates.end(), [&label](const auto& current) {
-          return label == current.representative;
-        });
-        if (candidate == candidates.end()) {
-          candidates.push_back({label, 1, attachedClusters});
-        } else if (candidate->lastSeenCluster != attachedClusters) {
-          ++candidate->count;
-          candidate->lastSeenCluster = attachedClusters;
-        }
-      }
     }
 
-    MCCompLabel winner;
-    if (candidates.empty()) {
-      winner.setFakeFlag();
+    const std::size_t attachedClusters = track.clusterRefEnd - track.firstClusterRef;
+    if (useMftThreshold) {
+      const auto occurrences = detail::collectMftMcLabelOccurrences(track, references, frame);
+      trackLabels.push_back(detail::assignMftTrackMcLabel(attachedClusters, occurrences, mftTrueTrackThreshold));
     } else {
-      const auto best = std::max_element(candidates.begin(), candidates.end(), [](const auto& left, const auto& right) {
-        return left.count < right.count;
-      });
-      winner = best->representative;
-      // A single attached cluster without the winning identity makes the
-      // reconstructed track fake.
-      if (best->count != attachedClusters) {
-        winner.setFakeFlag();
-      }
+      const auto candidates = detail::collectItsMcLabelCandidates(track, references, frame);
+      trackLabels.push_back(detail::assignItsTrackMcLabel(attachedClusters, candidates));
     }
-    trackLabels.push_back(winner);
   }
 
   frame.getTrackLabels().swap(trackLabels);
