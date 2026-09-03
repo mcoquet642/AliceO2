@@ -165,10 +165,18 @@ bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurem
     lutRangeMax = tmp;
   }
 
-  const float colWindow = sigmaX * nSigmaCut;
-  const float rowWindow = sigmaY * nSigmaCut;
-  const auto bins = o2::itsmft::getBinsRectClusterAtProj(xProj, yProj, toLayer, lutRangeMin, lutRangeMax,
-                                                         colWindow, rowWindow, indexUtils);
+  const float rProj = std::hypot(xProj, yProj);
+  const float phiProj = o2::its::math_utils::computePhi(xProj, yProj);
+  const float invR = (rProj > 1.e-6f) ? 1.f / rProj : 0.f;
+  const float sigmaR = invR > 0.f
+                         ? std::sqrt(o2::its::math_utils::Sq(xProj * invR * sigmaX) +
+                                     o2::its::math_utils::Sq(yProj * invR * sigmaY))
+                         : std::hypot(sigmaX, sigmaY);
+  const float halfFromLut = std::max(std::abs(rProj - lutRangeMin), std::abs(rProj - lutRangeMax));
+  const float searchHalfWidth = halfFromLut + nSigmaCut * sigmaR;
+  const float sigmaPhi = invR > 0.f ? std::hypot(sigmaX, sigmaY) * invR : edgeCache.edgePhiCut;
+  const float maxDeltaPhi = std::max(edgeCache.edgePhiCut, nSigmaCut * sigmaPhi);
+  const auto bins = o2::itsmft::getBinsPhiColumn(phiProj, toLayer, rProj, searchHalfWidth, maxDeltaPhi, indexUtils);
   if (bins.x < 0) {
     return false;
   }

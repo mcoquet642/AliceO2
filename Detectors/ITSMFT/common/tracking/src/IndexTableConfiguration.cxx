@@ -65,14 +65,6 @@ IndexTableConfigError bindIndexTableConfiguration(o2::itsmft::IndexTableUtilsCor
     colMax[iLayer] = chartRanges[iLayer].max;
   }
 
-  if (kind == SurfaceKind::Disk && params.IndexRowMax != 0.f) {
-    if (params.LayerColHalfExtent.size() < static_cast<std::size_t>(activeSurfaceCount)) {
-      return IndexTableConfigError::InsufficientChartRanges;
-    }
-    staged.setTrackingParametersXY(params, params.IndexRowMin, params.IndexRowMax);
-    return IndexTableConfigError::None;
-  }
-
   staged.setIndexTableParams(kind == SurfaceKind::Disk ? IndexTableCoordType::PhiR : IndexTableCoordType::PhiZ,
                              params.RowBins, params.ColBins, 0.f, o2::constants::math::TwoPI,
                              gsl::span<const float>{colMin.data(), static_cast<std::size_t>(activeSurfaceCount)},
