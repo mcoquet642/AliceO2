@@ -22,6 +22,7 @@
 #include "CommonConstants/MathConstants.h"
 #include "ITSMFTTracking/Configuration.h"
 #include "ITSMFTTracking/Constants.h"
+#include "ITSMFTTracking/TrackingConfigParam.h"
 #include "MFTTracking/Constants.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 
@@ -30,6 +31,11 @@ namespace o2::itsmft::tracking::detail
 
 /// MFT CA uses o2::mft::constants::mft::LayersNumber half-disk layers (same index as GeometryTGeo::getLayer).
 /// Physical disk index is halfLayer / 2; ROFOverlapTable stores one LayerTiming per half-layer.
+
+inline bool isMftTopology(int nLayers) noexcept
+{
+  return nLayers == MFTNLayers;
+}
 
 inline float mftLayerZ(int layer)
 {

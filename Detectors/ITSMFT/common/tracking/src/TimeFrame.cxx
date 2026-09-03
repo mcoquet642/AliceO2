@@ -447,16 +447,25 @@ void TimeFrame::prepareClusters(int maxLayers)
       helpers.resize(count);
       sortedMeasurements.resize(count);
       const bool usePhiRBinning = utils.getCoordType() == o2::itsmft::IndexTableCoordType::PhiR;
+      const bool useXYBinning = utils.getCoordType() == o2::itsmft::IndexTableCoordType::XY;
 
       for (int local = 0; local < count; ++local) {
         const int measurementIndex = first + local;
         const auto& measurement = mLayerGlobalMeasurements[layer][measurementIndex];
         auto& helper = helpers[local];
-        int colBin = utils.getColBinIndex(layer, usePhiRBinning ? measurement.radius : measurement.z);
+        int colBin = 0;
+        int rowBin = 0;
+        if (useXYBinning) {
+          colBin = utils.getColBinIndex(layer, measurement.x);
+          rowBin = utils.getRowBinIndex(measurement.y);
+        } else {
+          colBin = utils.getColBinIndex(layer, usePhiRBinning ? measurement.radius : measurement.z);
+          rowBin = utils.getRowBinIndex(measurement.phi);
+        }
         if (colBin < 0 || colBin >= colBinsCount) {
           colBin = std::clamp(colBin, 0, colBinsCount - 1);
         }
-        helper.bin = utils.getBinIndex(colBin, utils.getRowBinIndex(measurement.phi));
+        helper.bin = utils.getBinIndex(colBin, rowBin);
         helper.indexWithinBin = counts[helper.bin]++;
         helper.measurementIndex = measurementIndex;
         mMinR[layer] = o2::gpu::GPUCommonMath::Min(measurement.radius, mMinR[layer]);

@@ -182,6 +182,8 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const Vertex diamondVert(trkParam.Diamond, trkParam.DiamondCov, 1, 1.f);
+  const bool useMftHelixTracklets = detail::isMftTopology(topology.nLayers);
+  const float bz = context.bz;
 
   mTaskArena->execute([&] {
     auto forTracklets = [&](int fromLayer, int toLayer, SurfaceKind kind,
@@ -236,12 +238,20 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
           }
           const auto& indexTableUtils = mFrame->getIndexTableUtils(toLayer);
           TrackletSearchWindow window{};
-          if (!projectTrackletSearchWindow(sourceMeasurement, pv, mFrame->getBeamPositionVariance(),
-                                           kind, edgeCache, indexTableUtils,
-                                           mKernelParameters.nSigmaCut, window)) {
+          const bool hasWindow = useMftHelixTracklets && kind == SurfaceKind::Disk
+                                   ? projectMftHelixTrackletSearchWindow(sourceMeasurement, pv,
+                                                                         mFrame->getBeamPositionVariance(),
+                                                                         edgeCache, indexTableUtils, bz,
+                                                                         trkParam.TrackletMinPt,
+                                                                         mKernelParameters.nSigmaCut, window)
+                                   : projectTrackletSearchWindow(sourceMeasurement, pv, mFrame->getBeamPositionVariance(),
+                                                                 kind, edgeCache, indexTableUtils,
+                                                                 mKernelParameters.nSigmaCut, window);
+          if (!hasWindow) {
             continue;
           }
           const auto bins = window.bins;
+          const bool useXYRowBins = indexTableUtils.getCoordType() == o2::itsmft::IndexTableCoordType::XY;
           int rowBinsNum = bins.w - bins.y + 1;
           if (rowBinsNum < 0) {
             rowBinsNum += indexTableUtils.getNrowBins();
@@ -264,9 +274,15 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
             const int colBinRange = (bins.z - bins.x) + 1;
             for (int iRow = 0; iRow < rowBinsNum; ++iRow) {
               int iRowBin = bins.y + iRow;
-              iRowBin %= indexTableUtils.getNrowBins();
-              if (iRowBin < 0 || iRowBin >= indexTableUtils.getNrowBins()) {
-                break;
+              if (useXYRowBins) {
+                if (iRowBin >= indexTableUtils.getNrowBins()) {
+                  break;
+                }
+              } else {
+                iRowBin %= indexTableUtils.getNrowBins();
+                if (iRowBin < 0 || iRowBin >= indexTableUtils.getNrowBins()) {
+                  break;
+                }
               }
               const int firstBinIdx = indexTableUtils.getBinIndex(bins.x, iRowBin);
               const int maxBinIdx = firstBinIdx + colBinRange;
@@ -278,6 +294,29 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
                 }
                 const GlobalMeasurement& targetMeasurement = layer1[iNext];
                 if (mFrame->isClusterUsed(toLayer, targetMeasurement.clusterId)) {
+                  continue;
+                }
+
+                if (window.useHelixProjection) {
+                  if (!(window.sigmaX > 0.f && window.sigmaY > 0.f)) {
+                    continue;
+                  }
+                  const float dx = targetMeasurement.x - window.xProj;
+                  const float dy = targetMeasurement.y - window.yProj;
+                  const float invSigmaX2 = 1.f / (window.sigmaX * window.sigmaX);
+                  const float invSigmaY2 = 1.f / (window.sigmaY * window.sigmaY);
+                  const float transChi2 = dx * dx * invSigmaX2 + dy * dy * invSigmaY2;
+                  const float nSigmaCut2 = o2::its::math_utils::Sq(mKernelParameters.nSigmaCut);
+                  const float dxHit = targetMeasurement.x - sourceMeasurement.x;
+                  const float dyHit = targetMeasurement.y - sourceMeasurement.y;
+                  const float drHit = std::hypot(dxHit, dyHit);
+                  if (!(transChi2 < nSigmaCut2 && drHit > 1.e-6f)) {
+                    continue;
+                  }
+                  const float tanL = -std::abs(sourceMeasurement.z - targetMeasurement.z) / drHit;
+                  const float phi{o2::gpu::GPUCommonMath::ATan2(sourceMeasurement.y - targetMeasurement.y,
+                                                                sourceMeasurement.x - targetMeasurement.x)};
+                  emit(currentSortedIndex, mFrame->getSortedIndex(targetROF, toLayer, iNext), tanL, phi, ts);
                   continue;
                 }
 

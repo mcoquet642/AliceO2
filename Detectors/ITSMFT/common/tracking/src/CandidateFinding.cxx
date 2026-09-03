@@ -11,10 +11,13 @@
 
 #include "ITSMFTTracking/detail/CandidateFinding.h"
 
+#include <cmath>
+
 #include "DataFormatsITS/Vertex.h"
 #include "ITSMFTTracking/IndexTableUtils.h"
 #include "ITSMFTTracking/Constants.h"
 #include "ITSMFTTracking/MathUtils.h"
+#include "ITSMFTTracking/detail/MFTFwdTrackHelpers.h"
 
 namespace o2::itsmft::tracking
 {
@@ -83,15 +86,100 @@ bool projectTrackletSearchWindow(
   if (bins.x < 0) {
     return false;
   }
-  out = {bins,
-         referenceCoordinate,
-         projectedCoordinate,
-         slope,
-         varianceConstant,
-         varianceLinear,
-         varianceQuadratic,
-         sourceMeasurement.phi,
-         o2::its::math_utils::Sq(edgeCache.edgePhiCut / nSigmaCut)};
+  out = {};
+  out.bins = bins;
+  out.useHelixProjection = false;
+  out.sourceReferenceCoordinate = referenceCoordinate;
+  out.sourceProjectedCoordinate = projectedCoordinate;
+  out.slope = slope;
+  out.varianceConstant = varianceConstant;
+  out.varianceLinear = varianceLinear;
+  out.varianceQuadratic = varianceQuadratic;
+  out.phiPrediction = sourceMeasurement.phi;
+  out.phiVariance = o2::its::math_utils::Sq(edgeCache.edgePhiCut / nSigmaCut);
+  return true;
+}
+
+bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
+                                         const o2::its::Vertex& vertex,
+                                         float,
+                                         const TrackletProjectionCache& edgeCache,
+                                         const o2::itsmft::IndexTableUtilsCore& indexUtils,
+                                         float bz,
+                                         float trackletMinPt,
+                                         float nSigmaCut,
+                                         TrackletSearchWindow& out)
+{
+  using detail::mftLayerZ;
+  using detail::mftTrackletProject;
+  using detail::mftTrackletSigmaXY;
+
+  const int fromLayer = edgeCache.fromLayer;
+  const int toLayer = edgeCache.toLayer;
+  const float meanDeltaZ = mftLayerZ(toLayer) - mftLayerZ(fromLayer);
+  const float sigma2X0 = sourceMeasurement.covariance.xx > 0.f
+                           ? sourceMeasurement.covariance.xx
+                           : o2::its::math_utils::Sq(edgeCache.sourcePositionResolution);
+  const float sigma2Y0 = sourceMeasurement.covariance.yy > 0.f
+                           ? sourceMeasurement.covariance.yy
+                           : o2::its::math_utils::Sq(edgeCache.sourcePositionResolution);
+
+  float xProj = 0.f;
+  float yProj = 0.f;
+  mftTrackletProject(sourceMeasurement.x, sourceMeasurement.y, sourceMeasurement.z,
+                     vertex.getX(), vertex.getY(), vertex.getZ(),
+                     fromLayer, toLayer, bz, trackletMinPt, xProj, yProj);
+
+  float sigmaX = 0.f;
+  float sigmaY = 0.f;
+  mftTrackletSigmaXY(sourceMeasurement.x, sourceMeasurement.y,
+                     vertex.getX(), vertex.getY(), vertex.getZ(),
+                     sigma2X0, sigma2Y0,
+                     vertex.getSigmaX2(), vertex.getSigmaY2(), vertex.getSigmaZ2(),
+                     fromLayer, toLayer, edgeCache.fromRadius,
+                     meanDeltaZ, edgeCache.edgeMSAngle, edgeCache.edgePhiCut,
+                     xProj, yProj, sigmaX, sigmaY);
+
+  if (!(sigmaX > 0.f && sigmaY > 0.f)) {
+    return false;
+  }
+
+  const float zSpread = nSigmaCut * vertex.getSigmaZ();
+  const float zVtxMin = vertex.getZ() - zSpread;
+  const float zVtxMax = vertex.getZ() + zSpread;
+  const float zLayerFrom = mftLayerZ(fromLayer);
+  const float zLayerTo = mftLayerZ(toLayer);
+  const float absZFrom = std::abs(zLayerFrom);
+  const float absZTo = std::abs(zLayerTo);
+  const float denomMin = zVtxMax + absZFrom;
+  const float denomMax = absZFrom + zVtxMin;
+  float lutRangeMin = (std::abs(denomMin) > 1.e-6f)
+                        ? sourceMeasurement.radius * (zVtxMax + absZTo) / denomMin
+                        : sourceMeasurement.radius;
+  float lutRangeMax = (std::abs(denomMax) > 1.e-6f)
+                        ? sourceMeasurement.radius * (absZTo + zVtxMin) / denomMax
+                        : sourceMeasurement.radius;
+  if (lutRangeMin > lutRangeMax) {
+    const float tmp = lutRangeMin;
+    lutRangeMin = lutRangeMax;
+    lutRangeMax = tmp;
+  }
+
+  const float colWindow = sigmaX * nSigmaCut;
+  const float rowWindow = sigmaY * nSigmaCut;
+  const auto bins = o2::itsmft::getBinsRectClusterAtProj(xProj, yProj, toLayer, lutRangeMin, lutRangeMax,
+                                                         colWindow, rowWindow, indexUtils);
+  if (bins.x < 0) {
+    return false;
+  }
+
+  out = {};
+  out.bins = bins;
+  out.useHelixProjection = true;
+  out.xProj = xProj;
+  out.yProj = yProj;
+  out.sigmaX = sigmaX;
+  out.sigmaY = sigmaY;
   return true;
 }
 

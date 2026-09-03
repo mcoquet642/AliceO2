@@ -25,16 +25,11 @@
 
 #include "ITSMFTTracking/GenericTrack.h"
 #include "ITSMFTTracking/TimeFrame.h"
-#include "ITSMFTTracking/TrackingConfigParam.h"
+#include "ITSMFTTracking/detail/MFTFwdTrackHelpers.h"
 #include "SimulationDataFormat/MCCompLabel.h"
 
 namespace o2::itsmft::tracking::detail
 {
-
-inline bool isMftTopology(int nLayers) noexcept
-{
-  return nLayers == MFTNLayers;
-}
 
 /// Reference mft-time-aware occurrence counting: for each attached cluster, bump
 /// every matching label entry (multiple labels on one cluster can increment

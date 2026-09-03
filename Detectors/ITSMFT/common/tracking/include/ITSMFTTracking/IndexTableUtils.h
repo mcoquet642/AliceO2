@@ -10,7 +10,7 @@
 // or submit itself to any jurisdiction.
 ///
 /// \file IndexTableUtils.h
-/// \brief Shared index-table utilities for periodic-phi surface charts
+/// \brief Shared index-table utilities for ITS (phi-z), legacy disk (phi-r), and MFT (x-y)
 ///
 
 #ifndef ALICEO2_ITSMFT_TRACKING_INDEXTABLEUTILS_H_
@@ -32,7 +32,8 @@ namespace o2::itsmft
 {
 
 enum class IndexTableCoordType : uint8_t { PhiZ,
-                                           PhiR };
+                                           PhiR,
+                                           XY };
 
 namespace index_table_utils
 {
@@ -63,7 +64,7 @@ class IndexTableUtilsCore
                            gsl::span<const float> layerColMax)
   {
     mCoordType = coordType;
-    mRowOrigin = 0.f;
+    mRowOrigin = (coordType == IndexTableCoordType::XY) ? rowMin : 0.f;
     mRowCoordinateSpan = rowMax - rowMin;
     mInverseRowBinSize = (mRowCoordinateSpan > 0.f) ? static_cast<float>(nRowBins) / mRowCoordinateSpan : 0.f;
     mNcolBins = nColBins;
@@ -101,6 +102,15 @@ class IndexTableUtilsCore
                         0.f, o2::constants::math::TwoPI, gsl::span<const float>{extents.data(), static_cast<std::size_t>(extents.count)});
   }
 
+  /// Fill LUT geometry for MFT (row = global y, col = global x).
+  template <class T>
+  void setTrackingParametersXY(const T& params, float rowMin, float rowMax)
+  {
+    const auto extents = layerColHalfExtentFrom(params);
+    setIndexTableParams(IndexTableCoordType::XY, params.RowBins, params.ColBins, rowMin, rowMax,
+                        gsl::span<const float>{extents.data(), static_cast<std::size_t>(extents.count)});
+  }
+
   GPUhdi() float getInverseColCoordinate(const int layerIndex) const
   {
     return mInverseColBinSize[layerIndex];
@@ -113,6 +123,9 @@ class IndexTableUtilsCore
 
   GPUhdi() int getRowBinIndex(const float rowCoordinate) const
   {
+    if (mCoordType == IndexTableCoordType::XY) {
+      return (rowCoordinate - mRowOrigin) * mInverseRowBinSize;
+    }
     return rowCoordinate * mInverseRowBinSize;
   }
 
@@ -214,6 +227,49 @@ GPUhdi() int4 getBinsPhiColumn(float phi, const int layerIndex,
               utils.getRowBinIndex(index_table_utils::getNormalizedPhi(rowRangeMin)),
               o2::gpu::GPUCommonMath::Min(utils.getNcolBins() - 1, utils.getColBinIndex(layerIndex, colRangeMax)),
               utils.getRowBinIndex(index_table_utils::getNormalizedPhi(rowRangeMax))};
+}
+
+/// MFT: row = y, col = x.
+GPUhdi() int4 getBinsXY(float x, float y, const int layerIndex,
+                        float x1, float x2, float y1, float y2,
+                        float maxDeltaCol, float maxDeltaRow,
+                        const IndexTableUtilsCore& utils)
+{
+  const float colRangeMin = o2::gpu::GPUCommonMath::Min(x1, x2) - maxDeltaCol;
+  const float rowRangeMin = o2::gpu::GPUCommonMath::Min(y1, y2) - maxDeltaRow;
+  const float colRangeMax = o2::gpu::GPUCommonMath::Max(x1, x2) + maxDeltaCol;
+  const float rowRangeMax = o2::gpu::GPUCommonMath::Max(y1, y2) + maxDeltaRow;
+
+  if (colRangeMax < utils.getLayerColMin(layerIndex) ||
+      colRangeMin > utils.getLayerColMax(layerIndex) || colRangeMin > colRangeMax) {
+    return int4{-1, -1, -1, -1};
+  }
+
+  return int4{o2::gpu::GPUCommonMath::Max(0, utils.getColBinIndex(layerIndex, colRangeMin)),
+              o2::gpu::GPUCommonMath::Max(0, utils.getRowBinIndex(rowRangeMin)),
+              o2::gpu::GPUCommonMath::Min(utils.getNcolBins() - 1, utils.getColBinIndex(layerIndex, colRangeMax)),
+              utils.getRowBinIndex(rowRangeMax)};
+}
+
+/// MFT LUT window around a precomputed (x, y) projection on toLayer.
+/// colRangeMin/Max are radial bounds at toLayer from the diamond z spread.
+GPUhdi() int4 getBinsRectClusterAtProj(float xProj, float yProj, int toLayer,
+                                       float colRangeMin, float colRangeMax, float maxDeltaCol, float maxDeltaRow,
+                                       const IndexTableUtilsCore& utils)
+{
+  const float rProj = o2::gpu::GPUCommonMath::Hypot(xProj, yProj);
+  float x1 = xProj;
+  float x2 = xProj;
+  float y1 = yProj;
+  float y2 = yProj;
+  if (rProj > 0.f) {
+    const float invRProj = 1.f / rProj;
+    x1 = colRangeMin * xProj * invRProj;
+    x2 = colRangeMax * xProj * invRProj;
+    y1 = colRangeMin * yProj * invRProj;
+    y2 = colRangeMax * yProj * invRProj;
+  }
+  return getBinsXY(xProj, yProj, toLayer, x1, x2, y1, y2, maxDeltaCol, maxDeltaRow, utils);
 }
 
 } // namespace o2::itsmft
