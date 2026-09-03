@@ -969,8 +969,8 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
   // layer data.
   // Filter roads by absolute q/pT in parameters[4]'s units, identically for
   // both families. Non-finite values fail the finite-bound comparison.
-  // MinTrackLength is enforced as the number of hit layers (cluster count),
-  // matching mft-time-aware / ITS road acceptance — not MinTrackLength-MaxHoles.
+  // MinTrackLength is the number of hit layers (LayerMask::count), not the
+  // layer span (LayerMask::length) and not MinTrackLength-MaxHoles.
   constexpr float maxAbsQOverPt = 1.e3f;
   const auto seedingLayerMask = context.topology.seedingLayers;
   const auto nonSeedingLayerMask = ~seedingLayerMask;
@@ -989,7 +989,7 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
         const auto hitLayerMask = seed.getHitLayerMask();
         const auto effectiveHoleMask = hitLayerMask.holeMask() & ~nonSeedingLayerMask;
         return effectiveHoleMask.isAllowedHoleMask(trkParam.MaxHoles, holeLayerMask) &&
-               hitLayerMask.length() >= trkParam.MinTrackLength &&
+               hitLayerMask.count() >= trkParam.MinTrackLength &&
                std::abs(seed.getQOverPt()) <= maxAbsQOverPt && seed.getChi2() <= trkParam.MaxChi2NDF * ((startLevel + 2) * 2 - 5);
       };
 
