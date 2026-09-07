@@ -182,7 +182,8 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const Vertex diamondVert(trkParam.Diamond, trkParam.DiamondCov, 1, 1.f);
-  const bool useMftHelixTracklets = detail::isMftTopology(topology.nLayers);
+  const bool isMftTopology = detail::isMftTopology(topology.nLayers);
+  const bool useMftHelixTracklets = isMftTopology && trkParam.UseMftHelixTracklets;
   const float bz = context.bz;
 
   mTaskArena->execute([&] {
@@ -308,7 +309,7 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
                   continue;
                 }
                 float tanL;
-                if (useMftHelixTracklets && kind == SurfaceKind::Disk) {
+                if (isMftTopology && kind == SurfaceKind::Disk) {
                   const float dxHit = sourceMeasurement.x - targetMeasurement.x;
                   const float dyHit = sourceMeasurement.y - targetMeasurement.y;
                   const float drHit = std::hypot(dxHit, dyHit);
