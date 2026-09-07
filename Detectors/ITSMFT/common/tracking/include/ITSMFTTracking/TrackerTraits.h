@@ -10,7 +10,7 @@
 // or submit itself to any jurisdiction.
 ///
 /// \file TrackerTraits.h
-/// \brief Shared CA tracker traits: same ITS-style tracklet/cell/road logic; MFT uses x-y LUT and forward refit
+/// \brief Shared CA tracker traits: same ITS-style tracklet/cell/road logic; MFT uses phi-r LUT and forward refit
 ///
 
 #ifndef ALICEO2_ITSMFT_TRACKING_TRACKERTRAITS_H_

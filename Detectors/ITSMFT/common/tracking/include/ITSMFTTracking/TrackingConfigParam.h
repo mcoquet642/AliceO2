@@ -140,8 +140,8 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float deltaTanLres = -1.f; // Multiplier on CellDeltaTanLambdaSigma (MFT cell Δtanλ gate); <=0 uses 1.
   float minPt = -1.f;
   float pvRes = -1.f;
-  int LUTbinsU = N == o2::detectors::DetID::MFT ? 64 : -1;                              // LUT bins along the first coordinate (ITS: phi, MFT: global x).
-  int LUTbinsV = N == o2::detectors::DetID::MFT ? 128 : -1;                             // LUT bins along the second coordinate (ITS: z, MFT: global y).
+  int LUTbinsU = N == o2::detectors::DetID::MFT ? 64 : -1;                              // LUT bins along the column coordinate (ITS: z, MFT: r).
+  int LUTbinsV = N == o2::detectors::DetID::MFT ? 128 : -1;                             // LUT bins along the row coordinate (ITS: phi, MFT: phi).
   float diamondPos[3] = {0.f, 0.f, 0.f};                                                // Diamond vertex for MFT seeds, or ITS when useDiamond.
   bool useDiamond = N == o2::detectors::DetID::MFT;                                     // MFT always uses diamond; ITS opts in.
   bool perPrimaryVertexProcessing = false;                                              // Track separately for each vertex hypothesis.

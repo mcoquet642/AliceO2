@@ -166,9 +166,7 @@ struct IterationParameters {
 struct TrackingParameters : public IterationParameters {
   std::vector<uint32_t> AddTimeError = {0, 0, 0, 0, 0, 0, 0};
   std::vector<float> LayerZ{tracking::kITSLookupZHalfExtent.begin(), tracking::kITSLookupZHalfExtent.end()};
-  std::vector<float> LayerColHalfExtent{}; // Index-table column half extent (ITS z, MFT global x); falls back to LayerZ.
-  float IndexRowMin{0.f};                  // Index-table row minimum (MFT global y); unused for ITS phi-z.
-  float IndexRowMax{0.f};                  // Index-table row maximum (MFT global y); 0 means TwoPI for ITS.
+  std::vector<float> LayerColHalfExtent{}; // Index-table column half extent (ITS z, MFT r); falls back to LayerZ.
   std::vector<float> LayerRadii = {2.33959f, 3.14076f, 3.91924f, 19.6213f, 24.5597f, 34.388f, 39.3329f};
   std::vector<float> LayerxX0{tracking::kNominalITSLayerX0.begin(), tracking::kNominalITSLayerX0.end()};
   std::vector<float> LayerResolution = {5.e-4f, 5.e-4f, 5.e-4f, 5.e-4f, 5.e-4f, 5.e-4f, 5.e-4f};

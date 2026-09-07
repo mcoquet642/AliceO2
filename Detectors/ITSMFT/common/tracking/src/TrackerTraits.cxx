@@ -251,7 +251,6 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
             continue;
           }
           const auto bins = window.bins;
-          const bool useXYRowBins = indexTableUtils.getCoordType() == o2::itsmft::IndexTableCoordType::XY;
           int rowBinsNum = bins.w - bins.y + 1;
           if (rowBinsNum < 0) {
             rowBinsNum += indexTableUtils.getNrowBins();
@@ -274,15 +273,9 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
             const int colBinRange = (bins.z - bins.x) + 1;
             for (int iRow = 0; iRow < rowBinsNum; ++iRow) {
               int iRowBin = bins.y + iRow;
-              if (useXYRowBins) {
-                if (iRowBin >= indexTableUtils.getNrowBins()) {
-                  break;
-                }
-              } else {
-                iRowBin %= indexTableUtils.getNrowBins();
-                if (iRowBin < 0 || iRowBin >= indexTableUtils.getNrowBins()) {
-                  break;
-                }
+              iRowBin %= indexTableUtils.getNrowBins();
+              if (iRowBin < 0 || iRowBin >= indexTableUtils.getNrowBins()) {
+                break;
               }
               const int firstBinIdx = indexTableUtils.getBinIndex(bins.x, iRowBin);
               const int maxBinIdx = firstBinIdx + colBinRange;
