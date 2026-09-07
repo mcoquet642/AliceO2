@@ -409,7 +409,9 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
-  const bool useMftCells = detail::isMftTopology(topology.nLayers);
+  const bool isMftTopology = detail::isMftTopology(topology.nLayers);
+  const bool useMftFwdCells = isMftTopology && trkParam.UseMftFwdCells;
+  const bool useMftFwdNeighbours = isMftTopology && trkParam.UseMftFwdNeighbours;
 
   mTaskArena->execute([&] {
     auto forTrackletCells = [&](int firstEdgeId, int secondEdgeId, const std::array<int, 3>& hitLayers, int iTracklet, auto&& emit) {
@@ -433,8 +435,8 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         const auto& outer = mLayerGlobalMeasurements[hitLayers[2]][sortedId[2]];
         const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
 
-        if (useMftCells) {
-          // Tier 6: mft-time-aware cell gates (Δtanλ, Δφ, conical road, forward Kalman).
+        if (useMftFwdCells) {
+          // MFT forward-fit cell gates (Δtanλ, Δφ, forward Kalman).
           const float tanLSigma = std::max(trkParam.CellDeltaTanLambdaSigma, o2::constants::math::Almost0);
           const float deltaTanLambdaSigma = std::abs(currentTracklet.tanLambda - nextTracklet.tanLambda) / tanLSigma;
           if (deltaTanLambdaSigma >= mKernelParameters.nSigmaCut) {
@@ -481,17 +483,20 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         }
 
         TripletFitFactor tripletFactor{};
-        // MFT neighbours use forward-state χ²; tripletFactor is best-effort for MFT.
-        if (makeTripletFitFactor(measurements, tripletFactor) || useMftCells) {
-          TimeEstBC ts = currentTracklet.getTimeStamp();
-          ts += nextTracklet.getTimeStamp();
-          // Build directly from the resolved plan positions; plan validation
-          // already checked them against the cell's hit-surface mask.
-          const LayerMask hitLayerMask{hitLayers[0], hitLayers[1], hitLayers[2]};
-          CellSeed seed{hitLayerMask, sortedId[0], sortedId[1], sortedId[2], iTracklet, iNextTracklet, ts};
-          seed.tripletFactor() = tripletFactor;
-          emit(std::move(seed));
+        // Unified neighbour linking needs a valid tripletFactor. Pure MFT forward
+        // cells+neighbours can emit without it.
+        const bool hasTriplet = makeTripletFitFactor(measurements, tripletFactor);
+        if (!hasTriplet && !(useMftFwdCells && useMftFwdNeighbours)) {
+          continue;
         }
+        TimeEstBC ts = currentTracklet.getTimeStamp();
+        ts += nextTracklet.getTimeStamp();
+        // Build directly from the resolved plan positions; plan validation
+        // already checked them against the cell's hit-surface mask.
+        const LayerMask hitLayerMask{hitLayers[0], hitLayers[1], hitLayers[2]};
+        CellSeed seed{hitLayerMask, sortedId[0], sortedId[1], sortedId[2], iTracklet, iNextTracklet, ts};
+        seed.tripletFactor() = tripletFactor;
+        emit(std::move(seed));
       }
     };
 
@@ -554,7 +559,8 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
   const auto& globalMeasurements = context.layerGlobalMeasurements;
   const auto& params = context.configuration.kernelParameters;
   const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
-  const bool useMftCells = detail::isMftTopology(topology.nLayers);
+  const bool useMftFwdNeighbours = detail::isMftTopology(topology.nLayers) &&
+                                   context.configuration.parameters.UseMftFwdNeighbours;
   const float bz = context.bz;
   for (std::size_t slot = 0; slot < scratch.getCellsNeighbours().size(); ++slot) {
     deepVectorClear(scratch.getCellsNeighbours()[slot]);
@@ -672,7 +678,7 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
             }
             AdjacentTripletFitResult adjacentFit{};
             bool neighbourAccepted = false;
-            if (useMftCells) {
+            if (useMftFwdNeighbours) {
               const std::array<GlobalMeasurement, 3> currentMeas{measurements[0], measurements[1], measurements[2]};
               const std::array<GlobalMeasurement, 3> nextMeas{measurements[1], measurements[2], measurements[3]};
               const std::array<int, 3> currentLayers{references[0].surfacePosition, references[1].surfacePosition,

@@ -134,6 +134,8 @@ void resetDetectorDefaults(TrackingParameters& p, detectors::DetID::ID detId)
     p.MinPt.assign(TrackerParamConfig<detectors::DetID::MFT>::MaxTrackLength - TrackerParamConfig<detectors::DetID::MFT>::MinTrackLength + 1, 0.f);
     p.CellDeltaTanLambdaSigma = 0.007f;
     p.CellDeltaPhiCut = 0.15f;
+    p.UseMftFwdCells = true;
+    p.UseMftFwdNeighbours = true;
     return;
   }
 
@@ -372,14 +374,16 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     if (tc.cellDeltaPhiCut >= 0.f) {
       p.CellDeltaPhiCut = tc.cellDeltaPhiCut;
     }
-    for (int iD{0}; iD < 3; ++iD) {
-      p.Diamond[iD] = tc.diamondPos[iD];
-    }
     if (detId == detectors::DetID::MFT) {
+      p.UseMftFwdCells = tc.useMftFwdCells;
+      p.UseMftFwdNeighbours = tc.useMftFwdNeighbours;
       p.UseDiamond = true;
       p.PerPrimaryVertexProcessing = false;
     } else {
       p.UseDiamond = tc.useDiamond;
+    }
+    for (int iD{0}; iD < 3; ++iD) {
+      p.Diamond[iD] = tc.diamondPos[iD];
     }
   }
 

@@ -167,6 +167,8 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float sharedClusterMaxDeltaEta = 0.03f; // Maximum delta eta at the cluster.
   bool sharedClusterOppositeSign = false; // Require opposite-sign tracklets.
   float cellDeltaPhiCut = -1.f;         // max |Δφ| between consecutive tracklets; <0 uses default, 0 disables.
+  bool useMftFwdCells = true;           // MFT: forward-fit cells; false = unified MS/curvature cells.
+  bool useMftFwdNeighbours = true;      // MFT: forward-state neighbour χ²; false = unified triplet neighbours.
   // Intentionally absent: trackletMinAbsX, cellRoadRCut, useMftHelixTracklets (removed; do not reintroduce).
 
   O2ParamDef(TrackerParamConfig, getParamName().data());
