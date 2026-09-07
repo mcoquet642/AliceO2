@@ -464,10 +464,6 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
               !math_utils::isPhiDifferenceBelow(currentTracklet.phi, nextTracklet.phi, trkParam.CellDeltaPhiCut)) {
             continue;
           }
-          if (!detail::validateMFTCellClusters(inner, hitLayers[0], middle, hitLayers[1], outer, hitLayers[2],
-                                               trkParam.CellRoadRCut)) {
-            continue;
-          }
           o2::track::TrackParCovFwd fwdTrack;
           float fwdChi2 = 0.f;
           if (!detail::mftFwdFitCellClusters(measurements, hitLayers, layerMaterial,

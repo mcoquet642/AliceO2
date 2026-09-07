@@ -19,7 +19,6 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
-#include <limits>
 
 #include <gsl/span>
 
@@ -204,46 +203,6 @@ inline bool mftFwdAttachCluster(o2::track::TrackParCovFwd& track, float z, float
   }
   chi2 += predChi2;
   return true;
-}
-
-/// Squared transverse distance from cluster c to the seed line c1→c2 (legacy MFT getDistanceToSeed).
-inline float mftDistanceToSeedSquared(const GlobalMeasurement& c1, const GlobalMeasurement& c2, const GlobalMeasurement& c)
-{
-  const float dxSeed = c2.x - c1.x;
-  const float dySeed = c2.y - c1.y;
-  const float dzSeed = c2.z - c1.z;
-  if (std::abs(dzSeed) < 1e-9f) {
-    return std::numeric_limits<float>::max();
-  }
-  const float invdzSeed = (c.z - c1.z) / dzSeed;
-  const float xSeed = c1.x + dxSeed * invdzSeed;
-  const float ySeed = c1.y + dySeed * invdzSeed;
-  const float dx = c.x - xSeed;
-  const float dy = c.y - ySeed;
-  return dx * dx + dy * dy;
-}
-
-/// Conical road scale (1 + dz/z_from)^2 between half-layers (legacy ROADclsRCut behaviour).
-inline float mftConicalRoadR2Scale(int layerFrom, int layerTo)
-{
-  const float zFrom = mftLayerZ(layerFrom);
-  if (std::abs(zFrom) < 1e-6f) {
-    return 1.f;
-  }
-  const float dCone = 1.f + (mftLayerZ(layerTo) - zFrom) / zFrom;
-  return dCone * dCone;
-}
-
-/// Cheap geometric pre-cut before forward cell fit (CellRoadRCut / ROADclsRCut).
-inline bool validateMFTCellClusters(const GlobalMeasurement& c0, int layer0,
-                                    const GlobalMeasurement& c1, int layer1,
-                                    const GlobalMeasurement& c2, int layer2,
-                                    float r2Cut)
-{
-  const float r2 = r2Cut * r2Cut;
-  return mftDistanceToSeedSquared(c0, c2, c1) < r2 * mftConicalRoadR2Scale(layer0, layer1) &&
-         mftDistanceToSeedSquared(c0, c1, c2) < r2 * mftConicalRoadR2Scale(layer0, layer2) &&
-         mftDistanceToSeedSquared(c1, c2, c0) < r2 * mftConicalRoadR2Scale(layer1, layer0);
 }
 
 /// Build inward forward seed at the outer cluster and Kalman-fit the three cell clusters.

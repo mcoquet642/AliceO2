@@ -125,11 +125,9 @@ struct IterationParameters {
   float PVres = 1.e-2f;
   /// Trackleting cuts
   float TrackletMinPt = 0.3f;
-  float TrackletMinAbsX = 0.f; // MFT: reject clusters/tracks with |x| below this (cm); 0 = disabled
-  /// MFT cell-building cuts (mft-time-aware reference)
+  /// MFT cell-building cuts. Do not reintroduce TrackletMinAbsX or CellRoadRCut.
   float CellDeltaTanLambdaSigma = 0.007f;
   float CellDeltaPhiCut = -1.f; // max |Δφ| between consecutive tracklets; <=0 disables
-  float CellRoadRCut = 0.05f;   // max distance to seed line (ROADclsRCut)
   /// Fitter parameters
   o2::base::PropagatorImpl<float>::MatCorrType CorrType = o2::base::PropagatorImpl<float>::MatCorrType::USEMatCorrNONE;
   float MaxChi2ClusterAttachment = 60.f;
