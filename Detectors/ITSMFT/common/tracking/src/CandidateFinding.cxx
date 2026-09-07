@@ -11,13 +11,10 @@
 
 #include "ITSMFTTracking/detail/CandidateFinding.h"
 
-#include <cmath>
-
 #include "DataFormatsITS/Vertex.h"
 #include "ITSMFTTracking/IndexTableUtils.h"
 #include "ITSMFTTracking/Constants.h"
 #include "ITSMFTTracking/MathUtils.h"
-#include "ITSMFTTracking/detail/MFTFwdTrackHelpers.h"
 
 namespace o2::itsmft::tracking
 {
@@ -87,7 +84,6 @@ bool projectTrackletSearchWindow(
     return false;
   }
   out = {bins,
-         false,
          referenceCoordinate,
          projectedCoordinate,
          slope,
@@ -96,66 +92,6 @@ bool projectTrackletSearchWindow(
          varianceQuadratic,
          sourceMeasurement.phi,
          o2::its::math_utils::Sq(edgeCache.edgePhiCut / nSigmaCut)};
-  return true;
-}
-
-bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
-                                         const o2::its::Vertex& vertex,
-                                         float beamPositionVariance,
-                                         const TrackletProjectionCache& edgeCache,
-                                         const o2::itsmft::IndexTableUtilsCore& indexUtils,
-                                         float bz,
-                                         float trackletMinPt,
-                                         float nSigmaCut,
-                                         TrackletSearchWindow& out)
-{
-  // Keep Tier-3 linear acceptance fields (r/phi chi2, tanL path). Helix only
-  // recenters the PhiR LUT window on the projected (x,y) → (r,φ).
-  if (!projectTrackletSearchWindow(sourceMeasurement, vertex, beamPositionVariance,
-                                   SurfaceKind::Disk, edgeCache, indexUtils, nSigmaCut, out)) {
-    return false;
-  }
-
-  float xProj = 0.f;
-  float yProj = 0.f;
-  detail::mftTrackletProject(sourceMeasurement.x, sourceMeasurement.y, sourceMeasurement.z,
-                             vertex.getX(), vertex.getY(), vertex.getZ(),
-                             edgeCache.fromLayer, edgeCache.toLayer, bz, trackletMinPt, xProj, yProj);
-
-  const float rProj = std::hypot(xProj, yProj);
-  if (!(rProj > o2::its::constants::Tolerance)) {
-    return false;
-  }
-  const float phiProj = o2::its::math_utils::computePhi(xProj, yProj);
-
-  const float minDelta = edgeCache.targetMinZ - out.sourceReferenceCoordinate;
-  const float maxDelta = edgeCache.targetMaxZ - out.sourceReferenceCoordinate;
-  const float minPrediction = out.sourceProjectedCoordinate + out.slope * minDelta;
-  const float minVariance = out.varianceConstant + minDelta * (out.varianceLinear + minDelta * out.varianceQuadratic);
-  const float maxPrediction = out.sourceProjectedCoordinate + out.slope * maxDelta;
-  const float maxVariance = out.varianceConstant + maxDelta * (out.varianceLinear + maxDelta * out.varianceQuadratic);
-  if (!(minVariance > 0.f && maxVariance > 0.f)) {
-    return false;
-  }
-  const float lowerBound = o2::gpu::CAMath::Min(minPrediction - nSigmaCut * o2::gpu::CAMath::Sqrt(minVariance),
-                                                maxPrediction - nSigmaCut * o2::gpu::CAMath::Sqrt(maxVariance));
-  const float upperBound = o2::gpu::CAMath::Max(minPrediction + nSigmaCut * o2::gpu::CAMath::Sqrt(minVariance),
-                                                maxPrediction + nSigmaCut * o2::gpu::CAMath::Sqrt(maxVariance));
-  const float linearMid = 0.5f * (lowerBound + upperBound);
-  const float searchHalfWidth = 0.5f * (upperBound - lowerBound) + std::abs(rProj - linearMid);
-
-  const auto bins = o2::itsmft::getBinsPhiColumn(phiProj, edgeCache.toLayer, rProj, searchHalfWidth,
-                                                 edgeCache.edgePhiCut, indexUtils);
-  if (bins.x < 0) {
-    return false;
-  }
-
-  out.bins = bins;
-  out.useHelixProjection = false;
-  out.xProj = xProj;
-  out.yProj = yProj;
-  out.sigmaX = 0.f;
-  out.sigmaY = 0.f;
   return true;
 }
 

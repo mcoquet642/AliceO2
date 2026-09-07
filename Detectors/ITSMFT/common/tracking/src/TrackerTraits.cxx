@@ -183,8 +183,6 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
   const auto& topology = mTraversalGraph;
   const Vertex diamondVert(trkParam.Diamond, trkParam.DiamondCov, 1, 1.f);
   const bool isMftTopology = detail::isMftTopology(topology.nLayers);
-  const bool useMftHelixTracklets = isMftTopology && trkParam.UseMftHelixTracklets;
-  const float bz = context.bz;
 
   mTaskArena->execute([&] {
     auto forTracklets = [&](int fromLayer, int toLayer, SurfaceKind kind,
@@ -239,16 +237,9 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
           }
           const auto& indexTableUtils = mFrame->getIndexTableUtils(toLayer);
           TrackletSearchWindow window{};
-          const bool hasWindow = useMftHelixTracklets && kind == SurfaceKind::Disk
-                                   ? projectMftHelixTrackletSearchWindow(sourceMeasurement, pv,
-                                                                         mFrame->getBeamPositionVariance(),
-                                                                         edgeCache, indexTableUtils, bz,
-                                                                         trkParam.TrackletMinPt,
-                                                                         mKernelParameters.nSigmaCut, window)
-                                   : projectTrackletSearchWindow(sourceMeasurement, pv, mFrame->getBeamPositionVariance(),
-                                                                 kind, edgeCache, indexTableUtils,
-                                                                 mKernelParameters.nSigmaCut, window);
-          if (!hasWindow) {
+          if (!projectTrackletSearchWindow(sourceMeasurement, pv, mFrame->getBeamPositionVariance(),
+                                           kind, edgeCache, indexTableUtils,
+                                           mKernelParameters.nSigmaCut, window)) {
             continue;
           }
           const auto bins = window.bins;

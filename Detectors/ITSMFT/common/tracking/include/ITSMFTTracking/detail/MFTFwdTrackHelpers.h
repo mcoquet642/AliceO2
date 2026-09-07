@@ -105,48 +105,6 @@ inline void mftTrackletProject(float xCl, float yCl, float zCl, float pvX, float
                      bz, minPt, xProj, yProj);
 }
 
-inline void mftTrackletSigmaXY(float x0, float y0, float pvX, float pvY, float pvZ,
-                               float sigma2X0, float sigma2Y0, float sigma2PvX, float sigma2PvY, float sigma2PvZ,
-                               float zFrom, float zTo, float rLayerFrom, float meanDeltaZ, float msAngle,
-                               float bendingAngle, float xProj, float yProj, float& sigmaX, float& sigmaY)
-{
-  const float dz0 = zFrom - pvZ;
-  const float tanlRef = (std::abs(rLayerFrom) > 1e-6f) ? zFrom / rLayerFrom : 0.f;
-  const float sigma2MS = meanDeltaZ * meanDeltaZ * msAngle * msAngle * (tanlRef * tanlRef + 1.f);
-  if (std::abs(dz0) < o2::its::constants::Tolerance) {
-    sigmaX = std::sqrt(sigma2X0 + sigma2PvX + sigma2MS);
-    sigmaY = std::sqrt(sigma2Y0 + sigma2PvY + sigma2MS);
-  } else {
-    const float w = (zTo - pvZ) / dz0;
-    const float invDz0 = w / dz0;
-    const float sigma2W = invDz0 * invDz0 * sigma2PvZ;
-    const float dx0 = x0 - pvX;
-    const float dy0 = y0 - pvY;
-    const float oneMinusW = 1.f - w;
-    sigmaX = std::sqrt(oneMinusW * oneMinusW * sigma2PvX + w * w * sigma2X0 + dx0 * dx0 * sigma2W + sigma2MS);
-    sigmaY = std::sqrt(oneMinusW * oneMinusW * sigma2PvY + w * w * sigma2Y0 + dy0 * dy0 * sigma2W + sigma2MS);
-  }
-  const float rProj = std::hypot(xProj, yProj);
-  if (rProj > 1e-6f && bendingAngle > 0.f) {
-    const float dr = rProj * bendingAngle;
-    const float invR = 1.f / rProj;
-    const float sinPhi = yProj * invR;
-    const float cosPhi = xProj * invR;
-    sigmaX = std::sqrt(sigmaX * sigmaX + dr * dr * sinPhi * sinPhi);
-    sigmaY = std::sqrt(sigmaY * sigmaY + dr * dr * cosPhi * cosPhi);
-  }
-}
-
-inline void mftTrackletSigmaXY(float x0, float y0, float pvX, float pvY, float pvZ,
-                               float sigma2X0, float sigma2Y0, float sigma2PvX, float sigma2PvY, float sigma2PvZ,
-                               int fromLayer, int toLayer, float rLayerFrom, float meanDeltaZ, float msAngle,
-                               float bendingAngle, float xProj, float yProj, float& sigmaX, float& sigmaY)
-{
-  mftTrackletSigmaXY(x0, y0, pvX, pvY, pvZ, sigma2X0, sigma2Y0, sigma2PvX, sigma2PvY, sigma2PvZ,
-                     mftLayerZ(fromLayer), mftLayerZ(toLayer), rLayerFrom, meanDeltaZ, msAngle,
-                     bendingAngle, xProj, yProj, sigmaX, sigmaY);
-}
-
 inline void mftFwdPropagateToZ(o2::track::TrackParCovFwd& track, float z, float bz)
 {
   if (std::abs(bz) > 0.01f) {

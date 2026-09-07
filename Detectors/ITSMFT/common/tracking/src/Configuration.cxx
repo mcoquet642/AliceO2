@@ -131,7 +131,6 @@ void resetDetectorDefaults(TrackingParameters& p, detectors::DetID::ID detId)
     p.UseDiamond = true;
     p.PerPrimaryVertexProcessing = false;
     p.StartLayerMask = (1u << nLayers) - 1u;
-    p.UseMftHelixTracklets = true;
     p.MinPt.assign(TrackerParamConfig<detectors::DetID::MFT>::MaxTrackLength - TrackerParamConfig<detectors::DetID::MFT>::MinTrackLength + 1, 0.f);
     p.CellDeltaTanLambdaSigma = 0.007f;
     p.CellDeltaPhiCut = 0.15f;
@@ -372,9 +371,6 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     p.TrackletMinPt *= tc.minPt > 0 ? tc.minPt : 1.f;
     if (tc.cellDeltaPhiCut >= 0.f) {
       p.CellDeltaPhiCut = tc.cellDeltaPhiCut;
-    }
-    if (detId == detectors::DetID::MFT) {
-      p.UseMftHelixTracklets = tc.useMftHelixTracklets;
     }
     for (int iD{0}; iD < 3; ++iD) {
       p.Diamond[iD] = tc.diamondPos[iD];

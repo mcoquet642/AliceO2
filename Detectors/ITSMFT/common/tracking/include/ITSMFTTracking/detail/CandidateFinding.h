@@ -53,7 +53,6 @@ struct TrackletProjectionCache {
 
 struct TrackletSearchWindow {
   int4 bins;
-  bool useHelixProjection{false};
   float sourceReferenceCoordinate{0.f};
   float sourceProjectedCoordinate{0.f};
   float slope{0.f};
@@ -62,10 +61,6 @@ struct TrackletSearchWindow {
   float varianceQuadratic{0.f};
   float phiPrediction{0.f};
   float phiVariance{0.f};
-  float xProj{0.f};
-  float yProj{0.f};
-  float sigmaX{0.f};
-  float sigmaY{0.f};
 };
 
 bool projectTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
@@ -76,16 +71,6 @@ bool projectTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
                                  const o2::itsmft::IndexTableUtilsCore& indexUtils,
                                  float nSigmaCut,
                                  TrackletSearchWindow& out);
-
-bool projectMftHelixTrackletSearchWindow(const GlobalMeasurement& sourceMeasurement,
-                                         const o2::its::Vertex& vertex,
-                                         float beamPositionVariance,
-                                         const TrackletProjectionCache& edgeCache,
-                                         const o2::itsmft::IndexTableUtilsCore& indexUtils,
-                                         float bz,
-                                         float trackletMinPt,
-                                         float nSigmaCut,
-                                         TrackletSearchWindow& out);
 
 #endif
 

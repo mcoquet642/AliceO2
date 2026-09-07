@@ -125,8 +125,6 @@ struct IterationParameters {
   float PVres = 1.e-2f;
   /// Trackleting cuts
   float TrackletMinPt = 0.3f;
-  /// MFT: helix-recenter PhiR LUT for disk tracklets. false = original unified linear projection.
-  bool UseMftHelixTracklets = true;
   /// MFT cell-building cuts. Do not reintroduce TrackletMinAbsX or CellRoadRCut.
   float CellDeltaTanLambdaSigma = 0.007f;
   float CellDeltaPhiCut = -1.f; // max |Δφ| between consecutive tracklets; <=0 disables
