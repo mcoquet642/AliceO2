@@ -183,6 +183,7 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const Vertex diamondVert(trkParam.Diamond, trkParam.DiamondCov, 1, 1.f);
+  const bool isMftTopology = detail::isMftTopology(topology.nLayers);
 
   mTaskArena->execute([&] {
     auto forTracklets = [&](int fromLayer, int toLayer, SurfaceKind kind,
@@ -299,9 +300,21 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
                 if (chi2 >= o2::its::math_utils::Sq(mKernelParameters.nSigmaCut)) {
                   continue;
                 }
-                const float deltaR = sourceMeasurement.radius - targetMeasurement.radius;
-                const float deltaZ = sourceMeasurement.z - targetMeasurement.z;
-                const float tanL = o2::its::math_utils::Sq(deltaR) > o2::constants::math::Almost0 ? deltaZ / deltaR : std::copysign(o2::constants::math::VeryBig, deltaZ);
+                float tanL;
+                if (isMftTopology && kind == SurfaceKind::Disk) {
+                  // mft-time-aware: tanλ from Cartesian chord, forward-track sign.
+                  const float dxHit = sourceMeasurement.x - targetMeasurement.x;
+                  const float dyHit = sourceMeasurement.y - targetMeasurement.y;
+                  const float drHit = std::hypot(dxHit, dyHit);
+                  if (!(drHit > 1.e-6f)) {
+                    continue;
+                  }
+                  tanL = -std::abs(sourceMeasurement.z - targetMeasurement.z) / drHit;
+                } else {
+                  const float deltaR = sourceMeasurement.radius - targetMeasurement.radius;
+                  const float deltaZ = sourceMeasurement.z - targetMeasurement.z;
+                  tanL = o2::its::math_utils::Sq(deltaR) > o2::constants::math::Almost0 ? deltaZ / deltaR : std::copysign(o2::constants::math::VeryBig, deltaZ);
+                }
                 const float phi{o2::gpu::GPUCommonMath::ATan2(sourceMeasurement.y - targetMeasurement.y,
                                                               sourceMeasurement.x - targetMeasurement.x)};
                 emit(currentSortedIndex, mFrame->getSortedIndex(targetROF, toLayer, iNext), tanL, phi, ts);
