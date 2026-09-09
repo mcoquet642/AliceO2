@@ -169,6 +169,8 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float cellDeltaPhiCut = -1.f;         // max |Δφ| between consecutive tracklets; <0 uses default, 0 disables.
   bool useMftFwdCells = true;           // MFT: forward-fit cells; false = unified MS/curvature cells.
   bool useMftFwdNeighbours = true;      // MFT: forward-state neighbour χ²; false = unified triplet neighbours.
+  bool useUnifiedCellFwdKalman = false; // When useMftFwdCells=false: fwd Kalman quality instead of makeTripletFitFactor.
+  bool dumpCellDiagnostics = false;     // Write mft_cell_diagnostics.root with cell-construction distributions.
   // Intentionally absent: trackletMinAbsX, cellRoadRCut, useMftHelixTracklets (removed; do not reintroduce).
 
   O2ParamDef(TrackerParamConfig, getParamName().data());

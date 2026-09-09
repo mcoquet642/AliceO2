@@ -39,6 +39,7 @@
 #include "ITSMFTTracking/Propagator.h"
 #include "ITSMFTTracking/MaterialPhysics.h"
 #include "ITSMFTTracking/detail/MFTFwdTrackHelpers.h"
+#include "ITSMFTTracking/detail/CellConstructionDiagnostics.h"
 #include "ITSMFTTracking/IndexTableUtils.h"
 #include "ITSMFTTracking/LayerMask.h"
 #include "ITSMFTTracking/TripletFitting.h"
@@ -412,6 +413,8 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const bool isMftTopology = detail::isMftTopology(topology.nLayers);
   const bool useMftFwdCells = isMftTopology && trkParam.UseMftFwdCells;
   const bool useMftFwdNeighbours = isMftTopology && trkParam.UseMftFwdNeighbours;
+  const bool useUnifiedCellFwdKalman = isMftTopology && trkParam.UseUnifiedCellFwdKalman;
+  const bool dumpCellDiagnostics = isMftTopology && trkParam.DumpCellDiagnostics;
 
   mTaskArena->execute([&] {
     auto forTrackletCells = [&](int firstEdgeId, int secondEdgeId, const std::array<int, 3>& hitLayers, int iTracklet, auto&& emit) {
@@ -435,11 +438,37 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         const auto& outer = mLayerGlobalMeasurements[hitLayers[2]][sortedId[2]];
         const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
 
+        const float edgeMSAngle = scratch.getEdgeMSAngle(secondEdgeId);
+        const float lambda01 = std::atan(currentTracklet.tanLambda);
+        const float lambda12 = std::atan(nextTracklet.tanLambda);
+        const float absDeltaTanLambda = std::abs(currentTracklet.tanLambda - nextTracklet.tanLambda);
+        const float absDeltaLambda = std::abs(lambda01 - lambda12);
+        const float absDeltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
+                                                          o2::constants::math::TwoPI));
+        const float length01 = std::hypot(inner.x - middle.x, inner.y - middle.y);
+        const float length12 = std::hypot(middle.x - outer.x, middle.y - outer.y);
+        const float maximumCurvature = std::min({std::abs(o2::constants::math::B2C * mBz) /
+                                                   mKernelParameters.trackletMinPt,
+                                                 2.f / length01,
+                                                 2.f / length12});
+        const float maximumBending =
+          std::asin(std::clamp(0.5f * maximumCurvature * length01, 0.f, 1.f)) +
+          std::asin(std::clamp(0.5f * maximumCurvature * length12, 0.f, 1.f));
+        const float sinTheta = std::max(std::abs(std::cos(0.5f * (lambda01 + lambda12))),
+                                        o2::constants::math::Almost0);
+        const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
+        const float azimuthalTolerance = angularTolerance / sinTheta;
+        const float phiTolerance = maximumBending + azimuthalTolerance;
+
+        if (dumpCellDiagnostics) {
+          detail::CellConstructionDiagnostics::instance().fill(
+            absDeltaTanLambda, absDeltaLambda, absDeltaPhi, phiTolerance, edgeMSAngle);
+        }
+
         if (useMftFwdCells) {
           // MFT forward-fit cell gates (Δtanλ, Δφ, forward Kalman).
           const float tanLSigma = std::max(trkParam.CellDeltaTanLambdaSigma, o2::constants::math::Almost0);
-          const float deltaTanLambdaSigma = std::abs(currentTracklet.tanLambda - nextTracklet.tanLambda) / tanLSigma;
-          if (deltaTanLambdaSigma >= mKernelParameters.nSigmaCut) {
+          if (absDeltaTanLambda / tanLSigma >= mKernelParameters.nSigmaCut) {
             continue;
           }
           if (trkParam.CellDeltaPhiCut > 0.f &&
@@ -454,39 +483,29 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
             continue;
           }
         } else {
-          const float edgeMSAngle = scratch.getEdgeMSAngle(secondEdgeId);
-          const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
-          const float lambda01 = std::atan(currentTracklet.tanLambda);
-          const float lambda12 = std::atan(nextTracklet.tanLambda);
-          const float deltaLambda = std::abs(lambda01 - lambda12);
-          if (deltaLambda > angularTolerance) {
+          if (absDeltaLambda > angularTolerance) {
             continue;
           }
-
-          const float length01 = std::hypot(inner.x - middle.x, inner.y - middle.y);
-          const float length12 = std::hypot(middle.x - outer.x, middle.y - outer.y);
-          const float maximumCurvature = std::min({std::abs(o2::constants::math::B2C * mBz) /
-                                                     mKernelParameters.trackletMinPt,
-                                                   2.f / length01,
-                                                   2.f / length12});
-          const float maximumBending =
-            std::asin(std::clamp(0.5f * maximumCurvature * length01, 0.f, 1.f)) +
-            std::asin(std::clamp(0.5f * maximumCurvature * length12, 0.f, 1.f));
-          const float deltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
-                                                         o2::constants::math::TwoPI));
-          const float sinTheta = std::max(std::abs(std::cos(0.5f * (lambda01 + lambda12))),
-                                          o2::constants::math::Almost0);
-          const float azimuthalTolerance = angularTolerance / sinTheta;
-          if (deltaPhi > maximumBending + azimuthalTolerance) {
+          if (absDeltaPhi > phiTolerance) {
             continue;
+          }
+          if (useUnifiedCellFwdKalman) {
+            o2::track::TrackParCovFwd fwdTrack;
+            float fwdChi2 = 0.f;
+            if (!detail::mftFwdFitCellClusters(measurements, hitLayers, layerMaterial,
+                                               mKernelParameters.trackletMinPt, mBz,
+                                               mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
+              continue;
+            }
           }
         }
 
         TripletFitFactor tripletFactor{};
-        // Unified neighbour linking needs a valid tripletFactor. Pure MFT forward
-        // cells+neighbours can emit without it.
+        // Cell quality is either MFT-fwd / unified-Kalman, or makeTripletFitFactor.
+        // Unified neighbours always need a valid factor on the seed.
         const bool hasTriplet = makeTripletFitFactor(measurements, tripletFactor);
-        if (!hasTriplet && !(useMftFwdCells && useMftFwdNeighbours)) {
+        const bool tripletOptional = (useMftFwdCells || useUnifiedCellFwdKalman) && useMftFwdNeighbours;
+        if (!hasTriplet && !tripletOptional) {
           continue;
         }
         TimeEstBC ts = currentTracklet.getTimeStamp();

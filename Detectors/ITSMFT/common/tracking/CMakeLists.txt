@@ -64,7 +64,8 @@ o2_add_library(ITSMFTTracking
                        O2::FrameworkLogger
                        O2::ITSBase
                        O2::MFTBase
-                       O2::MFTTracking)
+                       O2::MFTTracking
+                       ROOT::Hist)
 
 o2_target_root_dictionary(ITSMFTTracking
                           HEADERS include/ITSMFTTracking/ITSTrackingConfigParam.h

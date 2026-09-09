@@ -128,10 +128,14 @@ struct IterationParameters {
   /// MFT cell-building cuts. Do not reintroduce TrackletMinAbsX or CellRoadRCut.
   float CellDeltaTanLambdaSigma = 0.007f;
   float CellDeltaPhiCut = -1.f; // max |Δφ| between consecutive tracklets; <=0 disables
-  /// MFT: forward-fit cell gates (Δtanλ/Δφ + Kalman). false = unified MS/curvature + triplet.
+  /// MFT: forward-fit cell gates (Δtanλ/Δφ + Kalman). false = unified MS/curvature cells.
   bool UseMftFwdCells = true;
   /// MFT: forward-state χ² neighbour linking. false = unified adjacent-triplet χ².
   bool UseMftFwdNeighbours = true;
+  /// When UseMftFwdCells is false: use TrackParCovFwd Kalman instead of makeTripletFitFactor as cell quality.
+  bool UseUnifiedCellFwdKalman = false;
+  /// Opt-in ROOT dump of cell-construction Δtanλ/Δλ/Δφ/φ-tolerance/MS histograms.
+  bool DumpCellDiagnostics = false;
   /// Fitter parameters
   o2::base::PropagatorImpl<float>::MatCorrType CorrType = o2::base::PropagatorImpl<float>::MatCorrType::USEMatCorrNONE;
   float MaxChi2ClusterAttachment = 60.f;

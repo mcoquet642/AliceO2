@@ -136,6 +136,8 @@ void resetDetectorDefaults(TrackingParameters& p, detectors::DetID::ID detId)
     p.CellDeltaPhiCut = 0.15f;
     p.UseMftFwdCells = true;
     p.UseMftFwdNeighbours = true;
+    p.UseUnifiedCellFwdKalman = false;
+    p.DumpCellDiagnostics = false;
     return;
   }
 
@@ -377,6 +379,8 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     if (detId == detectors::DetID::MFT) {
       p.UseMftFwdCells = tc.useMftFwdCells;
       p.UseMftFwdNeighbours = tc.useMftFwdNeighbours;
+      p.UseUnifiedCellFwdKalman = tc.useUnifiedCellFwdKalman;
+      p.DumpCellDiagnostics = tc.dumpCellDiagnostics;
       p.UseDiamond = true;
       p.PerPrimaryVertexProcessing = false;
     } else {
