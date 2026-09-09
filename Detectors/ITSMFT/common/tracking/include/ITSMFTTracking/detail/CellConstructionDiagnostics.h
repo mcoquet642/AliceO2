@@ -10,29 +10,37 @@
 // or submit itself to any jurisdiction.
 ///
 /// \file CellConstructionDiagnostics.h
-/// \brief Opt-in ROOT histograms for MFT/ITS cell-construction observables
+/// \brief Opt-in cell-construction diagnostic tree (no ROOT use in static dtors)
 ///
 
 #ifndef ALICEO2_ITSMFT_TRACKING_CELLCONSTRUCTIONDIAGNOSTICS_H_
 #define ALICEO2_ITSMFT_TRACKING_CELLCONSTRUCTIONDIAGNOSTICS_H_
 
-#include <memory>
 #include <mutex>
 #include <string>
+#include <vector>
 
 #include "TFile.h"
-#include "TH1F.h"
+#include "TTree.h"
 
 #include "Framework/Logger.h"
 
 namespace o2::itsmft::tracking::detail
 {
 
-/// Process-wide accumulator for cell-construction diagnostic histograms.
-/// Fill is thread-safe; histograms are written once on destruction when any fill occurred.
+/// Process-wide accumulator for cell-construction diagnostics.
+/// Samples are POD-only during tracking; ROOT I/O runs only via explicit flush().
 class CellConstructionDiagnostics
 {
  public:
+  struct Sample {
+    float absDeltaTanLambda{0.f};
+    float absDeltaLambda{0.f};
+    float absDeltaPhi{0.f};
+    float phiTolerance{0.f};
+    float edgeMSAngle{0.f};
+  };
+
   static CellConstructionDiagnostics& instance()
   {
     static CellConstructionDiagnostics diagnostics;
@@ -43,13 +51,58 @@ class CellConstructionDiagnostics
             float phiTolerance, float edgeMSAngle)
   {
     std::lock_guard lock{mMutex};
-    ensureHistograms();
-    mDeltaTanLambda->Fill(absDeltaTanLambda);
-    mDeltaLambda->Fill(absDeltaLambda);
-    mDeltaPhi->Fill(absDeltaPhi);
-    mPhiTolerance->Fill(phiTolerance);
-    mEdgeMSAngle->Fill(edgeMSAngle);
-    mFilled = true;
+    mSamples.push_back({absDeltaTanLambda, absDeltaLambda, absDeltaPhi, phiTolerance, edgeMSAngle});
+  }
+
+  /// Append accumulated samples to TTree cellDiag and clear the buffer.
+  /// Must be called while ROOT is still alive (e.g. end of Tracker::run).
+  void flush()
+  {
+    std::vector<Sample> samples;
+    {
+      std::lock_guard lock{mMutex};
+      if (mSamples.empty()) {
+        return;
+      }
+      samples.swap(mSamples);
+    }
+
+    const char* mode = mFileInitialized ? "UPDATE" : "RECREATE";
+    TFile out{mOutputFile.c_str(), mode};
+    if (out.IsZombie()) {
+      LOGP(error, "Failed to write cell diagnostics to {}", mOutputFile);
+      std::lock_guard lock{mMutex};
+      mSamples.insert(mSamples.end(), samples.begin(), samples.end());
+      return;
+    }
+
+    Sample row{};
+    TTree* tree = mFileInitialized ? out.Get<TTree>("cellDiag") : nullptr;
+    if (tree == nullptr) {
+      out.cd();
+      tree = new TTree("cellDiag", "MFT cell-construction observables");
+      tree->Branch("absDeltaTanLambda", &row.absDeltaTanLambda);
+      tree->Branch("absDeltaLambda", &row.absDeltaLambda);
+      tree->Branch("absDeltaPhi", &row.absDeltaPhi);
+      tree->Branch("phiTolerance", &row.phiTolerance);
+      tree->Branch("edgeMSAngle", &row.edgeMSAngle);
+      mFileInitialized = true;
+    } else {
+      tree->SetBranchAddress("absDeltaTanLambda", &row.absDeltaTanLambda);
+      tree->SetBranchAddress("absDeltaLambda", &row.absDeltaLambda);
+      tree->SetBranchAddress("absDeltaPhi", &row.absDeltaPhi);
+      tree->SetBranchAddress("phiTolerance", &row.phiTolerance);
+      tree->SetBranchAddress("edgeMSAngle", &row.edgeMSAngle);
+    }
+
+    for (const auto& sample : samples) {
+      row = sample;
+      tree->Fill();
+    }
+    out.cd();
+    tree->Write(nullptr, TObject::kOverwrite);
+    out.Close();
+    LOGP(info, "Appended {} cell-construction samples to {} (TTree cellDiag)", samples.size(), mOutputFile);
   }
 
   CellConstructionDiagnostics(const CellConstructionDiagnostics&) = delete;
@@ -57,62 +110,13 @@ class CellConstructionDiagnostics
 
  private:
   CellConstructionDiagnostics() = default;
-
-  ~CellConstructionDiagnostics()
-  {
-    writeIfNeeded();
-  }
-
-  void ensureHistograms()
-  {
-    if (mDeltaTanLambda) {
-      return;
-    }
-    mDeltaTanLambda = std::make_unique<TH1F>("hDeltaTanLambda",
-                                             "|#Delta tan#lambda|;|#Delta tan#lambda|;entries",
-                                             200, 0.f, 0.2f);
-    mDeltaLambda = std::make_unique<TH1F>("hDeltaLambda",
-                                          "|#Delta#lambda|;|#Delta#lambda| [rad];entries",
-                                          200, 0.f, 0.2f);
-    mDeltaPhi = std::make_unique<TH1F>("hDeltaPhi",
-                                       "|#Delta#varphi|;|#Delta#varphi| [rad];entries",
-                                       200, 0.f, 0.5f);
-    mPhiTolerance = std::make_unique<TH1F>("hPhiTolerance",
-                                           "#theta_{bend}+MS/|cos#lambda|;tolerance [rad];entries",
-                                           200, 0.f, 1.f);
-    mEdgeMSAngle = std::make_unique<TH1F>("hEdgeMSAngle",
-                                          "edge MS angle;MS angle [rad];entries",
-                                          200, 0.f, 0.05f);
-  }
-
-  void writeIfNeeded()
-  {
-    std::lock_guard lock{mMutex};
-    if (!mFilled || !mDeltaTanLambda) {
-      return;
-    }
-    TFile out{mOutputFile.c_str(), "RECREATE"};
-    if (out.IsZombie()) {
-      LOGP(error, "Failed to write cell diagnostics to {}", mOutputFile);
-      return;
-    }
-    mDeltaTanLambda->Write();
-    mDeltaLambda->Write();
-    mDeltaPhi->Write();
-    mPhiTolerance->Write();
-    mEdgeMSAngle->Write();
-    out.Close();
-    LOGP(info, "Wrote cell-construction diagnostics to {}", mOutputFile);
-  }
+  // Intentionally empty: never touch ROOT from a static destructor.
+  ~CellConstructionDiagnostics() = default;
 
   std::mutex mMutex;
-  bool mFilled{false};
+  std::vector<Sample> mSamples;
   std::string mOutputFile{"mft_cell_diagnostics.root"};
-  std::unique_ptr<TH1F> mDeltaTanLambda;
-  std::unique_ptr<TH1F> mDeltaLambda;
-  std::unique_ptr<TH1F> mDeltaPhi;
-  std::unique_ptr<TH1F> mPhiTolerance;
-  std::unique_ptr<TH1F> mEdgeMSAngle;
+  bool mFileInitialized{false};
 };
 
 } // namespace o2::itsmft::tracking::detail

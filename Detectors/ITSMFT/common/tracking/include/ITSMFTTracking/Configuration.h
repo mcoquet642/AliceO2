@@ -134,7 +134,7 @@ struct IterationParameters {
   bool UseMftFwdNeighbours = true;
   /// When UseMftFwdCells is false: use TrackParCovFwd Kalman instead of makeTripletFitFactor as cell quality.
   bool UseUnifiedCellFwdKalman = false;
-  /// Opt-in ROOT dump of cell-construction Δtanλ/Δλ/Δφ/φ-tolerance/MS histograms.
+  /// Opt-in dump of cell-construction observables to mft_cell_diagnostics.root (TTree).
   bool DumpCellDiagnostics = false;
   /// Fitter parameters
   o2::base::PropagatorImpl<float>::MatCorrType CorrType = o2::base::PropagatorImpl<float>::MatCorrType::USEMatCorrNONE;

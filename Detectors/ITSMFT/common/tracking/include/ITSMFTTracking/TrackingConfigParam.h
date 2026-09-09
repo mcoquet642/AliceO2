@@ -170,7 +170,7 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   bool useMftFwdCells = true;           // MFT: forward-fit cells; false = unified MS/curvature cells.
   bool useMftFwdNeighbours = true;      // MFT: forward-state neighbour χ²; false = unified triplet neighbours.
   bool useUnifiedCellFwdKalman = false; // When useMftFwdCells=false: fwd Kalman quality instead of makeTripletFitFactor.
-  bool dumpCellDiagnostics = false;     // Write mft_cell_diagnostics.root with cell-construction distributions.
+  bool dumpCellDiagnostics = false;     // Write mft_cell_diagnostics.root (TTree cellDiag) at end of each TF.
   // Intentionally absent: trackletMinAbsX, cellRoadRCut, useMftHelixTracklets (removed; do not reintroduce).
 
   O2ParamDef(TrackerParamConfig, getParamName().data());
