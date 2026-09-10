@@ -165,20 +165,17 @@ BOOST_AUTO_TEST_CASE(MFTMaterialMatchesNominalDefaultsAndRadlRhoFormula)
   }
 }
 
-BOOST_AUTO_TEST_CASE(MFTSensorPairsShareThePhysicalDiskBudget)
+BOOST_AUTO_TEST_CASE(MFTLayerMaterialMatchesLegacyDiskThickness)
 {
+  // Each half-layer carries one disk thickness (0.042/5), as in legacy
+  // TrackFitter and the validated mft-tier5 CA working point.
+  const float diskX0 = kMFTNominalRadLength / static_cast<float>(MFTDisks);
   float totalX0 = 0.f;
-  float totalArealDensity = 0.f;
-  for (int disk = 0; disk < MFTDisks; ++disk) {
-    const auto& front = kMFTStaticSurfaceCatalog[2 * disk].material;
-    const auto& back = kMFTStaticSurfaceCatalog[2 * disk + 1].material;
-    BOOST_CHECK_CLOSE(front.xOverX0 + back.xOverX0, kMFTNominalRadLength / MFTDisks, 1.e-4f);
-    totalX0 += front.xOverX0 + back.xOverX0;
-    totalArealDensity += front.arealDensityGPerCm2 + back.arealDensityGPerCm2;
+  for (int layer = 0; layer < MFTNLayers; ++layer) {
+    BOOST_CHECK_CLOSE(kMFTStaticSurfaceCatalog[layer].material.xOverX0, diskX0, 1.e-4f);
+    totalX0 += kMFTStaticSurfaceCatalog[layer].material.xOverX0;
   }
-  BOOST_CHECK_CLOSE(totalX0, kMFTNominalRadLength, 1.e-4f);
-  BOOST_CHECK_CLOSE(totalArealDensity,
-                    kMFTNominalRadLength * o2::its::constants::Radl * o2::its::constants::Rho, 1.e-4f);
+  BOOST_CHECK_CLOSE(totalX0, 2.f * kMFTNominalRadLength, 1.e-4f);
 }
 
 BOOST_AUTO_TEST_CASE(ITSProjectionPreservesEveryFieldBitExactly)

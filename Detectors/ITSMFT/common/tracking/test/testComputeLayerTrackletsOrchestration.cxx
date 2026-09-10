@@ -485,17 +485,17 @@ BOOST_AUTO_TEST_CASE(DiskOnePassAndTwoPassProduceIdenticalTracklets)
                                              SurfaceKind::Disk, clusters, 1);
   const auto parallel = runFixture<MFTNLayers>(o2::detectors::DetID::MFT, SurfaceKind::Disk,
                                                SurfaceKind::Disk, clusters, 4);
-  const float sourceRadius = o2::gpu::CAMath::Hypot(1.f, 0.5f);
-  const float targetRadius = o2::gpu::CAMath::Hypot(targetX, targetY);
-  const float expectedTanLambda = (fromZ - toZ) / (sourceRadius - targetRadius);
+  const float drHit = o2::gpu::CAMath::Hypot(1.f - targetX, 0.5f - targetY);
+  const float expectedTanLambda = -std::abs(fromZ - toZ) / drHit;
   const float expectedPhi = o2::gpu::CAMath::ATan2(0.5f - targetY, 1.f - targetX);
   checkExactTracklet(serial, expectedTanLambda, expectedPhi);
   checkExactTracklet(parallel, expectedTanLambda, expectedPhi);
   checkSame(serial, parallel);
 }
 
-BOOST_AUTO_TEST_CASE(DiskSameRadiusClustersProduceInfiniteSlopeTracklet)
+BOOST_AUTO_TEST_CASE(DiskZeroTransverseChordRejectsTracklet)
 {
+  // Cartesian tanλ uses the transverse chord; vanishing √(Δx²+Δy²) rejects the pair.
   const float fromZ = detail::mftLayerZ(0);
   const float toZ = detail::mftLayerZ(1);
   const std::vector<DecodedCluster> clusters{
@@ -506,10 +506,8 @@ BOOST_AUTO_TEST_CASE(DiskSameRadiusClustersProduceInfiniteSlopeTracklet)
                                              SurfaceKind::Disk, clusters, 1, widenSearch);
   const auto parallel = runFixture<MFTNLayers>(o2::detectors::DetID::MFT, SurfaceKind::Disk,
                                                SurfaceKind::Disk, clusters, 4, widenSearch);
-  const float expectedTanLambda = std::copysign(o2::constants::math::VeryBig, fromZ - toZ);
-  const float expectedPhi = o2::gpu::CAMath::ATan2(0.f, 0.f);
-  checkExactTracklet(serial, expectedTanLambda, expectedPhi);
-  checkExactTracklet(parallel, expectedTanLambda, expectedPhi);
+  BOOST_CHECK(serial.tracklets.empty());
+  BOOST_CHECK(parallel.tracklets.empty());
   checkSame(serial, parallel);
 }
 
@@ -694,9 +692,8 @@ BOOST_AUTO_TEST_CASE(MftIdentityLayoutTrackletsSpanMultipleAdjacentEdgesInOrder)
       BOOST_CHECK_EQUAL(tracklet.secondClusterIndex, 0);
       const auto& source = clusters[from].global;
       const auto& target = clusters[to].global;
-      const float sourceRadius = o2::gpu::CAMath::Hypot(source.x, source.y);
-      const float targetRadius = o2::gpu::CAMath::Hypot(target.x, target.y);
-      const float expectedTanLambda = (source.z - target.z) / (sourceRadius - targetRadius);
+      const float drHit = o2::gpu::CAMath::Hypot(source.x - target.x, source.y - target.y);
+      const float expectedTanLambda = -std::abs(source.z - target.z) / drHit;
       BOOST_CHECK_EQUAL(tracklet.tanLambda, expectedTanLambda);
       BOOST_CHECK_EQUAL_COLLECTIONS(snapshot.allLookups[id].begin(), snapshot.allLookups[id].end(), expectedLookup.begin(), expectedLookup.end());
       sawEdge01 |= (from == 0 && to == 1);

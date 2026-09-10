@@ -125,9 +125,12 @@ void CATrackerDPL::initialiseTracking()
   mTrackerTraits->setNThreads(mOptions.nThreads, taskArena);
 
   const auto maxMemory = plan.execution.MaxMemory;
+  const float radLength = o2::itsmft::tracking::effectiveMFTRadLength(trackerParams.mftRadLength);
+  const auto catalogSurfaces = o2::itsmft::tracking::makeMFTSurfaceCatalog(radLength);
+  LOGP(info, "MFT CA material: mftRadLength={:.4f} -> {:.4f} X0 per half-layer",
+       radLength, radLength / o2::itsmft::tracking::MFTDisks);
   o2::itsmft::tracking::TrackerInitialization configuration{
-    .catalog = {o2::itsmft::tracking::kMFTStaticSurfaceCatalog.data(),
-                static_cast<uint32_t>(o2::itsmft::tracking::kMFTStaticSurfaceCatalog.size())},
+    .catalog = {catalogSurfaces.data(), static_cast<uint32_t>(catalogSurfaces.size())},
     .layout = o2::itsmft::tracking::makeDetectorLayout(o2::itsmft::tracking::LayerMask{trackerParams.holeLayerMask}),
     .plan = std::move(plan),
     .memoryPool = std::make_shared<o2::itsmft::tracking::BoundedMemoryResource>(maxMemory)};

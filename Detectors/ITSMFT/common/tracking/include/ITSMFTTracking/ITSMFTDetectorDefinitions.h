@@ -36,10 +36,12 @@ inline constexpr std::array<float, MFTNLayers> kMFTLookupRMax{
 constexpr std::array<float, MFTNLayers> makeNominalMFTLayerX0()
 {
   std::array<float, MFTNLayers> values{};
-  // Each disk's budget is shared by its two sensor planes: the refit applies
-  // the nominal material once per attached surface.
+  // Match legacy MFT TrackFitter disk thickness (0.042/5) per half-layer.
+  // mft-tier5 / mft-time-aware CA MCS, MS windows and neighbour attach all
+  // used this value; splitting the budget across the two sensor planes
+  // (0.042/10) under-scatters and drops tracks.
   for (auto& value : values) {
-    value = kMFTNominalRadLength / static_cast<float>(MFTNLayers);
+    value = kMFTNominalRadLength / static_cast<float>(MFTDisks);
   }
   return values;
 }
@@ -106,6 +108,30 @@ inline constexpr auto kMFTStaticSurfaceCatalog = projectStaticSurfaceCatalog<MFT
 
 static_assert(kITSStaticSurfaceCatalog.size() == ITSNLayers);
 static_assert(kMFTStaticSurfaceCatalog.size() == MFTNLayers);
+
+/// Resolve configured total MFT radiation length; <=0 keeps the catalog default.
+inline float effectiveMFTRadLength(float configured) noexcept
+{
+  return configured > 0.f ? configured : kMFTNominalRadLength;
+}
+
+/// Per half-layer material from a total MFT radiation length (legacy TrackFitter: total/5).
+inline NominalSurfaceMaterial mftMaterialFromTotalRadLength(float totalRadLength) noexcept
+{
+  const float x0 = totalRadLength / static_cast<float>(MFTDisks);
+  return {x0, x0 * o2::its::constants::Radl * o2::its::constants::Rho};
+}
+
+/// Mutable MFT catalog with overridden total radiation length (split as total/MFTDisks per plane).
+inline std::array<SurfaceDescriptor, MFTNLayers> makeMFTSurfaceCatalog(float totalRadLength = kMFTNominalRadLength)
+{
+  std::array<SurfaceDescriptor, MFTNLayers> catalog = kMFTStaticSurfaceCatalog;
+  const auto material = mftMaterialFromTotalRadLength(totalRadLength);
+  for (auto& surface : catalog) {
+    surface.material = material;
+  }
+  return catalog;
+}
 
 } // namespace o2::itsmft::tracking
 
