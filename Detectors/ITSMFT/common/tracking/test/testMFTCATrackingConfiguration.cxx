@@ -39,7 +39,7 @@ struct FieldFixture {
 struct RestoreConfiguration {
   ~RestoreConfiguration()
   {
-    ConfigurableParam::updateFromString("MFTCATrackerParam.nIterations=-1;MFTCATrackerParam.materialModel=nominal;MFTCATrackerParam.useFastMaterial=true;MFTCATrackerParam.useMatCorrTGeo=false;MFTCATrackerParam.startLayerMask[0]=0");
+    ConfigurableParam::updateFromString("MFTCATrackerParam.nIterations=-1;MFTCATrackerParam.materialModel=nominal;MFTCATrackerParam.useFastMaterial=true;MFTCATrackerParam.useMatCorrTGeo=false;MFTCATrackerParam.mftRadLength=-1;MFTCATrackerParam.startLayerMask[0]=0");
   }
 };
 auto resolve(TrackingMode::Type mode)
@@ -96,6 +96,26 @@ BOOST_FIXTURE_TEST_CASE(ParserMaterialSelectionNamesOnlyImplementedProviders, Re
     BOOST_CHECK(materialCorrectionModeSupport(kind, MatCorr::USEMatCorrLUT) == MaterialCorrectionModeSupport::Unsupported);
     BOOST_CHECK(materialCorrectionModeSupport(kind, MatCorr::USEMatCorrTGeo) == MaterialCorrectionModeSupport::Unsupported);
   }
+}
+
+BOOST_FIXTURE_TEST_CASE(MftRadLengthOverrideScalesCatalogMaterial, RestoreConfiguration)
+{
+  BOOST_CHECK_CLOSE(effectiveMFTRadLength(-1.f), kMFTNominalRadLength, 1.e-6f);
+  BOOST_CHECK_CLOSE(effectiveMFTRadLength(0.f), kMFTNominalRadLength, 1.e-6f);
+  BOOST_CHECK_CLOSE(effectiveMFTRadLength(0.084f), 0.084f, 1.e-6f);
+
+  const auto defaultCatalog = makeMFTSurfaceCatalog();
+  const auto scaledCatalog = makeMFTSurfaceCatalog(0.084f);
+  const float defaultX0 = kMFTNominalRadLength / static_cast<float>(MFTDisks);
+  const float scaledX0 = 0.084f / static_cast<float>(MFTDisks);
+  for (int layer = 0; layer < MFTNLayers; ++layer) {
+    BOOST_CHECK_CLOSE(defaultCatalog[layer].material.xOverX0, defaultX0, 1.e-4f);
+    BOOST_CHECK_CLOSE(scaledCatalog[layer].material.xOverX0, scaledX0, 1.e-4f);
+  }
+
+  ConfigurableParam::updateFromString("MFTCATrackerParam.mftRadLength=0.084");
+  BOOST_CHECK_CLOSE(MFTParam::Instance().mftRadLength, 0.084f, 1.e-6f);
+  BOOST_CHECK_NO_THROW(resolve(TrackingMode::Sync));
 }
 
 BOOST_FIXTURE_TEST_CASE(ParserOuterLayerMasksReachTheResolvedRoadStarts, RestoreConfiguration)

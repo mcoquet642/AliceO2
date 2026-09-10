@@ -81,6 +81,7 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   std::string materialModel = "nominal";                                                          // Implemented provider: nominal descriptor material.
   bool useMatCorrTGeo = false;                                                                    // Legacy alias: true requests unsupported TGeo and is rejected.
   bool useFastMaterial = true;                                                                    // Legacy alias: true selects nominal; false requests unsupported LUT.
+  float mftRadLength = -1.f;                                                                      // Total MFT radiation length (X0); <=0 keeps 0.042. Split as mftRadLength/5 per half-layer.
   int addTimeError[getNLayers()] = {0};                                                           // Tracking window width in BC.
   int minTrackLgtIter[o2::itsmft::tracking::MaxIter] = {};                                        // Async minimum track length per iteration; <=0 keeps preset.
   uint32_t startLayerMask[o2::itsmft::tracking::MaxIter] = {};                                    // Per-pass starts; 0 keeps the preset, bits must name detector layers.

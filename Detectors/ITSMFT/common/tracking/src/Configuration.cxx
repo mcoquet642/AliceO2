@@ -343,6 +343,9 @@ TrackingPlan getTrackingPlan(detectors::DetID::ID detId, Type mode)
   if (!tc.useFastMaterial) {
     throw std::invalid_argument("MFTCATrackerParam.useFastMaterial=false requests unsupported LUT material; use materialModel=nominal and useFastMaterial=true");
   }
+  if (!std::isfinite(tc.mftRadLength)) {
+    throw std::invalid_argument("MFTCATrackerParam.mftRadLength must be finite; use <=0 for the default 0.042");
+  }
   constexpr uint32_t allowedStartLayers = (uint32_t{1} << tracking::MFTNLayers) - 1;
   for (int iteration = 0; iteration < tracking::MaxIter; ++iteration) {
     if (tc.startLayerMask[iteration] & ~allowedStartLayers) {

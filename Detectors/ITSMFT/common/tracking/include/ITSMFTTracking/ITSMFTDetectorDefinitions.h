@@ -109,6 +109,30 @@ inline constexpr auto kMFTStaticSurfaceCatalog = projectStaticSurfaceCatalog<MFT
 static_assert(kITSStaticSurfaceCatalog.size() == ITSNLayers);
 static_assert(kMFTStaticSurfaceCatalog.size() == MFTNLayers);
 
+/// Resolve configured total MFT radiation length; <=0 keeps the catalog default.
+inline float effectiveMFTRadLength(float configured) noexcept
+{
+  return configured > 0.f ? configured : kMFTNominalRadLength;
+}
+
+/// Per half-layer material from a total MFT radiation length (legacy TrackFitter: total/5).
+inline NominalSurfaceMaterial mftMaterialFromTotalRadLength(float totalRadLength) noexcept
+{
+  const float x0 = totalRadLength / static_cast<float>(MFTDisks);
+  return {x0, x0 * o2::its::constants::Radl * o2::its::constants::Rho};
+}
+
+/// Mutable MFT catalog with overridden total radiation length (split as total/MFTDisks per plane).
+inline std::array<SurfaceDescriptor, MFTNLayers> makeMFTSurfaceCatalog(float totalRadLength = kMFTNominalRadLength)
+{
+  std::array<SurfaceDescriptor, MFTNLayers> catalog = kMFTStaticSurfaceCatalog;
+  const auto material = mftMaterialFromTotalRadLength(totalRadLength);
+  for (auto& surface : catalog) {
+    surface.material = material;
+  }
+  return catalog;
+}
+
 } // namespace o2::itsmft::tracking
 
 #endif /* ALICEO2_ITSMFT_TRACKING_DETECTORDEFINITIONS_H_ */
