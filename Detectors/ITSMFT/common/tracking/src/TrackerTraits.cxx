@@ -39,7 +39,6 @@
 #include "ITSMFTTracking/Propagator.h"
 #include "ITSMFTTracking/MaterialPhysics.h"
 #include "ITSMFTTracking/detail/MFTFwdTrackHelpers.h"
-#include "ITSMFTTracking/detail/CellConstructionDiagnostics.h"
 #include "ITSMFTTracking/IndexTableUtils.h"
 #include "ITSMFTTracking/LayerMask.h"
 #include "ITSMFTTracking/TripletFitting.h"
@@ -424,10 +423,6 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& topology = mTraversalGraph;
   const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
   const bool isMftTopology = detail::isMftTopology(topology.nLayers);
-  const bool useMftFwdCells = isMftTopology && trkParam.UseMftFwdCells;
-  const bool useMftFwdNeighbours = isMftTopology && trkParam.UseMftFwdNeighbours;
-  const bool useUnifiedCellFwdKalman = isMftTopology && trkParam.UseUnifiedCellFwdKalman;
-  const bool dumpCellDiagnostics = isMftTopology && trkParam.DumpCellDiagnostics;
 
   mTaskArena->execute([&] {
     auto forTrackletCells = [&](int firstEdgeId, int secondEdgeId, const std::array<int, 3>& hitLayers, int iTracklet, auto&& emit) {
@@ -452,12 +447,14 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
 
         const float edgeMSAngle = scratch.getEdgeMSAngle(secondEdgeId);
+        const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
         const float lambda01 = std::atan(currentTracklet.tanLambda);
         const float lambda12 = std::atan(nextTracklet.tanLambda);
-        const float absDeltaTanLambda = std::abs(currentTracklet.tanLambda - nextTracklet.tanLambda);
         const float absDeltaLambda = std::abs(lambda01 - lambda12);
-        const float absDeltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
-                                                          o2::constants::math::TwoPI));
+        if (absDeltaLambda > angularTolerance) {
+          continue;
+        }
+
         const float length01 = std::hypot(inner.x - middle.x, inner.y - middle.y);
         const float length12 = std::hypot(middle.x - outer.x, middle.y - outer.y);
         const float maximumCurvature = std::min({std::abs(o2::constants::math::B2C * mBz) /
@@ -467,27 +464,17 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         const float maximumBending =
           std::asin(std::clamp(0.5f * maximumCurvature * length01, 0.f, 1.f)) +
           std::asin(std::clamp(0.5f * maximumCurvature * length12, 0.f, 1.f));
+        const float absDeltaPhi = std::abs(std::remainder(currentTracklet.phi - nextTracklet.phi,
+                                                          o2::constants::math::TwoPI));
         const float sinTheta = std::max(std::abs(std::cos(0.5f * (lambda01 + lambda12))),
                                         o2::constants::math::Almost0);
-        const float angularTolerance = mKernelParameters.nSigmaCut * edgeMSAngle;
         const float azimuthalTolerance = angularTolerance / sinTheta;
-        const float phiTolerance = maximumBending + azimuthalTolerance;
-
-        if (dumpCellDiagnostics) {
-          detail::CellConstructionDiagnostics::instance().fill(
-            absDeltaTanLambda, absDeltaLambda, absDeltaPhi, phiTolerance, edgeMSAngle);
+        if (absDeltaPhi > maximumBending + azimuthalTolerance) {
+          continue;
         }
 
-        if (useMftFwdCells) {
-          // MFT forward-fit cell gates (Δtanλ, Δφ, forward Kalman).
-          const float tanLSigma = std::max(trkParam.CellDeltaTanLambdaSigma, o2::constants::math::Almost0);
-          if (absDeltaTanLambda / tanLSigma >= mKernelParameters.nSigmaCut) {
-            continue;
-          }
-          if (trkParam.CellDeltaPhiCut > 0.f &&
-              !math_utils::isPhiDifferenceBelow(currentTracklet.phi, nextTracklet.phi, trkParam.CellDeltaPhiCut)) {
-            continue;
-          }
+        // MFT: forward Kalman on the three disk hits (replaces bare makeTripletFitFactor as quality).
+        if (isMftTopology) {
           o2::track::TrackParCovFwd fwdTrack;
           float fwdChi2 = 0.f;
           if (!detail::mftFwdFitCellClusters(measurements, hitLayers, layerMaterial,
@@ -495,30 +482,10 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
                                              mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
             continue;
           }
-        } else {
-          if (absDeltaLambda > angularTolerance) {
-            continue;
-          }
-          if (absDeltaPhi > phiTolerance) {
-            continue;
-          }
-          if (useUnifiedCellFwdKalman) {
-            o2::track::TrackParCovFwd fwdTrack;
-            float fwdChi2 = 0.f;
-            if (!detail::mftFwdFitCellClusters(measurements, hitLayers, layerMaterial,
-                                               mKernelParameters.trackletMinPt, mBz,
-                                               mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
-              continue;
-            }
-          }
         }
 
         TripletFitFactor tripletFactor{};
-        // Cell quality is either MFT-fwd / unified-Kalman, or makeTripletFitFactor.
-        // Unified neighbours always need a valid factor on the seed.
-        const bool hasTriplet = makeTripletFitFactor(measurements, tripletFactor);
-        const bool tripletOptional = (useMftFwdCells || useUnifiedCellFwdKalman) && useMftFwdNeighbours;
-        if (!hasTriplet && !tripletOptional) {
+        if (!makeTripletFitFactor(measurements, tripletFactor)) {
           continue;
         }
         TimeEstBC ts = currentTracklet.getTimeStamp();
@@ -590,10 +557,6 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
   const auto& topology = context.topology;
   const auto& globalMeasurements = context.layerGlobalMeasurements;
   const auto& params = context.configuration.kernelParameters;
-  const auto& layerMaterial = context.detectorConfiguration.layerMaterial;
-  const bool useMftFwdNeighbours = detail::isMftTopology(topology.nLayers) &&
-                                   context.configuration.parameters.UseMftFwdNeighbours;
-  const float bz = context.bz;
   for (std::size_t slot = 0; slot < scratch.getCellsNeighbours().size(); ++slot) {
     deepVectorClear(scratch.getCellsNeighbours()[slot]);
     deepVectorClear(scratch.getCellsNeighboursTopology()[slot]);
@@ -709,26 +672,11 @@ void TrackerTraits::findCellsNeighbours(IterationContext& context, const int ite
               measurements[hit] = globalMeasurements[reference.surfacePosition][reference.clusterIndex];
             }
             AdjacentTripletFitResult adjacentFit{};
-            bool neighbourAccepted = false;
-            if (useMftFwdNeighbours) {
-              const std::array<GlobalMeasurement, 3> currentMeas{measurements[0], measurements[1], measurements[2]};
-              const std::array<GlobalMeasurement, 3> nextMeas{measurements[1], measurements[2], measurements[3]};
-              const std::array<int, 3> currentLayers{references[0].surfacePosition, references[1].surfacePosition,
-                                                     references[2].surfacePosition};
-              const std::array<int, 3> nextLayers{references[1].surfacePosition, references[2].surfacePosition,
-                                                  references[3].surfacePosition};
-              neighbourAccepted = measurementsValid &&
-                                  detail::mftFwdCellsAreCompatible(currentMeas, currentLayers, nextMeas, nextLayers,
-                                                                   layerMaterial, params.trackletMinPt, bz,
-                                                                   params.maxChi2ClusterAttachment);
-            } else {
-              const bool fitValid = measurementsValid &&
-                                    fitAdjacentTripletFactors(
-                                      currentCellSeed.tripletFactor(), nextCellSeedRef.tripletFactor(), measurements,
-                                      {currentAngularVariance, successor.angularVariance}, adjacentFit);
-              neighbourAccepted = fitValid && adjacentFit.chi2 <= params.maxChi2ClusterAttachment;
-            }
-            if (!neighbourAccepted) {
+            const bool fitValid = measurementsValid &&
+                                  fitAdjacentTripletFactors(
+                                    currentCellSeed.tripletFactor(), nextCellSeedRef.tripletFactor(), measurements,
+                                    {currentAngularVariance, successor.angularVariance}, adjacentFit);
+            if (!fitValid || adjacentFit.chi2 > params.maxChi2ClusterAttachment) {
               continue;
             }
 

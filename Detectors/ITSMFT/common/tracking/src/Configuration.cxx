@@ -132,12 +132,6 @@ void resetDetectorDefaults(TrackingParameters& p, detectors::DetID::ID detId)
     p.PerPrimaryVertexProcessing = false;
     p.StartLayerMask = (1u << nLayers) - 1u;
     p.MinPt.assign(TrackerParamConfig<detectors::DetID::MFT>::MaxTrackLength - TrackerParamConfig<detectors::DetID::MFT>::MinTrackLength + 1, 0.f);
-    p.CellDeltaTanLambdaSigma = 0.007f;
-    p.CellDeltaPhiCut = 0.15f;
-    p.UseMftFwdCells = true;
-    p.UseMftFwdNeighbours = true;
-    p.UseUnifiedCellFwdKalman = false;
-    p.DumpCellDiagnostics = false;
     return;
   }
 
@@ -260,11 +254,7 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     }
 
     trackParams[1].TrackletMinPt = 0.15f;
-    trackParams[1].CellDeltaTanLambdaSigma *= 2.f;
-    trackParams[1].CellDeltaPhiCut *= 2.f;
     trackParams[2].TrackletMinPt = 0.08f;
-    trackParams[2].CellDeltaTanLambdaSigma *= 4.f;
-    trackParams[2].CellDeltaPhiCut *= 4.f;
 
     trackParams[0].MinPt[0] = 1.f / 12.f; // 10 clusters
     trackParams[1].MinPt[0] = 1.f / 12.f;
@@ -371,16 +361,8 @@ std::vector<TrackingParameters> getTrackingParameters(detectors::DetID::ID detId
     p.RowBins = tc.LUTbinsV > 0 ? tc.LUTbinsV : p.RowBins;
     p.PVres = tc.pvRes > 0 ? tc.pvRes : p.PVres;
     p.NSigmaCut *= tc.nSigmaCut > 0 ? tc.nSigmaCut : 1.f;
-    p.CellDeltaTanLambdaSigma *= tc.deltaTanLres > 0 ? tc.deltaTanLres : 1.f;
     p.TrackletMinPt *= tc.minPt > 0 ? tc.minPt : 1.f;
-    if (tc.cellDeltaPhiCut >= 0.f) {
-      p.CellDeltaPhiCut = tc.cellDeltaPhiCut;
-    }
     if (detId == detectors::DetID::MFT) {
-      p.UseMftFwdCells = tc.useMftFwdCells;
-      p.UseMftFwdNeighbours = tc.useMftFwdNeighbours;
-      p.UseUnifiedCellFwdKalman = tc.useUnifiedCellFwdKalman;
-      p.DumpCellDiagnostics = tc.dumpCellDiagnostics;
       p.UseDiamond = true;
       p.PerPrimaryVertexProcessing = false;
     } else {

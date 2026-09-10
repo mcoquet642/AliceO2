@@ -137,7 +137,6 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float maxChi2ClusterAttachment = -1.f;
   float maxChi2NDF = -1.f;
   float nSigmaCut = -1.f;
-  float deltaTanLres = -1.f; // Multiplier on CellDeltaTanLambdaSigma (MFT cell Δtanλ gate); <=0 uses 1.
   float minPt = -1.f;
   float pvRes = -1.f;
   int LUTbinsU = N == o2::detectors::DetID::MFT ? 64 : -1;                              // LUT bins along the column coordinate (ITS: z, MFT: r).
@@ -166,12 +165,8 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float sharedClusterMaxDeltaPhi = 0.05f; // Maximum delta phi at the cluster.
   float sharedClusterMaxDeltaEta = 0.03f; // Maximum delta eta at the cluster.
   bool sharedClusterOppositeSign = false; // Require opposite-sign tracklets.
-  float cellDeltaPhiCut = -1.f;         // max |Δφ| between consecutive tracklets; <0 uses default, 0 disables.
-  bool useMftFwdCells = true;           // MFT: forward-fit cells; false = unified MS/curvature cells.
-  bool useMftFwdNeighbours = true;      // MFT: forward-state neighbour χ²; false = unified triplet neighbours.
-  bool useUnifiedCellFwdKalman = false; // When useMftFwdCells=false: fwd Kalman quality instead of makeTripletFitFactor.
-  bool dumpCellDiagnostics = false;     // Write mft_cell_diagnostics.root (TTree cellDiag) at end of each TF.
-  // Intentionally absent: trackletMinAbsX, cellRoadRCut, useMftHelixTracklets (removed; do not reintroduce).
+  // Intentionally absent: trackletMinAbsX, cellRoadRCut, cellDeltaPhiCut, deltaTanLres,
+  // useMftFwdCells, useMftFwdNeighbours, useUnifiedCellFwdKalman, dumpCellDiagnostics.
 
   O2ParamDef(TrackerParamConfig, getParamName().data());
 

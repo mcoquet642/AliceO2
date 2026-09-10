@@ -126,22 +126,6 @@ inline float mftFwdPredictedChi2(const o2::track::TrackParCovFwd& track, float x
   return dx * dx / vx + dy * dy / vy;
 }
 
-inline float mftFwdStateChi2(const o2::track::TrackParCovFwd& current, const o2::track::TrackParCovFwd& rhs)
-{
-  ROOT::Math::SVector<double, 5> diff{
-    rhs.getX() - current.getX(),
-    rhs.getY() - current.getY(),
-    rhs.getPhi() - current.getPhi(),
-    rhs.getTanl() - current.getTanl(),
-    rhs.getInvQPt() - current.getInvQPt()};
-  auto cov = current.getCovariances();
-  cov += rhs.getCovariances();
-  if (!cov.Invert()) {
-    return o2::constants::math::VeryBig;
-  }
-  return static_cast<float>(ROOT::Math::Similarity(cov, diff));
-}
-
 inline bool mftFwdAttachCluster(o2::track::TrackParCovFwd& track, float z, float x, float y,
                                 float sigma2X, float sigma2Y, float xOverX0, float bz, float maxChi2,
                                 float& chi2, bool checkChi2OnLast = false)
@@ -234,28 +218,6 @@ inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measur
     }
   }
   return true;
-}
-
-/// Compatibility of two adjacent MFT cells via forward-state χ² (mft-time-aware).
-inline bool mftFwdCellsAreCompatible(const std::array<GlobalMeasurement, 3>& current,
-                                     const std::array<int, 3>& currentLayers,
-                                     const std::array<GlobalMeasurement, 3>& next,
-                                     const std::array<int, 3>& nextLayers,
-                                     gsl::span<const NominalSurfaceMaterial> layerMaterial,
-                                     float trackletMinPt,
-                                     float bz,
-                                     float maxChi2)
-{
-  o2::track::TrackParCovFwd currentFwd;
-  o2::track::TrackParCovFwd nextFwd;
-  float currentChi2 = 0.f;
-  float nextChi2 = 0.f;
-  if (!mftFwdFitCellClusters(current, currentLayers, layerMaterial, trackletMinPt, bz, maxChi2, currentFwd, currentChi2) ||
-      !mftFwdFitCellClusters(next, nextLayers, layerMaterial, trackletMinPt, bz, maxChi2, nextFwd, nextChi2)) {
-    return false;
-  }
-  mftFwdPropagateToZ(nextFwd, static_cast<float>(currentFwd.getZ()), bz);
-  return mftFwdStateChi2(currentFwd, nextFwd) <= maxChi2;
 }
 
 } // namespace o2::itsmft::tracking::detail

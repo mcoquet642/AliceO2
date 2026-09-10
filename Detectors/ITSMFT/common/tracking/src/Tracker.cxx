@@ -33,7 +33,6 @@
 #include "ITSMFTTracking/MaterialPhysics.h"
 #include "ITSMFTTracking/detail/McTrackLabels.h"
 #include "ITSMFTTracking/detail/TrackerTraversalPreparation.h"
-#include "ITSMFTTracking/detail/CellConstructionDiagnostics.h"
 #include "MFTTracking/MFTTrackingParam.h"
 
 namespace o2::itsmft::tracking
@@ -634,13 +633,6 @@ TrackingResult Tracker::run(TimeFrame& frame, TrackerTraits& traits)
     rollbackEstimator();
     frame.resetTimeFrame();
     throw;
-  }
-
-  // Explicit flush while ROOT is still alive; never write from a static dtor.
-  const bool dumpCellDiagnostics = std::any_of(mIterations.begin(), mIterations.end(),
-                                                [](const auto& it) { return it.parameters.DumpCellDiagnostics; });
-  if (dumpCellDiagnostics) {
-    detail::CellConstructionDiagnostics::instance().flush();
   }
 
   return TrackingResult{TrackingOutcome::Success, total, std::move(acceptedTrackCounts)};
