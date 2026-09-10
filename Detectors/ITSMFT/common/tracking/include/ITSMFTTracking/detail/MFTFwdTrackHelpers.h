@@ -242,8 +242,12 @@ inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measur
     const auto& measurement = measurements[iC];
     const float sigma2X = measurement.covariance.xx > 0.f ? measurement.covariance.xx : 1.f;
     const float sigma2Y = measurement.covariance.yy > 0.f ? measurement.covariance.yy : 1.f;
+    // Catalog stores half the disk budget per sensor plane so total X0 stays
+    // 0.042 across 10 layers. Legacy MFT TrackFitter MCS uses one disk
+    // thickness (0.042/5) per step; double the plane budget here to match.
+    const float mcsXOverX0 = 2.f * layerXOverX0[layer];
     if (!mftFwdAttachCluster(track, measurement.z, measurement.x, measurement.y,
-                             sigma2X, sigma2Y, layerXOverX0[layer], bz, maxChi2, chi2, iC == 0)) {
+                             sigma2X, sigma2Y, mcsXOverX0, bz, maxChi2, chi2, iC == 0)) {
       return false;
     }
   }
