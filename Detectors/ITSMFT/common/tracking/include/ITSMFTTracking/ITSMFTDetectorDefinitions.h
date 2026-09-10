@@ -36,10 +36,12 @@ inline constexpr std::array<float, MFTNLayers> kMFTLookupRMax{
 constexpr std::array<float, MFTNLayers> makeNominalMFTLayerX0()
 {
   std::array<float, MFTNLayers> values{};
-  // Each disk's budget is shared by its two sensor planes: the refit applies
-  // the nominal material once per attached surface.
+  // Match legacy MFT TrackFitter disk thickness (0.042/5) per half-layer.
+  // mft-tier5 / mft-time-aware CA MCS, MS windows and neighbour attach all
+  // used this value; splitting the budget across the two sensor planes
+  // (0.042/10) under-scatters and drops tracks.
   for (auto& value : values) {
-    value = kMFTNominalRadLength / static_cast<float>(MFTNLayers);
+    value = kMFTNominalRadLength / static_cast<float>(MFTDisks);
   }
   return values;
 }
