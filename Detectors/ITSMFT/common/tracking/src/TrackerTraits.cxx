@@ -182,6 +182,7 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const Vertex diamondVert(trkParam.Diamond, trkParam.DiamondCov, 1, 1.f);
+  const bool isMftTopology = detail::isMftTopology(topology.nLayers);
 
   mTaskArena->execute([&] {
     auto forTracklets = [&](int fromLayer, int toLayer, SurfaceKind kind,
@@ -298,9 +299,21 @@ void TrackerTraits::computeLayerTracklets(IterationContext& context, const int i
                 if (chi2 >= o2::its::math_utils::Sq(mKernelParameters.nSigmaCut)) {
                   continue;
                 }
-                const float deltaR = sourceMeasurement.radius - targetMeasurement.radius;
-                const float deltaZ = sourceMeasurement.z - targetMeasurement.z;
-                const float tanL = o2::its::math_utils::Sq(deltaR) > o2::constants::math::Almost0 ? deltaZ / deltaR : std::copysign(o2::constants::math::VeryBig, deltaZ);
+                float tanL;
+                if (isMftTopology && kind == SurfaceKind::Disk) {
+                  // MFT: tanλ from Cartesian chord with forward-track sign.
+                  const float dxHit = sourceMeasurement.x - targetMeasurement.x;
+                  const float dyHit = sourceMeasurement.y - targetMeasurement.y;
+                  const float drHit = std::hypot(dxHit, dyHit);
+                  if (!(drHit > 1.e-6f)) {
+                    continue;
+                  }
+                  tanL = -std::abs(sourceMeasurement.z - targetMeasurement.z) / drHit;
+                } else {
+                  const float deltaR = sourceMeasurement.radius - targetMeasurement.radius;
+                  const float deltaZ = sourceMeasurement.z - targetMeasurement.z;
+                  tanL = o2::its::math_utils::Sq(deltaR) > o2::constants::math::Almost0 ? deltaZ / deltaR : std::copysign(o2::constants::math::VeryBig, deltaZ);
+                }
                 const float phi{o2::gpu::GPUCommonMath::ATan2(sourceMeasurement.y - targetMeasurement.y,
                                                               sourceMeasurement.x - targetMeasurement.x)};
                 emit(currentSortedIndex, mFrame->getSortedIndex(targetROF, toLayer, iNext), tanL, phi, ts);
@@ -408,6 +421,13 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& mKernelParameters = context.configuration.kernelParameters;
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
+  const bool isMftTopology = detail::isMftTopology(topology.nLayers);
+  std::array<float, MaxLayoutSurfaces> layerXOverX0{};
+  if (isMftTopology) {
+    for (int iLayer = 0; iLayer < topology.nLayers; ++iLayer) {
+      layerXOverX0[iLayer] = topology.getSurface(LayerId{static_cast<uint16_t>(iLayer)}).material.xOverX0;
+    }
+  }
 
   mTaskArena->execute([&] {
     auto forTrackletCells = [&](int firstEdgeId, int secondEdgeId, const std::array<int, 3>& hitLayers, int iTracklet, auto&& emit) {
@@ -458,6 +478,17 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         }
 
         const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
+        // MFT: forward Kalman quality after unified MS/φ gates.
+        if (isMftTopology) {
+          o2::track::TrackParCovFwd fwdTrack;
+          float fwdChi2 = 0.f;
+          if (!detail::mftFwdFitCellClusters(measurements, hitLayers,
+                                             gsl::span<const float>(layerXOverX0.data(), static_cast<std::size_t>(topology.nLayers)),
+                                             mKernelParameters.trackletMinPt, mBz,
+                                             mKernelParameters.maxChi2ClusterAttachment, fwdTrack, fwdChi2)) {
+            continue;
+          }
+        }
         TripletFitFactor tripletFactor{};
         if (makeTripletFitFactor(measurements, tripletFactor)) {
           TimeEstBC ts = currentTracklet.getTimeStamp();
@@ -957,8 +988,8 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
   // Road starts are the binding's seeding-eligible sparse-plan subsequence.
   // CellPathId values use compact slots; LayerId directly indexes layout-owned
   // layer data.
-  // Filter roads by absolute q/pT in parameters[4]'s units, identically for
-  // both families. Non-finite values fail the finite-bound comparison.
+  // MinTrackLength is the number of hit layers (LayerMask::count), not the
+  // layer span (LayerMask::length) and not MinTrackLength-MaxHoles.
   constexpr float maxAbsQOverPt = 1.e3f;
   const auto seedingLayerMask = context.topology.seedingLayers;
   const auto nonSeedingLayerMask = ~seedingLayerMask;
@@ -975,12 +1006,9 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
 
       auto seedFilter = [&](const auto& seed) {
         const auto hitLayerMask = seed.getHitLayerMask();
-        const int effectiveTrackLength = hitLayerMask.empty()
-                                           ? 0
-                                           : hitLayerMask.length() - (LayerMask::span(hitLayerMask.first(), hitLayerMask.last()) & nonSeedingLayerMask).count();
         const auto effectiveHoleMask = hitLayerMask.holeMask() & ~nonSeedingLayerMask;
         return effectiveHoleMask.isAllowedHoleMask(trkParam.MaxHoles, holeLayerMask) &&
-               effectiveTrackLength >= trkParam.getMinSeedingClusters() &&
+               hitLayerMask.count() >= trkParam.MinTrackLength &&
                std::abs(seed.getQOverPt()) <= maxAbsQOverPt && seed.getChi2() <= trkParam.MaxChi2NDF * ((startLevel + 2) * 2 - 5);
       };
 
