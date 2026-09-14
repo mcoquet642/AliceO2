@@ -92,6 +92,7 @@ struct TrackerParamConfig : public o2::conf::ConfigurableParamHelper<TrackerPara
   float sysErr2Col[getNLayers()] = {0};                                                           // Systematic sensor-column variance for candidate windows (cm^2).
   float maxChi2ClusterAttachment = -1.f;
   float maxChi2NDF = -1.f;
+  bool applyMftCellChi2Cut = true; // Forward Kalman χ² cut at MFT cell finding; false defers quality to seed creation.
   float nSigmaCut = -1.f;
   float deltaTanLres = -1.f; // Reserved alias: overrides are rejected (no consumer).
   float minPt = -1.f;

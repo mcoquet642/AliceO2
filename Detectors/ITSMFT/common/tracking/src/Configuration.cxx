@@ -405,6 +405,7 @@ TrackingPlan getTrackingPlan(detectors::DetID::ID detId, Type mode)
 
     p.MaxChi2ClusterAttachment = tc.maxChi2ClusterAttachment > 0 ? tc.maxChi2ClusterAttachment : p.MaxChi2ClusterAttachment;
     p.MaxChi2NDF = tc.maxChi2NDF > 0 ? tc.maxChi2NDF : p.MaxChi2NDF;
+    p.ApplyMftCellChi2Cut = tc.applyMftCellChi2Cut;
     p.PVres = tc.pvRes > 0 ? tc.pvRes : p.PVres;
     p.NSigmaCut *= tc.nSigmaCut > 0 ? tc.nSigmaCut : 1.f;
     p.TrackletMinPt *= tc.minPt > 0 ? tc.minPt : 1.f;
@@ -421,8 +422,9 @@ TrackingPlan getTrackingPlan(detectors::DetID::ID detId, Type mode)
   }
   for (size_t iteration = 0; iteration < trackParams.size(); ++iteration) {
     const auto& p = trackParams[iteration];
-    LOGP(info, "MFT CA pass {}: minTrackLength={} trackletMinPt={} maxChi2ClusterAttachment={} maxChi2NDF={} startLayerMask={}",
-         iteration, p.MinTrackLength, p.TrackletMinPt, p.MaxChi2ClusterAttachment, p.MaxChi2NDF, p.StartLayerMask.value());
+    LOGP(info, "MFT CA pass {}: minTrackLength={} trackletMinPt={} maxChi2ClusterAttachment={} maxChi2NDF={} applyMftCellChi2Cut={} startLayerMask={}",
+         iteration, p.MinTrackLength, p.TrackletMinPt, p.MaxChi2ClusterAttachment, p.MaxChi2NDF, p.ApplyMftCellChi2Cut,
+         p.StartLayerMask.value());
   }
 
   return plan;

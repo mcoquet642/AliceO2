@@ -139,6 +139,8 @@ struct IterationParameters {
   o2::base::PropagatorImpl<float>::MatCorrType CorrType = o2::base::PropagatorImpl<float>::MatCorrType::USEMatCorrNONE;
   float MaxChi2ClusterAttachment = 60.f;
   float MaxChi2NDF = 30.f;
+  // MFT-only: apply forward Kalman χ² cut while forming cells (in addition to seed-stage attachment cuts).
+  bool ApplyMftCellChi2Cut = true;
   int ReseedIfShorter = 6; // Reseed final fit tracks shorter than this.
   std::vector<float> MinPt = {0.f, 0.f, 0.f, 0.f};
   tracking::LayerMask StartLayerMask = 0x7F;

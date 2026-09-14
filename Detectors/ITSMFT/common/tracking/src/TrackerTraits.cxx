@@ -422,8 +422,9 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
   const auto& mLayerGlobalMeasurements = context.layerGlobalMeasurements;
   const auto& topology = mTraversalGraph;
   const bool isMftTopology = detail::isMftTopology(topology.nLayers);
+  const bool applyMftCellChi2Cut = isMftTopology && trkParam.ApplyMftCellChi2Cut;
   std::array<float, MaxLayoutSurfaces> layerXOverX0{};
-  if (isMftTopology) {
+  if (applyMftCellChi2Cut) {
     for (int iLayer = 0; iLayer < topology.nLayers; ++iLayer) {
       layerXOverX0[iLayer] = topology.getSurface(LayerId{static_cast<uint16_t>(iLayer)}).material.xOverX0;
     }
@@ -478,8 +479,9 @@ void TrackerTraits::computeLayerCells(IterationContext& context, const int itera
         }
 
         const std::array<GlobalMeasurement, 3> measurements{inner, middle, outer};
-        // MFT: forward Kalman quality after unified MS/φ gates.
-        if (isMftTopology) {
+        // MFT: optional forward Kalman quality after unified MS/φ gates.
+        // Disabled via ApplyMftCellChi2Cut when relying on seed-stage attachment χ² only.
+        if (applyMftCellChi2Cut) {
           o2::track::TrackParCovFwd fwdTrack;
           float fwdChi2 = 0.f;
           if (!detail::mftFwdFitCellClusters(measurements, hitLayers,
