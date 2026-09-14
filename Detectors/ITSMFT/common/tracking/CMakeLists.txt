@@ -40,6 +40,7 @@ o2_add_library(ITSMFTTracking
                        src/IndexTableConfiguration.cxx
                        src/TraversalTopology.cxx
                        src/Tracker.cxx
+                       src/MFTFwdTrackHelpers.cxx
                PUBLIC_LINK_LIBRARIES
                        O2::ITSMFTTrackingParams
                        O2::GPUCommon

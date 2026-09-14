@@ -252,4 +252,23 @@ inline bool mftFwdFitCellClusters(const std::array<GlobalMeasurement, 3>& measur
 
 } // namespace o2::itsmft::tracking::detail
 
+namespace o2::itsmft::tracking
+{
+class TrackSeed;
+struct SurfaceTrackState;
+
+/// Full-track Kalman refit using MFT TrackFitter (same sequence as standalone LTF / mft-time-aware).
+bool mftFwdRefitFullTrack(const TrackSeed& seed,
+                          gsl::span<const gsl::span<const GlobalMeasurement>> layerGlobals,
+                          float bz,
+                          gsl::span<const float> minPt,
+                          float maxChi2NDF,
+                          SurfaceTrackState& inner,
+                          SurfaceTrackState& outer,
+                          float& chi2,
+                          float& outChi2,
+                          float& invQPtSeed,
+                          float& chi2QPtSeed);
+} // namespace o2::itsmft::tracking
+
 #endif /* ALICEO2_ITSMFT_TRACKING_MFTFWDTRACKHELPERS_H_ */

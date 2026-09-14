@@ -1068,12 +1068,23 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
           SurfaceTrackState innerState{};
           SurfaceTrackState outerState{};
           float chi2 = 0.f;
+          float outChi2 = 0.f;
+          float invQPtSeed = 0.f;
+          float chi2QPtSeed = 0.f;
           OperationFailureReason reason{};
-          if (!fitTrackSeedLegs(trackSeeds[iSeed], context.frame, mLayerGlobalMeasurements,
-                                mTraversalGraph.getSurfaceCatalogView(), mBz,
-                                trkParam.ShiftRefToCluster, trkParam.MaxChi2ClusterAttachment, trkParam.MaxChi2NDF,
-                                trkParam.RepeatRefitOut, gsl::span<const float>(trkParam.MinPt),
-                                innerState, outerState, chi2, reason)) {
+          // MFT full-track refit is the standalone TrackFitter sequence, not the ITS refit driver.
+          const bool fitted = detail::isMftTopology(activeSurfaceCount)
+                                ? mftFwdRefitFullTrack(trackSeeds[iSeed], mLayerGlobalMeasurements, mBz,
+                                                       gsl::span<const float>(trkParam.MinPt), trkParam.MaxChi2NDF,
+                                                       innerState, outerState, chi2,
+                                                       outChi2, invQPtSeed, chi2QPtSeed)
+                                : fitTrackSeedLegs(trackSeeds[iSeed], context.frame, mLayerGlobalMeasurements,
+                                                   mTraversalGraph.getSurfaceCatalogView(), mBz,
+                                                   trkParam.ShiftRefToCluster, trkParam.MaxChi2ClusterAttachment,
+                                                   trkParam.MaxChi2NDF, trkParam.RepeatRefitOut,
+                                                   gsl::span<const float>(trkParam.MinPt),
+                                                   innerState, outerState, chi2, reason);
+          if (!fitted) {
             return;
           }
           TrackingCandidate temporaryTrack;
@@ -1081,6 +1092,9 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
           temporaryTrack.track.innerState = innerState;
           temporaryTrack.track.outerState = outerState;
           temporaryTrack.track.chi2 = chi2;
+          temporaryTrack.track.outChi2 = outChi2;
+          temporaryTrack.track.invQPtSeed = invQPtSeed;
+          temporaryTrack.track.chi2QPtSeed = chi2QPtSeed;
           temporaryTrack.charge = innerState.parameters[4] < 0.f ? -1 : 1;
           temporaryTrack.phi = innerState.kind == SurfaceKind::Cylinder ? std::asin(innerState.parameters[2]) + innerState.alpha : innerState.parameters[2];
           temporaryTrack.eta = std::asinh(innerState.parameters[3]);

@@ -57,6 +57,9 @@ struct GenericTrack {
   LayerMask hitLayers{};
   uint32_t firstClusterRef{0};
   uint32_t clusterRefEnd{0};
+  float outChi2{0.f};      // Outward TrackFitter chi2 (MFT); unused by ITS.
+  float invQPtSeed{0.f};   // Fast-circle-fit seed q/pT (MFT TrackFitter).
+  float chi2QPtSeed{0.f};  // Seed q/pT fit chi2 (MFT TrackFitter).
 };
 
 #ifndef GPUCA_GPUCODE
@@ -79,7 +82,10 @@ struct TrackingCandidate {
 // Device-facing layout requirements.
 static_assert(std::is_standard_layout_v<GenericTrack>);
 static_assert(std::is_trivially_copyable_v<GenericTrack>);
-static_assert(sizeof(GenericTrack) == 224);
+static_assert(sizeof(GenericTrack) == 232);
+static_assert(offsetof(GenericTrack, outChi2) == 220);
+static_assert(offsetof(GenericTrack, invQPtSeed) == 224);
+static_assert(offsetof(GenericTrack, chi2QPtSeed) == 228);
 static_assert(alignof(GenericTrack) == alignof(GenericTrackTimestamp));
 
 // The caller supplies the current frame-owned reference-array size; do not

@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(GenericTrackLayoutAndDeviceCompatibilityTraits)
 {
   static_assert(std::is_standard_layout_v<GenericTrack>);
   static_assert(std::is_trivially_copyable_v<GenericTrack>);
-  static_assert(sizeof(GenericTrack) == 224);
+  static_assert(sizeof(GenericTrack) == 232);
   static_assert(alignof(GenericTrack) == alignof(GenericTrackTimestamp));
   static_assert(std::is_standard_layout_v<TrackClusterReference>);
   static_assert(std::is_trivially_copyable_v<TrackClusterReference>);

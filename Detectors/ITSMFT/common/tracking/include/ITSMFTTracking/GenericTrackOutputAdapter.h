@@ -411,16 +411,16 @@ inline std::optional<MFTGenericTrackOutput> stageMFTGenericTrackOutput(const Tim
       error = GenericTrackOutputAdapterError::InvalidState;
       return std::nullopt;
     }
-    // Preserve the legacy TrackMFT object shape without claiming a seed-pT
-    // estimate from this tracker. TrackMFT does not initialize mInvQPtSeed.
-    outer.setTrackChi2(0.f);
+    // Same published shape as standalone TrackFitter: inward state on the track,
+    // outward state (with its chi2) as OutParam, FCF seed from initTrack.
+    outer.setTrackChi2(common.outChi2);
     o2::mft::TrackMFT output;
     static_cast<o2::track::TrackParCovFwd&>(output) = inner;
     output.setOutParam(outer);
     output.setTrackChi2(common.chi2);
     output.setCA(true);
-    output.setInvQPtSeed(0.);
-    output.setChi2QPtSeed(0.);
+    output.setInvQPtSeed(common.invQPtSeed);
+    output.setChi2QPtSeed(common.chi2QPtSeed);
     uint32_t pattern = 0;
     if (!collectReferences(frame, common, surfaces, 10, staged.clusterIndices, output, pattern, error,
                            externalIndicesBySurface, clusterSizesBySurface))
