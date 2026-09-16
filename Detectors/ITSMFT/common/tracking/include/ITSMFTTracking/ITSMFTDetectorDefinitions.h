@@ -36,10 +36,11 @@ inline constexpr std::array<float, MFTNLayers> kMFTLookupRMax{
 constexpr std::array<float, MFTNLayers> makeNominalMFTLayerX0()
 {
   std::array<float, MFTNLayers> values{};
-  // The nominal MFT CA prescription assigns 0.042/5 X/X0 to each surface.
-  // Both sensor planes use this value; do not divide it by two again.
+  // Standalone TrackFitter applies 0.042/5 once per disk. The refit applies
+  // catalog material at every hit surface, so split that budget across the
+  // 10 planes. Assigning 0.042/5 to each surface double-counted X/X0.
   for (auto& value : values) {
-    value = kMFTNominalRadLength / static_cast<float>(MFTDisks);
+    value = kMFTNominalRadLength / static_cast<float>(MFTNLayers);
   }
   return values;
 }
@@ -69,8 +70,8 @@ static_assert(SurfaceCount<ITSSurfaceSpec> == ITSNLayers);
 
 constexpr NominalSurfaceMaterial mftLayerMaterial(std::size_t layer) noexcept
 {
-  const float x0 = kNominalMFTLayerX0[layer];
-  return {x0, x0 * o2::its::constants::Radl * o2::its::constants::Rho};
+  // MCS only: TrackFitter::addMCSEffect does not apply energy loss.
+  return {kNominalMFTLayerX0[layer], 0.f};
 }
 
 struct MFTSurfaceSpec {

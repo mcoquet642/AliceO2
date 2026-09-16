@@ -1025,7 +1025,7 @@ BOOST_AUTO_TEST_CASE(DiskCellRejectsKinkBeyondNominalScatteringTolerance)
   rig.params[0].TrackletMinPt = 0.3f;
   rig.establishLayout();
 
-  // Keep the dip-angle change beyond the tolerance with 0.0084 X/X0
+  // Keep the dip-angle change beyond the tolerance with 0.0042 X/X0
   // per MFT surface, so this remains an angular-rejection test.
   const std::array<GlobalMeasurement, 3> clusters{makeGlobalCluster(1.0f, 0.5f, -0.4f, 0),
                                                   makeGlobalCluster(1.3f, 0.62f, -0.6f, 0),

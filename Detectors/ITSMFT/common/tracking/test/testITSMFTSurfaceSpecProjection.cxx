@@ -155,31 +155,25 @@ BOOST_AUTO_TEST_CASE(ITSMaterialMatchesNominalDefaultsAndRadlRhoFormula)
   }
 }
 
-BOOST_AUTO_TEST_CASE(MFTMaterialMatchesNominalDefaultsAndRadlRhoFormula)
+BOOST_AUTO_TEST_CASE(MFTMaterialIsMCSOnlyWithSplitDiskBudget)
 {
   for (int layer = 0; layer < MFTNLayers; ++layer) {
     const auto& surface = MFTSurfaceSpec::surfaces[layer];
     BOOST_CHECK_EQUAL(surface.material.xOverX0, kNominalMFTLayerX0[layer]);
-    BOOST_CHECK_CLOSE(surface.material.arealDensityGPerCm2,
-                      kNominalMFTLayerX0[layer] * o2::its::constants::Radl * o2::its::constants::Rho, 1.e-6f);
+    BOOST_CHECK_EQUAL(surface.material.arealDensityGPerCm2, 0.f);
   }
 }
 
 BOOST_AUTO_TEST_CASE(MFTSurfacesUseTheNominalCAPrescription)
 {
-  constexpr float expectedSurfaceX0 = 0.0084f;
+  constexpr float expectedSurfaceX0 = 0.0042f;
   float totalX0 = 0.f;
-  float totalArealDensity = 0.f;
   for (const auto& surface : kMFTStaticSurfaceCatalog) {
     BOOST_CHECK_CLOSE(surface.material.xOverX0, expectedSurfaceX0, 1.e-4f);
-    BOOST_CHECK_CLOSE(surface.material.arealDensityGPerCm2,
-                      expectedSurfaceX0 * o2::its::constants::Radl * o2::its::constants::Rho, 1.e-4f);
+    BOOST_CHECK_EQUAL(surface.material.arealDensityGPerCm2, 0.f);
     totalX0 += surface.material.xOverX0;
-    totalArealDensity += surface.material.arealDensityGPerCm2;
   }
-  BOOST_CHECK_CLOSE(totalX0, 0.084f, 1.e-4f);
-  BOOST_CHECK_CLOSE(totalArealDensity,
-                    0.084f * o2::its::constants::Radl * o2::its::constants::Rho, 1.e-4f);
+  BOOST_CHECK_CLOSE(totalX0, kMFTNominalRadLength, 1.e-4f);
 }
 
 BOOST_AUTO_TEST_CASE(ITSProjectionPreservesEveryFieldBitExactly)

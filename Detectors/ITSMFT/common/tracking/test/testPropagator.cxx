@@ -903,7 +903,7 @@ BOOST_AUTO_TEST_CASE(FullMFTRefitLegUsesNominalMaterialAtEverySurface)
     const bool alongMomentum = direction == material::MaterialTraversalDirection::AlongMomentum;
     auto state = diskState();
     state.referenceCoordinate = kMFTStaticSurfaceCatalog[alongMomentum ? 0 : MFTNLayers - 1].referenceCoordinate;
-    // Field-off and exact measurements isolate the accumulated energy loss.
+    // Field-off and exact measurements isolate MCS; MFT catalog has no dE/dx.
     for (uint8_t row = 0; row < 5; ++row) {
       for (uint8_t column = 0; column < row; ++column) {
         state.covariance[packedCovarianceIndex(row, column)] = 0.f;
@@ -912,12 +912,11 @@ BOOST_AUTO_TEST_CASE(FullMFTRefitLegUsesNominalMaterialAtEverySurface)
     auto linRef = diskLinRef(state);
     const float tanl = state.parameters[3];
     const float momentumScale = std::sqrt(1.f + tanl * tanl);
-    float expectedMomentum = momentumScale / std::abs(state.parameters[4]);
-    const float initialMomentum = expectedMomentum;
-    constexpr float expectedSurfaceX0 = 0.0084f;
+    const float initialMomentum = momentumScale / std::abs(state.parameters[4]);
+    const float initialPhiVariance = state.covariance[packedCovarianceIndex(2, 2)];
+    constexpr float expectedSurfaceX0 = 0.0042f;
     const float pathX0 = expectedSurfaceX0 * momentumScale / std::abs(tanl);
-    const material::IntegratedMaterialBudget expectedMaterial{
-      pathX0, pathX0 * o2::its::constants::Radl * o2::its::constants::Rho};
+    const material::IntegratedMaterialBudget expectedMaterial{pathX0, 0.f};
     std::array<detail::RefitMeasurementSlot, MFTNLayers> slots{};
     for (int hit = 0; hit < MFTNLayers; ++hit) {
       const auto layer = static_cast<uint16_t>(alongMomentum ? hit : MFTNLayers - 1 - hit);
@@ -934,10 +933,10 @@ BOOST_AUTO_TEST_CASE(FullMFTRefitLegUsesNominalMaterialAtEverySurface)
       float resultMomentum = 0.f;
       float resultTheta2 = 0.f;
       float resultVariance = 0.f;
-      const bool result = material::calculateMaterialPhysics(expectedMomentum, state.pid, state.absCharge,
+      const bool result = material::calculateMaterialPhysics(initialMomentum, state.pid, state.absCharge,
                                                              direction, expectedMaterial, resultMomentum, resultTheta2, resultVariance);
       BOOST_REQUIRE(result);
-      expectedMomentum = resultMomentum;
+      BOOST_CHECK_CLOSE(resultMomentum, initialMomentum, 1.e-4f);
     }
     float chi2 = 0.f;
     uint32_t acceptedHitCount = 0;
@@ -945,8 +944,8 @@ BOOST_AUTO_TEST_CASE(FullMFTRefitLegUsesNominalMaterialAtEverySurface)
     BOOST_REQUIRE(detail::driveRefitLeg(state, linRef, chi2, acceptedHitCount, slots, catalog, 0.f,
                                         direction, false, 100.f));
     BOOST_CHECK_EQUAL(acceptedHitCount, MFTNLayers);
-    BOOST_CHECK_CLOSE(momentumScale / std::abs(state.parameters[4]), expectedMomentum, 1.e-4f);
-    BOOST_CHECK(alongMomentum ? expectedMomentum < initialMomentum : expectedMomentum > initialMomentum);
+    BOOST_CHECK_CLOSE(momentumScale / std::abs(state.parameters[4]), initialMomentum, 1.e-4f);
+    BOOST_CHECK_GT(state.covariance[packedCovarianceIndex(2, 2)], initialPhiVariance);
   }
 }
 
