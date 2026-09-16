@@ -238,6 +238,54 @@ BOOST_AUTO_TEST_CASE(NormalizedGlobalCoordinateChangeAltersOutput)
   BOOST_CHECK(!perturbedOk);
 }
 
+BOOST_AUTO_TEST_CASE(DiskRefitSeedsEachLegFromAllHitsNotCAState)
+{
+  const StraightTrackGeometry geometry(0.3f);
+  RefitFixture fx(geometry);
+  fx.seed.state().parameters[4] = 50.f;
+  for (auto& element : fx.seed.state().covariance) {
+    element = 0.f;
+  }
+  TrackingCandidate track;
+  BOOST_REQUIRE(refit(fx, track));
+  BOOST_CHECK_LT(std::abs(track.track.innerState.parameters[4]), 1.f);
+  BOOST_CHECK_LT(std::abs(track.track.outerState.parameters[4]), 1.f);
+}
+
+BOOST_AUTO_TEST_CASE(DiskRefitLegSeedUsesLTFCovariance)
+{
+  detail::DiskRefitHits hits{};
+  hits.nHits = 3;
+  hits.x[0] = 1.f;
+  hits.x[1] = 1.2f;
+  hits.x[2] = 1.4f;
+  hits.y[0] = 0.5f;
+  hits.y[1] = 0.55f;
+  hits.y[2] = 0.6f;
+  hits.z[0] = -45.f;
+  hits.z[1] = -50.f;
+  hits.z[2] = -55.f;
+  for (int i = 0; i < 3; ++i) {
+    hits.sigmaX2[i] = 1.e-6f;
+    hits.sigmaY2[i] = 1.e-6f;
+  }
+  SurfaceTrackState state{};
+  state.absCharge = 1;
+  state.pid = o2::track::PID::Pion;
+  BOOST_REQUIRE(detail::initDiskRefitLeg(state, hits, 5.f, false));
+  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(0, 0)], 1.f);
+  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(1, 1)], 1.f);
+  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(2, 2)], 1.f);
+  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(3, 3)], 1.f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(4, 4)],
+                    std::clamp(std::abs(state.parameters[4]), 1.f, 10.f), 1.e-4f);
+  BOOST_CHECK_EQUAL(state.referenceCoordinate, hits.z[2]);
+  SurfaceTrackState outward = state;
+  BOOST_REQUIRE(detail::initDiskRefitLeg(outward, hits, 5.f, true));
+  BOOST_CHECK_EQUAL(outward.referenceCoordinate, hits.z[0]);
+  BOOST_CHECK_CLOSE(outward.parameters[4], state.parameters[4], 1.e-4f);
+}
+
 BOOST_AUTO_TEST_CASE(NormalizedCovarianceChangeAltersOutput)
 {
   const StraightTrackGeometry geometry(0.3f);
