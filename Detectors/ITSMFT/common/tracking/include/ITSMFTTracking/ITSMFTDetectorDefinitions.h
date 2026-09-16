@@ -108,6 +108,20 @@ inline constexpr auto kMFTStaticSurfaceCatalog = projectStaticSurfaceCatalog<MFT
 static_assert(kITSStaticSurfaceCatalog.size() == ITSNLayers);
 static_assert(kMFTStaticSurfaceCatalog.size() == MFTNLayers);
 
+inline float resolveMftRadLength(float configured) noexcept
+{
+  return configured >= 0.f ? configured : kMFTNominalRadLength;
+}
+
+inline void applyMftCatalogRadLength(std::array<SurfaceDescriptor, MFTNLayers>& surfaces, float mftRadLength) noexcept
+{
+  const float perSurface = resolveMftRadLength(mftRadLength) / static_cast<float>(MFTNLayers);
+  for (auto& surface : surfaces) {
+    surface.material.xOverX0 = perSurface;
+    surface.material.arealDensityGPerCm2 = 0.f;
+  }
+}
+
 } // namespace o2::itsmft::tracking
 
 #endif /* ALICEO2_ITSMFT_TRACKING_DETECTORDEFINITIONS_H_ */

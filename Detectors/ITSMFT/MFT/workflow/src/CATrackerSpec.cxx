@@ -15,6 +15,7 @@
 
 #include <array>
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <memory>
 #include <utility>
@@ -271,9 +272,17 @@ void CATrackerDPL::initialiseTracking()
   mTrackerTraits->setNThreads(mOptions.nThreads, taskArena);
 
   const auto maxMemory = plan.execution.MaxMemory;
+  std::array<o2::itsmft::tracking::SurfaceDescriptor, o2::itsmft::tracking::MFTNLayers> catalog =
+    o2::itsmft::tracking::kMFTStaticSurfaceCatalog;
+  if (trackerParams.mftRadLength >= 0.f && !std::isfinite(trackerParams.mftRadLength)) {
+    LOGP(fatal, "MFTCATrackerParam.mftRadLength={} is not finite", trackerParams.mftRadLength);
+  }
+  o2::itsmft::tracking::applyMftCatalogRadLength(catalog, trackerParams.mftRadLength);
+  const float totalX0 = o2::itsmft::tracking::resolveMftRadLength(trackerParams.mftRadLength);
+  LOGP(info, "MFT CA material: total X/X0={} ({} per surface, MCS only). Override with MFTCATrackerParam.mftRadLength",
+       totalX0, totalX0 / static_cast<float>(o2::itsmft::tracking::MFTNLayers));
   o2::itsmft::tracking::TrackerInitialization configuration{
-    .catalog = {o2::itsmft::tracking::kMFTStaticSurfaceCatalog.data(),
-                static_cast<uint32_t>(o2::itsmft::tracking::kMFTStaticSurfaceCatalog.size())},
+    .catalog = {catalog.data(), static_cast<uint32_t>(catalog.size())},
     .layout = o2::itsmft::tracking::makeDetectorLayout(o2::itsmft::tracking::LayerMask{trackerParams.holeLayerMask}),
     .plan = std::move(plan),
     .memoryPool = std::make_shared<o2::itsmft::tracking::BoundedMemoryResource>(maxMemory)};

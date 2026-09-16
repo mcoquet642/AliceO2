@@ -39,7 +39,7 @@ struct FieldFixture {
 struct RestoreConfiguration {
   ~RestoreConfiguration()
   {
-    ConfigurableParam::updateFromString("MFTCATrackerParam.nIterations=-1;MFTCATrackerParam.materialModel=nominal;MFTCATrackerParam.useFastMaterial=true;MFTCATrackerParam.useMatCorrTGeo=false;MFTCATrackerParam.startLayerMask[0]=0");
+    ConfigurableParam::updateFromString("MFTCATrackerParam.nIterations=-1;MFTCATrackerParam.materialModel=nominal;MFTCATrackerParam.useFastMaterial=true;MFTCATrackerParam.useMatCorrTGeo=false;MFTCATrackerParam.startLayerMask[0]=0;MFTCATrackerParam.mftRadLength=-1");
   }
 };
 auto resolve(TrackingMode::Type mode)
@@ -126,6 +126,26 @@ BOOST_FIXTURE_TEST_CASE(ParserOuterLayerMasksReachTheResolvedRoadStarts, Restore
   BOOST_CHECK_EQUAL(member->GetArrayDim(), 1);
   BOOST_CHECK_EQUAL(member->GetMaxIndex(0), MaxIter);
   BOOST_CHECK_EQUAL(member->GetUnitSize(), sizeof(uint32_t));
+}
+
+BOOST_AUTO_TEST_CASE(MftRadLengthSplitsTotalBudgetAcrossSurfaces)
+{
+  std::array<SurfaceDescriptor, MFTNLayers> catalog = kMFTStaticSurfaceCatalog;
+  applyMftCatalogRadLength(catalog, -1.f);
+  for (const auto& surface : catalog) {
+    BOOST_CHECK_CLOSE(surface.material.xOverX0, kMFTNominalRadLength / static_cast<float>(MFTNLayers), 1.e-4f);
+    BOOST_CHECK_EQUAL(surface.material.arealDensityGPerCm2, 0.f);
+  }
+  applyMftCatalogRadLength(catalog, 0.021f);
+  for (const auto& surface : catalog) {
+    BOOST_CHECK_CLOSE(surface.material.xOverX0, 0.0021f, 1.e-4f);
+    BOOST_CHECK_EQUAL(surface.material.arealDensityGPerCm2, 0.f);
+  }
+  applyMftCatalogRadLength(catalog, 0.f);
+  for (const auto& surface : catalog) {
+    BOOST_CHECK_EQUAL(surface.material.xOverX0, 0.f);
+    BOOST_CHECK_EQUAL(surface.material.arealDensityGPerCm2, 0.f);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(DormantMFTOverridesFailWithTheirPublicNames)
