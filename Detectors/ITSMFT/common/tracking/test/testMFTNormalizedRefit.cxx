@@ -113,6 +113,7 @@ struct RefitFixture {
     for (int layer = 0; layer < NLayers; ++layer) {
       catalogSurfaces[layer].detectorSurfaceIndex = static_cast<uint16_t>(layer);
       catalogSurfaces[layer].kind = SurfaceKind::Disk;
+      catalogSurfaces[layer].referenceCoordinate = geometry.z[layer];
       catalogSurfaces[layer].material = NominalSurfaceMaterial{0.f, 0.f};
     }
     catalog = SurfaceCatalogView{catalogSurfaces.data(), static_cast<uint32_t>(catalogSurfaces.size())};
@@ -463,7 +464,9 @@ BOOST_AUTO_TEST_CASE(GenericRefitUsesStablePreSortClusterIdentity)
   std::vector<gsl::span<const GlobalMeasurement>> layerGlobals = std::vector<gsl::span<const GlobalMeasurement>>(NLayers);
   std::vector<SurfaceDescriptor> catalogSurfaces(NLayers);
   for (int layer = 0; layer < NLayers; ++layer) {
+    catalogSurfaces[layer].detectorSurfaceIndex = static_cast<uint16_t>(layer);
     catalogSurfaces[layer].kind = SurfaceKind::Disk;
+    catalogSurfaces[layer].referenceCoordinate = geometry.z[layer];
     catalogSurfaces[layer].material = NominalSurfaceMaterial{0.f, 0.f};
   }
   SurfaceCatalogView catalog{catalogSurfaces.data(), static_cast<uint32_t>(catalogSurfaces.size())};

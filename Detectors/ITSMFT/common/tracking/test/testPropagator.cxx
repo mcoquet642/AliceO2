@@ -290,6 +290,17 @@ BOOST_AUTO_TEST_CASE(AcceptedForwardPropagationSelectsFieldAndLowFieldPaths)
   BOOST_CHECK(!bitEqual(fieldOn, lowPositive));
 }
 
+BOOST_AUTO_TEST_CASE(ForwardHelixUsesQuadraticCovarianceJacobian)
+{
+  auto helix = diskState();
+  auto linear = helix;
+  BOOST_REQUIRE(Propagator::propagateToReference(helix, -50.f, 5.f));
+  BOOST_REQUIRE(Propagator::propagateToReference(linear, -50.f, 0.f));
+  BOOST_CHECK_EQUAL(linear.covariance[packedCovarianceIndex(2, 4)], diskState().covariance[packedCovarianceIndex(2, 4)]);
+  BOOST_CHECK_NE(helix.covariance[packedCovarianceIndex(2, 4)], linear.covariance[packedCovarianceIndex(2, 4)]);
+  BOOST_CHECK_NE(helix.covariance[packedCovarianceIndex(0, 4)], linear.covariance[packedCovarianceIndex(0, 4)]);
+}
+
 BOOST_AUTO_TEST_CASE(PropagatorSelectsCompatibilityFromStateKind)
 {
   auto cylinderReference = barrelState();
@@ -895,58 +906,114 @@ BOOST_AUTO_TEST_CASE(RefitDriverSkipsHoleSlots)
   BOOST_CHECK_EQUAL(acceptedHitCount, 1u);
 }
 
-BOOST_AUTO_TEST_CASE(FullMFTRefitLegUsesNominalMaterialAtEverySurface)
+namespace
+{
+
+std::array<detail::RefitMeasurementSlot, MFTNLayers> makeStraightMftSlots(const SurfaceTrackState& state, bool alongMomentum)
+{
+  std::array<detail::RefitMeasurementSlot, MFTNLayers> slots{};
+  const float tanl = state.parameters[3];
+  for (int hit = 0; hit < MFTNLayers; ++hit) {
+    const auto layer = static_cast<uint16_t>(alongMomentum ? hit : MFTNLayers - 1 - hit);
+    auto& slot = slots[hit];
+    slot.surface = LayerId{layer};
+    slot.present = true;
+    const float z = kMFTStaticSurfaceCatalog[layer].referenceCoordinate;
+    const float transverseDistance = (z - state.referenceCoordinate) / tanl;
+    slot.measurement.frame = {z,
+                              state.parameters[0] + transverseDistance * std::cos(state.parameters[2]),
+                              state.parameters[1] + transverseDistance * std::sin(state.parameters[2]), 0.f};
+    slot.measurement.covariance = {0.04f, 0.f, 0.04f};
+  }
+  return slots;
+}
+
+} // namespace
+
+BOOST_AUTO_TEST_CASE(FullMFTRefitLegAppliesDiskMCSIncludingHoles)
 {
   const SurfaceCatalogView catalog{kMFTStaticSurfaceCatalog.data(), MFTNLayers};
   for (const auto direction : {material::MaterialTraversalDirection::AlongMomentum,
                                material::MaterialTraversalDirection::OppositeMomentum}) {
     const bool alongMomentum = direction == material::MaterialTraversalDirection::AlongMomentum;
+    auto makeState = [&]() {
+      auto state = diskState();
+      state.referenceCoordinate = kMFTStaticSurfaceCatalog[alongMomentum ? 0 : MFTNLayers - 1].referenceCoordinate;
+      for (uint8_t row = 0; row < 5; ++row) {
+        for (uint8_t column = 0; column < row; ++column) {
+          state.covariance[packedCovarianceIndex(row, column)] = 0.f;
+        }
+      }
+      return state;
+    };
+
+    auto allHitState = makeState();
+    auto linRef = diskLinRef(allHitState);
+    const float tanl = allHitState.parameters[3];
+    const float momentumScale = std::sqrt(1.f + tanl * tanl);
+    const float initialMomentum = momentumScale / std::abs(allHitState.parameters[4]);
+    const float initialPhiVariance = allHitState.covariance[packedCovarianceIndex(2, 2)];
+    auto allHitSlots = makeStraightMftSlots(allHitState, alongMomentum);
+    float chi2 = 0.f;
+    uint32_t acceptedHitCount = 0;
+    BOOST_REQUIRE(detail::driveRefitLeg(allHitState, linRef, chi2, acceptedHitCount, allHitSlots, catalog, 0.f,
+                                        direction, false, 100.f));
+    BOOST_CHECK_EQUAL(acceptedHitCount, MFTNLayers);
+    BOOST_CHECK_CLOSE(momentumScale / std::abs(allHitState.parameters[4]), initialMomentum, 1.e-4f);
+    BOOST_CHECK_GT(allHitState.covariance[packedCovarianceIndex(2, 2)], initialPhiVariance);
+
+    auto holeState = makeState();
+    auto holeRef = diskLinRef(holeState);
+    auto holeSlots = makeStraightMftSlots(holeState, alongMomentum);
+    for (int hit = 1; hit < MFTNLayers - 1; ++hit) {
+      holeSlots[hit].present = false;
+    }
+    chi2 = 0.f;
+    acceptedHitCount = 0;
+    BOOST_REQUIRE(detail::driveRefitLeg(holeState, holeRef, chi2, acceptedHitCount, holeSlots, catalog, 0.f,
+                                        direction, false, 100.f));
+    BOOST_CHECK_EQUAL(acceptedHitCount, 2u);
+    BOOST_CHECK_CLOSE(momentumScale / std::abs(holeState.parameters[4]), initialMomentum, 1.e-4f);
+    BOOST_CHECK_GT(holeState.covariance[packedCovarianceIndex(2, 2)], initialPhiVariance);
+  }
+}
+
+BOOST_AUTO_TEST_CASE(MftDiskWalkAppliesMCSForCrossedHolesNotOnlyTargetSurface)
+{
+  const SurfaceCatalogView catalog{kMFTStaticSurfaceCatalog.data(), MFTNLayers};
+  auto makeState = []() {
     auto state = diskState();
-    state.referenceCoordinate = kMFTStaticSurfaceCatalog[alongMomentum ? 0 : MFTNLayers - 1].referenceCoordinate;
-    // Field-off and exact measurements isolate MCS; MFT catalog has no dE/dx.
+    state.referenceCoordinate = kMFTStaticSurfaceCatalog[0].referenceCoordinate;
     for (uint8_t row = 0; row < 5; ++row) {
       for (uint8_t column = 0; column < row; ++column) {
         state.covariance[packedCovarianceIndex(row, column)] = 0.f;
       }
     }
-    auto linRef = diskLinRef(state);
-    const float tanl = state.parameters[3];
-    const float momentumScale = std::sqrt(1.f + tanl * tanl);
-    const float initialMomentum = momentumScale / std::abs(state.parameters[4]);
-    const float initialPhiVariance = state.covariance[packedCovarianceIndex(2, 2)];
-    constexpr float expectedSurfaceX0 = 0.0042f;
-    const float pathX0 = expectedSurfaceX0 * momentumScale / std::abs(tanl);
-    const material::IntegratedMaterialBudget expectedMaterial{pathX0, 0.f};
-    std::array<detail::RefitMeasurementSlot, MFTNLayers> slots{};
-    for (int hit = 0; hit < MFTNLayers; ++hit) {
-      const auto layer = static_cast<uint16_t>(alongMomentum ? hit : MFTNLayers - 1 - hit);
-      auto& slot = slots[hit];
-      slot.surface = LayerId{layer};
-      slot.present = true;
-      const float z = kMFTStaticSurfaceCatalog[layer].referenceCoordinate;
-      const float transverseDistance = (z - state.referenceCoordinate) / tanl;
-      slot.measurement.frame = {z,
-                                state.parameters[0] + transverseDistance * std::cos(state.parameters[2]),
-                                state.parameters[1] + transverseDistance * std::sin(state.parameters[2]), 0.f};
-      slot.measurement.covariance = {0.04f, 0.f, 0.04f};
-
-      float resultMomentum = 0.f;
-      float resultTheta2 = 0.f;
-      float resultVariance = 0.f;
-      const bool result = material::calculateMaterialPhysics(initialMomentum, state.pid, state.absCharge,
-                                                             direction, expectedMaterial, resultMomentum, resultTheta2, resultVariance);
-      BOOST_REQUIRE(result);
-      BOOST_CHECK_CLOSE(resultMomentum, initialMomentum, 1.e-4f);
-    }
-    float chi2 = 0.f;
-    uint32_t acceptedHitCount = 0;
-
-    BOOST_REQUIRE(detail::driveRefitLeg(state, linRef, chi2, acceptedHitCount, slots, catalog, 0.f,
-                                        direction, false, 100.f));
-    BOOST_CHECK_EQUAL(acceptedHitCount, MFTNLayers);
-    BOOST_CHECK_CLOSE(momentumScale / std::abs(state.parameters[4]), initialMomentum, 1.e-4f);
-    BOOST_CHECK_GT(state.covariance[packedCovarianceIndex(2, 2)], initialPhiVariance);
-  }
+    return state;
+  };
+  const auto& target = kMFTStaticSurfaceCatalog[MFTNLayers - 1];
+  auto walked = makeState();
+  auto direct = makeState();
+  auto walkedRef = diskLinRef(walked);
+  auto directRef = diskLinRef(direct);
+  const float tanl = walked.parameters[3];
+  const float dz = target.referenceCoordinate - walked.referenceCoordinate;
+  const float transverseDistance = dz / tanl;
+  SurfaceMeasurement measurement{};
+  measurement.frame = {target.referenceCoordinate,
+                       walked.parameters[0] + transverseDistance * std::cos(walked.parameters[2]),
+                       walked.parameters[1] + transverseDistance * std::sin(walked.parameters[2]), 0.f};
+  measurement.covariance = {0.04f, 0.f, 0.04f};
+  float walkedChi2 = 0.f;
+  float directChi2 = 0.f;
+  BOOST_REQUIRE(Propagator::propagateToMeasurement(walked, walkedRef, target, measurement, 0.f,
+                                                   material::MaterialTraversalDirection::AlongMomentum,
+                                                   false, 0.f, walkedChi2, false, catalog, LayerId{0}));
+  BOOST_REQUIRE(Propagator::propagateToMeasurement(direct, directRef, target, measurement, 0.f,
+                                                   material::MaterialTraversalDirection::AlongMomentum,
+                                                   false, 0.f, directChi2, false));
+  BOOST_CHECK_GT(walked.covariance[packedCovarianceIndex(2, 2)],
+                 direct.covariance[packedCovarianceIndex(2, 2)]);
 }
 
 // --- 10/11: chi2-gate failure and atomicity ----------------------------------

@@ -75,8 +75,10 @@ inline gsl::span<const RefitMeasurementSlot> assembleRefitLegSlots(
   return gsl::span<const RefitMeasurementSlot>(out.data(), position);
 }
 
-// Holes are skipped; present slots must resolve to a descriptor. Commit state,
-// reference, chi2 and count only after the full leg succeeds.
+// Missing hits are not Kalman-updated. Disk MCS still walks catalog layers
+// between present hits, including holes. Present slots must resolve to a
+// descriptor. Commit state, reference, chi2 and count only after the full
+// leg succeeds.
 inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                           float& chi2, uint32_t& acceptedHitCount,
                           gsl::span<const RefitMeasurementSlot> orderedSlots, SurfaceCatalogView surfaceCatalog,
@@ -92,6 +94,7 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
   float scratchChi2 = chi2;
   uint32_t scratchAcceptedHitCount = 0;
   constexpr uint32_t kChi2GateMinAcceptedHits = 3;
+  LayerId previousSurface{};
   for (const auto& slot : orderedSlots) {
     if (!slot.present) {
       continue;
@@ -103,9 +106,10 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
     const SurfaceDescriptor& descriptor = surfaceCatalog.getSurface(slot.surface);
     if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, slot.measurement, bz, direction,
                                             scratchAcceptedHitCount >= kChi2GateMinAcceptedHits, maxChi2, scratchChi2,
-                                            shiftReferenceToMeasurement)) {
+                                            shiftReferenceToMeasurement, surfaceCatalog, previousSurface)) {
       return false;
     }
+    previousSurface = slot.surface;
     ++scratchAcceptedHitCount;
   }
   state = scratchState;

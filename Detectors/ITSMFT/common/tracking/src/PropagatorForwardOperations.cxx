@@ -166,10 +166,38 @@ bool propagateHelixParameters(SurfaceTrackState& state, float targetZ, float bz)
   return true;
 }
 
+// Optimized MFT transport: helix parameters, quadratic covariance Jacobian
+// (TrackParCovFwd::propagateToZ).
+void fillQuadraticCovarianceJacobian(DenseMatrix5& jacobian, float dz, float phi, float tanl,
+                                     float inverseQPt, float bz) noexcept
+{
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column < 5; ++column) {
+      jacobian[row][column] = 0.f;
+    }
+  }
+  identity(jacobian);
+  const float inverseTanl = 1.f / tanl;
+  const float sinPhi = std::sin(phi);
+  const float cosPhi = std::cos(phi);
+  const float k = std::abs(o2::constants::math::B2C * bz);
+  const float theta = -inverseQPt * dz * k * inverseTanl;
+  const float fieldSign = std::copysign(1.f, bz);
+  const float n = dz * inverseTanl;
+  const float m = n * inverseTanl;
+  jacobian[0][2] = -n * theta * 0.5f * fieldSign * cosPhi - n * sinPhi;
+  jacobian[0][3] = fieldSign * m * theta * sinPhi - m * cosPhi;
+  jacobian[0][4] = k * m * 0.5f * fieldSign * dz * sinPhi;
+  jacobian[1][2] = -n * theta * 0.5f * fieldSign * sinPhi + n * cosPhi;
+  jacobian[1][3] = -fieldSign * m * theta * cosPhi - m * sinPhi;
+  jacobian[1][4] = -k * m * 0.5f * fieldSign * dz * cosPhi;
+  jacobian[2][3] = -fieldSign * theta * inverseTanl;
+  jacobian[2][4] = -fieldSign * k * n;
+}
+
 bool propagateHelix(SurfaceTrackState& state, float targetZ, float bz) noexcept
 {
-  const float originalZ = state.referenceCoordinate;
-  const float dz = targetZ - originalZ;
+  const float dz = targetZ - state.referenceCoordinate;
   if (dz == 0.f) {
     return true;
   }
@@ -179,39 +207,8 @@ bool propagateHelix(SurfaceTrackState& state, float targetZ, float bz) noexcept
   if (!propagateHelixParameters(state, targetZ, bz)) {
     return false;
   }
-  const float inverseTanl = 1.f / tanl;
-  const float qPt = 1.f / inverseQPt;
-  const float sinPhi = std::sin(phi);
-  const float cosPhi = std::cos(phi);
-  const float k = std::abs(o2::constants::math::B2C * bz);
-  const float inverseK = 1.f / k;
-  const float theta = -inverseQPt * dz * k * inverseTanl;
-  const float sinTheta = std::sin(theta);
-  const float cosTheta = std::cos(theta);
-  const float fieldSign = std::copysign(1.f, bz);
-  const float n = dz * inverseTanl;
-  const float m = n * inverseTanl;
-  const float o = sinTheta * cosPhi;
-  const float p = sinPhi * cosTheta;
-  const float r = sinPhi * sinTheta;
-  const float s = cosPhi * cosTheta;
-  const float y = sinPhi * qPt * inverseK;
-  const float x = cosPhi * qPt * inverseK;
-  const float t = qPt * cosTheta;
-  const float u = qPt * sinTheta;
-  const float v = qPt;
-  const float nn = dz * inverseTanl * qPt;
-
   DenseMatrix5 jacobian{};
-  identity(jacobian);
-  jacobian[0][2] = fieldSign * x - fieldSign * x * cosTheta + y * sinTheta;
-  jacobian[0][3] = fieldSign * r * m - s * m;
-  jacobian[0][4] = -fieldSign * nn * r + fieldSign * t * y - fieldSign * v * y + nn * s + u * x;
-  jacobian[1][2] = fieldSign * y - fieldSign * y * cosTheta - x * sinTheta;
-  jacobian[1][3] = -fieldSign * o * m - p * m;
-  jacobian[1][4] = fieldSign * nn * o - fieldSign * t * x + fieldSign * v * x + nn * p + u * y;
-  jacobian[2][3] = -fieldSign * theta * inverseTanl;
-  jacobian[2][4] = -fieldSign * k * n;
+  fillQuadraticCovarianceJacobian(jacobian, dz, phi, tanl, inverseQPt, bz);
   transportCovariance(state, jacobian);
   return true;
 }
@@ -439,8 +436,7 @@ bool referencePropagateHelixParameters(SurfaceTrackParameters& ref, float target
 bool referencePropagateHelix(SurfaceTrackParameters& ref, float targetZ, float bz, DenseMatrix5& jacobian) noexcept
 {
   identity(jacobian);
-  const float originalZ = ref.referenceCoordinate;
-  const float dz = targetZ - originalZ;
+  const float dz = targetZ - ref.referenceCoordinate;
   if (dz == 0.f) {
     return true;
   }
@@ -450,37 +446,7 @@ bool referencePropagateHelix(SurfaceTrackParameters& ref, float targetZ, float b
   if (!referencePropagateHelixParameters(ref, targetZ, bz)) {
     return false;
   }
-  const float inverseTanl = 1.f / tanl;
-  const float qPt = 1.f / inverseQPt;
-  const float sinPhi = std::sin(phi);
-  const float cosPhi = std::cos(phi);
-  const float k = std::abs(o2::constants::math::B2C * bz);
-  const float inverseK = 1.f / k;
-  const float theta = -inverseQPt * dz * k * inverseTanl;
-  const float sinTheta = std::sin(theta);
-  const float cosTheta = std::cos(theta);
-  const float fieldSign = std::copysign(1.f, bz);
-  const float n = dz * inverseTanl;
-  const float m = n * inverseTanl;
-  const float o = sinTheta * cosPhi;
-  const float p = sinPhi * cosTheta;
-  const float r = sinPhi * sinTheta;
-  const float s = cosPhi * cosTheta;
-  const float y = sinPhi * qPt * inverseK;
-  const float x = cosPhi * qPt * inverseK;
-  const float t = qPt * cosTheta;
-  const float u = qPt * sinTheta;
-  const float v = qPt;
-  const float nn = dz * inverseTanl * qPt;
-
-  jacobian[0][2] = fieldSign * x - fieldSign * x * cosTheta + y * sinTheta;
-  jacobian[0][3] = fieldSign * r * m - s * m;
-  jacobian[0][4] = -fieldSign * nn * r + fieldSign * t * y - fieldSign * v * y + nn * s + u * x;
-  jacobian[1][2] = fieldSign * y - fieldSign * y * cosTheta - x * sinTheta;
-  jacobian[1][3] = -fieldSign * o * m - p * m;
-  jacobian[1][4] = fieldSign * nn * o - fieldSign * t * x + fieldSign * v * x + nn * p + u * y;
-  jacobian[2][3] = -fieldSign * theta * inverseTanl;
-  jacobian[2][4] = -fieldSign * k * n;
+  fillQuadraticCovarianceJacobian(jacobian, dz, phi, tanl, inverseQPt, bz);
   return true;
 }
 

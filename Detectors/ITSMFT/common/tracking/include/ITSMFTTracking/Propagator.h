@@ -43,9 +43,10 @@ class Propagator
                         float& chi2) noexcept;
 
   // Propagate in the state’s current surface convention to its target
-  // reference coordinate. Disk transport uses helix propagation for
-  // |bz| > 0.01f and linear transport otherwise. Both objects are unchanged
-  // on failure when a linearization reference is supplied.
+  // reference coordinate. Disk transport uses helix parameters and a
+  // quadratic covariance Jacobian for |bz| > 0.01f, and linear transport
+  // otherwise. Both objects are unchanged on failure when a linearization
+  // reference is supplied.
   static bool propagateToReference(SurfaceTrackState& state, float targetReferenceCoordinate, float bz) noexcept;
   static bool propagateToReference(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                                    float targetReferenceCoordinate, float bz) noexcept;
@@ -66,11 +67,19 @@ class Propagator
   //
   // The incoming chi2 must be finite and non-negative. maxChi2 is validated
   // the same way when the gate is enabled.
+  //
+  // When `catalog` contains the target Disk, MFT MCS is applied once per disk
+  // crossed (including holes) before each layer-z step, matching
+  // TrackFitter::propagateToNextClusterWithMCS. The first Disk hit and an
+  // empty catalog keep a direct z-step; the catalog walk does not apply extra
+  // target-surface material.
   static bool propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                                      const SurfaceDescriptor& targetSurface, const SurfaceMeasurement& targetMeasurement,
                                      float bz, material::MaterialTraversalDirection direction,
                                      bool chi2GateEnabled, float maxChi2, float& chi2,
-                                     bool shiftReferenceToMeasurement) noexcept;
+                                     bool shiftReferenceToMeasurement,
+                                     SurfaceCatalogView catalog = {},
+                                     LayerId fromSurface = {}) noexcept;
 
  private:
   // Called only after propagation validates matching Cylinder/Disk kinds for
@@ -78,6 +87,9 @@ class Propagator
   static bool correctForMaterial(SurfaceTrackState& state, SurfaceTrackParameters& incidenceReference,
                                  material::IntegratedMaterialBudget materialBudget,
                                  material::MaterialTraversalDirection direction) noexcept;
+  static bool propagateAcrossMftDisks(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
+                                      SurfaceCatalogView catalog, int startMftLayer, int endMftLayer,
+                                      float targetZ, float bz, material::MaterialTraversalDirection direction) noexcept;
 };
 
 } // namespace o2::itsmft::tracking

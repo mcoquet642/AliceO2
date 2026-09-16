@@ -36,9 +36,9 @@ inline constexpr std::array<float, MFTNLayers> kMFTLookupRMax{
 constexpr std::array<float, MFTNLayers> makeNominalMFTLayerX0()
 {
   std::array<float, MFTNLayers> values{};
-  // Standalone TrackFitter applies 0.042/5 once per disk. The refit applies
-  // catalog material at every hit surface, so split that budget across the
-  // 10 planes. Assigning 0.042/5 to each surface double-counted X/X0.
+  // Standalone TrackFitter applies 0.042/5 once per disk. Disk MCS adds the
+  // two face budgets of the crossed disk, so split the total across the 10
+  // planes. Assigning 0.042/5 to each surface double-counted X/X0.
   for (auto& value : values) {
     value = kMFTNominalRadLength / static_cast<float>(MFTNLayers);
   }
