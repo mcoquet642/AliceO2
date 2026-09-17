@@ -417,8 +417,8 @@ BOOST_AUTO_TEST_CASE(PreservesSeedMembershipForGenericRefit)
   }
 }
 
-// The native update uses the full uu/uv/vv measurement covariance.
-BOOST_AUTO_TEST_CASE(OffDiagonalCovarianceIsUsedByNativeUpdate)
+// Disk refit uses LTF hit covariance: diagonal uu/vv, uv ignored.
+BOOST_AUTO_TEST_CASE(DiskRefitIgnoresHitCovarianceOffDiagonal)
 {
   const StraightTrackGeometry geometry(0.3f);
 
@@ -427,25 +427,18 @@ BOOST_AUTO_TEST_CASE(OffDiagonalCovarianceIsUsedByNativeUpdate)
   BOOST_REQUIRE(refit(reference, referenceTrack));
 
   RefitFixture withUv(geometry);
-  // A generous per-hit/per-track chi2 gate: this test's goal is only to
-  // prove a physically valid off-diagonal correlation changes the native
-  // update's output, not to probe chi2-gate behavior -- a nonzero
-  // correlation legitimately raises the predicted chi2 against a reference
-  // fit tuned for the uncorrelated (uv == 0) case.
   withUv.params.MaxChi2ClusterAttachment = 1.e4f;
   withUv.params.MaxChi2NDF = 1.e4f;
   for (int layer = 0; layer < NLayers; ++layer) {
     auto m = withUv.storage[layer].front();
-    // A modest, physically valid correlation (|coefficient| << 1) suffices
-    // to prove the point.
     m.covariance.uv = 0.05f * std::sqrt(m.covariance.uu * m.covariance.vv);
     withUv.storage[layer].assign(1, m);
   }
   TrackingCandidate withUvTrack;
   BOOST_REQUIRE(refit(withUv, withUvTrack));
 
-  BOOST_CHECK_NE(withUvTrack.track.outerState.covariance[packedCovarianceIndex(0, 0)],
-                 referenceTrack.track.outerState.covariance[packedCovarianceIndex(0, 0)]);
+  BOOST_CHECK_EQUAL(withUvTrack.track.outerState.covariance[packedCovarianceIndex(0, 0)],
+                    referenceTrack.track.outerState.covariance[packedCovarianceIndex(0, 0)]);
 }
 
 // --- Regression: stable pre-sort seed-cluster identity ---------------------

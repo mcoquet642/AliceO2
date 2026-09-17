@@ -62,8 +62,11 @@ class Propagator
   // The incoming chi2 must be finite and non-negative. maxChi2 is validated
   // the same way when the gate is enabled.
   // Disk z-steps are state-centered helix/linear transport (TrackFitter
-  // propagateToZ). After each Disk step and Kalman update the linearization
-  // reference is the filtered state; shiftReferenceToMeasurement is ignored.
+  // propagateToZ). Disk Kalman uses TrackParCovFwd::update with diagonal
+  // hits (uv = 0, alignResidual added). After each Disk step and update the
+  // linearization reference is the filtered state; shiftReferenceToMeasurement
+  // is ignored. Disk transport/update skip sanitizeCovariance and
+  // clampNegligibleCovarianceNoise.
   static bool propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                                      const SurfaceDescriptor& targetSurface, const SurfaceMeasurement& targetMeasurement,
                                      float bz, material::MaterialTraversalDirection direction,

@@ -11,13 +11,16 @@
 
 #include "ITSMFTTracking/Propagator.h"
 
+#include <array>
 #include <cmath>
 #include <cstdint>
 #include <limits>
 
 #include "CommonConstants/MathConstants.h"
 #include "ITSMFTTracking/MaterialPhysics.h"
+#include "MFTTracking/MFTTrackingParam.h"
 #include "ReconstructionDataFormats/PID.h"
+#include "ReconstructionDataFormats/TrackFwd.h"
 #include "ReconstructionDataFormats/TrackParametrization.h"
 
 namespace o2::itsmft::tracking
@@ -457,6 +460,103 @@ bool propagateHelix(SurfaceTrackState& state, float targetZ, float bz) noexcept
   return true;
 }
 
+bool propagateDiskWithoutSanitize(SurfaceTrackState& state, float targetZ, float bz) noexcept
+{
+  if (!validateForwardSource(state)) {
+    return false;
+  }
+  SurfaceTrackState scratch = state;
+  const bool success = std::abs(bz) > 0.01f ? propagateHelix(scratch, targetZ, bz)
+                                            : propagateLinear(scratch, targetZ);
+  if (!success) {
+    return false;
+  }
+  state = scratch;
+  return true;
+}
+
+bool exportDiskToTrackParCovFwd(const SurfaceTrackState& source, o2::track::TrackParCovFwd& destination) noexcept
+{
+  if (source.kind != SurfaceKind::Disk) {
+    return false;
+  }
+  o2::track::SMatrix5 parameters{};
+  o2::track::SMatrix55Sym covariance{};
+  for (uint8_t i = 0; i < 5; ++i) {
+    if (!std::isfinite(source.parameters[i])) {
+      return false;
+    }
+    parameters[i] = source.parameters[i];
+  }
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      const auto value = source.covariance[packedCovarianceIndex(row, column)];
+      if (!std::isfinite(value)) {
+        return false;
+      }
+      covariance(row, column) = value;
+    }
+  }
+  if (!std::isfinite(source.referenceCoordinate)) {
+    return false;
+  }
+  destination = o2::track::TrackParCovFwd{source.referenceCoordinate, parameters, covariance, 0.};
+  return true;
+}
+
+bool importDiskFromTrackParCovFwd(const o2::track::TrackParCovFwd& source, SurfaceTrackState& destination) noexcept
+{
+  for (uint8_t i = 0; i < 5; ++i) {
+    const float value = static_cast<float>(source.getParameters()(i));
+    if (!std::isfinite(value)) {
+      return false;
+    }
+    destination.parameters[i] = value;
+  }
+  const auto& covariance = source.getCovariances();
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      const float value = static_cast<float>(covariance(row, column));
+      if (!std::isfinite(value)) {
+        return false;
+      }
+      destination.covariance[packedCovarianceIndex(row, column)] = value;
+    }
+  }
+  const float z = static_cast<float>(source.getZ());
+  if (!std::isfinite(z)) {
+    return false;
+  }
+  destination.referenceCoordinate = z;
+  destination.kind = SurfaceKind::Disk;
+  destination.alpha = 0.f;
+  return true;
+}
+
+bool updateDiskWithTrackParCovFwd(SurfaceTrackState& state, const SurfaceMeasurement& measurement, float& chi2) noexcept
+{
+  if (!(measurement.covariance.uu >= 0.f) || !(measurement.covariance.vv >= 0.f) ||
+      !std::isfinite(measurement.covariance.uu) || !std::isfinite(measurement.covariance.vv)) {
+    return false;
+  }
+  o2::track::TrackParCovFwd track;
+  if (!exportDiskToTrackParCovFwd(state, track)) {
+    return false;
+  }
+  track.setTrackChi2(0.);
+  const std::array<float, 2> pos{measurement.frame.u, measurement.frame.v};
+  const std::array<float, 2> cov{measurement.covariance.uu, measurement.covariance.vv};
+  if (!track.update(pos, cov)) {
+    return false;
+  }
+  const float updateChi2 = static_cast<float>(track.getTrackChi2());
+  if (!std::isfinite(updateChi2) || updateChi2 < 0.f || !importDiskFromTrackParCovFwd(track, state)) {
+    return false;
+  }
+  chi2 = updateChi2;
+  return true;
+}
+
 bool propagateAccepted(SurfaceTrackState& destination, float targetZ, float bz) noexcept
 {
   if (!validateForwardSource(destination)) {
@@ -852,16 +952,20 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
     if (scratchState.kind != scratchRef.kind) {
       return false;
     }
-    if (!Propagator::propagateToReference(scratchState, targetMeasurement.frame.q, bz)) {
+    if (!propagateDiskWithoutSanitize(scratchState, targetMeasurement.frame.q, bz)) {
       return false;
     }
     scratchRef = SurfaceTrackParameters{scratchState};
-    clampNegligibleCovarianceNoise(scratchState);
+    SurfaceMeasurement diskHit = targetMeasurement;
+    diskHit.covariance.uv = 0.f;
+    const float alignResidual = o2::mft::MFTTrackingParam::Instance().alignResidual;
+    diskHit.covariance.uu += alignResidual;
+    diskHit.covariance.vv += alignResidual;
     const auto materialResult = correctForMaterial(scratchState, scratchRef, materialBudget, direction);
     if (!materialResult) {
       return false;
     }
-    if (!predictedChi2Forward(scratchState, targetMeasurement, predChi2)) {
+    if (!predictedChi2Forward(scratchState, diskHit, predChi2)) {
       return false;
     }
   }
@@ -875,7 +979,12 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
       return false;
     }
   } else {
-    if (!updateForward(scratchState, targetMeasurement, updateChi2)) {
+    SurfaceMeasurement diskHit = targetMeasurement;
+    diskHit.covariance.uv = 0.f;
+    const float alignResidual = o2::mft::MFTTrackingParam::Instance().alignResidual;
+    diskHit.covariance.uu += alignResidual;
+    diskHit.covariance.vv += alignResidual;
+    if (!updateDiskWithTrackParCovFwd(scratchState, diskHit, updateChi2)) {
       return false;
     }
   }

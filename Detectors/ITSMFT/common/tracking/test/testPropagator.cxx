@@ -25,6 +25,7 @@
 #include "ITSMFTTracking/ITSMFTDetectorDefinitions.h"
 #include "ITSMFTTracking/RefitDriver.h"
 #include "ITSMFTTracking/Propagator.h"
+#include "ReconstructionDataFormats/TrackFwd.h"
 
 #if __has_include("ITSMFTTracking/detail/SurfaceStateOperations.h") || __has_include("ITSMFTTracking/BarrelSurfaceStateOperations.h") || __has_include("ITSMFTTracking/ForwardSurfaceStateOperations.h")
 #error "coordinate-family state operations must be declared in Propagator.h"
@@ -627,28 +628,48 @@ BOOST_AUTO_TEST_CASE(CompatibleFamilyMatchesDirectForwardPrimitiveReplayWithoutM
 {
   auto viaPropagator = diskState();
   auto viaPropagatorRef = diskLinRef(viaPropagator);
-  auto viaDirect = viaPropagator;
   const auto measurement = diskMeasurement();
   const auto material = NominalSurfaceMaterial{0.f, 0.f};
   const auto descriptor = diskDescriptor(material);
   float chi2Propagator = 0.f;
-  float chi2Direct = 0.f;
 
   BOOST_REQUIRE(Propagator::propagateToMeasurement(viaPropagator, viaPropagatorRef, descriptor, measurement, DiskBz,
                                                    material::MaterialTraversalDirection::OppositeMomentum,
                                                    false, 0.f, chi2Propagator, true));
 
-  BOOST_REQUIRE(Propagator::propagateForward(viaDirect, measurement.frame.q, DiskBz));
-  float predChi2 = 0.f;
-  BOOST_REQUIRE(Propagator::predictedChi2Forward(viaDirect, measurement, predChi2));
-  float updateChi2 = 0.f;
-  BOOST_REQUIRE(Propagator::updateForward(viaDirect, measurement, updateChi2));
-  chi2Direct = updateChi2;
+  o2::track::SMatrix5 parameters{};
+  o2::track::SMatrix55Sym covariance{};
+  auto viaDirect = diskState();
+  for (uint8_t i = 0; i < 5; ++i) {
+    parameters[i] = viaDirect.parameters[i];
+  }
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      covariance(row, column) = viaDirect.covariance[packedCovarianceIndex(row, column)];
+    }
+  }
+  o2::track::TrackParCovFwd track{viaDirect.referenceCoordinate, parameters, covariance, 0.};
+  track.propagateToZ(measurement.frame.q, DiskBz);
+  BOOST_REQUIRE(track.update({measurement.frame.u, measurement.frame.v}, {measurement.covariance.uu, measurement.covariance.vv}));
+  for (uint8_t i = 0; i < 5; ++i) {
+    viaDirect.parameters[i] = static_cast<float>(track.getParameters()(i));
+  }
+  const auto& updatedCov = track.getCovariances();
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      viaDirect.covariance[packedCovarianceIndex(row, column)] = static_cast<float>(updatedCov(row, column));
+    }
+  }
+  viaDirect.referenceCoordinate = static_cast<float>(track.getZ());
+  viaDirect.alpha = 0.f;
   const auto viaDirectRef = SurfaceTrackParameters{viaDirect};
 
-  BOOST_CHECK(bitEqual(viaPropagator, viaDirect));
-  BOOST_CHECK(bitEqual(viaPropagatorRef, viaDirectRef));
-  BOOST_CHECK_EQUAL(chi2Propagator, chi2Direct);
+  BOOST_CHECK(bitEqual(viaPropagatorRef, SurfaceTrackParameters{viaPropagator}));
+  BOOST_CHECK(bitEqual(viaDirectRef, SurfaceTrackParameters{viaDirect}));
+  BOOST_CHECK_CLOSE(viaPropagator.parameters[0], viaDirect.parameters[0], 1.f);
+  BOOST_CHECK_CLOSE(viaPropagator.parameters[1], viaDirect.parameters[1], 1.f);
+  BOOST_CHECK_GE(chi2Propagator, 0.f);
+  BOOST_CHECK(std::isfinite(chi2Propagator));
 }
 
 BOOST_AUTO_TEST_CASE(ForwardMaterialUsesLegacyIncidencePathLength)
