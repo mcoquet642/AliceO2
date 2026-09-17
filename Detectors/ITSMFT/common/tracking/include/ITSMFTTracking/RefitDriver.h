@@ -92,6 +92,7 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
   SurfaceTrackParameters scratchLinRef = linRef;
   float scratchChi2 = chi2;
   uint32_t scratchAcceptedHitCount = 0;
+  LayerId previousSurface{};
   constexpr uint32_t kChi2GateMinAcceptedHits = 3;
   for (const auto& slot : orderedSlots) {
     if (!slot.present) {
@@ -105,9 +106,10 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
     const bool chi2GateEnabled = enableChi2Gate && scratchAcceptedHitCount >= kChi2GateMinAcceptedHits;
     if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, slot.measurement, bz, direction,
                                             chi2GateEnabled, maxChi2, scratchChi2,
-                                            shiftReferenceToMeasurement)) {
+                                            shiftReferenceToMeasurement, surfaceCatalog, previousSurface)) {
       return false;
     }
+    previousSurface = slot.surface;
     ++scratchAcceptedHitCount;
   }
   state = scratchState;

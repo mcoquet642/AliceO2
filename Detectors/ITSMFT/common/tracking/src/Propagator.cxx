@@ -18,6 +18,7 @@
 
 #include "CommonConstants/MathConstants.h"
 #include "ITSMFTTracking/MaterialPhysics.h"
+#include "ITSMFTTracking/TrackingConfigParam.h"
 #include "MFTTracking/MFTTrackingParam.h"
 #include "ReconstructionDataFormats/PID.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
@@ -648,6 +649,41 @@ bool propagateAccepted(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
   return true;
 }
 
+// LTF TrackFitter intermediate planes (MFTBase/Constants.h LayerZPosition).
+// Catalog z stays at production geometry; only the MCS walk uses this table.
+constexpr std::array<float, MFTNLayers> kMftLayerZPosition{
+  -45.3f, -46.7f, -48.6f, -50.0f, -52.4f, -53.8f, -67.7f, -69.1f, -76.1f, -77.5f};
+
+float mftLayerZPosition(int layer, float catalogZ) noexcept
+{
+  if (layer < 0 || layer >= MFTNLayers) {
+    return catalogZ;
+  }
+  return kMftLayerZPosition[static_cast<std::size_t>(layer)];
+}
+
+const SurfaceDescriptor* diskSurfaceForMftLayer(SurfaceCatalogView catalog, int mftLayer) noexcept
+{
+  if (mftLayer < 0) {
+    return nullptr;
+  }
+  for (uint32_t i = 0; i < catalog.nSurfaces; ++i) {
+    const auto& surface = catalog.surfaces[i];
+    if (surface.kind == SurfaceKind::Disk && static_cast<int>(surface.detectorSurfaceIndex) == mftLayer) {
+      return &surface;
+    }
+  }
+  return nullptr;
+}
+
+int disksCrossedBetweenMftLayers(int currentLayer, int nextLayer, float currentZ, float nextZ) noexcept
+{
+  if (nextZ - currentZ > 0.f) {
+    return (currentLayer % 2 == 0) ? (currentLayer - nextLayer) / 2 : (currentLayer - nextLayer + 1) / 2;
+  }
+  return (currentLayer % 2 == 0) ? (nextLayer - currentLayer + 1) / 2 : (nextLayer - currentLayer) / 2;
+}
+
 } // namespace
 
 // Work on copies so that any rejection leaves both the fitted state and its
@@ -762,6 +798,57 @@ bool Propagator::correctForMaterial(SurfaceTrackState& state, SurfaceTrackParame
 
   state = scratchState;
   incidenceReference = scratchReference;
+  return true;
+}
+
+bool Propagator::propagateAcrossMftDisks(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
+                                         SurfaceCatalogView catalog, int startMftLayer, int endMftLayer,
+                                         float targetZ, float bz, material::MaterialTraversalDirection direction) noexcept
+{
+  if (state.kind != SurfaceKind::Disk || linRef.kind != SurfaceKind::Disk) {
+    return false;
+  }
+  if (startMftLayer == endMftLayer) {
+    if (!propagateDiskWithoutSanitize(state, targetZ, bz)) {
+      return false;
+    }
+    linRef = SurfaceTrackParameters{state};
+    return true;
+  }
+
+  const int directionSign = (endMftLayer > startMftLayer) - (endMftLayer < startMftLayer);
+  int currentLayer = startMftLayer;
+  while (currentLayer != endMftLayer) {
+    const int nextLayer = currentLayer + directionSign;
+    const auto* currentSurface = diskSurfaceForMftLayer(catalog, currentLayer);
+    const auto* nextSurface = diskSurfaceForMftLayer(catalog, nextLayer);
+    if (nextSurface == nullptr) {
+      return false;
+    }
+    const float nextZ = mftLayerZPosition(nextLayer, nextSurface->referenceCoordinate);
+    const int nDisks = disksCrossedBetweenMftLayers(currentLayer, nextLayer, state.referenceCoordinate, nextZ);
+    if (nDisks > 0) {
+      if (currentSurface == nullptr) {
+        return false;
+      }
+      const float diskX0 = static_cast<float>(nDisks) * currentSurface->material.xOverX0;
+      if (diskX0 != 0.f) {
+        const material::IntegratedMaterialBudget diskMcs{diskX0, 0.f};
+        if (!correctForMaterial(state, linRef, diskMcs, direction)) {
+          return false;
+        }
+      }
+    }
+    if (!propagateDiskWithoutSanitize(state, nextZ, bz)) {
+      return false;
+    }
+    linRef = SurfaceTrackParameters{state};
+    currentLayer = nextLayer;
+  }
+  if (!propagateDiskWithoutSanitize(state, targetZ, bz)) {
+    return false;
+  }
+  linRef = SurfaceTrackParameters{state};
   return true;
 }
 
@@ -900,7 +987,8 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
                                         const SurfaceDescriptor& targetSurface, const SurfaceMeasurement& targetMeasurement,
                                         float bz, material::MaterialTraversalDirection direction,
                                         bool chi2GateEnabled, float maxChi2, float& chi2,
-                                        bool shiftReferenceToMeasurement) noexcept
+                                        bool shiftReferenceToMeasurement,
+                                        SurfaceCatalogView catalog, LayerId fromSurface) noexcept
 {
   if (chi2 < 0.f) {
     return false;
@@ -952,19 +1040,34 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
     if (scratchState.kind != scratchRef.kind) {
       return false;
     }
-    if (!propagateDiskWithoutSanitize(scratchState, targetMeasurement.frame.q, bz)) {
-      return false;
+    if (catalog.nSurfaces > 0) {
+      const int endMftLayer = static_cast<int>(targetSurface.detectorSurfaceIndex);
+      int startMftLayer = endMftLayer;
+      if (fromSurface.isValid() && catalog.hasSurface(fromSurface)) {
+        const auto& from = catalog.getSurface(fromSurface);
+        if (from.kind == SurfaceKind::Disk) {
+          startMftLayer = static_cast<int>(from.detectorSurfaceIndex);
+        }
+      }
+      if (!propagateAcrossMftDisks(scratchState, scratchRef, catalog, startMftLayer, endMftLayer,
+                                   targetMeasurement.frame.q, bz, direction)) {
+        return false;
+      }
+    } else {
+      if (!propagateDiskWithoutSanitize(scratchState, targetMeasurement.frame.q, bz)) {
+        return false;
+      }
+      scratchRef = SurfaceTrackParameters{scratchState};
+      const auto materialResult = correctForMaterial(scratchState, scratchRef, materialBudget, direction);
+      if (!materialResult) {
+        return false;
+      }
     }
-    scratchRef = SurfaceTrackParameters{scratchState};
     SurfaceMeasurement diskHit = targetMeasurement;
     diskHit.covariance.uv = 0.f;
     const float alignResidual = o2::mft::MFTTrackingParam::Instance().alignResidual;
     diskHit.covariance.uu += alignResidual;
     diskHit.covariance.vv += alignResidual;
-    const auto materialResult = correctForMaterial(scratchState, scratchRef, materialBudget, direction);
-    if (!materialResult) {
-      return false;
-    }
     if (!predictedChi2Forward(scratchState, diskHit, predChi2)) {
       return false;
     }
