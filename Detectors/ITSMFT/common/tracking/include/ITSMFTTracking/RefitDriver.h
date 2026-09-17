@@ -27,6 +27,7 @@
 #include "ITSMFTTracking/TimeFrame.h"
 #include "ITSMFTTracking/Propagator.h"
 #include "ITSMFTTracking/SurfaceDescriptor.h"
+#include "ITSMFTTracking/detail/DiskRefitSeed.h"
 #include "ReconstructionDataFormats/TrackParametrization.h"
 
 // Descriptor-driven refit built on Propagator operations.
@@ -154,7 +155,9 @@ GPUhdi() float ptFromQOverPt(float q2pt, uint8_t absCharge) noexcept
   return 1.f / ptInv;
 }
 
-// Refit inward, outward, then optionally inward again; commit on success.
+// Cylinder: CA seed + loose ITS-style covariance, then A→B→(C).
+// Disk: FCF seed on all hits + LTF diagonal covariance before each leg; same A→B→(C).
+// Commit state only on success.
 inline bool fitTrackSeedLegs(
   const TrackSeed& seed,
   const TimeFrame& frame,
@@ -185,14 +188,32 @@ inline bool fitTrackSeedLegs(
     return chi2 < maxChi2NDFValue * static_cast<float>(static_cast<int>(acceptedHitCount) * 2 - 5);
   };
 
-  // Leg A: inward.
-  SurfaceTrackState stateA = seed.state();
-  SurfaceTrackParameters linRefA{stateA};
-  resetCovarianceForRefit(stateA);
-  float chi2A = 0.f;
-  uint32_t acceptedA = 0;
   const int activeSurfaceCount = static_cast<int>(layerGlobals.size());
   bool validSlots = false;
+  const bool diskRefit = seed.state().kind == SurfaceKind::Disk;
+
+  auto initLegState = [&](SurfaceTrackState& state) noexcept -> bool {
+    if (diskRefit) {
+      const auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
+      if (!validSlots) {
+        return false;
+      }
+      state = seed.state();
+      return detail::initDiskRefitState(state, slotsInnerToOuter, bz);
+    }
+    state = seed.state();
+    resetCovarianceForRefit(state);
+    return true;
+  };
+
+  // Leg A: inward.
+  SurfaceTrackState stateA{};
+  if (!initLegState(stateA)) {
+    return false;
+  }
+  SurfaceTrackParameters linRefA{stateA};
+  float chi2A = 0.f;
+  uint32_t acceptedA = 0;
   const auto slotsA = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
   if (!validSlots) {
     return false;
@@ -207,9 +228,16 @@ inline bool fitTrackSeedLegs(
   }
 
   // Leg B: outward; this is the reported inner result.
-  SurfaceTrackState stateB = stateA;
+  SurfaceTrackState stateB{};
+  if (diskRefit) {
+    if (!initLegState(stateB)) {
+      return false;
+    }
+  } else {
+    stateB = stateA;
+    resetCovarianceForRefit(stateB);
+  }
   SurfaceTrackParameters linRefB{stateB};
-  resetCovarianceForRefit(stateB);
   float chi2B = 0.f;
   uint32_t acceptedB = 0;
   const auto slotsB = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
@@ -238,9 +266,16 @@ inline bool fitTrackSeedLegs(
   // Optional leg C: inward again.
   SurfaceTrackState stateOut = stateA;
   if (repeatRefitOut) {
-    SurfaceTrackState stateC = stateB;
+    SurfaceTrackState stateC{};
+    if (diskRefit) {
+      if (!initLegState(stateC)) {
+        return false;
+      }
+    } else {
+      stateC = stateB;
+      resetCovarianceForRefit(stateC);
+    }
     SurfaceTrackParameters linRefC{stateC};
-    resetCovarianceForRefit(stateC);
     float chi2C = 0.f;
     uint32_t acceptedC = 0;
     const auto slotsC = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
