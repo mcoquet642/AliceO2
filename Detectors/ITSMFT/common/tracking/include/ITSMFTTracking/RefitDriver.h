@@ -16,6 +16,7 @@
 
 #ifndef GPUCA_GPUCODE
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 
@@ -131,13 +132,15 @@ GPUhdi() void resetCovarianceForRefit(SurfaceTrackState& state) noexcept
     const float q2pt = state.parameters[4];
     state.covariance[packedCovarianceIndex(4, 4)] = q2pt * q2pt * o2::track::kC1Pt2max;
   } else {
-    constexpr float kCPhi2maxForward = o2::constants::math::PI * o2::constants::math::PI;
-    state.covariance[packedCovarianceIndex(0, 0)] = o2::track::kCY2max;
-    state.covariance[packedCovarianceIndex(1, 1)] = o2::track::kCY2max;
-    state.covariance[packedCovarianceIndex(2, 2)] = kCPhi2maxForward;
-    state.covariance[packedCovarianceIndex(3, 3)] = o2::track::kCTgl2max;
+    // MFT / LTF TrackFitter::initTrack seed covariance (disk surfaces only).
+    state.covariance[packedCovarianceIndex(0, 0)] = 1.f;
+    state.covariance[packedCovarianceIndex(1, 1)] = 1.f;
+    state.covariance[packedCovarianceIndex(2, 2)] = 1.f;
+    state.covariance[packedCovarianceIndex(3, 3)] = 1.f;
     const float invQPt = state.parameters[4];
-    state.covariance[packedCovarianceIndex(4, 4)] = invQPt * invQPt * o2::track::kC1Pt2max;
+    if (std::abs(invQPt) > o2::constants::math::Almost0) {
+      state.covariance[packedCovarianceIndex(4, 4)] = std::clamp(std::abs(invQPt), 1.f, 10.f);
+    }
   }
 }
 
