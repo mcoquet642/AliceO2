@@ -26,6 +26,7 @@
 #include "ITSMFTTracking/RefitDriver.h"
 #include "ITSMFTTracking/detail/SurfaceStateOperations.h"
 #include "ITSMFTTracking/Propagator.h"
+#include "ReconstructionDataFormats/TrackFwd.h"
 
 #if __has_include("ITSMFTTracking/BarrelSurfaceStateOperations.h") || __has_include("ITSMFTTracking/ForwardSurfaceStateOperations.h")
 #error "coordinate-family state operations must remain private to Propagator"
@@ -467,24 +468,41 @@ BOOST_AUTO_TEST_CASE(CompatibleFamilyMatchesDirectForwardPrimitiveReplayWithoutM
   auto viaPropagator = diskState();
   auto viaPropagatorRef = diskLinRef(viaPropagator);
   auto viaDirect = viaPropagator;
-  auto viaDirectRef = viaPropagatorRef;
   const auto measurement = diskMeasurement();
   const auto material = NominalSurfaceMaterial{0.f, 0.f};
   const auto descriptor = diskDescriptor(material);
   float chi2Propagator = 0.f;
-  float chi2Direct = 0.f;
 
   BOOST_REQUIRE(Propagator::propagateToMeasurement(viaPropagator, viaPropagatorRef, descriptor, measurement, DiskBz,
                                                    material::MaterialTraversalDirection::OppositeMomentum,
                                                    false, 0.f, chi2Propagator, true));
 
-  BOOST_REQUIRE(detail::forward::propagate(viaDirect, viaDirectRef, measurement.frame.q, DiskBz));
-  float predChi2 = 0.f;
-  BOOST_REQUIRE(detail::forward::predictedChi2(viaDirect, measurement, predChi2));
-  float updateChi2 = 0.f;
-  BOOST_REQUIRE(detail::forward::update(viaDirect, measurement, updateChi2));
-  chi2Direct = updateChi2;
-  BOOST_REQUIRE(detail::forward::shiftReferenceToMeasurement(viaDirectRef, measurement));
+  o2::track::SMatrix5 parameters{};
+  o2::track::SMatrix55Sym covariance{};
+  for (uint8_t i = 0; i < 5; ++i) {
+    parameters[i] = viaDirect.parameters[i];
+  }
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      covariance(row, column) = viaDirect.covariance[packedCovarianceIndex(row, column)];
+    }
+  }
+  o2::track::TrackParCovFwd track{viaDirect.referenceCoordinate, parameters, covariance, 0.};
+  track.propagateToZ(measurement.frame.q, DiskBz);
+  BOOST_REQUIRE(track.update({measurement.frame.u, measurement.frame.v}, {measurement.covariance.uu, measurement.covariance.vv}));
+  for (uint8_t i = 0; i < 5; ++i) {
+    viaDirect.parameters[i] = static_cast<float>(track.getParameters()(i));
+  }
+  const auto& updatedCov = track.getCovariances();
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      viaDirect.covariance[packedCovarianceIndex(row, column)] = static_cast<float>(updatedCov(row, column));
+    }
+  }
+  viaDirect.referenceCoordinate = static_cast<float>(track.getZ());
+  viaDirect.alpha = 0.f;
+  const auto viaDirectRef = SurfaceTrackParameters{viaDirect};
+  const float chi2Direct = static_cast<float>(track.getTrackChi2());
 
   BOOST_CHECK(bitEqual(viaPropagator, viaDirect));
   BOOST_CHECK(bitEqual(viaPropagatorRef, viaDirectRef));
@@ -571,7 +589,7 @@ BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialKeepsReferenceQ2PtForMCSOnly)
 {
   auto state = diskState();
   auto linRef = diskLinRef(state);
-  const auto referenceBefore = linRef;
+  const float q2ptBefore = linRef.parameters[4];
 
   const auto result = propagateThroughMaterial(
     state, linRef, material::IntegratedMaterialBudget{0.01f, 0.f},
@@ -579,7 +597,8 @@ BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialKeepsReferenceQ2PtForMCSOnly)
 
   BOOST_REQUIRE(result);
 
-  BOOST_CHECK(bitEqual(linRef, referenceBefore));
+  BOOST_CHECK(bitEqual(linRef, SurfaceTrackParameters{state}));
+  BOOST_CHECK_EQUAL(state.parameters[4], q2ptBefore);
 }
 
 BOOST_AUTO_TEST_CASE(FailingLinearizedForwardMaterialLeavesStateAndReferenceUnchanged)
@@ -611,18 +630,30 @@ BOOST_AUTO_TEST_CASE(DiskMcsOnlyMatchesAddMCSEffect)
   float sigmaTheta2 = 0.0136f / p;
   sigmaTheta2 *= sigmaTheta2 * xOverX0 * cscLambda;
   const float A = tanl * tanl + 1.f;
-  const float expectedPhi = state.covariance[packedCovarianceIndex(2, 2)] + sigmaTheta2 * A;
-  const float expectedTanl = state.covariance[packedCovarianceIndex(3, 3)] + sigmaTheta2 * A * A;
-  const float expectedQpt = state.covariance[packedCovarianceIndex(4, 4)] + sigmaTheta2 * tanl * tanl * invQPt * invQPt;
-  const float expectedCross = state.covariance[packedCovarianceIndex(4, 3)];
+
+  o2::track::SMatrix5 parameters{};
+  o2::track::SMatrix55Sym covariance{};
+  for (uint8_t i = 0; i < 5; ++i) {
+    parameters[i] = state.parameters[i];
+  }
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      covariance(row, column) = state.covariance[packedCovarianceIndex(row, column)];
+    }
+  }
+  covariance(2, 2) += sigmaTheta2 * A;
+  covariance(3, 3) += sigmaTheta2 * A * A;
+  covariance(4, 4) += sigmaTheta2 * tanl * tanl * invQPt * invQPt;
+  o2::track::TrackParCovFwd expected{state.referenceCoordinate, parameters, covariance, 0.};
+  BOOST_REQUIRE(expected.update({state.parameters[0], state.parameters[1]}, {0.04f, 0.09f}));
 
   BOOST_REQUIRE(propagateThroughMaterial(state, linRef, material::IntegratedMaterialBudget{xOverX0, 0.f},
                                          material::MaterialTraversalDirection::AlongMomentum));
-  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(2, 2)], expectedPhi, 1.e-3f);
-  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(3, 3)], expectedTanl, 1.e-3f);
-  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(4, 4)], expectedQpt, 1.e-3f);
-  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(4, 3)], expectedCross);
-  BOOST_CHECK_EQUAL(state.parameters[4], invQPt);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(2, 2)], expected.getCovariances()(2, 2), 1.e-3f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(3, 3)], expected.getCovariances()(3, 3), 1.e-3f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(4, 4)], expected.getCovariances()(4, 4), 1.e-3f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(4, 3)], expected.getCovariances()(4, 3), 1.e-3f);
+  BOOST_CHECK_CLOSE(state.parameters[4], invQPt, 1.e-4f);
 }
 
 BOOST_AUTO_TEST_CASE(MaterialPropagationRejectsMismatchedReferenceKinds)

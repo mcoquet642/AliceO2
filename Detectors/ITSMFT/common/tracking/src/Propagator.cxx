@@ -11,12 +11,14 @@
 
 #include "ITSMFTTracking/Propagator.h"
 
+#include <array>
 #include <cmath>
 #include <cstdint>
 
 #include "ITSMFTTracking/MaterialPhysics.h"
 #include "ITSMFTTracking/detail/SurfaceStateOperations.h"
 #include "ReconstructionDataFormats/PID.h"
+#include "ReconstructionDataFormats/TrackFwd.h"
 #include "ReconstructionDataFormats/TrackParametrization.h"
 
 namespace o2::itsmft::tracking
@@ -229,6 +231,132 @@ int disksCrossedBetweenMftLayers(int currentLayer, int nextLayer, float currentZ
     return (currentLayer % 2 == 0) ? (currentLayer - nextLayer) / 2 : (currentLayer - nextLayer + 1) / 2;
   }
   return (currentLayer % 2 == 0) ? (nextLayer - currentLayer + 1) / 2 : (nextLayer - currentLayer) / 2;
+}
+
+// TrackFitter::propagateToNextClusterWithMCS intermediate planes
+// (MFTBase LayerZPosition). Catalog z is used only if the layer index is
+// out of range.
+constexpr int kMftLayerCount = 10;
+constexpr float kMftLayerZPosition[kMftLayerCount] = {
+  -45.3f, -46.7f, -48.6f, -50.0f, -52.4f, -53.8f, -67.7f, -69.1f, -76.1f, -77.5f};
+
+float mftLayerZPosition(int layer, float catalogZ) noexcept
+{
+  if (layer < 0 || layer >= kMftLayerCount) {
+    return catalogZ;
+  }
+  return kMftLayerZPosition[layer];
+}
+
+bool exportDiskToTrackParCovFwd(const SurfaceTrackState& source, o2::track::TrackParCovFwd& destination) noexcept
+{
+  if (source.kind != SurfaceKind::Disk) {
+    return false;
+  }
+  o2::track::SMatrix5 parameters{};
+  o2::track::SMatrix55Sym covariance{};
+  for (uint8_t i = 0; i < 5; ++i) {
+    if (!std::isfinite(source.parameters[i])) {
+      return false;
+    }
+    parameters[i] = source.parameters[i];
+  }
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      const auto value = source.covariance[packedCovarianceIndex(row, column)];
+      if (!std::isfinite(value)) {
+        return false;
+      }
+      covariance(row, column) = value;
+    }
+  }
+  if (!std::isfinite(source.referenceCoordinate)) {
+    return false;
+  }
+  destination = o2::track::TrackParCovFwd{source.referenceCoordinate, parameters, covariance, 0.};
+  return true;
+}
+
+bool importDiskFromTrackParCovFwd(const o2::track::TrackParCovFwd& source, SurfaceTrackState& destination) noexcept
+{
+  for (uint8_t i = 0; i < 5; ++i) {
+    const float value = static_cast<float>(source.getParameters()(i));
+    if (!std::isfinite(value)) {
+      return false;
+    }
+    destination.parameters[i] = value;
+  }
+  const auto& covariance = source.getCovariances();
+  for (uint8_t row = 0; row < 5; ++row) {
+    for (uint8_t column = 0; column <= row; ++column) {
+      const float value = static_cast<float>(covariance(row, column));
+      if (!std::isfinite(value)) {
+        return false;
+      }
+      destination.covariance[packedCovarianceIndex(row, column)] = value;
+    }
+  }
+  const float z = static_cast<float>(source.getZ());
+  if (!std::isfinite(z)) {
+    return false;
+  }
+  destination.referenceCoordinate = z;
+  destination.kind = SurfaceKind::Disk;
+  destination.alpha = 0.f;
+  return true;
+}
+
+bool propagateDiskTrackParCovFwd(o2::track::TrackParCovFwd& track, float targetZ, float bz) noexcept
+{
+  if (track.getZ() == static_cast<double>(targetZ)) {
+    return true;
+  }
+  if (track.getTanl() == 0.) {
+    return false;
+  }
+  track.propagateToZ(targetZ, bz);
+  return std::isfinite(track.getX()) && std::isfinite(track.getY()) && std::isfinite(track.getZ()) &&
+         std::isfinite(track.getPhi()) && std::isfinite(track.getTanl()) && std::isfinite(track.getInvQPt());
+}
+
+void assignLinRefFromState(const SurfaceTrackState& state, SurfaceTrackParameters& linRef) noexcept
+{
+  linRef = SurfaceTrackParameters{state};
+}
+
+bool propagateDiskStateCentered(SurfaceTrackState& state, SurfaceTrackParameters& linRef, float targetZ, float bz) noexcept
+{
+  o2::track::TrackParCovFwd track;
+  if (!exportDiskToTrackParCovFwd(state, track) || !propagateDiskTrackParCovFwd(track, targetZ, bz) ||
+      !importDiskFromTrackParCovFwd(track, state)) {
+    return false;
+  }
+  assignLinRefFromState(state, linRef);
+  return true;
+}
+
+bool updateDiskWithTrackParCovFwd(SurfaceTrackState& state, const SurfaceMeasurement& measurement, float& chi2) noexcept
+{
+  if (!(measurement.covariance.uu >= 0.f) || !(measurement.covariance.vv >= 0.f) ||
+      !std::isfinite(measurement.covariance.uu) || !std::isfinite(measurement.covariance.vv)) {
+    return false;
+  }
+  o2::track::TrackParCovFwd track;
+  if (!exportDiskToTrackParCovFwd(state, track)) {
+    return false;
+  }
+  track.setTrackChi2(0.);
+  const std::array<float, 2> pos{measurement.frame.u, measurement.frame.v};
+  const std::array<float, 2> cov{measurement.covariance.uu, measurement.covariance.vv};
+  if (!track.update(pos, cov)) {
+    return false;
+  }
+  const float updateChi2 = static_cast<float>(track.getTrackChi2());
+  if (!std::isfinite(updateChi2) || updateChi2 < 0.f || !importDiskFromTrackParCovFwd(track, state)) {
+    return false;
+  }
+  chi2 = updateChi2;
+  return true;
 }
 
 // TrackParCovFwd::addMCSEffect: σθ² = (0.0136/p)² · (X/X0) cscλ, added to
@@ -458,35 +586,43 @@ bool Propagator::propagateAcrossMftDisks(SurfaceTrackState& state, SurfaceTrackP
                                          SurfaceCatalogView catalog, int startMftLayer, int endMftLayer,
                                          float targetZ, float bz, material::MaterialTraversalDirection direction) noexcept
 {
-  if (startMftLayer == endMftLayer) {
-    return propagateToReference(state, linRef, targetZ, bz);
+  (void)direction;
+  if (state.kind != SurfaceKind::Disk) {
+    return false;
   }
-  const int directionSign = (endMftLayer > startMftLayer) - (endMftLayer < startMftLayer);
-  int currentLayer = startMftLayer;
-  while (currentLayer != endMftLayer) {
-    const int nextLayer = currentLayer + directionSign;
-    const auto* currentSurface = diskSurfaceForMftLayer(catalog, currentLayer);
-    const auto* nextSurface = diskSurfaceForMftLayer(catalog, nextLayer);
-    if (currentSurface == nullptr || nextSurface == nullptr) {
-      return false;
-    }
-    const float nextZ = nextSurface->referenceCoordinate;
-    const int nDisks = disksCrossedBetweenMftLayers(currentLayer, nextLayer, state.referenceCoordinate, nextZ);
-    if (nDisks > 0) {
-      const float diskX0 = static_cast<float>(nDisks) * (currentSurface->material.xOverX0 + nextSurface->material.xOverX0);
-      const material::IntegratedMaterialBudget diskMaterial{diskX0, 0.f};
-      if (!correctForMaterial(state, linRef, diskMaterial, direction)) {
+  o2::track::TrackParCovFwd track;
+  if (!exportDiskToTrackParCovFwd(state, track)) {
+    return false;
+  }
+  if (startMftLayer != endMftLayer) {
+    const int directionSign = (endMftLayer > startMftLayer) - (endMftLayer < startMftLayer);
+    int currentLayer = startMftLayer;
+    while (currentLayer != endMftLayer) {
+      const int nextLayer = currentLayer + directionSign;
+      const auto* currentSurface = diskSurfaceForMftLayer(catalog, currentLayer);
+      const auto* nextSurface = diskSurfaceForMftLayer(catalog, nextLayer);
+      if (currentSurface == nullptr || nextSurface == nullptr) {
         return false;
       }
+      const float nextZ = mftLayerZPosition(nextLayer, nextSurface->referenceCoordinate);
+      const int nDisks = disksCrossedBetweenMftLayers(currentLayer, nextLayer, static_cast<float>(track.getZ()), nextZ);
+      if (nDisks > 0) {
+        if (track.getTanl() == 0.) {
+          return false;
+        }
+        const float diskX0 = static_cast<float>(nDisks) * (currentSurface->material.xOverX0 + nextSurface->material.xOverX0);
+        track.addMCSEffect(diskX0);
+      }
+      if (!propagateDiskTrackParCovFwd(track, nextZ, bz)) {
+        return false;
+      }
+      currentLayer = nextLayer;
     }
-    if (!propagateToReference(state, linRef, nextZ, bz)) {
-      return false;
-    }
-    currentLayer = nextLayer;
   }
-  if (state.referenceCoordinate != targetZ) {
-    return propagateToReference(state, linRef, targetZ, bz);
+  if (!propagateDiskTrackParCovFwd(track, targetZ, bz) || !importDiskFromTrackParCovFwd(track, state)) {
+    return false;
   }
+  assignLinRefFromState(state, linRef);
   return true;
 }
 
@@ -628,6 +764,9 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
       return false;
     }
   } else {
+    if (scratchState.kind != scratchRef.kind) {
+      return false;
+    }
     const int targetMftLayer = static_cast<int>(targetSurface.detectorSurfaceIndex);
     const bool useMftDiskWalk = catalog.nSurfaces > 0 && catalog.surfaces != nullptr &&
                                 diskSurfaceForMftLayer(catalog, targetMftLayer) != nullptr;
@@ -643,10 +782,9 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
                                    targetMeasurement.frame.q, bz, direction)) {
         return false;
       }
-    } else if (!Propagator::propagateToReference(scratchState, scratchRef, targetMeasurement.frame.q, bz)) {
+    } else if (!propagateDiskStateCentered(scratchState, scratchRef, targetMeasurement.frame.q, bz)) {
       return false;
     }
-    clampNegligibleCovarianceNoise(scratchState);
     if (!useMftDiskWalk) {
       const auto materialResult = correctForMaterial(scratchState, scratchRef, materialBudget, direction);
       if (!materialResult) {
@@ -666,25 +804,19 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
     if (!detail::barrel::update(scratchState, targetMeasurement, updateChi2)) {
       return false;
     }
-  } else {
-    if (!detail::forward::update(scratchState, targetMeasurement, updateChi2)) {
-      return false;
-    }
+  } else if (!updateDiskWithTrackParCovFwd(scratchState, targetMeasurement, updateChi2)) {
+    return false;
   }
   scratchChi2 += updateChi2;
   if (scratchChi2 < 0.f) {
     return false;
   }
 
-  if (shiftReferenceToMeasurement) {
-    if (targetKind == SurfaceKind::Cylinder) {
-      if (!detail::barrel::shiftReferenceToMeasurement(scratchRef, targetMeasurement)) {
-        return false;
-      }
-    } else {
-      if (!detail::forward::shiftReferenceToMeasurement(scratchRef, targetMeasurement)) {
-        return false;
-      }
+  if (targetKind == SurfaceKind::Disk) {
+    assignLinRefFromState(scratchState, scratchRef);
+  } else if (shiftReferenceToMeasurement) {
+    if (!detail::barrel::shiftReferenceToMeasurement(scratchRef, targetMeasurement)) {
+      return false;
     }
   }
 

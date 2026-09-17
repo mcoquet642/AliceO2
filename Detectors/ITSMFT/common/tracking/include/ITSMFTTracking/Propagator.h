@@ -69,10 +69,12 @@ class Propagator
   // the same way when the gate is enabled.
   //
   // When `catalog` contains the target Disk, MFT MCS is applied once per disk
-  // crossed (including holes) before each layer-z step, matching
-  // TrackFitter::propagateToNextClusterWithMCS. The first Disk hit and an
-  // empty catalog keep a direct z-step; the catalog walk does not apply extra
-  // target-surface material.
+  // crossed (including holes) before each LayerZPosition step, matching
+  // TrackFitter::propagateToNextClusterWithMCS. Disk z-steps and Kalman
+  // updates run on TrackParCovFwd (helix + addMCSEffect + update). The first
+  // Disk hit and an empty catalog keep a direct z-step; the catalog walk does
+  // not apply extra target-surface material. After a Disk update the
+  // linearization reference is the filtered state.
   static bool propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                                      const SurfaceDescriptor& targetSurface, const SurfaceMeasurement& targetMeasurement,
                                      float bz, material::MaterialTraversalDirection direction,

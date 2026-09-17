@@ -225,17 +225,17 @@ BOOST_AUTO_TEST_CASE(NormalizedGlobalCoordinateChangeAltersOutput)
 
   // Perturb only the normalized global.x of one interior layer -- legacy
   // backfill is absent (never populated) in both fixtures, so this isolates
-  // the normalized measurement as the sole cause of the changed outcome. The
-  // shift is far larger than DefaultSigma2's resolution, so the previously
-  // ~0 chi2/ndf now certainly exceeds MaxChi2NDF.
+  // the normalized measurement as the sole cause of the changed outcome.
+  // Disk full-track refit has no TrackFitter χ²/ndf cut, so the fit still
+  // succeeds and the stored χ² must change.
   RefitFixture perturbed(geometry);
   auto perturbedMeasurement = perturbed.storage[5].front();
   perturbedMeasurement.frame.u += 0.05f;
   perturbed.storage[5].assign(1, perturbedMeasurement);
 
   TrackingCandidate perturbedTrack;
-  const bool perturbedOk = refit(perturbed, perturbedTrack);
-  BOOST_CHECK(!perturbedOk);
+  BOOST_REQUIRE(refit(perturbed, perturbedTrack));
+  BOOST_CHECK_NE(perturbedTrack.track.chi2, referenceTrack.track.chi2);
 }
 
 BOOST_AUTO_TEST_CASE(DiskRefitSeedsEachLegFromAllHitsNotCAState)
