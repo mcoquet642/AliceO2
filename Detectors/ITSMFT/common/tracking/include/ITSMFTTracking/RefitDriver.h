@@ -160,8 +160,8 @@ GPUhdi() float ptFromQOverPt(float q2pt, uint8_t absCharge) noexcept
   return 1.f / ptInv;
 }
 
-// Cylinder: refit inward, outward, then optionally inward again.
-// Disk: LTF vertexing — FCF seed on all hits, one outer→inner Kalman.
+// Cylinder: CA seed + loose cov, then inward / outward / optional inward.
+// Disk: FCF seed (+ LTF cov) on all hits before each leg; same A→B→(C) passes.
 // Commit state only on success.
 inline bool fitTrackSeedLegs(
   const TrackSeed& seed,
@@ -195,49 +195,29 @@ inline bool fitTrackSeedLegs(
 
   const int activeSurfaceCount = static_cast<int>(layerGlobals.size());
   bool validSlots = false;
-
-  if (seed.state().kind == SurfaceKind::Disk) {
-    const auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
-    if (!validSlots) {
-      return false;
-    }
-    SurfaceTrackState state = seed.state();
-    if (!detail::initDiskRefitState(state, slotsInnerToOuter, bz)) {
-      return false;
-    }
-    SurfaceTrackParameters linRef{state};
-    float chi2 = 0.f;
-    uint32_t acceptedHits = 0;
-    const auto slotsOuterToInner = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
-    if (!validSlots) {
-      return false;
-    }
-    // LTF vertexing has no per-hit χ² attachment gate on the Kalman updates.
-    if (!detail::driveRefitLeg(state, linRef, chi2, acceptedHits, slotsOuterToInner, surfaceCatalog, bz,
-                               material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
-                               maxChi2ClusterAttachment, false)) {
-      return false;
-    }
-    const int nClAttached = seed.getHitLayerMask().count();
-    const int minPtSlot = activeSurfaceCount - nClAttached;
-    if (minPtSlot >= 0 && minPtSlot < static_cast<int>(minPt.size())) {
-      const float minPtThreshold = minPt[minPtSlot];
-      if (minPtThreshold > 0.f && ptFromQOverPt(state.parameters[4], state.absCharge) < minPtThreshold) {
-        return false;
-      }
-    }
-    outParamIn = state;
-    outParamOut = state;
-    outChi2 = chi2;
-    return true;
-  }
-
+  const bool diskRefit = seed.state().kind == SurfaceKind::Disk;
   const bool magnetOn = std::abs(bz) > o2::constants::math::Almost0;
 
+  auto initLegState = [&](SurfaceTrackState& state) noexcept -> bool {
+    if (diskRefit) {
+      const auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
+      if (!validSlots) {
+        return false;
+      }
+      state = seed.state();
+      return detail::initDiskRefitState(state, slotsInnerToOuter, bz);
+    }
+    state = seed.state();
+    resetCovarianceForRefit(state, magnetOn);
+    return true;
+  };
+
   // Leg A: inward.
-  SurfaceTrackState stateA = seed.state();
+  SurfaceTrackState stateA{};
+  if (!initLegState(stateA)) {
+    return false;
+  }
   SurfaceTrackParameters linRefA{stateA};
-  resetCovarianceForRefit(stateA, magnetOn);
   float chi2A = 0.f;
   uint32_t acceptedA = 0;
   const auto slotsA = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
@@ -254,9 +234,16 @@ inline bool fitTrackSeedLegs(
   }
 
   // Leg B: outward; this is the reported inner result.
-  SurfaceTrackState stateB = stateA;
+  SurfaceTrackState stateB{};
+  if (diskRefit) {
+    if (!initLegState(stateB)) {
+      return false;
+    }
+  } else {
+    stateB = stateA;
+    resetCovarianceForRefit(stateB, magnetOn);
+  }
   SurfaceTrackParameters linRefB{stateB};
-  resetCovarianceForRefit(stateB, magnetOn);
   float chi2B = 0.f;
   uint32_t acceptedB = 0;
   const auto slotsB = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
@@ -285,9 +272,16 @@ inline bool fitTrackSeedLegs(
   // Optional leg C: inward again.
   SurfaceTrackState stateOut = stateA;
   if (repeatRefitOut) {
-    SurfaceTrackState stateC = stateB;
+    SurfaceTrackState stateC{};
+    if (diskRefit) {
+      if (!initLegState(stateC)) {
+        return false;
+      }
+    } else {
+      stateC = stateB;
+      resetCovarianceForRefit(stateC, magnetOn);
+    }
     SurfaceTrackParameters linRefC{stateC};
-    resetCovarianceForRefit(stateC, magnetOn);
     float chi2C = 0.f;
     uint32_t acceptedC = 0;
     const auto slotsC = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
