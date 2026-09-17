@@ -28,6 +28,7 @@
 #include "ITSMFTTracking/TimeFrame.h"
 #include "ITSMFTTracking/Propagator.h"
 #include "ITSMFTTracking/SurfaceDescriptor.h"
+#include "ITSMFTTracking/detail/DiskRefitSeed.h"
 #include "ReconstructionDataFormats/TrackParametrization.h"
 
 // Descriptor-driven refit built on Propagator operations.
@@ -82,7 +83,8 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
                           float& chi2, uint32_t& acceptedHitCount,
                           gsl::span<const RefitMeasurementSlot> orderedSlots, SurfaceCatalogView surfaceCatalog,
                           float bz, material::MaterialTraversalDirection direction,
-                          bool shiftReferenceToMeasurement, float maxChi2) noexcept
+                          bool shiftReferenceToMeasurement, float maxChi2,
+                          bool enableChi2Gate = true) noexcept
 {
   if (chi2 < 0.f) {
     return false;
@@ -102,8 +104,9 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
       return false;
     }
     const SurfaceDescriptor& descriptor = surfaceCatalog.getSurface(slot.surface);
+    const bool chi2GateEnabled = enableChi2Gate && scratchAcceptedHitCount >= kChi2GateMinAcceptedHits;
     if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, slot.measurement, bz, direction,
-                                            scratchAcceptedHitCount >= kChi2GateMinAcceptedHits, maxChi2, scratchChi2,
+                                            chi2GateEnabled, maxChi2, scratchChi2,
                                             shiftReferenceToMeasurement)) {
       return false;
     }
@@ -119,7 +122,8 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
 } // namespace detail
 
 // Reset a refit leg to a loose diagonal covariance.
-GPUhdi() void resetCovarianceForRefit(SurfaceTrackState& state) noexcept
+// Disk + magnetOn matches TrackFitter::initTrack / setDiskLTFCovariance.
+GPUhdi() void resetCovarianceForRefit(SurfaceTrackState& state, bool magnetOn = true) noexcept
 {
   for (auto& element : state.covariance) {
     element = 0.f;
@@ -132,14 +136,13 @@ GPUhdi() void resetCovarianceForRefit(SurfaceTrackState& state) noexcept
     const float q2pt = state.parameters[4];
     state.covariance[packedCovarianceIndex(4, 4)] = q2pt * q2pt * o2::track::kC1Pt2max;
   } else {
-    // MFT / LTF TrackFitter::initTrack seed covariance (disk surfaces only).
     state.covariance[packedCovarianceIndex(0, 0)] = 1.f;
     state.covariance[packedCovarianceIndex(1, 1)] = 1.f;
     state.covariance[packedCovarianceIndex(2, 2)] = 1.f;
     state.covariance[packedCovarianceIndex(3, 3)] = 1.f;
-    const float invQPt = state.parameters[4];
-    if (std::abs(invQPt) > o2::constants::math::Almost0) {
-      state.covariance[packedCovarianceIndex(4, 4)] = std::clamp(std::abs(invQPt), 1.f, 10.f);
+    if (magnetOn) {
+      // TMath::Range(1, 10, |invQPt|): even |q/pT|≈0 yields 1, not 0.
+      state.covariance[packedCovarianceIndex(4, 4)] = std::clamp(std::abs(state.parameters[4]), 1.f, 10.f);
     }
   }
 }
@@ -157,7 +160,9 @@ GPUhdi() float ptFromQOverPt(float q2pt, uint8_t absCharge) noexcept
   return 1.f / ptInv;
 }
 
-// Refit inward, outward, then optionally inward again; commit on success.
+// Cylinder: refit inward, outward, then optionally inward again.
+// Disk: LTF vertexing — FCF seed on all hits, one outer→inner Kalman.
+// Commit state only on success.
 inline bool fitTrackSeedLegs(
   const TrackSeed& seed,
   const TimeFrame& frame,
@@ -188,14 +193,53 @@ inline bool fitTrackSeedLegs(
     return chi2 < maxChi2NDFValue * static_cast<float>(static_cast<int>(acceptedHitCount) * 2 - 5);
   };
 
+  const int activeSurfaceCount = static_cast<int>(layerGlobals.size());
+  bool validSlots = false;
+
+  if (seed.state().kind == SurfaceKind::Disk) {
+    const auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    SurfaceTrackState state = seed.state();
+    if (!detail::initDiskRefitState(state, slotsInnerToOuter, bz)) {
+      return false;
+    }
+    SurfaceTrackParameters linRef{state};
+    float chi2 = 0.f;
+    uint32_t acceptedHits = 0;
+    const auto slotsOuterToInner = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    // LTF vertexing has no per-hit χ² attachment gate on the Kalman updates.
+    if (!detail::driveRefitLeg(state, linRef, chi2, acceptedHits, slotsOuterToInner, surfaceCatalog, bz,
+                               material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
+                               maxChi2ClusterAttachment, false)) {
+      return false;
+    }
+    const int nClAttached = seed.getHitLayerMask().count();
+    const int minPtSlot = activeSurfaceCount - nClAttached;
+    if (minPtSlot >= 0 && minPtSlot < static_cast<int>(minPt.size())) {
+      const float minPtThreshold = minPt[minPtSlot];
+      if (minPtThreshold > 0.f && ptFromQOverPt(state.parameters[4], state.absCharge) < minPtThreshold) {
+        return false;
+      }
+    }
+    outParamIn = state;
+    outParamOut = state;
+    outChi2 = chi2;
+    return true;
+  }
+
+  const bool magnetOn = std::abs(bz) > o2::constants::math::Almost0;
+
   // Leg A: inward.
   SurfaceTrackState stateA = seed.state();
   SurfaceTrackParameters linRefA{stateA};
-  resetCovarianceForRefit(stateA);
+  resetCovarianceForRefit(stateA, magnetOn);
   float chi2A = 0.f;
   uint32_t acceptedA = 0;
-  const int activeSurfaceCount = static_cast<int>(layerGlobals.size());
-  bool validSlots = false;
   const auto slotsA = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
   if (!validSlots) {
     return false;
@@ -212,7 +256,7 @@ inline bool fitTrackSeedLegs(
   // Leg B: outward; this is the reported inner result.
   SurfaceTrackState stateB = stateA;
   SurfaceTrackParameters linRefB{stateB};
-  resetCovarianceForRefit(stateB);
+  resetCovarianceForRefit(stateB, magnetOn);
   float chi2B = 0.f;
   uint32_t acceptedB = 0;
   const auto slotsB = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
@@ -243,7 +287,7 @@ inline bool fitTrackSeedLegs(
   if (repeatRefitOut) {
     SurfaceTrackState stateC = stateB;
     SurfaceTrackParameters linRefC{stateC};
-    resetCovarianceForRefit(stateC);
+    resetCovarianceForRefit(stateC, magnetOn);
     float chi2C = 0.f;
     uint32_t acceptedC = 0;
     const auto slotsC = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
