@@ -81,7 +81,8 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
                           float& chi2, uint32_t& acceptedHitCount,
                           gsl::span<const RefitMeasurementSlot> orderedSlots, SurfaceCatalogView surfaceCatalog,
                           float bz, material::MaterialTraversalDirection direction,
-                          bool shiftReferenceToMeasurement, float maxChi2) noexcept
+                          bool shiftReferenceToMeasurement, float maxChi2,
+                          bool enableChi2Gate = true) noexcept
 {
   if (chi2 < 0.f) {
     return false;
@@ -101,8 +102,9 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
       return false;
     }
     const SurfaceDescriptor& descriptor = surfaceCatalog.getSurface(slot.surface);
+    const bool chi2GateEnabled = enableChi2Gate && scratchAcceptedHitCount >= kChi2GateMinAcceptedHits;
     if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, slot.measurement, bz, direction,
-                                            scratchAcceptedHitCount >= kChi2GateMinAcceptedHits, maxChi2, scratchChi2,
+                                            chi2GateEnabled, maxChi2, scratchChi2,
                                             shiftReferenceToMeasurement)) {
       return false;
     }
@@ -185,6 +187,8 @@ inline bool fitTrackSeedLegs(
     return chi2 < maxChi2NDFValue * static_cast<float>(static_cast<int>(acceptedHitCount) * 2 - 5);
   };
 
+  const bool diskRefit = seed.state().kind == SurfaceKind::Disk;
+
   // Leg A: inward.
   SurfaceTrackState stateA = seed.state();
   SurfaceTrackParameters linRefA{stateA};
@@ -199,10 +203,10 @@ inline bool fitTrackSeedLegs(
   }
   if (!detail::driveRefitLeg(stateA, linRefA, chi2A, acceptedA, slotsA, surfaceCatalog, bz,
                              material::MaterialTraversalDirection::AlongMomentum, shiftReferenceToMeasurement,
-                             maxChi2ClusterAttachment)) {
+                             maxChi2ClusterAttachment, !diskRefit)) {
     return false;
   }
-  if (!legAcceptable(stateA, chi2A, acceptedA, o2::constants::math::VeryBig, maxChi2NDF)) {
+  if (!diskRefit && !legAcceptable(stateA, chi2A, acceptedA, o2::constants::math::VeryBig, maxChi2NDF)) {
     return false;
   }
 
@@ -218,10 +222,10 @@ inline bool fitTrackSeedLegs(
   }
   if (!detail::driveRefitLeg(stateB, linRefB, chi2B, acceptedB, slotsB, surfaceCatalog, bz,
                              material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
-                             maxChi2ClusterAttachment)) {
+                             maxChi2ClusterAttachment, !diskRefit)) {
     return false;
   }
-  if (!legAcceptable(stateB, chi2B, acceptedB, 50.f, maxChi2NDF)) {
+  if (!diskRefit && !legAcceptable(stateB, chi2B, acceptedB, 50.f, maxChi2NDF)) {
     return false;
   }
 
@@ -249,10 +253,10 @@ inline bool fitTrackSeedLegs(
     }
     if (!detail::driveRefitLeg(stateC, linRefC, chi2C, acceptedC, slotsC, surfaceCatalog, bz,
                                material::MaterialTraversalDirection::AlongMomentum, shiftReferenceToMeasurement,
-                               maxChi2ClusterAttachment)) {
+                               maxChi2ClusterAttachment, !diskRefit)) {
       return false;
     }
-    if (!legAcceptable(stateC, chi2C, acceptedC, o2::constants::math::VeryBig, maxChi2NDF)) {
+    if (!diskRefit && !legAcceptable(stateC, chi2C, acceptedC, o2::constants::math::VeryBig, maxChi2NDF)) {
       return false;
     }
     stateOut = stateC;
