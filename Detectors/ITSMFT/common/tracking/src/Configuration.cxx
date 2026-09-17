@@ -25,6 +25,7 @@
 #include "ITSMFTTracking/TrackingConfigParam.h"
 #include "ITSMFTTracking/Constants.h"
 #include "MFTTracking/Constants.h"
+#include "MFTTracking/MFTTrackingParam.h"
 
 namespace
 {
@@ -382,6 +383,7 @@ TrackingPlan getTrackingPlan(detectors::DetID::ID detId, Type mode)
     p.ReseedIfShorter = tc.reseedIfShorter;
     p.RepeatRefitOut = tc.repeatRefitOut;
     p.ShiftRefToCluster = tc.shiftRefToCluster;
+    p.AlignResidual = o2::mft::MFTTrackingParam::Instance().alignResidual;
     p.CreateArtefactLabels = tc.createArtefactLabels;
     p.AllowSharingFirstCluster = tc.allowSharingFirstCluster;
     p.SharedClusterMaxDeltaPhi = tc.sharedClusterMaxDeltaPhi;

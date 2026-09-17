@@ -144,6 +144,7 @@ struct IterationParameters {
   tracking::LayerMask StartLayerMask = 0x7F;
   bool RepeatRefitOut = false;   // Repeat outward refit using inward refit as a seed.
   bool ShiftRefToCluster = true; // Shift the linearization reference to the cluster after an update.
+  float AlignResidual = 0.f;     // Added to disk hit uu/vv at refit, matching TrackFitter.
   bool PerPrimaryVertexProcessing = false;
   bool DoUPCIteration = false;
   bool CreateArtefactLabels{false};

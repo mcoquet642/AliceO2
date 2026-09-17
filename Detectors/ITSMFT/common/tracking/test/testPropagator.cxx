@@ -590,13 +590,39 @@ BOOST_AUTO_TEST_CASE(FailingLinearizedForwardMaterialLeavesStateAndReferenceUnch
   const auto referenceBefore = linRef;
 
   const auto result = propagateThroughMaterial(
-    state, linRef, material::IntegratedMaterialBudget{1.e8f, 0.f},
+    state, linRef, material::IntegratedMaterialBudget{1.e8f, 0.001f},
     material::MaterialTraversalDirection::AlongMomentum);
 
   BOOST_CHECK(!result);
 
   BOOST_CHECK(bitEqual(state, stateBefore));
   BOOST_CHECK(bitEqual(linRef, referenceBefore));
+}
+
+BOOST_AUTO_TEST_CASE(DiskMcsOnlyMatchesAddMCSEffect)
+{
+  auto state = diskState();
+  auto linRef = diskLinRef(state);
+  const float tanl = state.parameters[3];
+  const float invQPt = state.parameters[4];
+  const float p = std::sqrt(1.f + tanl * tanl) / std::abs(invQPt);
+  constexpr float xOverX0 = 0.0084f;
+  const float cscLambda = std::abs(std::sqrt(1.f + tanl * tanl) / tanl);
+  float sigmaTheta2 = 0.0136f / p;
+  sigmaTheta2 *= sigmaTheta2 * xOverX0 * cscLambda;
+  const float A = tanl * tanl + 1.f;
+  const float expectedPhi = state.covariance[packedCovarianceIndex(2, 2)] + sigmaTheta2 * A;
+  const float expectedTanl = state.covariance[packedCovarianceIndex(3, 3)] + sigmaTheta2 * A * A;
+  const float expectedQpt = state.covariance[packedCovarianceIndex(4, 4)] + sigmaTheta2 * tanl * tanl * invQPt * invQPt;
+  const float expectedCross = state.covariance[packedCovarianceIndex(4, 3)];
+
+  BOOST_REQUIRE(propagateThroughMaterial(state, linRef, material::IntegratedMaterialBudget{xOverX0, 0.f},
+                                         material::MaterialTraversalDirection::AlongMomentum));
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(2, 2)], expectedPhi, 1.e-3f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(3, 3)], expectedTanl, 1.e-3f);
+  BOOST_CHECK_CLOSE(state.covariance[packedCovarianceIndex(4, 4)], expectedQpt, 1.e-3f);
+  BOOST_CHECK_EQUAL(state.covariance[packedCovarianceIndex(4, 3)], expectedCross);
+  BOOST_CHECK_EQUAL(state.parameters[4], invQPt);
 }
 
 BOOST_AUTO_TEST_CASE(MaterialPropagationRejectsMismatchedReferenceKinds)

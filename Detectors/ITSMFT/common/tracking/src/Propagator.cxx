@@ -231,6 +231,35 @@ int disksCrossedBetweenMftLayers(int currentLayer, int nextLayer, float currentZ
   return (currentLayer % 2 == 0) ? (nextLayer - currentLayer + 1) / 2 : (nextLayer - currentLayer) / 2;
 }
 
+// TrackParCovFwd::addMCSEffect: σθ² = (0.0136/p)² · (X/X0) cscλ, added to
+// φ, tanλ, and q/pT. No 1/β², no C(q/pT, tanλ), no energy loss.
+bool addMftMcsEffect(SurfaceTrackState& state, float xOverX0) noexcept
+{
+  if (xOverX0 == 0.f) {
+    return true;
+  }
+  const float tanl = state.parameters[3];
+  if (tanl == 0.f) {
+    return false;
+  }
+  const float invQPt = state.parameters[4];
+  if (invQPt == 0.f) {
+    return true;
+  }
+  const float p = std::sqrt(1.f + tanl * tanl) / std::abs(invQPt);
+  if (!(p > 0.f) || !std::isfinite(p)) {
+    return false;
+  }
+  const float cscLambda = std::abs(std::sqrt(1.f + tanl * tanl) / tanl);
+  float sigmaTheta2 = 0.0136f / p;
+  sigmaTheta2 *= sigmaTheta2 * xOverX0 * cscLambda;
+  const float A = tanl * tanl + 1.f;
+  state.covariance[packedCovarianceIndex(2, 2)] += sigmaTheta2 * A;
+  state.covariance[packedCovarianceIndex(3, 3)] += sigmaTheta2 * A * A;
+  state.covariance[packedCovarianceIndex(4, 4)] += sigmaTheta2 * tanl * tanl * invQPt * invQPt;
+  return covarianceDiagonalsNonNegative(state);
+}
+
 } // namespace
 
 // Work on copies so that any rejection leaves both the fitted state and its
@@ -239,6 +268,20 @@ bool Propagator::correctForMaterial(SurfaceTrackState& state, SurfaceTrackParame
                                     material::IntegratedMaterialBudget materialBudget,
                                     material::MaterialTraversalDirection direction) noexcept
 {
+  if (state.kind == SurfaceKind::Disk && materialBudget.arealDensityGPerCm2 == 0.f) {
+    if (state.parameters[3] == 0.f) {
+      return false;
+    }
+    if (!covarianceDiagonalsNonNegative(state)) {
+      return false;
+    }
+    SurfaceTrackState scratchState = state;
+    if (!addMftMcsEffect(scratchState, materialBudget.xOverX0)) {
+      return false;
+    }
+    state = scratchState;
+    return true;
+  }
   if (state.parameters[4] == 0.f || incidenceReference.parameters[4] == 0.f) {
     return false;
   }

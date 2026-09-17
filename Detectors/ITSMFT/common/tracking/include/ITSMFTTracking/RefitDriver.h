@@ -84,7 +84,8 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
                           float& chi2, uint32_t& acceptedHitCount,
                           gsl::span<const RefitMeasurementSlot> orderedSlots, SurfaceCatalogView surfaceCatalog,
                           float bz, material::MaterialTraversalDirection direction,
-                          bool shiftReferenceToMeasurement, float maxChi2) noexcept
+                          bool shiftReferenceToMeasurement, float maxChi2,
+                          float alignResidual = 0.f) noexcept
 {
   if (chi2 < 0.f) {
     return false;
@@ -105,7 +106,13 @@ inline bool driveRefitLeg(SurfaceTrackState& state, SurfaceTrackParameters& linR
       return false;
     }
     const SurfaceDescriptor& descriptor = surfaceCatalog.getSurface(slot.surface);
-    if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, slot.measurement, bz, direction,
+    SurfaceMeasurement measurement = slot.measurement;
+    if (descriptor.kind == SurfaceKind::Disk) {
+      measurement.covariance.uv = 0.f;
+      measurement.covariance.uu += alignResidual;
+      measurement.covariance.vv += alignResidual;
+    }
+    if (!Propagator::propagateToMeasurement(scratchState, scratchLinRef, descriptor, measurement, bz, direction,
                                             scratchAcceptedHitCount >= kChi2GateMinAcceptedHits, maxChi2, scratchChi2,
                                             shiftReferenceToMeasurement, surfaceCatalog, previousSurface)) {
       return false;
@@ -331,7 +338,8 @@ inline bool fitTrackSeedLegs(
   gsl::span<const float> minPt,
   SurfaceTrackState& outParamIn,
   SurfaceTrackState& outParamOut,
-  float& outChi2) noexcept
+  float& outChi2,
+  float alignResidual = 0.f) noexcept
 {
   if (layerGlobals.empty() || layerGlobals.size() > MaxLayoutSurfaces) {
     return false;
@@ -372,7 +380,7 @@ inline bool fitTrackSeedLegs(
   }
   if (!detail::driveRefitLeg(stateA, linRefA, chi2A, acceptedA, slotsA, surfaceCatalog, bz,
                              material::MaterialTraversalDirection::AlongMomentum, shiftReferenceToMeasurement,
-                             maxChi2ClusterAttachment)) {
+                             maxChi2ClusterAttachment, alignResidual)) {
     return false;
   }
   if (!legAcceptable(stateA, chi2A, acceptedA, o2::constants::math::VeryBig, maxChi2NDF)) {
@@ -399,7 +407,7 @@ inline bool fitTrackSeedLegs(
   }
   if (!detail::driveRefitLeg(stateB, linRefB, chi2B, acceptedB, slotsB, surfaceCatalog, bz,
                              material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
-                             maxChi2ClusterAttachment)) {
+                             maxChi2ClusterAttachment, alignResidual)) {
     return false;
   }
   if (!legAcceptable(stateB, chi2B, acceptedB, 50.f, maxChi2NDF)) {
@@ -437,7 +445,7 @@ inline bool fitTrackSeedLegs(
     }
     if (!detail::driveRefitLeg(stateC, linRefC, chi2C, acceptedC, slotsC, surfaceCatalog, bz,
                                material::MaterialTraversalDirection::AlongMomentum, shiftReferenceToMeasurement,
-                               maxChi2ClusterAttachment)) {
+                               maxChi2ClusterAttachment, alignResidual)) {
       return false;
     }
     if (!legAcceptable(stateC, chi2C, acceptedC, o2::constants::math::VeryBig, maxChi2NDF)) {

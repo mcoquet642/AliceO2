@@ -1052,7 +1052,7 @@ void TrackerTraits::findRoads(IterationContext& context, const int iteration)
                                 mTraversalGraph.getSurfaceCatalogView(), mBz,
                                 trkParam.ShiftRefToCluster, trkParam.MaxChi2ClusterAttachment, trkParam.MaxChi2NDF,
                                 trkParam.RepeatRefitOut, gsl::span<const float>(trkParam.MinPt),
-                                innerState, outerState, chi2)) {
+                                innerState, outerState, chi2, trkParam.AlignResidual)) {
             return;
           }
           TrackingCandidate temporaryTrack;
