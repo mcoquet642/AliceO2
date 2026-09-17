@@ -849,9 +849,13 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
       return false;
     }
   } else {
-    if (!Propagator::propagateToReference(scratchState, scratchRef, targetMeasurement.frame.q, bz)) {
+    if (scratchState.kind != scratchRef.kind) {
       return false;
     }
+    if (!Propagator::propagateToReference(scratchState, targetMeasurement.frame.q, bz)) {
+      return false;
+    }
+    scratchRef = SurfaceTrackParameters{scratchState};
     clampNegligibleCovarianceNoise(scratchState);
     const auto materialResult = correctForMaterial(scratchState, scratchRef, materialBudget, direction);
     if (!materialResult) {
@@ -880,15 +884,11 @@ bool Propagator::propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackPa
     return false;
   }
 
-  if (shiftReferenceToMeasurement) {
-    if (targetKind == SurfaceKind::Cylinder) {
-      if (!shiftReferenceToMeasurementBarrel(scratchRef, targetMeasurement)) {
-        return false;
-      }
-    } else {
-      if (!shiftReferenceToMeasurementForward(scratchRef, targetMeasurement)) {
-        return false;
-      }
+  if (targetKind == SurfaceKind::Disk) {
+    scratchRef = SurfaceTrackParameters{scratchState};
+  } else if (shiftReferenceToMeasurement) {
+    if (!shiftReferenceToMeasurementBarrel(scratchRef, targetMeasurement)) {
+      return false;
     }
   }
 

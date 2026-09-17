@@ -628,7 +628,6 @@ BOOST_AUTO_TEST_CASE(CompatibleFamilyMatchesDirectForwardPrimitiveReplayWithoutM
   auto viaPropagator = diskState();
   auto viaPropagatorRef = diskLinRef(viaPropagator);
   auto viaDirect = viaPropagator;
-  auto viaDirectRef = viaPropagatorRef;
   const auto measurement = diskMeasurement();
   const auto material = NominalSurfaceMaterial{0.f, 0.f};
   const auto descriptor = diskDescriptor(material);
@@ -639,13 +638,13 @@ BOOST_AUTO_TEST_CASE(CompatibleFamilyMatchesDirectForwardPrimitiveReplayWithoutM
                                                    material::MaterialTraversalDirection::OppositeMomentum,
                                                    false, 0.f, chi2Propagator, true));
 
-  BOOST_REQUIRE(Propagator::propagateForward(viaDirect, viaDirectRef, measurement.frame.q, DiskBz));
+  BOOST_REQUIRE(Propagator::propagateForward(viaDirect, measurement.frame.q, DiskBz));
   float predChi2 = 0.f;
   BOOST_REQUIRE(Propagator::predictedChi2Forward(viaDirect, measurement, predChi2));
   float updateChi2 = 0.f;
   BOOST_REQUIRE(Propagator::updateForward(viaDirect, measurement, updateChi2));
   chi2Direct = updateChi2;
-  BOOST_REQUIRE(Propagator::shiftReferenceToMeasurementForward(viaDirectRef, measurement));
+  const auto viaDirectRef = SurfaceTrackParameters{viaDirect};
 
   BOOST_CHECK(bitEqual(viaPropagator, viaDirect));
   BOOST_CHECK(bitEqual(viaPropagatorRef, viaDirectRef));
@@ -698,15 +697,15 @@ BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialUsesReferenceIncidence)
   auto linRef = diskLinRef(state);
   linRef.parameters[3] = -0.5f;
   const float stateQ2PtBefore = state.parameters[4];
-  const float referenceQ2PtBefore = linRef.parameters[4];
   const material::IntegratedMaterialBudget nominalMaterial{0.01f, 0.001f};
 
-  const float referenceTgl = linRef.parameters[3];
-  const float incidenceScale = std::sqrt(1.f + referenceTgl * referenceTgl) / std::abs(referenceTgl);
+  // After the Disk z-step the reference is the propagated state, so material
+  // incidence follows the track, not a distinct seed linRef.
+  const float stateTgl = state.parameters[3];
+  const float incidenceScale = std::sqrt(1.f + stateTgl * stateTgl) / std::abs(stateTgl);
   const material::IntegratedMaterialBudget scaledMaterial{
     nominalMaterial.xOverX0 * incidenceScale,
     nominalMaterial.arealDensityGPerCm2 * incidenceScale};
-  const float stateTgl = state.parameters[3];
   const float transverseMomentum = static_cast<float>(state.absCharge) / std::abs(state.parameters[4]);
   const float momentum = transverseMomentum * std::sqrt(1.f + stateTgl * stateTgl);
 
@@ -723,16 +722,16 @@ BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialUsesReferenceIncidence)
   BOOST_REQUIRE(result);
 
   const float expectedStateQ2Pt = (stateQ2PtBefore * momentum) / expectedMomentum;
-  const float expectedReferenceQ2Pt = (referenceQ2PtBefore * momentum) / expectedMomentum;
   BOOST_CHECK_EQUAL(state.parameters[4], expectedStateQ2Pt);
-  BOOST_CHECK_EQUAL(linRef.parameters[4], expectedReferenceQ2Pt);
+  BOOST_CHECK_EQUAL(linRef.parameters[4], expectedStateQ2Pt);
+  BOOST_CHECK(bitEqual(linRef, SurfaceTrackParameters{state}));
 }
 
 BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialKeepsReferenceQ2PtForMCSOnly)
 {
   auto state = diskState();
   auto linRef = diskLinRef(state);
-  const auto referenceBefore = linRef;
+  const float q2ptBefore = linRef.parameters[4];
 
   const auto result = propagateThroughMaterial(
     state, linRef, material::IntegratedMaterialBudget{0.01f, 0.f},
@@ -740,7 +739,8 @@ BOOST_AUTO_TEST_CASE(LinearizedForwardMaterialKeepsReferenceQ2PtForMCSOnly)
 
   BOOST_REQUIRE(result);
 
-  BOOST_CHECK(bitEqual(linRef, referenceBefore));
+  BOOST_CHECK(bitEqual(linRef, SurfaceTrackParameters{state}));
+  BOOST_CHECK_EQUAL(state.parameters[4], q2ptBefore);
 }
 
 BOOST_AUTO_TEST_CASE(FailingLinearizedForwardMaterialLeavesStateAndReferenceUnchanged)
