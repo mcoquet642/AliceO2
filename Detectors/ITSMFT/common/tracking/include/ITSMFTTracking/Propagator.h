@@ -61,16 +61,14 @@ class Propagator
   //
   // The incoming chi2 must be finite and non-negative. maxChi2 is validated
   // the same way when the gate is enabled.
-  // Disk z-steps are state-centered helix/linear transport (TrackFitter
-  // propagateToZ). When a catalog is supplied, Disk MCS walks adjacent MFT
-  // layers using LTF LayerZPosition for intermediate planes and the cluster
-  // z for the last step, applying MCS once per crossed disk. Direct Disk
-  // calls without a catalog still apply the target-surface material after a
-  // single z-step. Disk Kalman uses TrackParCovFwd::update with diagonal
-  // hits (uv = 0, alignResidual added). After each Disk step and update the
-  // linearization reference is the filtered state; shiftReferenceToMeasurement
-  // is ignored. Disk transport/update skip sanitizeCovariance and
-  // clampNegligibleCovarianceNoise.
+  // Disk MCS, helix, and Kalman run on TrackParCovFwd (double) and are copied
+  // back. Catalog walks use LTF LayerZPosition, addMCSEffect once per disk,
+  // and TrackFitter::propagateToZ; the last step is the cluster z. Direct
+  // Disk calls without a catalog still apply target-surface material after a
+  // single z-step. Hits are diagonal (uv = 0, alignResidual added). After each
+  // Disk step and update the linearization reference is the filtered state;
+  // shiftReferenceToMeasurement is ignored. Disk transport/update skip
+  // sanitizeCovariance and clampNegligibleCovarianceNoise.
   static bool propagateToMeasurement(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
                                      const SurfaceDescriptor& targetSurface, const SurfaceMeasurement& targetMeasurement,
                                      float bz, material::MaterialTraversalDirection direction,
@@ -101,12 +99,6 @@ class Propagator
   static bool correctForMaterial(SurfaceTrackState& state, SurfaceTrackParameters& incidenceReference,
                                  material::IntegratedMaterialBudget materialBudget,
                                  material::MaterialTraversalDirection direction) noexcept;
-
-  // TrackFitter::propagateToNextClusterWithMCS: MCS once per disk, then
-  // helix/linear to LTF LayerZPosition, then the actual cluster z.
-  static bool propagateAcrossMftDisks(SurfaceTrackState& state, SurfaceTrackParameters& linRef,
-                                      SurfaceCatalogView catalog, int startMftLayer, int endMftLayer,
-                                      float targetZ, float bz, material::MaterialTraversalDirection direction) noexcept;
 };
 
 } // namespace o2::itsmft::tracking
