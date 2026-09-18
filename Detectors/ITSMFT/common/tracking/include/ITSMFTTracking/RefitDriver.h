@@ -156,7 +156,8 @@ GPUhdi() float ptFromQOverPt(float q2pt, uint8_t absCharge) noexcept
 }
 
 // Cylinder: CA seed + loose ITS-style covariance, then A→B→(C).
-// Disk: FCF seed on all hits + LTF diagonal covariance before each leg; same A→B→(C).
+// Disk: two-pass Kalman (forward outer→inner, backward inner→outer) seeded
+// from FCF; a final outer→inner pass reports the inner/vertex state.
 // Commit state only on success.
 inline bool fitTrackSeedLegs(
   const TrackSeed& seed,
@@ -190,27 +191,96 @@ inline bool fitTrackSeedLegs(
 
   const int activeSurfaceCount = static_cast<int>(layerGlobals.size());
   bool validSlots = false;
-  const bool diskRefit = seed.state().kind == SurfaceKind::Disk;
 
-  auto initLegState = [&](SurfaceTrackState& state) noexcept -> bool {
-    if (diskRefit) {
-      const auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
-      if (!validSlots) {
+  if (seed.state().kind == SurfaceKind::Disk) {
+    auto slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    std::array<detail::DiskHit, MaxLayoutSurfaces> hits{};
+    int nPoints = 0;
+    if (!detail::collectDiskHits(slotsInnerToOuter, hits.data(), nPoints)) {
+      return false;
+    }
+
+    // Pass 1 (forward): FCF at outer → Kalman outer→inner.
+    SurfaceTrackState stateFwd = seed.state();
+    if (!detail::initDiskRefitState(stateFwd, slotsInnerToOuter, bz)) {
+      return false;
+    }
+    SurfaceTrackParameters linRefFwd{stateFwd};
+    float chi2Fwd = 0.f;
+    uint32_t acceptedFwd = 0;
+    auto slotsOuterToInner = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    if (!detail::driveRefitLeg(stateFwd, linRefFwd, chi2Fwd, acceptedFwd, slotsOuterToInner, surfaceCatalog, bz,
+                               material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
+                               maxChi2ClusterAttachment)) {
+      return false;
+    }
+    if (!legAcceptable(stateFwd, chi2Fwd, acceptedFwd, o2::constants::math::VeryBig, maxChi2NDF)) {
+      return false;
+    }
+
+    // Pass 2 (backward): keep filtered parameters, physical cov at inner → Kalman inner→outer.
+    SurfaceTrackState stateBwd = stateFwd;
+    detail::resetDiskCovarianceForNextPass(stateBwd, hits.data(), nPoints, bz);
+    SurfaceTrackParameters linRefBwd{stateBwd};
+    float chi2Bwd = 0.f;
+    uint32_t acceptedBwd = 0;
+    slotsInnerToOuter = detail::assembleRefitLegSlots(seed, frame, layerGlobals, 0, activeSurfaceCount, 1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    if (!detail::driveRefitLeg(stateBwd, linRefBwd, chi2Bwd, acceptedBwd, slotsInnerToOuter, surfaceCatalog, bz,
+                               material::MaterialTraversalDirection::AlongMomentum, shiftReferenceToMeasurement,
+                               maxChi2ClusterAttachment)) {
+      return false;
+    }
+    if (!legAcceptable(stateBwd, chi2Bwd, acceptedBwd, 50.f, maxChi2NDF)) {
+      return false;
+    }
+
+    // Final inward pass: bring the two-filter information back to the inner plane.
+    SurfaceTrackState stateIn = stateBwd;
+    detail::resetDiskCovarianceForNextPass(stateIn, hits.data(), nPoints, bz);
+    SurfaceTrackParameters linRefIn{stateIn};
+    float chi2In = 0.f;
+    uint32_t acceptedIn = 0;
+    slotsOuterToInner = detail::assembleRefitLegSlots(seed, frame, layerGlobals, activeSurfaceCount - 1, -1, -1, activeSlots, validSlots);
+    if (!validSlots) {
+      return false;
+    }
+    if (!detail::driveRefitLeg(stateIn, linRefIn, chi2In, acceptedIn, slotsOuterToInner, surfaceCatalog, bz,
+                               material::MaterialTraversalDirection::OppositeMomentum, shiftReferenceToMeasurement,
+                               maxChi2ClusterAttachment)) {
+      return false;
+    }
+    if (!legAcceptable(stateIn, chi2In, acceptedIn, 50.f, maxChi2NDF)) {
+      return false;
+    }
+
+    const int nClAttached = seed.getHitLayerMask().count();
+    const int minPtSlot = activeSurfaceCount - nClAttached;
+    if (minPtSlot >= 0 && minPtSlot < static_cast<int>(minPt.size())) {
+      const float minPtThreshold = minPt[minPtSlot];
+      if (minPtThreshold > 0.f && ptFromQOverPt(stateIn.parameters[4], stateIn.absCharge) < minPtThreshold) {
         return false;
       }
-      state = seed.state();
-      return detail::initDiskRefitState(state, slotsInnerToOuter, bz);
     }
-    state = seed.state();
-    resetCovarianceForRefit(state);
+
+    outParamIn = stateIn;
+    outParamOut = stateBwd;
+    outChi2 = chi2In;
+    (void)repeatRefitOut; // Disk uses the fixed two-pass + report sequence.
     return true;
-  };
+  }
 
   // Leg A: inward.
-  SurfaceTrackState stateA{};
-  if (!initLegState(stateA)) {
-    return false;
-  }
+  SurfaceTrackState stateA = seed.state();
+  resetCovarianceForRefit(stateA);
   SurfaceTrackParameters linRefA{stateA};
   float chi2A = 0.f;
   uint32_t acceptedA = 0;
@@ -228,15 +298,8 @@ inline bool fitTrackSeedLegs(
   }
 
   // Leg B: outward; this is the reported inner result.
-  SurfaceTrackState stateB{};
-  if (diskRefit) {
-    if (!initLegState(stateB)) {
-      return false;
-    }
-  } else {
-    stateB = stateA;
-    resetCovarianceForRefit(stateB);
-  }
+  SurfaceTrackState stateB = stateA;
+  resetCovarianceForRefit(stateB);
   SurfaceTrackParameters linRefB{stateB};
   float chi2B = 0.f;
   uint32_t acceptedB = 0;
@@ -266,15 +329,8 @@ inline bool fitTrackSeedLegs(
   // Optional leg C: inward again.
   SurfaceTrackState stateOut = stateA;
   if (repeatRefitOut) {
-    SurfaceTrackState stateC{};
-    if (diskRefit) {
-      if (!initLegState(stateC)) {
-        return false;
-      }
-    } else {
-      stateC = stateB;
-      resetCovarianceForRefit(stateC);
-    }
+    SurfaceTrackState stateC = stateB;
+    resetCovarianceForRefit(stateC);
     SurfaceTrackParameters linRefC{stateC};
     float chi2C = 0.f;
     uint32_t acceptedC = 0;
